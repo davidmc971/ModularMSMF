@@ -1,10 +1,10 @@
-name: MultiPlux
-main: main.MultiPluxPlugin
-version: 1.1a reloaded
+name: ModularMSMF
+main: main.ModularMSMF
+version: FUCKING NEU
 authors: [Lightkeks, ernikillerxd64]
 
 commands:
-  multiplux:
+  mmsmf:
     description: Zeigt Infos und mehr an.
     usage: /<command> <args>
     aliases: <info>
