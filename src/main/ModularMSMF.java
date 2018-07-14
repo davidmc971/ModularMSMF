@@ -36,7 +36,6 @@ import commands.Teleport;
 import commands.Unban;
 import eco.EconomySystemAlex;
 import eco.EconomySystemDavid;
-//import eco.EconomySystemDavid;
 import listeners.Events;
 import util.DataManager;
 import util.LanguageManager;
@@ -135,11 +134,7 @@ public class ModularMSMF extends JavaPlugin implements CommandExecutor {
 			if (ecoSys.cmd(sender, cmd, commandLabel, args))
 				return true; // economy commands david /money
 			break;
-<<<<<<< HEAD
 		case "setspawn":
-=======
-*/		case "setspawn":
->>>>>>> 98f64a1c3c9813988cebd3915a1f882a08ce461b
 			SetSpawn.cmd(sender, cmd, commandLabel, args);
 			return true;
 		case "spawn":
