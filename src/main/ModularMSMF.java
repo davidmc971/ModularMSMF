@@ -35,6 +35,7 @@ import commands.Spawn;
 import commands.Teleport;
 import commands.Unban;
 import eco.EconomySystemAlex;
+import eco.EconomySystemDavid;
 //import eco.EconomySystemDavid;
 import listeners.Events;
 import util.DataManager;
@@ -47,7 +48,7 @@ import util.LanguageManager;
 
 public class ModularMSMF extends JavaPlugin implements CommandExecutor {
 
-	//private EconomySystemDavid ecoSys;
+	private EconomySystemDavid ecoSys;
 	private EconomySystemAlex ecoPlug;
 	private DataManager dataManager;
 	private LanguageManager languageManager;
@@ -73,8 +74,8 @@ public class ModularMSMF extends JavaPlugin implements CommandExecutor {
 
 		languageManager = new LanguageManager(this);
 
-		//ecoSys = new EconomySystemDavid(this);
-		// ecoSys.load();
+		ecoSys = new EconomySystemDavid(this);
+		//ecoSys.load();
 		ecoPlug = new EconomySystemAlex(this);
 
 		motd = new Motd(this);
@@ -130,15 +131,15 @@ public class ModularMSMF extends JavaPlugin implements CommandExecutor {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 		switch (commandLabel.toLowerCase()) {
-/*		case "money":
+		case "money":
 			if (ecoSys.cmd(sender, cmd, commandLabel, args))
 				return true; // economy commands david /money
 			break;
-*/		case "setspawn":
-			//SetSpawn.cmd(sender, cmd, commandLabel, args);
+		case "setspawn":
+			SetSpawn.cmd(sender, cmd, commandLabel, args);
 			return true;
 		case "spawn":
-			//Spawn.cmd(sender, cmd, commandLabel, args);
+			Spawn.cmd(sender, cmd, commandLabel, args);
 			return true;
 		case "eco":
 			if (ecoPlug.cmd(sender, cmd, commandLabel, args, this))
