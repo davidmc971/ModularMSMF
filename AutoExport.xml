@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<project name="AutoExport" default="CreateJar" basedir=".">
+	<property name="jar_out.dir" location="MMSMF_Build"/>
+	<property name="src.dir" location="src"/>
+	<property name="bin.dir" location="bin"/>
+	
+	<echo message="Generating build_timestamp.properties..."/>
+	<propertyfile file="${bin.dir}/build_timestamp.properties" comment="##Version Debug">
+		<entry key="timestamp" type="date" value="now" operation="=" pattern="dd-MM-yyyy_HH:mm:ss"/>
+	</propertyfile>
+
+	<echo message="Packing jar..."/>
+	<target name="CreateJar" description="Create Jar file">
+		<jar jarfile="${jar_out.dir}/ModularMSMF.jar" basedir="${bin.dir}" includes="*.yml, **/*.*"/>
+	</target>
+</project>
