@@ -135,10 +135,10 @@ public class ModularMSMF extends JavaPlugin implements CommandExecutor {
 				return true; // economy commands david /money
 			break;
 */		case "setspawn":
-			//SetSpawn.cmd(sender, cmd, commandLabel, args);
+			SetSpawn.cmd(sender, cmd, commandLabel, args);
 			return true;
 		case "spawn":
-			//Spawn.cmd(sender, cmd, commandLabel, args);
+			Spawn.cmd(sender, cmd, commandLabel, args);
 			return true;
 		case "eco":
 			if (ecoPlug.cmd(sender, cmd, commandLabel, args, this))
