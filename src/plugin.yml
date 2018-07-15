@@ -16,7 +16,10 @@ commands:
     description: Heilt Spieler.
     usage: /<command> <target>
   eco:
-    description: Geldstand anzeigen oder anderes.
+    description: Geldstand anzeigen oder anderes. ALEX
+    usage: /<command> <args>
+  money:
+    description: Geldstand anzeigen oder anderes. DAVID
     usage: /<command> <args>
   feed:
     description: Saettigt den Spieler.

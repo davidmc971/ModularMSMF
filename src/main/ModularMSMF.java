@@ -85,7 +85,7 @@ public class ModularMSMF extends JavaPlugin implements CommandExecutor {
 
 		mainEvents = new Events(this);
 		this.getServer().getPluginManager().registerEvents(mainEvents, this);
-		// this.getServer().getPluginManager().registerEvents(ecoSys, this);
+		//this.getServer().getPluginManager().registerEvents(ecoSys, this);
 
 		YamlConfiguration pluginyaml = YamlConfiguration
 				.loadConfiguration(new InputStreamReader(this.getResource("plugin.yml")));
@@ -131,9 +131,7 @@ public class ModularMSMF extends JavaPlugin implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 		switch (commandLabel.toLowerCase()) {
 		case "money":
-			if (ecoSys.cmd(sender, cmd, commandLabel, args))
-				return true; // economy commands david /money
-			break;
+			return ecoSys.cmd(sender, cmd, commandLabel, args); // economy commands david /money
 		case "setspawn":
 			SetSpawn.cmd(sender, cmd, commandLabel, args);
 			return true;
@@ -147,7 +145,7 @@ public class ModularMSMF extends JavaPlugin implements CommandExecutor {
 		case "kill":
 			Kill.cmd(sender, cmd, commandLabel, args, mainEvents);
 			return true;
-		case "multiplux":
+		case "mmsmf":
 			ModularMSMFCommand.cmd(sender, cmd, commandLabel, args, this);
 			return true;
 		case "teleport":
