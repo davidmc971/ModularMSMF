@@ -17,8 +17,10 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+import main.ModularMSMF;
+
 public class DataManager implements Listener {
-	public static final String pathMain = "plugins/MultiPlux/";
+	public static final String pathMain = "plugins/ModularMSMF/";
 	public static final String pathUserdata = pathMain + "userdata/";
 	public static final String pathBankdata = pathMain + "bankdata/";
 	public static final YamlConfiguration settingsyaml = loadCfg(pathMain + "settings.yml");
