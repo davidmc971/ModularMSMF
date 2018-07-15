@@ -1,16 +1,16 @@
 CMDS:
-ban: x
-feed: x [fertig]
-heal: x [fertig]
-kick: 
+ban: x [ueberarbeiten]
+feed: x [fertig, ueberarbeiten]
+heal: x [fertig, ueberarbeiten]
+kick: x [fertig, sonst mal drueberschauen]
 land: 
-multiplux: x [fertig, kann mehr rein]
+mmsmf: x [fertig, kann mehr rein]
 teleport: x [fertig, kann mehr rein]
 unban: 
-eco: x [�berarbeitung n�tig, falls fehler]
+eco: x [ueberarbeitung noetig, falls fehler]
 money: x [wie eco]
 home: 
-un/mute: x [�berarbeitung n�tig]
+un/mute: x [ueberarbeitung noetig]
 worth: 
 getserver: x [fertig]
 motd:
