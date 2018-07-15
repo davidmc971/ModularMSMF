@@ -24,7 +24,7 @@ public class ModularMSMFCommand {
 				if (args.length == 0) {
 					sender.sendMessage(ChatColor.GOLD + "[" + ChatColor.WHITE + "ModularMSMF" + ChatColor.GOLD + "]" + ChatColor.GRAY + " Plugin enabled on: " + Bukkit.getServerName());
 					sender.sendMessage(ChatColor.GOLD + "[" + ChatColor.WHITE + "ModularMSMF" + ChatColor.GOLD + "]" + ChatColor.GRAY + " Weitere Hilfe:");
-					sender.sendMessage(ChatColor.GOLD + "[" + ChatColor.WHITE + "ModularMSMF" + ChatColor.GOLD + "]" + ChatColor.GRAY + " info || server || website || ts3 || discord");
+					sender.sendMessage(ChatColor.GOLD + "[" + ChatColor.WHITE + "ModularMSMF" + ChatColor.GOLD + "]" + ChatColor.GRAY + " info || server || website || "/*ts3 ||*/" discord");
 				} else if (args.length == 1) {
 					switch (args[0].toLowerCase()) {
 					case "info":
@@ -45,7 +45,7 @@ public class ModularMSMFCommand {
 							sender.sendMessage(ChatColor.GOLD + "[" + ChatColor.WHITE + "ModularMSMF" + ChatColor.GOLD + "]" + ChatColor.GRAY + " Website ist noch keine in Planung.");
 						}
 						break;
-					case "ts3":
+/*					case "ts3":
 						if (args.length == 1) {
 							//sender.sendMessage(ChatColor.GOLD + "[" + ChatColor.WHITE + "ModularMSMF" + ChatColor.GOLD + "]" + ChatColor.GRAY + " IP:  - " + ChatColor.RED + "Vorsicht, steht unter Aufbau!");
 							TextComponent ts3link = new TextComponent(ChatColor.DARK_GRAY+"TS"+ChatColor.GRAY+"3 "+ChatColor.DARK_GREEN+"<< Link zum Verbinden >>");
@@ -54,7 +54,7 @@ public class ModularMSMFCommand {
 							sender.spigot().sendMessage(ts3link);
 						}
 						break;
-					case "discord":
+*/					case "discord":
 						if (args.length == 1) {
 							sender.sendMessage(ChatColor.GOLD + "[" + ChatColor.WHITE + "ModularMSMF" + ChatColor.GOLD + "]" + ChatColor.GRAY + " Discord-URL:" + ChatColor.BLUE + " https://discord.gg/7ZV7DfB");
 						}
