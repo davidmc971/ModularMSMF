@@ -23,19 +23,19 @@ public class ModularMSMFCommand {
 			if (sender.hasPermission("mmsmf")) {
 				if (args.length == 0) {
 					sender.sendMessage(ChatColor.GOLD + "[" + ChatColor.WHITE + "ModularMSMF" + ChatColor.GOLD + "]" + ChatColor.GRAY + " Plugin enabled on: " + Bukkit.getServerName());
-					sender.sendMessage(ChatColor.GOLD + "[" + ChatColor.WHITE + "ModularMSMF" + ChatColor.GOLD + "]" + ChatColor.GRAY + " Weitere Hilfe:");
-					sender.sendMessage(ChatColor.GOLD + "[" + ChatColor.WHITE + "ModularMSMF" + ChatColor.GOLD + "]" + ChatColor.GRAY + " info || server || website || "/*ts3 ||*/" discord");
+					sender.sendMessage(ChatColor.GOLD + "[" + ChatColor.WHITE + "ModularMSMF" + ChatColor.GOLD + "]" + ChatColor.GRAY + " More help:");
+					sender.sendMessage(ChatColor.GOLD + "[" + ChatColor.WHITE + "ModularMSMF" + ChatColor.GOLD + "]" + ChatColor.GRAY + " info || "/*server || website || "/*ts3 ||*/" discord");
 				} else if (args.length == 1) {
 					switch (args[0].toLowerCase()) {
 					case "info":
 						if (args.length == 1) {
 							sender.sendMessage(ChatColor.GOLD + "[" + ChatColor.WHITE + "ModularMSMF" + ChatColor.GOLD + "]" + ChatColor.GRAY + " Plugin Version: " + ChatColor.GREEN + plugin.pluginver);
-							sender.sendMessage(ChatColor.GOLD + "[" + ChatColor.WHITE + "ModularMSMF" + ChatColor.GOLD + "]" + ChatColor.GRAY + " Server läuft auf: " + ChatColor.YELLOW + Bukkit.getBukkitVersion());
+							sender.sendMessage(ChatColor.GOLD + "[" + ChatColor.WHITE + "ModularMSMF" + ChatColor.GOLD + "]" + ChatColor.GRAY + " Server's running at: " + ChatColor.YELLOW + Bukkit.getBukkitVersion());
 							sender.sendMessage(ChatColor.GOLD + "[" + ChatColor.WHITE + "ModularMSMF" + ChatColor.GOLD + "]" + ChatColor.GRAY + " Developer: " + ChatColor.LIGHT_PURPLE + plugin.authors);
 							sender.sendMessage(ChatColor.GOLD + "[" + ChatColor.WHITE + "ModularMSMF" + ChatColor.GOLD + "]" + ChatColor.RED + " Debug: Build [" + plugin.getDebugTimestamp() + "]");
 						}
 						break;
-					case "server":
+/*					case "server":
 						if (args.length == 1) {
 							sender.sendMessage(ChatColor.GOLD + "[" + ChatColor.WHITE + "ModularMSMF" + ChatColor.GOLD + "]" + ChatColor.GRAY + " Server befindet sich noch in der Aufbauphase und wird stetig verbessert!");
 						}
@@ -45,7 +45,7 @@ public class ModularMSMFCommand {
 							sender.sendMessage(ChatColor.GOLD + "[" + ChatColor.WHITE + "ModularMSMF" + ChatColor.GOLD + "]" + ChatColor.GRAY + " Website ist noch keine in Planung.");
 						}
 						break;
-/*					case "ts3":
+					case "ts3":
 						if (args.length == 1) {
 							//sender.sendMessage(ChatColor.GOLD + "[" + ChatColor.WHITE + "ModularMSMF" + ChatColor.GOLD + "]" + ChatColor.GRAY + " IP:  - " + ChatColor.RED + "Vorsicht, steht unter Aufbau!");
 							TextComponent ts3link = new TextComponent(ChatColor.DARK_GRAY+"TS"+ChatColor.GRAY+"3 "+ChatColor.DARK_GREEN+"<< Link zum Verbinden >>");
@@ -60,12 +60,12 @@ public class ModularMSMFCommand {
 						}
 						break;
 					default:
-						sender.sendMessage(ChatColor.GOLD + "[" + ChatColor.WHITE + "ModularMSMF" + ChatColor.GOLD + "]" + ChatColor.GRAY + " Dieser Befehl '" + ChatColor.YELLOW + args[0] + ChatColor.GRAY + "' existiert nicht!");
+						sender.sendMessage(ChatColor.GOLD + "[" + ChatColor.WHITE + "ModularMSMF" + ChatColor.GOLD + "]" + ChatColor.GRAY + " This command '" + ChatColor.YELLOW + args[0] + ChatColor.GRAY + "' doesn't exist!");
 					}
 				} else if (args.length >= 2) {
-					sender.sendMessage(ChatColor.GOLD + "[" + ChatColor.WHITE + "ModularMSMF" + ChatColor.GOLD + "]" + ChatColor.RED + " Zu viele Argumente!");
+					sender.sendMessage(ChatColor.GOLD + "[" + ChatColor.WHITE + "ModularMSMF" + ChatColor.GOLD + "]" + ChatColor.RED + " Too many arguments!");
 				} else {
-					sender.sendMessage(ChatColor.GOLD + "[" + ChatColor.WHITE + "ModularMSMF" + ChatColor.GOLD + "]" + ChatColor.DARK_RED + " Du hast keine Rechte dafür!");
+					sender.sendMessage(ChatColor.GOLD + "[" + ChatColor.WHITE + "ModularMSMF" + ChatColor.GOLD + "]" + ChatColor.DARK_RED + " You don't have permission for this!");
 				}
 			}
 		}
