@@ -20,7 +20,7 @@ public class ModularMSMFCommand {
 		String toLowerCase = commandLabel.toLowerCase();
 		switch (toLowerCase) {
 		case "mmsmf":
-			if (sender.hasPermission("modularmsmf.mmsmf")) {
+			if (sender.hasPermission("mmsmf")) {
 				if (args.length == 0) {
 					sender.sendMessage(ChatColor.GOLD + "[" + ChatColor.WHITE + "ModularMSMF" + ChatColor.GOLD + "]" + ChatColor.GRAY + " Plugin enabled on: " + Bukkit.getServerName());
 					sender.sendMessage(ChatColor.GOLD + "[" + ChatColor.WHITE + "ModularMSMF" + ChatColor.GOLD + "]" + ChatColor.GRAY + " Weitere Hilfe:");
