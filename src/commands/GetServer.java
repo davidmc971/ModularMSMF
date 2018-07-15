@@ -8,7 +8,7 @@ public class GetServer {
 
 	public static void cmd(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 		
-		if (sender.hasPermission("multiplux.getserver")) {
+		if (sender.hasPermission("modularmsmf.getserver")) {
 			sender.sendMessage("Aktuelle Server-Version: " + Bukkit.getVersion());
 		}
 	}

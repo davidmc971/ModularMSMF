@@ -15,7 +15,7 @@ public class Unban {
 	public static void cmd(CommandSender sender, Command cmd, String commandLabel, String[] args, ModularMSMF plugin) {
 		YamlConfiguration language = Utils.configureCommandLanguage(sender, plugin);
 
-		if (!sender.hasPermission("multiplux.unban")) {
+		if (!sender.hasPermission("modularmsmf.unban")) {
 			sender.sendMessage(language.getString("general.nopermission"));
 			return;
 		}

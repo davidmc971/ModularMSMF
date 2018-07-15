@@ -28,7 +28,7 @@ public class Kill {
 		switch (args[0]) {
 		case "me":
 			if (sender instanceof Player) {
-				if (sender.hasPermission("multiplux.kill.me")) {
+				if (sender.hasPermission("modularmsmf.kill.me")) {
 					Player player = ((Player) sender);
 					mainEvents.registerKilledPlayer(player, KillType.SUICIDE);
 					player.setHealth(0);
@@ -38,7 +38,7 @@ public class Kill {
 			}
 			break;
 		case "all":
-			if (sender.hasPermission("multiplux.kill.all")) {
+			if (sender.hasPermission("modularmsmf.kill.all")) {
 				for (Player player : Bukkit.getOnlinePlayers()) {
 					mainEvents.registerKilledPlayer(player, KillType.HOMOCIDE);
 					player.setHealth(0);
@@ -46,7 +46,7 @@ public class Kill {
 			}
 			break;
 		default:
-			if (sender.hasPermission("multiplux.kill")) {
+			if (sender.hasPermission("modularmsmf.kill")) {
 				if (sender instanceof Player) {
 					boolean temp = false;
 					for (Player player : Bukkit.getOnlinePlayers()) {

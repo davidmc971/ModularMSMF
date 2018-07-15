@@ -17,8 +17,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-import main.ModularMSMF;
-
 public class DataManager implements Listener {
 	public static final String pathMain = "plugins/ModularMSMF/";
 	public static final String pathUserdata = pathMain + "userdata/";
@@ -124,7 +122,7 @@ public class DataManager implements Listener {
 	
 	private void initDefaultSettings(){
 		defaultSettings.clear();
-		defaultSettings.put("economy.money", 500.0);
+		defaultSettings.put("economy.money", 500.0d);
 		defaultSettings.put("kickcounter", 0);
 		defaultSettings.put("language.standard", "en_US");
 		for(Entry<String, Object> e : defaultSettings.entrySet()){
@@ -138,7 +136,7 @@ public class DataManager implements Listener {
 	private void initDefaultUserdata(){
 		defaultUserdata.clear();
 		defaultUserdata.put("economy.money", settingsyaml.get("economy.money"));
-		defaultUserdata.put("economyalex.money", settingsyaml.get("economyalex.money"));
+		defaultUserdata.put("economyalex.money", settingsyaml.get("economy.money"));
 		defaultUserdata.put("kickcounter", settingsyaml.get("kickcounter"));
 		defaultUserdata.put("language", null);
 		for(Entry<String, Object> e : defaultUserdata.entrySet()){

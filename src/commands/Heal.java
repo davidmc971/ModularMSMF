@@ -18,8 +18,8 @@ public class Heal {
 
 		YamlConfiguration language = Utils.configureCommandLanguage(sender, plugin);
 
-		String permself = "multiplux.heal";
-		String permothers = "multiplux.heal.others";
+		String permself = "modularmsmf.heal";
+		String permothers = "modularmsmf.heal.others";
 
 		UUID target = null;
 

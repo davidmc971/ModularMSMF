@@ -7,7 +7,7 @@ import util.DataManager;
 
 public class BankSystem {
 
-	//private MultiPluxPlugin plugin;
+	//private ModularMSMFPlugin plugin;
 	private FileConfiguration cfg_bank;
 
 	private double setting_bankCreateCost;

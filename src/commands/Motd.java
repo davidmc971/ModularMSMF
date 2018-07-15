@@ -16,7 +16,7 @@ public class Motd {
 	private ModularMSMF plugin;
 	
 	@SuppressWarnings("unused")
-	private File dataStore = new File("plugins/MultiPlux/motd.txt");
+	private File dataStore = new File("plugins/ModularMSMF/motd.txt");
 	
 	@SuppressWarnings("unused")
 	private FileConfiguration cfg;
@@ -28,7 +28,7 @@ public class Motd {
 	@SuppressWarnings("unused")
 	public void load() {
 
-		File file = new File("plugins/MultiPlux/motd.yml");
+		File file = new File("plugins/ModularMSMF/motd.yml");
 		if (file.exists()) {
 			FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
 		} else {
@@ -44,7 +44,7 @@ public class Motd {
 
 	public static void cmd(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 
-		if (!(sender.hasPermission("multiplux.motd"))) {
+		if (!(sender.hasPermission("modularmsmf.motd"))) {
 			String toLowerCase = commandLabel.toLowerCase();
 			switch (toLowerCase) {
 			case "motd":

@@ -14,24 +14,24 @@ public class Teleport {
 
 		Player player = null;
 		if (!(sender instanceof Player)) {
-			sender.sendMessage(ChatColor.RED + "[MultiPluxPlugin] No use for console. Player only.");
+			sender.sendMessage(ChatColor.RED + "[ModularMSMFPlugin] No use for console. Player only.");
 		}
 
-		if (sender.hasPermission("multiplux.teleport")) {
+		if (sender.hasPermission("modularmsmf.teleport")) {
 			if (args.length == 0) {
-				sender.sendMessage("[MultiPlux] Du musst jemanden angeben!");
+				sender.sendMessage("[ModularMSMF] Du musst jemanden angeben!");
 			}
 			if (args.length == 1) {
 				String Name = args[0];
 				if (Bukkit.getPlayerExact(Name) != null) {
 					Player target = (Player) Bukkit.getPlayerExact(Name);
 					((Player) sender).teleport(target);
-					sender.sendMessage("[MultiPlux] Erfolgreich zu " + target.getDisplayName() + " teleportiert!");
+					sender.sendMessage("[ModularMSMF] Erfolgreich zu " + target.getDisplayName() + " teleportiert!");
 				} else {
-					sender.sendMessage("[MultiPlux] " + args[0] + " ist nicht online!");
+					sender.sendMessage("[ModularMSMF] " + args[0] + " ist nicht online!");
 				}
 			} else if (args.length >= 2) {
-				sender.sendMessage("[MultiPlux] Zu viele Argumente!");
+				sender.sendMessage("[ModularMSMF] Zu viele Argumente!");
 			}
 		}
 	}

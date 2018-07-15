@@ -3,6 +3,7 @@ package util;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -10,14 +11,13 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.craftbukkit.libs.jline.internal.InputStreamReader;
 
 import main.ModularMSMF;
 
 public class LanguageManager {
 	private final ModularMSMF plugin;
 	private final ArrayList<String> standards;
-	private final String pathExternalLanguages = "plugins/MultiPlux/languages/";
+	private final String pathExternalLanguages = "plugins/ModularMSMF/languages/";
 	private Map<LanguageInformation, YamlConfiguration> allLanguages = new HashMap<LanguageInformation, YamlConfiguration>();
 	private String defaultLanguage;
 	private Entry<LanguageInformation, YamlConfiguration> standardLanguageEntry;

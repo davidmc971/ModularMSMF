@@ -6,7 +6,7 @@ package util;
 //import org.bukkit.configuration.file.YamlConfiguration;
 
 public class YamlManager {
-//	public static String pathMain = "plugins/MultiPlux/";
+//	public static String pathMain = "plugins/ModularMSMF/";
 //	public static String pathUserdata = pathMain + "userdata/";
 //	public static String pathBankdata = pathMain + "bankdata/";
 //

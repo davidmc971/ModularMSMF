@@ -3,14 +3,11 @@ package listeners;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.LogRecord;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
-import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.craftbukkit.v1_12_R1.util.ForwardLogHandler;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -22,14 +19,12 @@ import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerLoginEvent.Result;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
-import org.bukkit.event.server.RemoteServerCommandEvent;
 
 import main.ModularMSMF;
 import net.md_5.bungee.api.ChatColor;
 import stats.Statistics;
 import util.DataManager;
 import util.KillType;
-import util.Utils;
 
 public class Events implements Listener {
 
@@ -106,7 +101,7 @@ public class Events implements Listener {
 		Statistics.getKickCounter(event.getPlayer().getUniqueId()); //TODO man siehe stats.Statistics.java
 	}
 
-	CommandSender[] activeConsole = new CommandSender[2];
+	/*CommandSender[] activeConsole = new CommandSender[2];
 	ForwardLogHandler myHandler = new ForwardLogHandler(){
 		@Override
 		public void publish(LogRecord record) {
@@ -115,9 +110,9 @@ public class Events implements Listener {
 			}
 			super.publish(record);
 		}
-	};
+	};*/
 
-	@EventHandler
+	/*@EventHandler
 	public void onRemoteServerCommand(RemoteServerCommandEvent event){
 		//CommandSender sender = event.getSender();
 		
@@ -137,7 +132,7 @@ public class Events implements Listener {
 			break;
 		}
 		
-	}
+	}*/
 
 	@EventHandler
 	public void onChat(AsyncPlayerChatEvent event) {

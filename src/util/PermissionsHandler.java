@@ -2,14 +2,14 @@ package util;
 
 public class PermissionsHandler {
 
-	private static final String[][] permissions = { { "banplayer", "multiplux.ban.banplayer" },
-			{ "banip", "multiplux.ban.banip" }, { "kickplayer", "multiplux.kick.kickplayer" },
-			{ "healself", "multiplux.heal.healself" }, { "healother", "multiplux.heal.healother" },
-			{ "feedself", "multiplux.feed.feedself" }, { "feedothers", "multiplux.feed.feedothers" },
-			{ "eco_set", "multiplux.eco.set" }, { "eco_add", "multiplux.eco.add" },
-			{ "eco_take", "multiplux.eco.take" }, { "eco_pay", "multiplux.eco.pay" },
-			{ "eco_lookup", "multiplux.eco.lookup" }, { "home_home", "multiplux.home.home" },
-			{ "home_list", "multiplux.home.list" }
+	private static final String[][] permissions = { { "banplayer", "modularmsmf.ban.banplayer" },
+			{ "banip", "modularmsmf.ban.banip" }, { "kickplayer", "modularmsmf.kick.kickplayer" },
+			{ "healself", "modularmsmf.heal.healself" }, { "healother", "modularmsmf.heal.healother" },
+			{ "feedself", "modularmsmf.feed.feedself" }, { "feedothers", "modularmsmf.feed.feedothers" },
+			{ "eco_set", "modularmsmf.eco.set" }, { "eco_add", "modularmsmf.eco.add" },
+			{ "eco_take", "modularmsmf.eco.take" }, { "eco_pay", "modularmsmf.eco.pay" },
+			{ "eco_lookup", "modularmsmf.eco.lookup" }, { "home_home", "modularmsmf.home.home" },
+			{ "home_list", "modularmsmf.home.list" }
 
 	};
 
