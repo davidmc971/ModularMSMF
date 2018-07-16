@@ -20,3 +20,6 @@ motd:
   money:
     description: Geldstand anzeigen oder anderes.
     usage: /<command> <target> <args> <amount>
+    
+    
+FETTES SCHWEIN
