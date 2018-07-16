@@ -51,7 +51,7 @@ public class ModularMSMFCommand {
 						break;
 */					case "discord":
 						if (args.length == 1) {
-							sender.sendMessage(ChatColor.GOLD + "[" + ChatColor.WHITE + "ModularMSMF" + ChatColor.GOLD + "]" + ChatColor.GRAY + " Discord-URL:" + ChatColor.BLUE + " https://discord.gg/7ZV7DfB");
+							sender.sendMessage(ChatColor.GOLD + "[" + ChatColor.WHITE + "ModularMSMF" + ChatColor.GOLD + "]" + ChatColor.GRAY + " Discord-URL: " + ChatColor.BLUE + "https://discord.gg/SxDQcJ6");
 						}
 						break;
 					default:
