@@ -12,7 +12,7 @@ public class ChatUtils {
 		case INFO:
 			return (ChatColor.GOLD + "[" + ChatColor.WHITE + "ModularMSMF" + ChatColor.GOLD + "]" + ChatColor.GRAY + " ");
 		case ERROR:
-			return "[ModularMSMF] ";
+			return (ChatColor.GOLD + "[" + ChatColor.WHITE + "ModularMSMF" + ChatColor.GOLD + "]" + ChatColor.RED + " ");
 		default:
 			return "[ModularMSMF] ";
 		}

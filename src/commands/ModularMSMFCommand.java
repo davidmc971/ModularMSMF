@@ -15,6 +15,7 @@ public class ModularMSMFCommand {
 
 		String toLowerCase = commandLabel.toLowerCase();
 		String infoPrefix = ChatUtils.getFormattedPrefix(ChatUtils.MsgLevel.INFO);
+		String errorPrefix = ChatUtils.getFormattedPrefix(ChatUtils.MsgLevel.ERROR);
 		
 		switch (toLowerCase) {
 		case "mmsmf":
@@ -30,7 +31,7 @@ public class ModularMSMFCommand {
 							sender.sendMessage(ChatColor.GOLD + "[" + ChatColor.WHITE + "ModularMSMF" + ChatColor.GOLD + "]" + ChatColor.GRAY + " Plugin Version: " + ChatColor.GREEN + plugin.pluginver);
 							sender.sendMessage(ChatColor.GOLD + "[" + ChatColor.WHITE + "ModularMSMF" + ChatColor.GOLD + "]" + ChatColor.GRAY + " Server's running at: " + ChatColor.YELLOW + Bukkit.getBukkitVersion());
 							sender.sendMessage(ChatColor.GOLD + "[" + ChatColor.WHITE + "ModularMSMF" + ChatColor.GOLD + "]" + ChatColor.GRAY + " Developer: " + ChatColor.LIGHT_PURPLE + plugin.authors);
-							sender.sendMessage(ChatColor.GOLD + "[" + ChatColor.WHITE + "ModularMSMF" + ChatColor.GOLD + "]" + ChatColor.RED + " Debug: Build [" + plugin.getDebugTimestamp() + "]");
+							sender.sendMessage(errorPrefix+"Debug: Build [" + plugin.getDebugTimestamp() + "]");
 						}
 						break;
 					case "discord":
@@ -42,7 +43,7 @@ public class ModularMSMFCommand {
 						sender.sendMessage(ChatColor.GOLD + "[" + ChatColor.WHITE + "ModularMSMF" + ChatColor.GOLD + "]" + ChatColor.GRAY + " This command '" + ChatColor.YELLOW + args[0] + ChatColor.GRAY + "' doesn't exist!");
 					}
 				} else if (args.length >= 2) {
-					sender.sendMessage(ChatColor.GOLD + "[" + ChatColor.WHITE + "ModularMSMF" + ChatColor.GOLD + "]" + ChatColor.RED + " Too many arguments!");
+					sender.sendMessage(errorPrefix+"Too many arguments!");
 				} else {
 					sender.sendMessage(ChatColor.GOLD + "[" + ChatColor.WHITE + "ModularMSMF" + ChatColor.GOLD + "]" + ChatColor.DARK_RED + " You don't have permission for this!");
 				}
