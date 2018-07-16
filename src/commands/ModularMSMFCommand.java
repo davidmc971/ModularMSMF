@@ -46,8 +46,10 @@ public class ModularMSMFCommand {
 				} else if (args.length >= 2) {
 					sender.sendMessage(errorPrefix+"Too many arguments!");
 				} else {
-					sender.sendMessage(noPermPrefix+"You don't have permission for this!");
+					sender.sendMessage(noPermPrefix+"You don't have Permission to use this!!");
 				}
+			}else {
+				sender.sendMessage(noPermPrefix+"You don't have Permission to use this!");
 			}
 		}
 	}

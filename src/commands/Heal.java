@@ -33,7 +33,7 @@ public class Heal {
 				((Player) sender).setHealth(20);
 				sender.sendMessage(language.getString("commands.heal.healself"));
 			} else {
-				sender.sendMessage(noPermPrefix+"You don't have permission for this!");
+				sender.sendMessage(noPermPrefix+"You don't have Permission to use this!");
 			}
 			break;
 		default:
