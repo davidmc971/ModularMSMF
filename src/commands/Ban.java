@@ -16,6 +16,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 import main.ModularMSMF;
+import util.ChatUtils;
 import util.DataManager;
 import util.PermissionsHandler;
 import util.Utils;
@@ -25,20 +26,24 @@ public class Ban {
 	public static void cmd(CommandSender sender, Command cmd, String commandLabel, String[] args,
 			ModularMSMF plugin) {
 		YamlConfiguration language = Utils.configureCommandLanguage(sender, plugin);
+		
+		String infoPrefix = ChatUtils.getFormattedPrefix(ChatUtils.MsgLevel.INFO);
+		String errorPrefix = ChatUtils.getFormattedPrefix(ChatUtils.MsgLevel.ERROR);
+		//String noPermPrefix = ChatUtils.getFormattedPrefix(ChatUtils.MsgLevel.NOPERM);
 
 		if (sender.hasPermission(PermissionsHandler.getPermission("banplayer"))) {
 			if (args.length == 0) {
-				sender.sendMessage(language.getString("general.missing_playername"));
+				sender.sendMessage(errorPrefix+language.getString("general.missing_playername"));
 				return;
 			}
 
 			String reason = language.getString("commands.ban.defaultbanreason");
 			UUID uuid = getPlayerUUIDByNameForBan(args[0]);
 			if (uuid == null) {
-				sender.sendMessage(language.getString("general.playerunknown"));
+				sender.sendMessage(errorPrefix+language.getString("general.playerunknown"));
 				return;
 			} else if (DataManager.getPlayerCfg(uuid).getBoolean("banned")) {
-				sender.sendMessage(language.getString("commands.ban.alreadybanned"));
+				sender.sendMessage(errorPrefix+language.getString("commands.ban.alreadybanned"));
 				return;
 			}
 
@@ -54,8 +59,7 @@ public class Ban {
 				banPlayer(uuid, reason, language);
 				break;
 			}
-			sender.sendMessage(language.getString("commands.ban.playerbanned").replaceAll("_player", args[0])
-					.replaceAll("_reason", reason));
+			sender.sendMessage(infoPrefix+language.getString("commands.ban.playerbanned").replaceAll("_player", args[0]).replaceAll("_reason", reason));
 		}
 	}
 
