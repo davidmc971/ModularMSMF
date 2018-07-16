@@ -28,9 +28,9 @@ public class ModularMSMFCommand {
 					switch (args[0].toLowerCase()) {
 					case "info":
 						if (args.length == 1) {
-							sender.sendMessage(ChatColor.GOLD + "[" + ChatColor.WHITE + "ModularMSMF" + ChatColor.GOLD + "]" + ChatColor.GRAY + " Plugin Version: " + ChatColor.GREEN + plugin.pluginver);
-							sender.sendMessage(ChatColor.GOLD + "[" + ChatColor.WHITE + "ModularMSMF" + ChatColor.GOLD + "]" + ChatColor.GRAY + " Server's running at: " + ChatColor.YELLOW + Bukkit.getBukkitVersion());
-							sender.sendMessage(ChatColor.GOLD + "[" + ChatColor.WHITE + "ModularMSMF" + ChatColor.GOLD + "]" + ChatColor.GRAY + " Developer: " + ChatColor.LIGHT_PURPLE + plugin.authors);
+							sender.sendMessage(infoPrefix+"Plugin Version: " + ChatColor.GREEN + plugin.pluginver);
+							sender.sendMessage(infoPrefix+"Server's running at: " + ChatColor.YELLOW + Bukkit.getBukkitVersion());
+							sender.sendMessage(infoPrefix+"Developer: " + ChatColor.LIGHT_PURPLE + plugin.authors);
 							sender.sendMessage(errorPrefix+"Debug: Build [" + plugin.getDebugTimestamp() + "]");
 						}
 						break;
