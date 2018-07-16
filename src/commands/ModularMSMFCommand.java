@@ -16,6 +16,7 @@ public class ModularMSMFCommand {
 		String toLowerCase = commandLabel.toLowerCase();
 		String infoPrefix = ChatUtils.getFormattedPrefix(ChatUtils.MsgLevel.INFO);
 		String errorPrefix = ChatUtils.getFormattedPrefix(ChatUtils.MsgLevel.ERROR);
+		String noPermPrefix = ChatUtils.getFormattedPrefix(ChatUtils.MsgLevel.NOPERM);
 		
 		switch (toLowerCase) {
 		case "mmsmf":
@@ -36,16 +37,16 @@ public class ModularMSMFCommand {
 						break;
 					case "discord":
 						if (args.length == 1) {
-							sender.sendMessage(ChatColor.GOLD + "[" + ChatColor.WHITE + "ModularMSMF" + ChatColor.GOLD + "]" + ChatColor.GRAY + " Discord-URL: " + ChatColor.BLUE + "https://discord.gg/SxDQcJ6");
+							sender.sendMessage(infoPrefix+"Discord-URL: " + ChatColor.BLUE + "https://discord.gg/SxDQcJ6");
 						}
 						break;
 					default:
-						sender.sendMessage(ChatColor.GOLD + "[" + ChatColor.WHITE + "ModularMSMF" + ChatColor.GOLD + "]" + ChatColor.GRAY + " This command '" + ChatColor.YELLOW + args[0] + ChatColor.GRAY + "' doesn't exist!");
+						sender.sendMessage(errorPrefix+"This command '" + ChatColor.YELLOW + args[0] + ChatColor.RED + "' doesn't exist!");
 					}
 				} else if (args.length >= 2) {
 					sender.sendMessage(errorPrefix+"Too many arguments!");
 				} else {
-					sender.sendMessage(ChatColor.GOLD + "[" + ChatColor.WHITE + "ModularMSMF" + ChatColor.GOLD + "]" + ChatColor.DARK_RED + " You don't have permission for this!");
+					sender.sendMessage(noPermPrefix+"You don't have permission for this!");
 				}
 			}
 		}
