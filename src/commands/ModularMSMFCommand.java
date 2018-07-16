@@ -6,6 +6,7 @@ import org.bukkit.command.CommandSender;
 
 import main.ModularMSMF;
 import net.md_5.bungee.api.ChatColor;
+import util.ChatUtils;
 
 public class ModularMSMFCommand {
 
@@ -13,13 +14,15 @@ public class ModularMSMFCommand {
 			ModularMSMF plugin) {
 
 		String toLowerCase = commandLabel.toLowerCase();
+		String infoPrefix = ChatUtils.getFormattedPrefix(ChatUtils.MsgLevel.INFO);
+		
 		switch (toLowerCase) {
 		case "mmsmf":
 			if (sender.hasPermission("mmsmf")) {
 				if (args.length == 0) {
-					sender.sendMessage(ChatColor.GOLD + "[" + ChatColor.WHITE + "ModularMSMF" + ChatColor.GOLD + "]" + ChatColor.GRAY + " Plugin enabled on: " + Bukkit.getServerName());
-					sender.sendMessage(ChatColor.GOLD + "[" + ChatColor.WHITE + "ModularMSMF" + ChatColor.GOLD + "]" + ChatColor.GRAY + " More help:");
-					sender.sendMessage(ChatColor.GOLD + "[" + ChatColor.WHITE + "ModularMSMF" + ChatColor.GOLD + "]" + ChatColor.GRAY + " info || discord");
+					sender.sendMessage(infoPrefix+"Plugin enabled on: " + Bukkit.getServerName());
+					sender.sendMessage(infoPrefix+"More help:");
+					sender.sendMessage(infoPrefix+"info || discord");
 				} else if (args.length == 1) {
 					switch (args[0].toLowerCase()) {
 					case "info":
