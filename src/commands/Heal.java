@@ -47,6 +47,7 @@ public class Heal {
 						if (p.getUniqueId().toString().equalsIgnoreCase(target.toString())) {
 							Bukkit.getPlayer(target).setHealth(20);
 							sender.sendMessage(infoPrefix+language.getString("commands.heal.healother").replaceAll("_player", p.getName()));
+							p.sendMessage(infoPrefix+"You have been healed by "+sender.getName());
 							return;
 						}
 					}
