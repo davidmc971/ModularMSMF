@@ -9,6 +9,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 import main.ModularMSMF;
+import util.ChatUtils;
 import util.Utils;
 
 public class Heal {
@@ -20,6 +21,9 @@ public class Heal {
 
 		String permself = "modularmsmf.heal";
 		String permothers = "modularmsmf.heal.others";
+		String infoPrefix = ChatUtils.getFormattedPrefix(ChatUtils.MsgLevel.INFO);
+		String errorPrefix = ChatUtils.getFormattedPrefix(ChatUtils.MsgLevel.ERROR);
+		String noPermPrefix = ChatUtils.getFormattedPrefix(ChatUtils.MsgLevel.NOPERM);
 
 		UUID target = null;
 
@@ -28,20 +32,21 @@ public class Heal {
 			if (sender.hasPermission(permself)) {
 				((Player) sender).setHealth(20);
 				sender.sendMessage(language.getString("commands.heal.healself"));
+			} else {
+				sender.sendMessage(noPermPrefix+"You don't have permission for this!");
 			}
 			break;
 		default:
 			target = Utils.getPlayerUUIDByName(args[0]);
 			if (sender.hasPermission(permothers)) {
 				if (target == null) {
-					sender.sendMessage(language.getString("general.playernotfound"));
+					sender.sendMessage(errorPrefix+language.getString("general.playernotfound"));
 					return;
 				} else
 					for (Player p : Bukkit.getOnlinePlayers()) {
 						if (p.getUniqueId().toString().equalsIgnoreCase(target.toString())) {
 							Bukkit.getPlayer(target).setHealth(20);
-							sender.sendMessage(
-									language.getString("commands.heal.healother").replaceAll("_player", p.getName()));
+							sender.sendMessage(infoPrefix+language.getString("commands.heal.healother").replaceAll("_player", p.getName()));
 							return;
 						}
 					}
