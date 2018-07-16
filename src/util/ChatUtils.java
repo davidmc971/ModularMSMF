@@ -1,5 +1,7 @@
 package util;
 
+import net.md_5.bungee.api.ChatColor;
+
 public class ChatUtils {
 	public enum MsgLevel {
 		INFO, ERROR, MSG, BROADCAST, STANDARD, RAINBOW
@@ -8,11 +10,11 @@ public class ChatUtils {
 	public static String getFormattedPrefix(MsgLevel lvl) {
 		switch(lvl) {
 		case INFO:
-			return "";
+			return (ChatColor.GOLD + "[" + ChatColor.WHITE + "ModularMSMF" + ChatColor.GOLD + "]" + ChatColor.GRAY + " ");
 		case ERROR:
-			return "";
+			return "[ModularMSMF] ";
 		default:
-			return "";
+			return "[ModularMSMF] ";
 		}
 	}
 }
