@@ -1,5 +1,7 @@
 package commands;
 
+import java.util.UUID;
+
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -7,6 +9,7 @@ import org.bukkit.command.CommandSender;
 import main.ModularMSMF;
 import net.md_5.bungee.api.ChatColor;
 import util.ChatUtils;
+import util.Utils;
 
 public class ModularMSMFCommand {
 
@@ -17,6 +20,7 @@ public class ModularMSMFCommand {
 		String infoPrefix = ChatUtils.getFormattedPrefix(ChatUtils.MsgLevel.INFO);
 		String errorPrefix = ChatUtils.getFormattedPrefix(ChatUtils.MsgLevel.ERROR);
 		String noPermPrefix = ChatUtils.getFormattedPrefix(ChatUtils.MsgLevel.NOPERM);
+		UUID target = null;
 		
 		switch (toLowerCase) {
 		case "mmsmf":
@@ -45,9 +49,34 @@ public class ModularMSMFCommand {
 							sender.sendMessage(infoPrefix+"Reporting-System for Cheaters and Bugs");
 							sender.sendMessage(infoPrefix+"<Beschreibung über diesen CMD>");
 						}
-							//if(args.length > 1) {
+						if(args.length == 2) {
+							sender.sendMessage(errorPrefix+"Please write down the correct report level and it's description!");
+							sender.sendMessage(infoPrefix+"Level's you can use with permission:");
+							if(sender.hasPermission("mmsmf.cheatrep")) {
+								sender.sendMessage(infoPrefix+"/report cheater <Username>");
+							}
+							if(sender.hasPermission("mmsmf.bugrep")) {
+								sender.sendMessage(infoPrefix+"/report bug <Describe your finding");
+							}
+							if(sender.hasPermission("mmsmf.otherreason")) {
+								sender.sendMessage(infoPrefix+"/report others <Like any ideas?>");
+							}
 							// restliche Funktionen dazu ^^ wie report-lvl (bug = 1, cheater = 2, usw...) und beschreibung zum abrufen einer textdatei, auflisten der lvls als gruppe oder vollständige liste? david bitte <3
-					default:
+					} 
+					/** else if(args.length > 2) {
+					* switch (args[2].toLowerCase()) {
+					* 	case "cheater":
+					* 		if (args.length == 0){
+					* 			sender.sendMessage(infoPrefix+"Please write down the Username, which has to be reported!");
+					* 		if (args.length == 1){
+					* 			target = Utils.getPlayerUUIDByName(args[0]);
+				    * 				if(target == null){
+					* 					sender.sendMessage(language.getString("general.playernotfound"));
+					* 				} else {
+					*					
+					* }
+					*/
+						default:
 						sender.sendMessage(errorPrefix+"This command '" + ChatColor.YELLOW + args[0] + ChatColor.RED + "' doesn't exist!");
 					}
 				} else if (args.length >= 2) {
