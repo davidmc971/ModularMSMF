@@ -26,7 +26,7 @@ public class CommandReport {
 		case "report":
 			if(args.length == 0) {
 				sender.sendMessage(infoPrefix+"Reporting-System for Cheaters and Bugs");
-				sender.sendMessage(infoPrefix+"<Beschreibung über diesen CMD>");
+				sender.sendMessage(infoPrefix+"<Beschreibung ueber diesen CMD>");
 			}
 			if(args.length == 1) {
 				sender.sendMessage(errorPrefix+"Please write down the correct report level and it's description!");
@@ -37,7 +37,7 @@ public class CommandReport {
 				if(sender.hasPermission("mmsmf.bugrep")) {
 					sender.sendMessage(infoPrefix+"/report bug <Describe your finding");
 				}
-				if(sender.hasPermission("mmsmf.otherreason")) {
+				if(sender.hasPermission("mmsmf.otherrep")) {
 					sender.sendMessage(infoPrefix+"/report others <Like any ideas?>");
 				}
 				// restliche Funktionen dazu ^^ wie report-lvl (bug = 1, cheater = 2, usw...) und beschreibung zum abrufen einer textdatei, auflisten der lvls als gruppe oder vollständige liste? david bitte <3
