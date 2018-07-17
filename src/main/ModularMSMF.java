@@ -20,6 +20,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import commands.Ban;
+import commands.CommandReport;
 import commands.Feed;
 import commands.GetServer;
 import commands.Heal;
@@ -130,6 +131,9 @@ public class ModularMSMF extends JavaPlugin implements CommandExecutor {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 		switch (commandLabel.toLowerCase()) {
+		case "report":
+			CommandReport.cmd(sender, cmd, commandLabel, args, this);
+			return true;
 		case "money":
 			return ecoSys.cmd(sender, cmd, commandLabel, args); // economy commands david /money
 		case "setspawn":

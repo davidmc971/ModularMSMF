@@ -4,6 +4,9 @@ version: Alpha 0.1.0
 authors: [Lightkeks, ernikillerxd64]
 
 commands:
+  report:
+    description: Eine Meldung verfassen.
+    usage: /<command> <args>
   mmsmf:
     description: Zeigt Infos und mehr an.
     usage: /<command> <args>
