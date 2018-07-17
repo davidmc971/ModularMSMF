@@ -27,8 +27,8 @@ public class Ban {
 			ModularMSMF plugin) {
 		YamlConfiguration language = Utils.configureCommandLanguage(sender, plugin);
 		
-		String infoPrefix = ChatUtils.getFormattedPrefix(ChatUtils.MsgLevel.INFO);
-		String errorPrefix = ChatUtils.getFormattedPrefix(ChatUtils.MsgLevel.ERROR);
+		String infoPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.INFO);
+		String errorPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.ERROR);
 		//String noPermPrefix = ChatUtils.getFormattedPrefix(ChatUtils.MsgLevel.NOPERM);
 
 		if (sender.hasPermission(PermissionsHandler.getPermission("banplayer"))) {

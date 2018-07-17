@@ -16,8 +16,8 @@ public class CommandReport {
 	public static void cmd(CommandSender sender, Command cmd, String commandLabel, String[] args,
 			ModularMSMF plugin) {
 
-		String infoPrefix = ChatUtils.getFormattedPrefix(ChatUtils.MsgLevel.INFO);
-		String errorPrefix = ChatUtils.getFormattedPrefix(ChatUtils.MsgLevel.ERROR);
+		String infoPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.INFO);
+		String errorPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.ERROR);
 		UUID target = null;
 		YamlConfiguration language = Utils.configureCommandLanguage(sender, plugin);
 
