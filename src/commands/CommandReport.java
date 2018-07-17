@@ -40,7 +40,7 @@ public class CommandReport {
 				if(sender.hasPermission("mmsmf.otherrep")) {
 					sender.sendMessage(infoPrefix+"/report others <Like any ideas?>");
 				}
-				// restliche Funktionen dazu ^^ wie report-lvl (bug = 1, cheater = 2, usw...) und beschreibung zum abrufen einer textdatei, auflisten der lvls als gruppe oder vollständige liste? david bitte <3
+				// restliche Funktionen dazu ^^ wie report-lvl (bug = 1, cheater = 2, usw...) und beschreibung zum abrufen einer textdatei, auflisten der lvls als gruppe oder vollstaendige liste? david bitte <3
 			} else if(args.length > 1) {
 				switch (args[2].toLowerCase()) {
 				case "player":
