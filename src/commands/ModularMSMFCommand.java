@@ -24,7 +24,7 @@ public class ModularMSMFCommand {
 				if (args.length == 0) {
 					sender.sendMessage(infoPrefix+"Plugin enabled on: " + Bukkit.getServerName());
 					sender.sendMessage(infoPrefix+"More help:");
-					sender.sendMessage(infoPrefix+"info || discord");
+					sender.sendMessage(infoPrefix+"info || discord || report");
 				} else if (args.length == 1) {
 					switch (args[0].toLowerCase()) {
 					case "info":
@@ -40,6 +40,13 @@ public class ModularMSMFCommand {
 							sender.sendMessage(infoPrefix+"Discord-URL: " + ChatColor.BLUE + "https://discord.gg/SxDQcJ6");
 						}
 						break;
+					case "report":
+						if(args.length == 1) {
+							sender.sendMessage(infoPrefix+"Reporting-System for Cheaters and Bugs");
+							sender.sendMessage(infoPrefix+"<Beschreibung über diesen CMD>");
+						}
+							//if(args.length > 1) {
+							// restliche Funktionen dazu ^^ wie report-lvl (bug = 1, cheater = 2, usw...) und beschreibung zum abrufen einer textdatei, auflisten der lvls als gruppe oder vollständige liste? david bitte <3
 					default:
 						sender.sendMessage(errorPrefix+"This command '" + ChatColor.YELLOW + args[0] + ChatColor.RED + "' doesn't exist!");
 					}
