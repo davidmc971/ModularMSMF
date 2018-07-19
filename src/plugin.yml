@@ -42,7 +42,7 @@ commands:
   mute:    
     description: Mutet einen Spieler.
     usage: /<command> <player>
-  getserver:
+  serverinfo:
     description: Gibt die Serversoftware an.
     usage: /<command>
   motd:

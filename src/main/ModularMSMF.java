@@ -19,22 +19,7 @@ import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import commands.Ban;
-import commands.CommandReport;
-import commands.Feed;
-import commands.GetServer;
-import commands.Heal;
-import commands.Home;
-import commands.Kick;
-import commands.Kill;
-import commands.Language;
-import commands.Motd;
-import commands.ModularMSMFCommand;
-import commands.Mute;
-import commands.SetSpawn;
-import commands.Spawn;
-import commands.Teleport;
-import commands.Unban;
+import commands.*;
 import eco.EconomySystemAlex;
 import eco.EconomySystemDavid;
 import listeners.Events;
@@ -52,7 +37,7 @@ public class ModularMSMF extends JavaPlugin implements CommandExecutor {
 	private EconomySystemAlex ecoPlug;
 	private DataManager dataManager;
 	private LanguageManager languageManager;
-	private Motd motd;
+	private CommandMotd motd;
 	public final boolean debug = true;
 	private String debugTimestamp = "";
 
@@ -78,7 +63,7 @@ public class ModularMSMF extends JavaPlugin implements CommandExecutor {
 		//ecoSys.load();
 		ecoPlug = new EconomySystemAlex(this);
 
-		motd = new Motd(this);
+		motd = new CommandMotd(this);
 		motd.load();
 
 		System.out.println("ModularMSMF has been enabled.");
@@ -137,55 +122,55 @@ public class ModularMSMF extends JavaPlugin implements CommandExecutor {
 		case "money":
 			return ecoSys.cmd(sender, cmd, commandLabel, args); // economy commands david /money
 		case "setspawn":
-			SetSpawn.cmd(sender, cmd, commandLabel, args);
+			CommandSetSpawn.cmd(sender, cmd, commandLabel, args);
 			return true;
 		case "spawn":
-			Spawn.cmd(sender, cmd, commandLabel, args);
+			CommandSpawn.cmd(sender, cmd, commandLabel, args);
 			return true;
 		case "eco":
 			if (ecoPlug.cmd(sender, cmd, commandLabel, args, this))
 				return true; // economy commands alex /eco
 			return true;
 		case "kill":
-			Kill.cmd(sender, cmd, commandLabel, args, mainEvents);
+			CommandKill.cmd(sender, cmd, commandLabel, args, mainEvents);
 			return true;
 		case "mmsmf":
-			ModularMSMFCommand.cmd(sender, cmd, commandLabel, args, this);
+			CommandModularMSMF.cmd(sender, cmd, commandLabel, args, this);
 			return true;
 		case "teleport":
-			Teleport.cmd(sender, cmd, commandLabel, args);
+			CommandTeleport.cmd(sender, cmd, commandLabel, args);
 			return true;
 		case "heal":
-			Heal.cmd(sender, cmd, commandLabel, args, this);
+			CommandHeal.cmd(sender, cmd, commandLabel, args, this);
 			return true;
 		case "feed":
-			Feed.cmd(sender, cmd, commandLabel, args, this);
+			CommandFeed.cmd(sender, cmd, commandLabel, args, this);
 			return true;
 		case "kick":
-			Kick.cmd(sender, cmd, commandLabel, args, this);
+			CommandKick.cmd(sender, cmd, commandLabel, args, this);
 			return true;
 		case "ban":
-			Ban.cmd(sender, cmd, commandLabel, args, this);
+			CommandBan.cmd(sender, cmd, commandLabel, args, this);
 			return true;
 		case "unban":
-			Unban.cmd(sender, cmd, commandLabel, args, this);
+			CommandUnban.cmd(sender, cmd, commandLabel, args, this);
 			return true;
 		case "home":
 			return true;
 		case "language":
-			Language.cmd(sender, cmd, commandLabel, args, this);
+			CommandLanguage.cmd(sender, cmd, commandLabel, args, this);
 			return true;
 		case "sethome":
-			Home.cmd(sender, cmd, commandLabel, args);
+			CommandHome.cmd(sender, cmd, commandLabel, args);
 			return true;
 		case "mute":
-			Mute.cmd(sender, cmd, commandLabel, args, this);
+			CommandMute.cmd(sender, cmd, commandLabel, args, this);
 			return true;
-		case "getserver":
-			GetServer.cmd(sender, cmd, commandLabel, args);
+		case "serverinfo":
+			CommandServerInfo.cmd(sender, cmd, commandLabel, args);
 			return true;
 		case "motd":
-			Motd.cmd(sender, cmd, commandLabel, args);
+			CommandMotd.cmd(sender, cmd, commandLabel, args);
 			return true;
 		case "slaughter":
 			if (sender instanceof Player) {

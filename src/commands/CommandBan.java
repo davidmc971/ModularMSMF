@@ -18,10 +18,10 @@ import org.bukkit.entity.Player;
 import main.ModularMSMF;
 import util.ChatUtils;
 import util.DataManager;
-import util.PermissionsHandler;
+import util.PermissionManager;
 import util.Utils;
 
-public class Ban {
+public class CommandBan {
 
 	public static void cmd(CommandSender sender, Command cmd, String commandLabel, String[] args,
 			ModularMSMF plugin) {
@@ -31,7 +31,7 @@ public class Ban {
 		String errorPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.ERROR);
 		//String noPermPrefix = ChatUtils.getFormattedPrefix(ChatUtils.MsgLevel.NOPERM);
 
-		if (sender.hasPermission(PermissionsHandler.getPermission("banplayer"))) {
+		if (sender.hasPermission(PermissionManager.getPermission("banplayer"))) {
 			if (args.length == 0) {
 				sender.sendMessage(errorPrefix+language.getString("general.missing_playername"));
 				return;

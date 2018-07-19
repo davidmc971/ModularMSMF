@@ -12,7 +12,7 @@ import main.ModularMSMF;
 import util.ChatUtils;
 import util.Utils;
 
-public class Heal {
+public class CommandHeal {
 
 	public static void cmd(CommandSender sender, Command cmd, String commandLabel, String[] args,
 			ModularMSMF plugin) {

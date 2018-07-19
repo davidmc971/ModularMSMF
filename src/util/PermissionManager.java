@@ -1,6 +1,6 @@
 package util;
 
-public class PermissionsHandler {
+public class PermissionManager {
 
 	private static final String[][] permissions = { { "banplayer", "modularmsmf.ban.banplayer" },
 			{ "banip", "modularmsmf.ban.banip" }, { "kickplayer", "modularmsmf.kick.kickplayer" },

@@ -9,7 +9,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
-public class SetSpawn {
+public class CommandSetSpawn {
 
 	public static void cmd(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 		

@@ -1,6 +1,7 @@
 COMMANDS:
 	REPORT:
 		DESCRIPTION:
+			/report <category> <args>
 			categories: player, bug, other
 			/report player <playername> <reason>
 			/report bug <description>
@@ -9,26 +10,50 @@ COMMANDS:
 			structure updated, needs work
 	BAN:
 		PROGRESS:
-			x [ueberarbeiten]
-	feed: x [fertig, ueberarbeiten]
-heal: x [fertig, ueberarbeiten]
-kick: x [fertig, sonst mal drueberschauen]
-land: 
-mmsmf: x [fertig, kann mehr rein]
-teleport: x [fertig, kann mehr rein]
-unban: 
-eco: x [ueberarbeitung noetig, falls fehler]
-money: x [wie eco]
-home: 
-un/mute: x [ueberarbeitung noetig]
-worth: 
-getserver: x [fertig]
-motd:
-
-  money:
-    description: Geldstand anzeigen oder anderes.
-    usage: /<command> <target> <args> <amount>
-    
+			
+	FEED:
+		PROGRESS:
+			
+	HEAL:
+		PROGRESS:
+			
+	KICK:
+		PROGRESS:
+			
+	LAND:
+		PROGRESS:
+			 
+	MMSMF:
+		PROGRESS:
+			
+	TELEPORT:
+		PROGRESS:
+			
+	UNBAN:
+		PROGRESS:
+			
+	ECO:
+		PROGRESS:
+			
+	MONEY:
+		PROGRESS:
+			
+	HOME: 
+		PROGRESS:
+			
+	MUTE / UNMUTE:
+		PROGRESS:
+			
+	WORTH:
+		PROGRESS:
+			 
+	GETSERVER:
+		PROGRESS:
+			
+	MOTD:
+		PROGRESS:
+		
+		
     
 GENERAL TODO AND IDEAS:
 

@@ -8,7 +8,7 @@ import main.ModularMSMF;
 import net.md_5.bungee.api.ChatColor;
 import util.ChatUtils;
 
-public class ModularMSMFCommand {
+public class CommandModularMSMF {
 
 	public static void cmd(CommandSender sender, Command cmd, String commandLabel, String[] args,
 			ModularMSMF plugin) {

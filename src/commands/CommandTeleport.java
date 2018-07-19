@@ -7,7 +7,7 @@ import org.bukkit.entity.Player;
 
 import net.md_5.bungee.api.ChatColor;
 
-public class Teleport {
+public class CommandTeleport {
 	
 	@SuppressWarnings("unused")
 	public static void cmd(CommandSender sender, Command cmd, String commandLabel, String[] args) {

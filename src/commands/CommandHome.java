@@ -4,7 +4,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class Home {
+public class CommandHome {
 
 	public static void cmd(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 		

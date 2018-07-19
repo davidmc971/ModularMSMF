@@ -49,13 +49,13 @@ public class CommandReport {
 			//TODO: send description of command, in player's language
 			sender.sendMessage(infoPrefix+"Report system for reporting players, bugs and other stuff.");
 			sender.sendMessage(infoPrefix+"Level's you are allowed to use:");
-			if(sender.hasPermission("mmsmf.command.report.player")) {
+			if(sender.hasPermission("modularmmsmf.command.report.player")) {
 				sender.sendMessage(infoPrefix+"/report player <playername> <reason>");
 			}
-			if(sender.hasPermission("mmsmf.command.report.bug")) {
+			if(sender.hasPermission("modularmmsmf.command.report.bug")) {
 				sender.sendMessage(infoPrefix+"/report bug <description of finding>");
 			}
-			if(sender.hasPermission("mmsmf.command.report.other")) {
+			if(sender.hasPermission("modularmmsmf.command.report.other")) {
 				sender.sendMessage(infoPrefix+"/report others <describe your idea>");
 			}
 		}
@@ -66,7 +66,7 @@ public class CommandReport {
 			//let's check for the category and if it's valid, as well as permission for use
 			{
 			case "player":
-				if(sender.hasPermission("mmsmf.command.report.player"))
+				if(sender.hasPermission("modularmmsmf.command.report.player"))
 				{
 					reportPlayer(sender, args, plugin, language);
 				} else {
@@ -74,7 +74,7 @@ public class CommandReport {
 				}
 				break;
 			case "bug":
-				if(sender.hasPermission("mmsmf.command.report.bug"))
+				if(sender.hasPermission("modularmmsmf.command.report.bug"))
 				{
 					reportBug(sender, args, plugin, language);
 				} else {
@@ -82,7 +82,7 @@ public class CommandReport {
 				}
 				break;
 			case "other":
-				if(sender.hasPermission("mmsmf.command.report.other"))
+				if(sender.hasPermission("modularmmsmf.command.report.other"))
 				{
 					reportOther(sender, args, plugin, language);
 				} else {

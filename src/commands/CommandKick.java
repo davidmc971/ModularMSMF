@@ -8,10 +8,10 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import main.ModularMSMF;
-import util.PermissionsHandler;
+import util.PermissionManager;
 import util.Utils;
 
-public class Kick {
+public class CommandKick {
 
 	public static void cmd(CommandSender sender, Command cmd, String commandLabel, String[] args, ModularMSMF plugin) {
 
@@ -22,14 +22,14 @@ public class Kick {
 
 		switch(args.length){
 		case 0:
-			if(sender.hasPermission(PermissionsHandler.getPermission("kickplayer"))){
+			if(sender.hasPermission(PermissionManager.getPermission("kickplayer"))){
 				sender.sendMessage(language.getString("general.missing_playername"));
 			} else {
 				sender.sendMessage(language.getString("general.nopermissions"));
 			}
 			break;
 		default:
-			if(sender.hasPermission(PermissionsHandler.getPermission("kickplayer"))){
+			if(sender.hasPermission(PermissionManager.getPermission("kickplayer"))){
 				target = Utils.getPlayerUUIDByName(args[0]);
 				if(target == null){
 					sender.sendMessage(language.getString("general.playernotfound"));

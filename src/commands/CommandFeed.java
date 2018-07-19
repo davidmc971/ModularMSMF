@@ -10,10 +10,10 @@ import org.bukkit.entity.Player;
 
 import main.ModularMSMF;
 import util.ChatUtils;
-import util.PermissionsHandler;
+import util.PermissionManager;
 import util.Utils;
 
-public class Feed {
+public class CommandFeed {
 
 	public static void cmd(CommandSender sender, Command cmd, String commandLabel, String[] args,
 			ModularMSMF plugin) {
@@ -29,7 +29,7 @@ public class Feed {
 		switch (args.length) {
 		case 0:
 			if((sender instanceof Player)) {
-			if (sender.hasPermission(PermissionsHandler.getPermission("feedself"))) {
+			if (sender.hasPermission(PermissionManager.getPermission("feedself"))) {
 				sender.sendMessage(infoPrefix+language.getString("commands.feed.feeded"));
 				((Player) sender).setSaturation(20);
 				return;
@@ -46,7 +46,7 @@ public class Feed {
 				sender.sendMessage(errorPrefix+language.getString("general.playernotfound"));
 				return;
 			}
-			if (!sender.hasPermission(PermissionsHandler.getPermission("feedothers"))) {
+			if (!sender.hasPermission(PermissionManager.getPermission("feedothers"))) {
 				sender.sendMessage(noPermPrefix+language.getString("general.nopermission"));
 				return;
 			}

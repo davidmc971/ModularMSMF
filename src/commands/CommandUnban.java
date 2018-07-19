@@ -10,7 +10,7 @@ import main.ModularMSMF;
 import util.DataManager;
 import util.Utils;
 
-public class Unban {
+public class CommandUnban {
 
 	public static void cmd(CommandSender sender, Command cmd, String commandLabel, String[] args, ModularMSMF plugin) {
 		YamlConfiguration language = Utils.configureCommandLanguage(sender, plugin);

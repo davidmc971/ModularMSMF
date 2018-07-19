@@ -10,7 +10,7 @@ import util.DataManager;
 import util.LanguageManager;
 import util.Utils;
 
-public class Language {
+public class CommandLanguage {
 
 	public static void cmd(CommandSender sender, Command cmd, String commandLabel, String[] args, ModularMSMF plugin) {
 		LanguageManager languageManager = plugin.getLanguageManager();

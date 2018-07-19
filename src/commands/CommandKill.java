@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 import listeners.Events;
 import util.KillType;
 
-public class Kill {
+public class CommandKill {
 
 	public static void cmd(CommandSender sender, Command cmd, String commandLabel, String[] args, Events mainEvents) {
 

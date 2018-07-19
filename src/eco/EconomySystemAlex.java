@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 
 import main.ModularMSMF;
 import util.DataManager;
-import util.PermissionsHandler;
+import util.PermissionManager;
 import util.Utils;
 
 public class EconomySystemAlex {
@@ -54,7 +54,7 @@ public class EconomySystemAlex {
 					}
 					break;
 				case "set":
-					if (sender.hasPermission(PermissionsHandler.getPermission("eco_set"))) {
+					if (sender.hasPermission(PermissionManager.getPermission("eco_set"))) {
 						switch (args.length) {
 						default:
 							if (args.length < 2) {
@@ -102,7 +102,7 @@ public class EconomySystemAlex {
 					}
 					break;
 				case "add":
-					if (sender.hasPermission(PermissionsHandler.getPermission("eco_add"))) {
+					if (sender.hasPermission(PermissionManager.getPermission("eco_add"))) {
 						switch (args.length) {
 						default:
 							if (args.length < 2) {
@@ -150,7 +150,7 @@ public class EconomySystemAlex {
 					}
 					break;
 				case "take":
-					if (sender.hasPermission(PermissionsHandler.getPermission("eco_take"))) {
+					if (sender.hasPermission(PermissionManager.getPermission("eco_take"))) {
 						if (args.length < 2) {
 							sender.sendMessage("[Eco] Bitte gib einen Spielernamen sowie Betrag an!");
 						} else if (args.length == 2) {
@@ -185,7 +185,7 @@ public class EconomySystemAlex {
 					}
 					break;
 				case "pay":
-					if (sender.hasPermission(PermissionsHandler.getPermission("eco_pay"))) {
+					if (sender.hasPermission(PermissionManager.getPermission("eco_pay"))) {
 						if (args.length < 2) {
 							sender.sendMessage("[Eco] Zu wenige Argumente!");
 						}
@@ -227,7 +227,7 @@ public class EconomySystemAlex {
 				default:
 					switch (args.length) {
 					case 1:
-						if (sender.hasPermission(PermissionsHandler.getPermission("eco_lookup"))) {
+						if (sender.hasPermission(PermissionManager.getPermission("eco_lookup"))) {
 							target = Utils.getPlayerUUIDByName(args[0]);
 							if (target == null) {
 								sender.sendMessage(language.getString("general.playerunknown"));

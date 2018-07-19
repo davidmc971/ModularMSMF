@@ -9,7 +9,7 @@ import org.bukkit.plugin.Plugin;
 
 import util.DataManager;
 
-public class Mute {
+public class CommandMute {
 
 	public static void cmd(CommandSender sender, Command cmd, String commandLabel, String[] args, Plugin plugin) {
 
