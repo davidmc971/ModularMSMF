@@ -3,9 +3,9 @@ language:
   name: English
 general:
     missing_playername: You have to specify a player.
-    playerunknown: This player has never been online here.
+    playerunknown: This player has never been online before.
     playernotfound: This player was not found.
-    nopermission: You don't have the permission to do this.
+    nopermission: You don't have permissions to do this.
     toomanyarguments: Too many arguments.
     invalidcustomlanguage: Invalid custom language ('_language') for player _player. Standard language will be used instead.
     invalidarguments: Invalid arguments.
@@ -32,12 +32,12 @@ commands:
     availablelanguages: 'Available languages: _var'
     setsuccessplayer: Your language has been saved successfully.
     notvalid: This is not a valid language.
-    setsuccessconsole: The standard language was change successfully.
+    setsuccessconsole: The standard language was changed successfully.
   money:
     missingamountandplayer: Please specify an amount and a player!
     missingamount: Please specify an amount!
     amountonly: This should be a number!
-    invalidpayment: You cannot specify anegative amount!
+    invalidpayment: You cannot specify a negative amount!
     nomoneyleft: You would run into debt!
   feed:
     feeded: You have satisfied yourself!
@@ -49,3 +49,9 @@ commands:
   spawn:
     nospawnset: No spawn has been set.
     spawnset: Spawn has been set!
+  report:
+    repplayeradmin: Cannot report an Admin!
+    repplayersuccess: _player has been reported successfully!
+    repnodesc: Please write down the description!
+    rep: Thanks for your report! We will take action about this. 
+    repmissingcmd: Please write down the right report-level!
