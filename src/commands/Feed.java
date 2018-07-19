@@ -25,15 +25,19 @@ public class Feed {
 		String noPermPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.NOPERM);
 		
 		UUID target = null;
-
+		
 		switch (args.length) {
 		case 0:
+			if((sender instanceof Player)) {
 			if (sender.hasPermission(PermissionsHandler.getPermission("feedself"))) {
 				sender.sendMessage(infoPrefix+language.getString("commands.feed.feeded"));
 				((Player) sender).setSaturation(20);
 				return;
 			} else {
 				sender.sendMessage(noPermPrefix+language.getString("general.nopermission"));
+				} 
+			} else {
+			sender.sendMessage(noPermPrefix+"You cannot feed the console");
 			}
 			break;
 		default:

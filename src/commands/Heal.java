@@ -26,14 +26,17 @@ public class Heal {
 		String noPermPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.NOPERM);
 
 		UUID target = null;
-
 		switch (args.length) {
 		case 0:
+			if((sender instanceof Player)) {
 			if (sender.hasPermission(permself)) {
 				((Player) sender).setHealth(20);
 				sender.sendMessage(infoPrefix+language.getString("commands.heal.healself"));
 			} else {
 				sender.sendMessage(noPermPrefix+"You don't have Permission to use this!");
+			}
+			}else {
+				sender.sendMessage("You cannot heal your own console!");
 			}
 			break;
 		default:

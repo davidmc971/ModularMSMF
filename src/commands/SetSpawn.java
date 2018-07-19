@@ -12,8 +12,9 @@ import org.bukkit.entity.Player;
 public class SetSpawn {
 
 	public static void cmd(CommandSender sender, Command cmd, String commandLabel, String[] args) {
+		
 		if(!(sender instanceof Player)){
-			System.out.println("general.nospawnconsole");
+			sender.sendMessage("general.nospawnconsole");
 		}
 		Player p = (Player)sender;
 		

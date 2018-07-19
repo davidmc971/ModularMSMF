@@ -34,7 +34,7 @@ public class Kill {
 					player.setHealth(0);
 				}
 			} else {
-				sender.sendMessage("Konsole darf kein Suizid durchführen");
+				sender.sendMessage("Konsole darf kein Suizid durchfuehren");
 			}
 			break;
 		case "all":
@@ -60,10 +60,10 @@ public class Kill {
 					if (!temp)
 						sender.sendMessage("Dieser Spieler ist nicht online!");
 				} else {
-					sender.sendMessage("Die Konsole darf keinen Spieler töten!");
+					sender.sendMessage("Die Konsole darf keinen Spieler toeten!");
 				}
 			} else {
-				sender.sendMessage("Du hast keine Rechte, jemanden zu töten!");
+				sender.sendMessage("Du hast keine Rechte, jemanden zu toeten!");
 			}
 		}
 	}
