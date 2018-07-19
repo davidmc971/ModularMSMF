@@ -12,10 +12,14 @@ import main.ModularMSMF;
 import util.ChatUtils;
 import util.Utils;
 
-public class CommandHeal {
+public class CommandHeal extends AbstractCommand {
 
-	public static void cmd(CommandSender sender, Command cmd, String commandLabel, String[] args,
-			ModularMSMF plugin) {
+	public CommandHeal(ModularMSMF plugin) {
+		super(plugin);
+	}
+
+	@Override
+	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
 		YamlConfiguration language = Utils.configureCommandLanguage(sender, plugin);
 
@@ -44,18 +48,24 @@ public class CommandHeal {
 			if (sender.hasPermission(permothers)) {
 				if (target == null) {
 					sender.sendMessage(errorPrefix+language.getString("general.playernotfound"));
-					return;
+					return true;
 				} else
 					for (Player p : Bukkit.getOnlinePlayers()) {
 						if (p.getUniqueId().toString().equalsIgnoreCase(target.toString())) {
 							Bukkit.getPlayer(target).setHealth(20);
 							sender.sendMessage(infoPrefix+language.getString("commands.heal.healother").replaceAll("_player", p.getName()));
 							p.sendMessage(infoPrefix+"You have been healed by "+sender.getName());
-							return;
+							return true;
 						}
 					}
 				break;
 			}
 		}
+		return true;
+	}
+
+	@Override
+	public String getCommandLabel() {
+		return "heal";
 	}
 }

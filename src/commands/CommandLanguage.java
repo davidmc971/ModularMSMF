@@ -10,9 +10,14 @@ import util.DataManager;
 import util.LanguageManager;
 import util.Utils;
 
-public class CommandLanguage {
+public class CommandLanguage extends AbstractCommand {
 
-	public static void cmd(CommandSender sender, Command cmd, String commandLabel, String[] args, ModularMSMF plugin) {
+	public CommandLanguage(ModularMSMF plugin) {
+		super(plugin);
+	}
+
+	@Override
+	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		LanguageManager languageManager = plugin.getLanguageManager();
 		YamlConfiguration language = Utils.configureCommandLanguage(sender, plugin);
 		
@@ -67,6 +72,12 @@ public class CommandLanguage {
 				sender.sendMessage(language.getString("general.invalidarguments"));
 				break;
 		}
+		return true;
+	}
+
+	@Override
+	public String getCommandLabel() {
+		return "language";
 	}
 
 }

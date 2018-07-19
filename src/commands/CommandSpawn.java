@@ -10,9 +10,16 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
-public class CommandSpawn {
+import main.ModularMSMF;
 
-	public static void cmd(CommandSender sender, Command cmd, String commandLabel, String[] args) {
+public class CommandSpawn extends AbstractCommand {
+
+	public CommandSpawn(ModularMSMF plugin) {
+		super(plugin);
+	}
+	
+	@Override
+	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		
 		if(!(sender instanceof Player)){
 			System.out.println("general.nospawnconsole");
@@ -50,5 +57,11 @@ public class CommandSpawn {
 		p.teleport(loc);
 		p.sendMessage("Du wurdest gespawnt!");
 		
+		return true;
+	}
+
+	@Override
+	public String getCommandLabel() {
+		return "spawn";
 	}
 }

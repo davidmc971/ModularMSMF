@@ -8,12 +8,16 @@ import main.ModularMSMF;
 import net.md_5.bungee.api.ChatColor;
 import util.ChatUtils;
 
-public class CommandModularMSMF {
+public class CommandModularMSMF extends AbstractCommand {
 
-	public static void cmd(CommandSender sender, Command cmd, String commandLabel, String[] args,
-			ModularMSMF plugin) {
+	public CommandModularMSMF(ModularMSMF plugin) {
+		super(plugin);
+	}
 
-		String toLowerCase = commandLabel.toLowerCase();
+	@Override
+	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+
+		String toLowerCase = label.toLowerCase();
 		String infoPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.INFO);
 		String errorPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.ERROR);
 		String noPermPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.NOPERM);
@@ -50,5 +54,11 @@ public class CommandModularMSMF {
 				sender.sendMessage(noPermPrefix+"You don't have Permission to use this!");
 			}
 		}
+		return true;
+	}
+
+	@Override
+	public String getCommandLabel() {
+		return "mmsmf";
 	}
 }

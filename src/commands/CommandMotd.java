@@ -10,20 +10,16 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import main.ModularMSMF;
 
-public class CommandMotd {
- // @TODO HALLOOOOOOOONFC#+poarwenb+oprenb
+public class CommandMotd extends AbstractCommand {
 	
-	@SuppressWarnings("unused")
-	private ModularMSMF plugin;
+	// @TODO HALLOOOOOOOONFC#+poarwenb+oprenb
 	
-	@SuppressWarnings("unused")
-	private File dataStore = new File("plugins/ModularMSMF/motd.txt");
+	//private File dataStore = new File("plugins/ModularMSMF/motd.txt");
 	
-	@SuppressWarnings("unused")
-	private FileConfiguration cfg;
+	//private FileConfiguration cfg;
 
-	public CommandMotd(ModularMSMF modularMSMF) {
-		this.plugin = modularMSMF;
+	public CommandMotd(ModularMSMF plugin) {
+		super(plugin);
 	}
 
 	@SuppressWarnings("unused")
@@ -43,10 +39,11 @@ public class CommandMotd {
 		}
 	}
 
-	public static void cmd(CommandSender sender, Command cmd, String commandLabel, String[] args) {
+	@Override
+	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
 		if (!(sender.hasPermission("modularmsmf.motd"))) {
-			String toLowerCase = commandLabel.toLowerCase();
+			String toLowerCase = label.toLowerCase();
 			switch (toLowerCase) {
 			case "motd":
 
@@ -60,7 +57,7 @@ public class CommandMotd {
 				}
 			}
 		}
-
+		return true;
 	}
 
 	public void displayMotdFile() {
@@ -77,5 +74,10 @@ public class CommandMotd {
 
 	public static void getMotdState() {
 
+	}
+
+	@Override
+	public String getCommandLabel() {
+		return "motd";
 	}
 }

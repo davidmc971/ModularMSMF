@@ -9,8 +9,12 @@ import main.ModularMSMF;
 import util.ChatUtils;
 import util.Utils;
 
-public class CommandReport {
+public class CommandReport extends AbstractCommand {
 	
+	public CommandReport(ModularMSMF plugin) {
+		super(plugin);
+	}
+
 	/**
 	 * The "/report" command.
 	 * There are different categories of reports:
@@ -36,8 +40,8 @@ public class CommandReport {
 	 * @param plugin the parent plugin
 	 */
 
-	public static void cmd(CommandSender sender, Command cmd, String commandLabel, String[] args,
-			ModularMSMF plugin) {
+	@Override
+	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
 		String infoPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.INFO);
 		String errorPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.ERROR);
@@ -97,6 +101,7 @@ public class CommandReport {
 				break;
 			}
 		}
+		return true;
 	}
 
 	private static void reportPlayer(CommandSender sender, String[] args, ModularMSMF plugin, YamlConfiguration language) {
@@ -110,6 +115,11 @@ public class CommandReport {
 
 	private static void reportOther(CommandSender sender, String[] args, ModularMSMF plugin, YamlConfiguration language) {
 		//TODO: incomplete
+	}
+
+	@Override
+	public String getCommandLabel() {
+		return "report";
 	}
 }
 

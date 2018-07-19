@@ -7,11 +7,17 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
+import main.ModularMSMF;
 import util.DataManager;
 
-public class CommandMute {
+public class CommandMute extends AbstractCommand {
 
-	public static void cmd(CommandSender sender, Command cmd, String commandLabel, String[] args, Plugin plugin) {
+	public CommandMute(ModularMSMF plugin) {
+		super(plugin);
+	}
+
+	@Override
+	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
 		switch ("") {
 		case "temp":
@@ -22,6 +28,7 @@ public class CommandMute {
 		default:
 		}
 
+		return true;
 	}
 
 	public static void mute(Player player) { // TODO UUID Support
@@ -52,6 +59,11 @@ public class CommandMute {
 	public static void unmute(Player player) { // TODO UUID Support
 		YamlConfiguration playercfg = DataManager.getPlayerCfg(player.getUniqueId());
 		playercfg.set("muted", false);
+	}
+
+	@Override
+	public String getCommandLabel() {
+		return "mute";
 	}
 
 }

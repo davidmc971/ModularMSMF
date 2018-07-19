@@ -5,15 +5,20 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import main.ModularMSMF;
 import net.md_5.bungee.api.ChatColor;
 
-public class CommandTeleport {
+public class CommandTeleport extends AbstractCommand {
 	
-	@SuppressWarnings("unused")
-	public static void cmd(CommandSender sender, Command cmd, String commandLabel, String[] args) {
+	public CommandTeleport(ModularMSMF plugin) {
+		super(plugin);
+	}
 
-		Player player = null;
+	@Override
+	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+		//Player player = null;
 		if (!(sender instanceof Player)) {
+			//TODO: console should be able to tp players to other players or waypoints
 			sender.sendMessage(ChatColor.RED + "[ModularMSMFPlugin] No use for console. Player only.");
 		}
 
@@ -34,5 +39,11 @@ public class CommandTeleport {
 				sender.sendMessage("[ModularMSMF] Zu viele Argumente!");
 			}
 		}
+		return true;
+	}
+
+	@Override
+	public String getCommandLabel() {
+		return "teleport";
 	}
 }

@@ -11,9 +11,14 @@ import main.ModularMSMF;
 import util.PermissionManager;
 import util.Utils;
 
-public class CommandKick {
+public class CommandKick extends AbstractCommand {
 
-	public static void cmd(CommandSender sender, Command cmd, String commandLabel, String[] args, ModularMSMF plugin) {
+	public CommandKick(ModularMSMF plugin) {
+		super(plugin);
+	}
+
+	@Override
+	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
 		YamlConfiguration language = Utils.configureCommandLanguage(sender, plugin);
 
@@ -50,5 +55,11 @@ public class CommandKick {
 				sender.sendMessage(language.getString("general.nopermissions"));
 			}
 		}
+		return true;
+	}
+
+	@Override
+	public String getCommandLabel() {
+		return "kick";
 	}
 }

@@ -10,14 +10,19 @@ import main.ModularMSMF;
 import util.DataManager;
 import util.Utils;
 
-public class CommandUnban {
+public class CommandUnban extends AbstractCommand {
 
-	public static void cmd(CommandSender sender, Command cmd, String commandLabel, String[] args, ModularMSMF plugin) {
+	public CommandUnban(ModularMSMF plugin) {
+		super(plugin);
+	}
+
+	@Override
+	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		YamlConfiguration language = Utils.configureCommandLanguage(sender, plugin);
 
 		if (!sender.hasPermission("modularmsmf.unban")) {
 			sender.sendMessage(language.getString("general.nopermission"));
-			return;
+			return true;
 		}
 		
 		switch(args.length){
@@ -35,7 +40,7 @@ public class CommandUnban {
 					} else {
 						sender.sendMessage(language.getString("commands.unban.notbanned"));
 					}
-					return;
+					return true;
 				}
 			}
 			sender.sendMessage(language.getString("general.playernotfound"));
@@ -52,7 +57,7 @@ public class CommandUnban {
 						} else {
 							sender.sendMessage(language.getString("commands.unban.notbanned"));
 						}
-						return;
+						return true;
 					}
 				}
 				sender.sendMessage(language.getString("commands.unban.playernotfounduuid"));
@@ -64,5 +69,11 @@ public class CommandUnban {
 			sender.sendMessage(language.getString("general.toomanyarguments"));
 			break;
 		}
+		return true;
+	}
+
+	@Override
+	public String getCommandLabel() {
+		return "unban";
 	}
 }

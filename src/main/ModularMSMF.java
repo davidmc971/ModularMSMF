@@ -9,15 +9,11 @@ import java.util.Properties;
 import java.util.Set;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.Monster;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.google.common.reflect.ClassPath;
@@ -38,7 +34,7 @@ public class ModularMSMF extends JavaPlugin implements CommandExecutor {
 	private DataManager dataManager;
 	private LanguageManager languageManager;
 	private CommandMotd motd;
-	
+
 	public final boolean debug = true;
 	private String debugTimestamp = "";
 
@@ -47,6 +43,10 @@ public class ModularMSMF extends JavaPlugin implements CommandExecutor {
 	}
 
 	private Events mainEvents;
+
+	public Events getMainEvents() {
+		return mainEvents;
+	}
 
 	public String pluginver = this.getDescription().getVersion();
 	public String nameplugin = this.getDescription().getName();
@@ -63,20 +63,20 @@ public class ModularMSMF extends JavaPlugin implements CommandExecutor {
 
 		motd = new CommandMotd(this);
 		motd.load();
-		
+
 		getLogger().info("Loading events...");
 		mainEvents = new Events(this);
 		this.getServer().getPluginManager().registerEvents(mainEvents, this);
 		//this.getServer().getPluginManager().registerEvents(ecoSys, this);
 
 		getLogger().info("Loading commands...");
-		//get list of commands instantiated from commands package
-		//TODO: compare to list of commands from plugin.yml
-		//TODO: inform about missing commands
+		//DONE: get list of commands instantiated from commands package
+		//DONE: compare to list of commands from plugin.yml
+		//DONE: inform about missing commands
 		ArrayList<AbstractCommand> commandList = new ArrayList<AbstractCommand>();
 		ClassLoader classLoader = this.getClassLoader();
 		String packageName = "commands";
-		
+
 		ClassPath path = null;
 		try {
 			path = ClassPath.from(classLoader);
@@ -89,14 +89,14 @@ public class ModularMSMF extends JavaPlugin implements CommandExecutor {
 					try {
 						Class<?> clazz = Class.forName(info.getName(), true, classLoader);
 						commandList.add((AbstractCommand)clazz.getConstructor(ModularMSMF.class).newInstance(this));
-						
+
 					} catch (Exception e) {
 						getLogger().severe(e.toString());
 					}
 				}
 			}
 		}
-		
+
 		{
 			String temp = "";
 			for (AbstractCommand cmd : commandList) {
@@ -104,23 +104,32 @@ public class ModularMSMF extends JavaPlugin implements CommandExecutor {
 			}
 			getLogger().info("Commands [" + temp.substring(0, temp.length() - 2) + "] loaded!");
 		}
-		
+
 		YamlConfiguration pluginyaml = YamlConfiguration
 				.loadConfiguration(new InputStreamReader(this.getResource("plugin.yml")));
 		ConfigurationSection cs = pluginyaml.getConfigurationSection("commands");
 		Set<String> keyset = cs.getKeys(true);
+		keyset.removeIf(s -> s.contains("."));
+		keyset.forEach(s -> s.toLowerCase());
 		
-		String temp = "";
-		for (String s : keyset) {
-			if (!s.contains(".")) {
-				temp += s + " ";
-			}
-		}
+		ArrayList<String> loadedCommandLabels = new ArrayList<String>();
+		commandList.forEach(cmd -> loadedCommandLabels.add(cmd.getCommandLabel().toLowerCase()));
 		
-		commandList.forEach(cmd -> this.getCommand(cmd.getCommandLabel()).setExecutor(cmd));
+		ArrayList<String> commandsNotCoveredByYaml = new ArrayList<String>(loadedCommandLabels);
+		commandsNotCoveredByYaml.removeAll(keyset);
+		commandsNotCoveredByYaml.forEach(s -> getLogger().severe("The command " + s + " has been loaded but is not in the plugin.yml, it will be unloaded!"));
+		//TODO: modify own plugin.yml to include commands
+		
+		ArrayList<String> commandsNotCoveredByCommandList = new ArrayList<String>(keyset);
+		commandsNotCoveredByCommandList.removeAll(loadedCommandLabels);
+		commandsNotCoveredByCommandList.forEach(s -> getLogger().severe("The command " + s + " from the plugin.yml is not loaded! A notification will be displayed when it is executed."));
 
+		commandList.removeIf(cmd -> commandsNotCoveredByYaml.contains(cmd.getCommandLabel().toLowerCase()));
+		commandList.forEach(cmd -> this.getCommand(cmd.getCommandLabel().toLowerCase()).setExecutor(cmd));
+		
+		commandsNotCoveredByCommandList.forEach(s -> this.getCommand(s).setExecutor(this));
+		
 		if (debug) {
-			this.getLogger().info(temp);
 			InputStream in = this.getResource("build_timestamp.properties");
 			Properties buildprop = new Properties();
 			try {
@@ -131,7 +140,7 @@ public class ModularMSMF extends JavaPlugin implements CommandExecutor {
 				Bukkit.getLogger().warning("Loading buildprop failed.");
 			}
 		}
-		
+
 		getLogger().info("We are finished with enabling ModularMSMF, hooray!");
 	}
 
@@ -142,28 +151,15 @@ public class ModularMSMF extends JavaPlugin implements CommandExecutor {
 
 	@Override
 	public void onDisable() {
-		// ecoSys.unload();
 		dataManager.saveAllUserdata();
 		this.getLogger().info("ModularMSMF has been disabled.");
 	}
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
-		switch (commandLabel.toLowerCase()) {
-		case "slaughter":
-			if (sender instanceof Player) {
-				Location playerloc = ((Player) sender).getLocation();
-				for (Entity e : ((Player) sender).getWorld().getNearbyEntities(playerloc, 500, 500, 500)) {
-					if (!(e instanceof Player) && (e instanceof Monster))
-						e.remove();
-				}
-			}
-			return true;
-		default:
-			sender.sendMessage(ChatUtils.getFormattedPrefix(ChatFormat.ERROR) + "I guess that command is not correctly implemented yet :o");
-			sender.sendMessage(ChatUtils.getFormattedPrefix(ChatFormat.INFO) + "You can report this using /report bug <description> if you wish!");
-			return true;
-		}
+		sender.sendMessage(ChatUtils.getFormattedPrefix(ChatFormat.ERROR) + "I guess that command is not correctly implemented yet :o");
+		sender.sendMessage(ChatUtils.getFormattedPrefix(ChatFormat.INFO) + "You can report this using /report bug <description> if you wish!");
+		return true;
 	}
 
 	public LanguageManager getLanguageManager() {

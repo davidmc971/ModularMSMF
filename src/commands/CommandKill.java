@@ -5,12 +5,17 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import listeners.Events;
+import main.ModularMSMF;
 import util.KillType;
 
-public class CommandKill {
+public class CommandKill extends AbstractCommand {
 
-	public static void cmd(CommandSender sender, Command cmd, String commandLabel, String[] args, Events mainEvents) {
+	public CommandKill(ModularMSMF plugin) {
+		super(plugin);
+	}
+
+	@Override
+	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
 		/**
 		 * @author Lightkeks "/kill me" killt den sender "/kill <target>" killt
@@ -23,14 +28,14 @@ public class CommandKill {
 
 		if (args.length == 0) {
 			sender.sendMessage("Bitte gib Argumente an!");
-			return;
+			return true;
 		}
 		switch (args[0]) {
 		case "me":
 			if (sender instanceof Player) {
 				if (sender.hasPermission("modularmsmf.kill.me")) {
 					Player player = ((Player) sender);
-					mainEvents.registerKilledPlayer(player, KillType.SUICIDE);
+					plugin.getMainEvents().registerKilledPlayer(player, KillType.SUICIDE);
 					player.setHealth(0);
 				}
 			} else {
@@ -40,7 +45,7 @@ public class CommandKill {
 		case "all":
 			if (sender.hasPermission("modularmsmf.kill.all")) {
 				for (Player player : Bukkit.getOnlinePlayers()) {
-					mainEvents.registerKilledPlayer(player, KillType.HOMOCIDE);
+					plugin.getMainEvents().registerKilledPlayer(player, KillType.HOMOCIDE);
 					player.setHealth(0);
 				}
 			}
@@ -51,7 +56,7 @@ public class CommandKill {
 					boolean temp = false;
 					for (Player player : Bukkit.getOnlinePlayers()) {
 						if (args[0].toLowerCase().equals(player.getName().toLowerCase())) {
-							mainEvents.registerKilledPlayer(player, KillType.KILL);
+							plugin.getMainEvents().registerKilledPlayer(player, KillType.KILL);
 							player.setHealth(0);
 							temp = true;
 							break;
@@ -66,5 +71,11 @@ public class CommandKill {
 				sender.sendMessage("Du hast keine Rechte, jemanden zu toeten!");
 			}
 		}
+		return true;
+	}
+
+	@Override
+	public String getCommandLabel() {
+		return "kill";
 	}
 }

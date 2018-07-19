@@ -9,9 +9,16 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
-public class CommandSetSpawn {
+import main.ModularMSMF;
 
-	public static void cmd(CommandSender sender, Command cmd, String commandLabel, String[] args) {
+public class CommandSetSpawn extends AbstractCommand {
+
+	public CommandSetSpawn(ModularMSMF plugin) {
+		super(plugin);
+	}
+
+	@Override
+	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		
 		if(!(sender instanceof Player)){
 			sender.sendMessage("general.nospawnconsole");
@@ -59,7 +66,12 @@ public class CommandSetSpawn {
 		}
 		
 		p.sendMessage("Spawn wurde gesetzt");
-		
+		return true;
+	}
+
+	@Override
+	public String getCommandLabel() {
+		return "setspawn";
 	}
 	
 }

@@ -4,7 +4,7 @@ version: Alpha 0.1.0
 authors: [Lightkeks, ernikillerxd64]
 
 commands:
-  report:
+  report2:
     description: Eine Meldung verfassen.
     usage: /<command> <args>
   mmsmf:
@@ -18,11 +18,8 @@ commands:
   heal:
     description: Heilt Spieler.
     usage: /<command> <target>
-  eco:
-    description: Geldstand anzeigen oder anderes. ALEX
-    usage: /<command> <args>
   money:
-    description: Geldstand anzeigen oder anderes. DAVID
+    description: Geldstand anzeigen oder anderes.
     usage: /<command> <args>
   feed:
     description: Saettigt den Spieler.
@@ -55,14 +52,8 @@ commands:
     description: Choose your language.
     usage: /<command> <args>
   home:
-    description: Teleports you home. Optionally specify a home name.
+    description: Teleports you home. Optionally specify a home name. Also sets homes.
     usage: /<command> <args>
-  sethome:
-    description: Sets a home.
-    usage: /<command> <args>
-  test:
-    description: Testing purposes only
-    usage: /<command>
   setspawn:
     description: Set the spawn
     usage: /<command>
