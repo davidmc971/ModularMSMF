@@ -23,3 +23,10 @@ motd:
     
     
 FETTES SCHWEIN
+
+REPORT-COMMAND:
+
+categories: player, bug, other
+/report player <playername> <reason>
+/report bug <description>
+/report other <description>
