@@ -20,11 +20,12 @@ import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.google.common.reflect.ClassPath;
+
 import commands.*;
-import eco.EconomySystemAlex;
-import eco.EconomySystemDavid;
 import listeners.Events;
 import util.ChatUtils;
+import util.ChatUtils.ChatFormat;
 import util.DataManager;
 import util.LanguageManager;
 
@@ -34,13 +35,9 @@ import util.LanguageManager;
  */
 
 public class ModularMSMF extends JavaPlugin implements CommandExecutor {
-
-	private EconomySystemDavid ecoSys;
-	private EconomySystemAlex ecoPlug;
 	private DataManager dataManager;
 	private LanguageManager languageManager;
 	private CommandMotd motd;
-	//private CommandLoader commandLoader;
 	
 	public final boolean debug = true;
 	private String debugTimestamp = "";
@@ -55,6 +52,7 @@ public class ModularMSMF extends JavaPlugin implements CommandExecutor {
 	public String nameplugin = this.getDescription().getName();
 	public List<String> authors = this.getDescription().getAuthors();
 
+	//here our plugin is loaded and will be enabled
 	@Override
 	public void onEnable() {
 		dataManager = new DataManager(this.getLogger());
@@ -63,34 +61,63 @@ public class ModularMSMF extends JavaPlugin implements CommandExecutor {
 
 		languageManager = new LanguageManager(this);
 
-		ecoSys = new EconomySystemDavid(this);
-		//ecoSys.load();
-		ecoPlug = new EconomySystemAlex(this);
-
 		motd = new CommandMotd(this);
 		motd.load();
 		
-		getLogger().info(ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.INFO) + "Loading events...");
+		getLogger().info("Loading events...");
 		mainEvents = new Events(this);
 		this.getServer().getPluginManager().registerEvents(mainEvents, this);
 		//this.getServer().getPluginManager().registerEvents(ecoSys, this);
 
-		getLogger().info(ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.INFO) + "Loading commands...");
+		getLogger().info("Loading commands...");
+		//get list of commands instantiated from commands package
+		//TODO: compare to list of commands from plugin.yml
+		//TODO: inform about missing commands
+		ArrayList<AbstractCommand> commandList = new ArrayList<AbstractCommand>();
+		ClassLoader classLoader = this.getClassLoader();
+		String packageName = "commands";
 		
-		//commandLoader = new CommandLoader(this);
-		//ArrayList<AbstractCommand> commands = commandLoader.loadCommands();
+		ClassPath path = null;
+		try {
+			path = ClassPath.from(classLoader);
+		} catch (IOException e1) {
+			getLogger().severe(e1.toString());
+		}
+		if(path != null) {
+			for (ClassPath.ClassInfo info : path.getTopLevelClassesRecursive(packageName)) {
+				if(!info.getName().equals("commands.AbstractCommand")) {
+					try {
+						Class<?> clazz = Class.forName(info.getName(), true, classLoader);
+						commandList.add((AbstractCommand)clazz.getConstructor(ModularMSMF.class).newInstance(this));
+						
+					} catch (Exception e) {
+						getLogger().severe(e.toString());
+					}
+				}
+			}
+		}
+		
+		{
+			String temp = "";
+			for (AbstractCommand cmd : commandList) {
+				temp += cmd.getCommandLabel() + ", ";
+			}
+			getLogger().info("Commands [" + temp.substring(0, temp.length() - 2) + "] loaded!");
+		}
 		
 		YamlConfiguration pluginyaml = YamlConfiguration
 				.loadConfiguration(new InputStreamReader(this.getResource("plugin.yml")));
 		ConfigurationSection cs = pluginyaml.getConfigurationSection("commands");
 		Set<String> keyset = cs.getKeys(true);
+		
 		String temp = "";
 		for (String s : keyset) {
 			if (!s.contains(".")) {
 				temp += s + " ";
-				this.getCommand(s).setExecutor(this);
 			}
 		}
+		
+		commandList.forEach(cmd -> this.getCommand(cmd.getCommandLabel()).setExecutor(cmd));
 
 		if (debug) {
 			this.getLogger().info(temp);
@@ -105,13 +132,12 @@ public class ModularMSMF extends JavaPlugin implements CommandExecutor {
 			}
 		}
 		
-		getLogger().info(ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.INFO) + "We are finished with enabling ModularMSMF, hooray!");
+		getLogger().info("We are finished with enabling ModularMSMF, hooray!");
 	}
 
 	@Override
 	public void onLoad() {
-		this.getLogger().info("ModularMSMF is starting up.");
-		this.getLogger().info("ModularMSMF is loading Events.");
+		this.getLogger().info("ModularMSMF is loading up.");
 	}
 
 	@Override
@@ -119,68 +145,11 @@ public class ModularMSMF extends JavaPlugin implements CommandExecutor {
 		// ecoSys.unload();
 		dataManager.saveAllUserdata();
 		this.getLogger().info("ModularMSMF has been disabled.");
-		this.getLogger().info("ModularMSMF disabling Events.");
 	}
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 		switch (commandLabel.toLowerCase()) {
-		case "report":
-			CommandReport.cmd(sender, cmd, commandLabel, args, this);
-			return true;
-		case "money":
-			return ecoSys.cmd(sender, cmd, commandLabel, args); // economy commands david /money
-		case "setspawn":
-			CommandSetSpawn.cmd(sender, cmd, commandLabel, args);
-			return true;
-		case "spawn":
-			CommandSpawn.cmd(sender, cmd, commandLabel, args);
-			return true;
-		case "eco":
-			if (ecoPlug.cmd(sender, cmd, commandLabel, args, this))
-				return true; // economy commands alex /eco
-			return true;
-		case "kill":
-			CommandKill.cmd(sender, cmd, commandLabel, args, mainEvents);
-			return true;
-		case "mmsmf":
-			CommandModularMSMF.cmd(sender, cmd, commandLabel, args, this);
-			return true;
-		case "teleport":
-			CommandTeleport.cmd(sender, cmd, commandLabel, args);
-			return true;
-		case "heal":
-			CommandHeal.cmd(sender, cmd, commandLabel, args, this);
-			return true;
-		case "feed":
-			CommandFeed.cmd(sender, cmd, commandLabel, args, this);
-			return true;
-		case "kick":
-			CommandKick.cmd(sender, cmd, commandLabel, args, this);
-			return true;
-		case "ban":
-			//CommandBan.onCommand(sender, cmd, commandLabel, args, this);
-			return true;
-		case "unban":
-			CommandUnban.cmd(sender, cmd, commandLabel, args, this);
-			return true;
-		case "home":
-			return true;
-		case "language":
-			CommandLanguage.cmd(sender, cmd, commandLabel, args, this);
-			return true;
-		case "sethome":
-			CommandHome.cmd(sender, cmd, commandLabel, args);
-			return true;
-		case "mute":
-			CommandMute.cmd(sender, cmd, commandLabel, args, this);
-			return true;
-		case "serverinfo":
-			CommandServerInfo.cmd(sender, cmd, commandLabel, args);
-			return true;
-		case "motd":
-			CommandMotd.cmd(sender, cmd, commandLabel, args);
-			return true;
 		case "slaughter":
 			if (sender instanceof Player) {
 				Location playerloc = ((Player) sender).getLocation();
@@ -190,8 +159,11 @@ public class ModularMSMF extends JavaPlugin implements CommandExecutor {
 				}
 			}
 			return true;
+		default:
+			sender.sendMessage(ChatUtils.getFormattedPrefix(ChatFormat.ERROR) + "I guess that command is not correctly implemented yet :o");
+			sender.sendMessage(ChatUtils.getFormattedPrefix(ChatFormat.INFO) + "You can report this using /report bug <description> if you wish!");
+			return true;
 		}
-		return false;
 	}
 
 	public LanguageManager getLanguageManager() {
