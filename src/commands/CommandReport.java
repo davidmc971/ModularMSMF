@@ -43,6 +43,7 @@ public class CommandReport {
 				}
 				// restliche Funktionen dazu ^^ wie report-lvl (bug = 1, cheater = 2, usw...) und beschreibung zum abrufen einer textdatei, auflisten der lvls als gruppe oder vollstaendige liste? david bitte <3
 			}
+			if(args.length == 2) {
 			switch (args[1].toLowerCase()) {
 				case "player":
 					if (args.length == 0){
@@ -63,6 +64,7 @@ public class CommandReport {
 
 				default:
 					sender.sendMessage(errorPrefix+"This command '" + ChatColor.YELLOW + args[0] + ChatColor.RED + "' doesn't exist!");
+				}
 			}
 		}
 	}
