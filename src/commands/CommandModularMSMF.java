@@ -41,7 +41,7 @@ public class CommandModularMSMF extends AbstractCommand {
 						break;
 					case "discord":
 						if (args.length == 1) {
-							sender.sendMessage(infoPrefix+"Discord-URL: " + ChatColor.BLUE + "https://discord.gg/SxDQcJ6");
+							sender.sendMessage(infoPrefix+"Discord-URL: " + ChatColor.BLUE + "https://discord.gg/Y2s4tkA");
 						}
 						break;
 					}

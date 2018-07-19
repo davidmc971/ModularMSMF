@@ -1,6 +1,7 @@
 <?xml version="1.0" ?>
 <project name="AutoExport" default="CreateJar" basedir=".">
 	<property name="jar_out.dir" location="MMSMF_Build"/>
+	<property name="testserver.dir" location="MMSMF_Testserver\plugins"/>
 	<property name="src.dir" location="src"/>
 	<property name="bin.dir" location="bin"/>
 	
@@ -9,8 +10,14 @@
 		<entry key="timestamp" type="date" value="now" operation="=" pattern="dd-MM-yyyy_HH:mm:ss"/>
 	</propertyfile>
 
-	<echo message="Packing jar..."/>
 	<target name="CreateJar" description="Create Jar file">
+		<echo message="Packing jar..."/>
 		<jar jarfile="${jar_out.dir}/ModularMSMF.jar" basedir="${bin.dir}" includes="*.yml, **/*.*"/>
 	</target>
+	
+	<target name="CreateJarOnTestserver" description="Create Jar file inside Testserver">
+			<echo message="Packing jar..."/>
+			<jar jarfile="${testserver.dir}/ModularMSMF.jar" basedir="${bin.dir}" includes="*.yml, **/*.*"/>
+	</target>
+	
 </project>

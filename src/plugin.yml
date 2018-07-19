@@ -1,7 +1,7 @@
 name: ModularMSMF
 main: main.ModularMSMF
 version: Alpha 0.1.0
-authors: [Lightkeks, ernikillerxd64]
+authors: [Lightkeks, davidmc971]
 
 commands:
   report:

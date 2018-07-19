@@ -2,7 +2,7 @@ package commands;
 
 /**
  * 
- * @authors Lightkeks, ernikillerxd64
+ * @authors Lightkeks, davidmc971
  * 		Bannt Spieler. Alles fertig. :D
  */
 

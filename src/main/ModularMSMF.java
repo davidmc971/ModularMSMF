@@ -27,7 +27,7 @@ import util.LanguageManager;
 
 /**
  * @author Lightkeks
- * @author ernikillerxd64
+ * @author davidmc971
  */
 
 public class ModularMSMF extends JavaPlugin implements CommandExecutor {

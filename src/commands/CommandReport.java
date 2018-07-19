@@ -51,16 +51,16 @@ public class CommandReport extends AbstractCommand {
 		//no arguments, plain /report command
 		{
 			//TODO: send description of command, in player's language
-			sender.sendMessage(infoPrefix+"Report system for reporting players, bugs and other stuff.");
-			sender.sendMessage(infoPrefix+"Level's you are allowed to use:");
+			sender.sendMessage(infoPrefix + "Report system for reporting players, bugs and other stuff.");
+			sender.sendMessage(infoPrefix + "Level's you are allowed to use:");
 			if(sender.hasPermission("modularmmsmf.command.report.player")) {
-				sender.sendMessage(infoPrefix+"/report player <playername> <reason>");
+				sender.sendMessage(infoPrefix + "/report player <playername> <reason>");
 			}
 			if(sender.hasPermission("modularmmsmf.command.report.bug")) {
-				sender.sendMessage(infoPrefix+"/report bug <description of finding>");
+				sender.sendMessage(infoPrefix + "/report bug <description of finding>");
 			}
 			if(sender.hasPermission("modularmmsmf.command.report.other")) {
-				sender.sendMessage(infoPrefix+"/report others <describe your idea>");
+				sender.sendMessage(infoPrefix + "/report other <describe your idea>");
 			}
 		}
 		else
@@ -74,7 +74,7 @@ public class CommandReport extends AbstractCommand {
 				{
 					reportPlayer(sender, args, plugin, language);
 				} else {
-					//TODO: permission error message
+					sender.sendMessage(errorPrefix + "no permission!");
 				}
 				break;
 			case "bug":
@@ -82,7 +82,7 @@ public class CommandReport extends AbstractCommand {
 				{
 					reportBug(sender, args, plugin, language);
 				} else {
-					//TODO: permission error message
+					sender.sendMessage(errorPrefix + "no permission!");
 				}
 				break;
 			case "other":
@@ -90,14 +90,14 @@ public class CommandReport extends AbstractCommand {
 				{
 					reportOther(sender, args, plugin, language);
 				} else {
-					//TODO: permission error message
+					sender.sendMessage(errorPrefix + "no permission!");
 				}
 				break;
 			default:
 				//non valid category
-				//TODO: send error and prompt user to use /report for description
-				sender.sendMessage(errorPrefix+"This command '" + ChatColor.YELLOW + args[0] + ChatColor.RED + "' doesn't exist!");
-				sender.sendMessage(errorPrefix+"Please write down the correct report category and it's arguments!");
+				//DONE: send error and prompt user to use /report for description
+				sender.sendMessage(errorPrefix + "This command '" + ChatColor.YELLOW + args[0] + ChatColor.RED + "' doesn't exist!");
+				sender.sendMessage(errorPrefix + "Use /report for more information.");
 				break;
 			}
 		}
