@@ -3,6 +3,7 @@ package main;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
@@ -23,6 +24,7 @@ import commands.*;
 import eco.EconomySystemAlex;
 import eco.EconomySystemDavid;
 import listeners.Events;
+import util.ChatUtils;
 import util.DataManager;
 import util.LanguageManager;
 
@@ -38,6 +40,8 @@ public class ModularMSMF extends JavaPlugin implements CommandExecutor {
 	private DataManager dataManager;
 	private LanguageManager languageManager;
 	private CommandMotd motd;
+	//private CommandLoader commandLoader;
+	
 	public final boolean debug = true;
 	private String debugTimestamp = "";
 
@@ -65,14 +69,17 @@ public class ModularMSMF extends JavaPlugin implements CommandExecutor {
 
 		motd = new CommandMotd(this);
 		motd.load();
-
-		System.out.println("ModularMSMF has been enabled.");
-		System.out.println("ModularMSMF enabling Events.");
-
+		
+		getLogger().info(ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.INFO) + "Loading events...");
 		mainEvents = new Events(this);
 		this.getServer().getPluginManager().registerEvents(mainEvents, this);
 		//this.getServer().getPluginManager().registerEvents(ecoSys, this);
 
+		getLogger().info(ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.INFO) + "Loading commands...");
+		
+		//commandLoader = new CommandLoader(this);
+		//ArrayList<AbstractCommand> commands = commandLoader.loadCommands();
+		
 		YamlConfiguration pluginyaml = YamlConfiguration
 				.loadConfiguration(new InputStreamReader(this.getResource("plugin.yml")));
 		ConfigurationSection cs = pluginyaml.getConfigurationSection("commands");
@@ -97,6 +104,8 @@ public class ModularMSMF extends JavaPlugin implements CommandExecutor {
 				Bukkit.getLogger().warning("Loading buildprop failed.");
 			}
 		}
+		
+		getLogger().info(ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.INFO) + "We are finished with enabling ModularMSMF, hooray!");
 	}
 
 	@Override
@@ -150,7 +159,7 @@ public class ModularMSMF extends JavaPlugin implements CommandExecutor {
 			CommandKick.cmd(sender, cmd, commandLabel, args, this);
 			return true;
 		case "ban":
-			CommandBan.cmd(sender, cmd, commandLabel, args, this);
+			//CommandBan.onCommand(sender, cmd, commandLabel, args, this);
 			return true;
 		case "unban":
 			CommandUnban.cmd(sender, cmd, commandLabel, args, this);

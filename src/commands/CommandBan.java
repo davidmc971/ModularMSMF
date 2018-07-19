@@ -21,10 +21,17 @@ import util.DataManager;
 import util.PermissionManager;
 import util.Utils;
 
-public class CommandBan {
+public class CommandBan extends AbstractCommand {
+	@Override
+	public String getCommandLabel() {
+		return "ban";
+	}
 
-	public static void cmd(CommandSender sender, Command cmd, String commandLabel, String[] args,
-			ModularMSMF plugin) {
+	public CommandBan(ModularMSMF plugin) {
+		super(plugin);
+	}
+
+	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 		YamlConfiguration language = Utils.configureCommandLanguage(sender, plugin);
 		
 		String infoPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.INFO);
@@ -34,17 +41,17 @@ public class CommandBan {
 		if (sender.hasPermission(PermissionManager.getPermission("banplayer"))) {
 			if (args.length == 0) {
 				sender.sendMessage(errorPrefix+language.getString("general.missing_playername"));
-				return;
+				return true;
 			}
 
 			String reason = language.getString("commands.ban.defaultbanreason");
 			UUID uuid = getPlayerUUIDByNameForBan(args[0]);
 			if (uuid == null) {
 				sender.sendMessage(errorPrefix+language.getString("general.playerunknown"));
-				return;
+				return true;
 			} else if (DataManager.getPlayerCfg(uuid).getBoolean("banned")) {
 				sender.sendMessage(errorPrefix+language.getString("commands.ban.alreadybanned"));
-				return;
+				return true;
 			}
 
 			switch (args.length) {
@@ -61,6 +68,8 @@ public class CommandBan {
 			}
 			sender.sendMessage(infoPrefix+language.getString("commands.ban.playerbanned").replaceAll("_player", args[0]).replaceAll("_reason", reason));
 		}
+		
+		return true;
 	}
 
 	public static void banPlayer(UUID uuid, String reason, YamlConfiguration language) {
