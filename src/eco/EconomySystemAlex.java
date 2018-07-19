@@ -32,11 +32,11 @@ public class EconomySystemAlex {
 		switch (commandLabel.toLowerCase()) {
 		case "eco":
 			if (args.length == 0) {
-				if (!(sender instanceof Player)) {
-					sender.sendMessage("Konsole nix Geld.");
-					return true;
-				}
+				if((sender instanceof Player)) {
 				sender.sendMessage("[Eco] Dein derzeitiger Kontostand: " + getMoney(uuid) + "$");
+				} else {
+					sender.sendMessage("Die Konsole besitzt kein Geld");
+				}
 			} else if (args.length > 0) {
 				switch (args[0].toLowerCase()) {
 				case "help":
@@ -58,7 +58,7 @@ public class EconomySystemAlex {
 						switch (args.length) {
 						default:
 							if (args.length < 2) {
-								sender.sendMessage(language.getString("commands.money.mssingamountandplayer"));
+								sender.sendMessage(language.getString("commands.money.missingamountandplayer"));
 								return true;
 							} else if (args.length > 3) {
 								sender.sendMessage(language.getString("general.toomanyarguments"));
@@ -90,7 +90,7 @@ public class EconomySystemAlex {
 								sender.sendMessage(language.getString("commands.money.missingamount"));
 								return true;
 							}
-							sender.sendMessage("[Eco] Du hast von " + args[1] + " das Geldkonto neu gesetzt.");
+							sender.sendMessage("[Eco] Du hast von " + args[2] + " das Geldkonto neu gesetzt.");
 							setMoney(target, amount);
 							sender.sendMessage("[Eco] Neuer Kontostand: " + getMoney(target) + "$");
 							Bukkit.getPlayer(target).sendMessage(
