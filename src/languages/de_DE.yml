@@ -49,3 +49,9 @@ commands:
   spawn:
     nospawnset: Es wurde kein Spawn gesetzt.
     spawnset: Der Spawn wurde gesetzt!
+  report:
+    repplayeradmin: Du kannst keinen Admin melden!
+    repplayersuccess: _player wurde erfolgreich gemeldet!
+    repnodesc: Bitte gib eine Beschreibung an!
+    rep: Wir kuemmern uns um diese Angelegenheit! 
+    repmissingcmd: Bitte gib das Report-Level an!
