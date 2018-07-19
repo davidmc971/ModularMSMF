@@ -1,7 +1,5 @@
 package commands;
 
-import java.util.UUID;
-
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -12,61 +10,106 @@ import util.ChatUtils;
 import util.Utils;
 
 public class CommandReport {
+	
+	/**
+	 * The "/report" command.
+	 * There are different categories of reports:
+	 * 	player - report a player for different reasons
+	 * 	bug - report a bug
+	 * 	other - report what you think e.g. additions to the server
+	 * The command structure of each category:
+	 * 	/report player <playername> <reason>
+	 * 	/report bug <description>
+	 * 	/report other <description>
+	 * 
+	 * Individual report should be saved in a database of some kind
+	 * and be accessible through an app and/or webinterface.
+	 * 
+	 * Reports can have permissions but will be sorted after the
+	 * players rank, either op and normal user or the configured rank
+	 * if available.
+	 *
+	 * @param sender the CommandSender
+	 * @param cmd the Command
+	 * @param commandLabe the label of the command, case-sensitive
+	 * @param args provided arguments without the label
+	 * @param plugin the parent plugin
+	 */
 
 	public static void cmd(CommandSender sender, Command cmd, String commandLabel, String[] args,
 			ModularMSMF plugin) {
 
 		String infoPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.INFO);
 		String errorPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.ERROR);
-		
-		UUID target = null;
 		YamlConfiguration language = Utils.configureCommandLanguage(sender, plugin);
 
-		switch(commandLabel.toLowerCase()) {
-
-		case "report":
-			if(args.length == 0) {
-				sender.sendMessage(infoPrefix+"Reporting-System for Cheaters and Bugs");
-				sender.sendMessage(infoPrefix+"<Beschreibung ueber diesen CMD>");
+		if(args.length == 0)
+		//no arguments, plain /report command
+		{
+			//TODO: send description of command, in player's language
+			sender.sendMessage(infoPrefix+"Report system for reporting players, bugs and other stuff.");
+			sender.sendMessage(infoPrefix+"Level's you are allowed to use:");
+			if(sender.hasPermission("mmsmf.command.report.player")) {
+				sender.sendMessage(infoPrefix+"/report player <playername> <reason>");
 			}
-			if(args.length == 1) {
-				sender.sendMessage(errorPrefix+"Please write down the correct report level and it's description!");
-				sender.sendMessage(infoPrefix+"Level's you can use with permission:");
-				if(sender.hasPermission("mmsmf.cheatrep")) {
-					sender.sendMessage(infoPrefix+"/report player <Username>");
-				}
-				if(sender.hasPermission("mmsmf.bugrep")) {
-					sender.sendMessage(infoPrefix+"/report bug <Describe your finding");
-				}
-				if(sender.hasPermission("mmsmf.otherrep")) {
-					sender.sendMessage(infoPrefix+"/report others <Like any ideas?>");
-				}
-				// restliche Funktionen dazu ^^ wie report-lvl (bug = 1, cheater = 2, usw...) und beschreibung zum abrufen einer textdatei, auflisten der lvls als gruppe oder vollstaendige liste? david bitte <3
+			if(sender.hasPermission("mmsmf.command.report.bug")) {
+				sender.sendMessage(infoPrefix+"/report bug <description of finding>");
 			}
-			if(args.length == 2) {
-			switch (args[1].toLowerCase()) {
-				case "player":
-					if (args.length == 0){
-						sender.sendMessage(infoPrefix+"Please write down the Username, which has to be reported!");
-						if (args.length == 1){
-							target = Utils.getPlayerUUIDByName(args[0]);
-							if(target == null){
-								sender.sendMessage(language.getString("general.playernotfound"));
-
-							}
-						}
-					}
-					break;
-
-					/** Hilfeeeee
-					 * @TODO PLZ HELP ME DAVID x.x
-					 */
-
-				default:
-					sender.sendMessage(errorPrefix+"This command '" + ChatColor.YELLOW + args[0] + ChatColor.RED + "' doesn't exist!");
-				}
+			if(sender.hasPermission("mmsmf.command.report.other")) {
+				sender.sendMessage(infoPrefix+"/report others <describe your idea>");
 			}
 		}
+		else
+		//at least one argument
+		{
+			switch(args[0].toLowerCase())
+			//let's check for the category and if it's valid, as well as permission for use
+			{
+			case "player":
+				if(sender.hasPermission("mmsmf.command.report.player"))
+				{
+					reportPlayer(sender, args, plugin, language);
+				} else {
+					//TODO: permission error message
+				}
+				break;
+			case "bug":
+				if(sender.hasPermission("mmsmf.command.report.bug"))
+				{
+					reportBug(sender, args, plugin, language);
+				} else {
+					//TODO: permission error message
+				}
+				break;
+			case "other":
+				if(sender.hasPermission("mmsmf.command.report.other"))
+				{
+					reportOther(sender, args, plugin, language);
+				} else {
+					//TODO: permission error message
+				}
+				break;
+			default:
+				//non valid category
+				//TODO: send error and prompt user to use /report for description
+				sender.sendMessage(errorPrefix+"This command '" + ChatColor.YELLOW + args[0] + ChatColor.RED + "' doesn't exist!");
+				sender.sendMessage(errorPrefix+"Please write down the correct report category and it's arguments!");
+				break;
+			}
+		}
+	}
+
+	private static void reportPlayer(CommandSender sender, String[] args, ModularMSMF plugin, YamlConfiguration language) {
+		//TODO: incomplete
+		
+	}
+
+	private static void reportBug(CommandSender sender, String[] args, ModularMSMF plugin, YamlConfiguration language) {
+		//TODO: incomplete
+	}
+
+	private static void reportOther(CommandSender sender, String[] args, ModularMSMF plugin, YamlConfiguration language) {
+		//TODO: incomplete
 	}
 }
 
