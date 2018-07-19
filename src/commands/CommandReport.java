@@ -18,6 +18,7 @@ public class CommandReport {
 
 		String infoPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.INFO);
 		String errorPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.ERROR);
+		
 		UUID target = null;
 		YamlConfiguration language = Utils.configureCommandLanguage(sender, plugin);
 
@@ -41,8 +42,8 @@ public class CommandReport {
 					sender.sendMessage(infoPrefix+"/report others <Like any ideas?>");
 				}
 				// restliche Funktionen dazu ^^ wie report-lvl (bug = 1, cheater = 2, usw...) und beschreibung zum abrufen einer textdatei, auflisten der lvls als gruppe oder vollstaendige liste? david bitte <3
-			} else if(args.length > 1) {
-				switch (args[2].toLowerCase()) {
+			}
+			switch (args[1].toLowerCase()) {
 				case "player":
 					if (args.length == 0){
 						sender.sendMessage(infoPrefix+"Please write down the Username, which has to be reported!");
@@ -62,8 +63,8 @@ public class CommandReport {
 
 				default:
 					sender.sendMessage(errorPrefix+"This command '" + ChatColor.YELLOW + args[0] + ChatColor.RED + "' doesn't exist!");
-				}
 			}
 		}
 	}
 }
+
