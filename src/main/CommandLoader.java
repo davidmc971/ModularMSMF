@@ -1,9 +1,8 @@
 package main;
 
 import java.io.IOException;
-import java.net.URL;
+import java.lang.annotation.Annotation;
 import java.util.ArrayList;
-import java.util.Enumeration;
 
 import com.google.common.reflect.ClassPath;
 
@@ -73,14 +72,11 @@ public class CommandLoader {
 			commandList = loadCommandsFallback();
 		}
 		
-		return commandList;
+		return loadCommandsFallback();
 	}
 
 	private ArrayList<AbstractCommand> loadCommandsFallback() {
-		Class<?>[] classes = AbstractCommand.class.getClasses();
-		for(Class<?> c : classes) {
-			plugin.getLogger().info(c.getName());
-		}
+		
 		
 		return new ArrayList<AbstractCommand>();
 	}
