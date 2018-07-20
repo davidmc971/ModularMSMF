@@ -77,6 +77,10 @@ public class ModularMSMF extends JavaPlugin implements CommandExecutor {
 		ClassLoader classLoader = this.getClassLoader();
 		String packageName = "commands";
 
+		getLogger().info(classLoader.toString());
+		getLogger().info(classLoader.getClass().getName());
+		
+		
 		ClassPath path = null;
 		try {
 			path = ClassPath.from(classLoader);
