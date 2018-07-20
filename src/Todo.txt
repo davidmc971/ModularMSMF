@@ -58,6 +58,11 @@ COMMANDS:
 GENERAL TODO AND IDEAS:
 
 davidmc971:
+	Command structure:
+		AbstractCommand
+			now the basis for every Command, in the package commands, every command will be loaded automatically
+			TODO: at the moment it has to be in plugin.yml to be executable, could be automated
+
 	System of interfacing with players and console:
 		LanguageManager
 		ChatUtils
