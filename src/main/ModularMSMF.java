@@ -78,36 +78,18 @@ public class ModularMSMF extends JavaPlugin implements CommandExecutor {
 		//DONE: inform about missing commands
 		ArrayList<AbstractCommand> commandList = new ArrayList<AbstractCommand>();
 		ClassLoader classLoader = this.getClassLoader();
+		
 		String packageName = "commands";
 
 		getLogger().info(classLoader.toString());
 		getLogger().info(classLoader.getClass().getName());
-		
-		Enumeration<URL> roots = null;
-		
-		try {
-			roots = classLoader.getResources("");
-		} catch (IOException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
-		}
-		
-		if (roots != null) {
-			URL url = null;
-			while ((url = roots.nextElement()) != null) {
-				File root = new File(url.getPath());
-				for (File file : root.listFiles()) {
-					getLogger().info(file.getName());
-				}
-			}
-		}
 		
 		ClassPath path = null;
 		try {
 			path = ClassPath.from(classLoader);
 			getLogger().info("path: " + path.toString());
 			for(ClassPath.ClassInfo info : path.getAllClasses()) {
-				//getLogger().info("info: " + info.getName() + " packageName: " + info.getPackageName());
+				getLogger().info("info: " + info.getName() + " packageName: " + info.getPackageName());
 			}
 		} catch (IOException e1) {
 			getLogger().severe(e1.toString());
@@ -140,9 +122,13 @@ public class ModularMSMF extends JavaPlugin implements CommandExecutor {
 				getLogger().info("Commands [" + temp.substring(0, temp.length() - 2) + "] loaded!");
 			} catch (Exception e) {
 				getLogger().severe("Something seems to be not right with commands!");
+				getLogger().severe("Using secondary Loader.");
 				getLogger().severe(e.toString());
 			}
 		}
+		
+		commandList.clear();
+		loadCommandsV2(commandList);
 
 		YamlConfiguration pluginyaml = YamlConfiguration
 				.loadConfiguration(new InputStreamReader(this.getResource("plugin.yml")));
@@ -181,6 +167,58 @@ public class ModularMSMF extends JavaPlugin implements CommandExecutor {
 		}
 
 		getLogger().info("We are finished with enabling ModularMSMF, hooray!");
+	}
+
+	private void loadCommandsV2(ArrayList<AbstractCommand> commandList) {
+		ClassLoader classLoader = this.getClass().getClassLoader();
+		
+		String packageName = "commands";
+
+		getLogger().info(classLoader.toString());
+		getLogger().info(classLoader.getClass().getName());
+		
+		ClassPath path = null;
+		try {
+			path = ClassPath.from(classLoader);
+			getLogger().info("path: " + path.toString());
+			for(ClassPath.ClassInfo info : path.getAllClasses()) {
+				getLogger().info("info: " + info.getName() + " packageName: " + info.getPackageName());
+			}
+		} catch (IOException e1) {
+			getLogger().severe(e1.toString());
+		}
+		
+		getLogger().info("Next section");
+		
+		if(path != null) {
+			for (ClassPath.ClassInfo info : path.getTopLevelClassesRecursive(packageName)) {
+				getLogger().info("info: " + info.getName() + " packageName: " + info.getPackageName());
+				if(!info.getName().equals("commands.AbstractCommand")) {
+					try {
+						Class<?> clazz = Class.forName(info.getName(), true, classLoader);
+						commandList.add((AbstractCommand)clazz.getConstructor(ModularMSMF.class).newInstance(this));
+
+					} catch (Exception e) {
+						getLogger().severe(e.toString());
+					}
+				}
+			}
+		}
+
+		{
+			String temp = "";
+			for (AbstractCommand cmd : commandList) {
+				temp += cmd.getCommandLabel() + ", ";
+			}
+			
+			try {
+				getLogger().info("Commands [" + temp.substring(0, temp.length() - 2) + "] loaded!");
+			} catch (Exception e) {
+				getLogger().severe("Something seems to be not right with commands!");
+				getLogger().severe("Using secondary Loader.");
+				getLogger().severe(e.toString());
+			}
+		}
 	}
 
 	@Override
