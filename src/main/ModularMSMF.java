@@ -99,6 +99,9 @@ public class ModularMSMF extends JavaPlugin implements CommandExecutor {
 		
 		commandsNotCoveredByCommandList.forEach(s -> this.getCommand(s).setExecutor(this));
 		
+		commandsNotCoveredByYaml.clear();
+		commandsNotCoveredByCommandList.clear();
+		
 		if (debug) {
 			InputStream in = this.getResource("build_timestamp.properties");
 			Properties buildprop = new Properties();
