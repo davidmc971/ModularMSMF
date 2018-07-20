@@ -1,9 +1,12 @@
 package main;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
@@ -80,13 +83,31 @@ public class ModularMSMF extends JavaPlugin implements CommandExecutor {
 		getLogger().info(classLoader.toString());
 		getLogger().info(classLoader.getClass().getName());
 		
+		Enumeration<URL> roots = null;
+		
+		try {
+			roots = classLoader.getResources("");
+		} catch (IOException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+		
+		if (roots != null) {
+			URL url = null;
+			while ((url = roots.nextElement()) != null) {
+				File root = new File(url.getPath());
+				for (File file : root.listFiles()) {
+					getLogger().info(file.getName());
+				}
+			}
+		}
 		
 		ClassPath path = null;
 		try {
 			path = ClassPath.from(classLoader);
 			getLogger().info("path: " + path.toString());
 			for(ClassPath.ClassInfo info : path.getAllClasses()) {
-				getLogger().info("info: " + info.getName() + " packageName: " + info.getPackageName());
+				//getLogger().info("info: " + info.getName() + " packageName: " + info.getPackageName());
 			}
 		} catch (IOException e1) {
 			getLogger().severe(e1.toString());
