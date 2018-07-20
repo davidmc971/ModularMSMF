@@ -76,59 +76,9 @@ public class ModularMSMF extends JavaPlugin implements CommandExecutor {
 		//DONE: get list of commands instantiated from commands package
 		//DONE: compare to list of commands from plugin.yml
 		//DONE: inform about missing commands
-		ArrayList<AbstractCommand> commandList = new ArrayList<AbstractCommand>();
-		ClassLoader classLoader = this.getClassLoader();
 		
-		String packageName = "commands";
-
-		getLogger().info(classLoader.toString());
-		getLogger().info(classLoader.getClass().getName());
-		
-		ClassPath path = null;
-		try {
-			path = ClassPath.from(classLoader);
-			getLogger().info("path: " + path.toString());
-			for(ClassPath.ClassInfo info : path.getAllClasses()) {
-				getLogger().info("info: " + info.getName() + " packageName: " + info.getPackageName());
-			}
-		} catch (IOException e1) {
-			getLogger().severe(e1.toString());
-		}
-		
-		getLogger().info("Next section");
-		
-		if(path != null) {
-			for (ClassPath.ClassInfo info : path.getTopLevelClassesRecursive(packageName)) {
-				getLogger().info("info: " + info.getName() + " packageName: " + info.getPackageName());
-				if(!info.getName().equals("commands.AbstractCommand")) {
-					try {
-						Class<?> clazz = Class.forName(info.getName(), true, classLoader);
-						commandList.add((AbstractCommand)clazz.getConstructor(ModularMSMF.class).newInstance(this));
-
-					} catch (Exception e) {
-						getLogger().severe(e.toString());
-					}
-				}
-			}
-		}
-
-		{
-			String temp = "";
-			for (AbstractCommand cmd : commandList) {
-				temp += cmd.getCommandLabel() + ", ";
-			}
-			
-			try {
-				getLogger().info("Commands [" + temp.substring(0, temp.length() - 2) + "] loaded!");
-			} catch (Exception e) {
-				getLogger().severe("Something seems to be not right with commands!");
-				getLogger().severe("Using secondary Loader.");
-				getLogger().severe(e.toString());
-			}
-		}
-		
-		commandList.clear();
-		loadCommandsV2(commandList);
+		CommandLoader loader = new CommandLoader(this);
+		ArrayList<AbstractCommand> commandList = loader.loadCommands(this.getClassLoader());
 
 		YamlConfiguration pluginyaml = YamlConfiguration
 				.loadConfiguration(new InputStreamReader(this.getResource("plugin.yml")));
@@ -166,59 +116,9 @@ public class ModularMSMF extends JavaPlugin implements CommandExecutor {
 			}
 		}
 
+		getLogger().info(this.getClass().getPackage().getName());
+		getLogger().info(AbstractCommand.class.getPackage().getName());
 		getLogger().info("We are finished with enabling ModularMSMF, hooray!");
-	}
-
-	private void loadCommandsV2(ArrayList<AbstractCommand> commandList) {
-		ClassLoader classLoader = this.getClass().getClassLoader();
-		
-		String packageName = "commands";
-
-		getLogger().info(classLoader.toString());
-		getLogger().info(classLoader.getClass().getName());
-		
-		ClassPath path = null;
-		try {
-			path = ClassPath.from(classLoader);
-			getLogger().info("path: " + path.toString());
-			for(ClassPath.ClassInfo info : path.getAllClasses()) {
-				getLogger().info("info: " + info.getName() + " packageName: " + info.getPackageName());
-			}
-		} catch (IOException e1) {
-			getLogger().severe(e1.toString());
-		}
-		
-		getLogger().info("Next section");
-		
-		if(path != null) {
-			for (ClassPath.ClassInfo info : path.getTopLevelClassesRecursive(packageName)) {
-				getLogger().info("info: " + info.getName() + " packageName: " + info.getPackageName());
-				if(!info.getName().equals("commands.AbstractCommand")) {
-					try {
-						Class<?> clazz = Class.forName(info.getName(), true, classLoader);
-						commandList.add((AbstractCommand)clazz.getConstructor(ModularMSMF.class).newInstance(this));
-
-					} catch (Exception e) {
-						getLogger().severe(e.toString());
-					}
-				}
-			}
-		}
-
-		{
-			String temp = "";
-			for (AbstractCommand cmd : commandList) {
-				temp += cmd.getCommandLabel() + ", ";
-			}
-			
-			try {
-				getLogger().info("Commands [" + temp.substring(0, temp.length() - 2) + "] loaded!");
-			} catch (Exception e) {
-				getLogger().severe("Something seems to be not right with commands!");
-				getLogger().severe("Using secondary Loader.");
-				getLogger().severe(e.toString());
-			}
-		}
 	}
 
 	@Override
