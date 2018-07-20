@@ -9,7 +9,7 @@ You need to have the following installed (when using Windows):
 	Git for Windows (choose Notepad++ as editor if installed)
 	Get it here: https://git-scm.com/download/win
 	
-	Eclipse for Java Developers
+	Eclipse IDE for Java Developers
 	Get the installer here: https://www.eclipse.org/downloads/
 	
 After installing all these, choose your eclipse workspace, for the plugin the
