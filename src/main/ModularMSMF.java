@@ -102,7 +102,12 @@ public class ModularMSMF extends JavaPlugin implements CommandExecutor {
 			for (AbstractCommand cmd : commandList) {
 				temp += cmd.getCommandLabel() + ", ";
 			}
-			getLogger().info("Commands [" + temp.substring(0, temp.length() - 2) + "] loaded!");
+			
+			if (temp.length() > 2) {
+				getLogger().info("Commands [" + temp.substring(0, temp.length() - 2) + "] loaded!");
+			} else {
+				getLogger().severe("Something seems to be not right with commands!");
+			}
 		}
 
 		YamlConfiguration pluginyaml = YamlConfiguration
