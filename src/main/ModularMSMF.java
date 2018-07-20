@@ -103,10 +103,11 @@ public class ModularMSMF extends JavaPlugin implements CommandExecutor {
 				temp += cmd.getCommandLabel() + ", ";
 			}
 			
-			if (temp.length() > 2) {
+			try {
 				getLogger().info("Commands [" + temp.substring(0, temp.length() - 2) + "] loaded!");
-			} else {
+			} catch (Exception e) {
 				getLogger().severe("Something seems to be not right with commands!");
+				getLogger().severe(e.toString());
 			}
 		}
 
