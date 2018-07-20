@@ -17,7 +17,7 @@ public class Statistics {
 		}
 		return 0;
 	}
-
+// TODO Lets rewrite it.
 //	private void setKickCounter(UUID uuid) {
 //		YamlConfiguration cfg = DataManager.getPlayerCfg(uuid);
 //		if (cfg.isDouble(kickkey)) {
