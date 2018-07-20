@@ -1,7 +1,9 @@
 package main;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Enumeration;
 
 import com.google.common.reflect.ClassPath;
 
@@ -64,6 +66,22 @@ public class CommandLoader {
 				plugin.getLogger().severe(e.toString());
 			}
 		}
+		
+		if (commandList.isEmpty()) {
+			plugin.getLogger().severe("Main Command loading did not work, using backup loader.");
+			commandList.clear();
+			commandList = loadCommandsFallback();
+		}
+		
 		return commandList;
+	}
+
+	private ArrayList<AbstractCommand> loadCommandsFallback() {
+		Class<?>[] classes = AbstractCommand.class.getClasses();
+		for(Class<?> c : classes) {
+			plugin.getLogger().info(c.getName());
+		}
+		
+		return new ArrayList<AbstractCommand>();
 	}
 }
