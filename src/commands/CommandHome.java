@@ -49,7 +49,24 @@ public class CommandHome extends AbstractCommand {
 						 * NICHT GLEICH							!=
 						 * NEGIERT (boolean)					!
 						 * 
+						 * GRUNDLAGEN ARRAYS:
 						 * 
+						 * args ist oben im Methodenkopf als
+						 * String[] args
+						 * definiert
+						 * 
+						 * args bzw. args.irgendwas benutzt du um auf die Eigenschaften des Arrays zuzugreifen (args.length bspw.)
+						 * 
+						 * args[index] bzw. args[index].irgendwas benutzt du um auf den [index]ten Eintrag im Array zuzugreifen
+						 * 
+						 * BEISPIEL:
+						 * 
+						 * bei /home set basis2
+						 * 
+						 * args.length == 2
+						 * args[0] ist "set"
+						 * args[1] ist "basis2"
+						 * args[2] existiert nicht
 						 */
 						//listing all homes which the player has set
 					} else {
