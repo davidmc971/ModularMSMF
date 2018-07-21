@@ -9,14 +9,15 @@ COMMANDS:
 		PROGRESS:
 			structure updated, needs work
 	BAN:
-		PROGRESS:
-			
+		PROGRESS: 
+			- console can ban (w/o permission)
+			- can ban player on+offline (with permission)
 	FEED:
-		PROGRESS:
+		PROGRESS: (100%)
 			- can feed yourself (with permission)
 			- can feed other users (with permission)
 			- cannot feed console (only player can be feeded)
-			- console can feed everyone (w/o permissions)
+			- console can feed everyone but not itself (w/o permissions)
 	HEAL:
 		PROGRESS:
 			

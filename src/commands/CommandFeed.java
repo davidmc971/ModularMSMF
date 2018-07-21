@@ -45,7 +45,7 @@ public class CommandFeed extends AbstractCommand {
 				sender.sendMessage(noPermPrefix+language.getString("general.nopermission"));
 				} 
 			} else {
-			sender.sendMessage(noPermPrefix+"general.noconsole");
+			sender.sendMessage(noPermPrefix+language.getString("general.noconsole"));
 			}
 			break;
 		default:
@@ -62,7 +62,7 @@ public class CommandFeed extends AbstractCommand {
 				if (p.getUniqueId().toString().equalsIgnoreCase(target.toString())) {
 					Bukkit.getPlayer(target).setSaturation(20);
 					sender.sendMessage(infoPrefix+language.getString("commands.feed.feededperson").replaceAll("_player", p.getName()));
-					p.sendMessage(infoPrefix+sender.getName() + " " + language.getString("commands.feed.othersfeeded"));
+					p.sendMessage(infoPrefix+language.getString("commands.feed.othersfeeded").replaceAll("_sender", sender.getName()));
 					return true;
 				}
 			}

@@ -27,7 +27,7 @@ public class CommandHome extends AbstractCommand {
 		
 		if (!(sender instanceof Player)) {
 			//TODO: console could maybe set home by hand to specific coordinates
-			sender.sendMessage(noPermPrefix+"general.noconsole");
+			sender.sendMessage(noPermPrefix+language.getString("general.noconsole"));
 			return true;
 		}
 		// TODO: Implementieren

@@ -41,11 +41,12 @@ commands:
     nomoneyleft: You would run into debt!
   feed:
     feeded: You have satisfied yourself!
-    othersfeeded: has satisfied you!
+    othersfeeded: _sender has satisfied you!
     feededperson: You satisfied _player!
   heal:
     healself: You healed yorself!
     healother: You healed _player!
+    gothealed: You were healed by _sender!
   spawn:
     nospawnset: No spawn has been set.
     spawnset: Spawn has been set!
@@ -59,4 +60,4 @@ commands:
     notset:
     alreadyset:
     notdeleted:
-    notfoundhome: 
+    notfoundhome:
