@@ -99,6 +99,7 @@ davidmc971:
 	
 	Internal data management:
 		DataManager
+			-> switch mostly from yml to json, but still keep support
 		YamlManager [deprecated?]
 		JsonManager [TODO]
 		PermissionManager [TODO]
