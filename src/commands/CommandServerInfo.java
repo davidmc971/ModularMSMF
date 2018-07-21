@@ -25,7 +25,7 @@ public class CommandServerInfo extends AbstractCommand {
 	}
 
 	@Override
-	public String getCommandLabel() {
-		return "serverinfo";
+	public String[] getCommandLabels() {
+		return new String[]{ "serverinfo" };
 	}
 }

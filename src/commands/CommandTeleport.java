@@ -43,7 +43,7 @@ public class CommandTeleport extends AbstractCommand {
 	}
 
 	@Override
-	public String getCommandLabel() {
-		return "teleport";
+	public String[] getCommandLabels() {
+		return new String[]{ "teleport" };
 	}
 }

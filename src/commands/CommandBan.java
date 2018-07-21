@@ -23,8 +23,8 @@ import util.Utils;
 
 public class CommandBan extends AbstractCommand {
 	@Override
-	public String getCommandLabel() {
-		return "ban";
+	public String[] getCommandLabels() {
+		return new String[]{ "ban" };
 	}
 
 	public CommandBan(ModularMSMF plugin) {

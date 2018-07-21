@@ -61,7 +61,7 @@ public class CommandSpawn extends AbstractCommand {
 	}
 
 	@Override
-	public String getCommandLabel() {
-		return "spawn";
+	public String[] getCommandLabels() {
+		return new String[]{ "spawn" };
 	}
 }

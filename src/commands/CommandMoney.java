@@ -18,8 +18,8 @@ public class CommandMoney extends AbstractCommand {
 	}
 
 	@Override
-	public String getCommandLabel() {
-		return "money";
+	public String[] getCommandLabels() {
+		return new String[]{ "money" };
 	}
 
 }

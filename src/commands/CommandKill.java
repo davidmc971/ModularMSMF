@@ -75,7 +75,7 @@ public class CommandKill extends AbstractCommand {
 	}
 
 	@Override
-	public String getCommandLabel() {
-		return "kill";
+	public String[] getCommandLabels() {
+		return new String[]{ "kill" };
 	}
 }

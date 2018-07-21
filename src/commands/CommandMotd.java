@@ -77,7 +77,7 @@ public class CommandMotd extends AbstractCommand {
 	}
 
 	@Override
-	public String getCommandLabel() {
-		return "motd";
+	public String[] getCommandLabels() {
+		return new String[]{ "motd" };
 	}
 }

@@ -62,8 +62,8 @@ public class CommandMute extends AbstractCommand {
 	}
 
 	@Override
-	public String getCommandLabel() {
-		return "mute";
+	public String[] getCommandLabels() {
+		return new String[]{ "mute" };
 	}
 
 }

@@ -76,8 +76,8 @@ public class CommandLanguage extends AbstractCommand {
 	}
 
 	@Override
-	public String getCommandLabel() {
-		return "language";
+	public String[] getCommandLabels() {
+		return new String[]{ "language" };
 	}
 
 }
