@@ -33,19 +33,27 @@ public class CommandHome extends AbstractCommand {
 		// TODO: Implementieren
 		// Playerdata plrdat =
 
-		if(args.length == 0) {
-			switch (label.toLowerCase()) {
+		if(args.length > 0) {
+			switch (args[0].toLowerCase()) {
 			case "list":
 				
 				break;
-			case "sethome":
+			case "set":
 	
 				break;
-			case "delhome":
+			case "remove":
+	
+				break;
+			case "rtp":
+	
+				break;
+			default:
 	
 				break;
 			}
 			
+		} else {
+			//args leer, entsprechende description senden
 		}
 		return true;
 	}
