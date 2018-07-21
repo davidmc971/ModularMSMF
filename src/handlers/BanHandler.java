@@ -3,8 +3,6 @@ package handlers;
 import java.util.UUID;
 
 import main.ModularMSMF;
-import util.DataManager;
-import util.LanguageManager;
 
 /*	@author davidmc971
  * 	
@@ -39,8 +37,7 @@ public class BanHandler {
 	}
 	
 	public boolean banPlayer(UUID playerid) {
-		String temp = null;
-		return banPlayer(playerid, temp);
+		return banPlayer(playerid, STDBanReason.DEFAULT);
 	}
 	
 	public boolean banPlayer(UUID playerid, STDBanReason reason) {
@@ -49,8 +46,8 @@ public class BanHandler {
 	}
 	
 	public boolean banPlayer(UUID playerid, String reason) {
-		DataManager dtm = plugin.getDataManager();
-		LanguageManager lgm = plugin.getLanguageManager();
+		//DataManager dtm = plugin.getDataManager();
+		//LanguageManager lgm = plugin.getLanguageManager();
 		
 		return true;
 	}
