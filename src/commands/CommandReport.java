@@ -118,8 +118,8 @@ public class CommandReport extends AbstractCommand {
 	}
 
 	@Override
-	public String getCommandLabel() {
-		return "report";
+	public String[] getCommandLabels() {
+		return new String[]{ "report" };
 	}
 }
 

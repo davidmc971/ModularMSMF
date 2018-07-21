@@ -23,8 +23,8 @@ public class CommandPlayershell extends AbstractCommand {
 	}
 
 	@Override
-	public String getCommandLabel() {
-		return "playershell";
+	public String[] getCommandLabels() {
+		return new String[]{ "playershell" };
 	}
 
 }

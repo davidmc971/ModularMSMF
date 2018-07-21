@@ -59,7 +59,7 @@ public class CommandKick extends AbstractCommand {
 	}
 
 	@Override
-	public String getCommandLabel() {
-		return "kick";
+	public String[] getCommandLabels() {
+		return new String[]{ "kick" };
 	}
 }

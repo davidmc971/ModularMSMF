@@ -58,7 +58,7 @@ public class CommandModularMSMF extends AbstractCommand {
 	}
 
 	@Override
-	public String getCommandLabel() {
-		return "mmsmf";
+	public String[] getCommandLabels() {
+		return new String[]{ "mmsmf" };
 	}
 }

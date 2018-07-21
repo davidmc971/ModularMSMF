@@ -64,7 +64,7 @@ public class CommandHeal extends AbstractCommand {
 	}
 
 	@Override
-	public String getCommandLabel() {
-		return "heal";
+	public String[] getCommandLabels() {
+		return new String[]{ "heal" };
 	}
 }

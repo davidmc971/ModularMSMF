@@ -79,7 +79,7 @@ public class CommandHome extends AbstractCommand {
 	}
 	
 	@Override
-	public String getCommandLabel() {
-		return "home";
+	public String[] getCommandLabels() {
+		return new String[]{ "home" };
 	}
 }

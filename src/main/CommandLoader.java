@@ -59,7 +59,9 @@ public class CommandLoader {
 		{
 			String temp = "";
 			for (AbstractCommand cmd : commandList) {
-				temp += cmd.getCommandLabel() + ", ";
+				for(String s : cmd.getCommandLabels()) {
+					temp += s + ", ";
+				}
 			}
 			
 			try {

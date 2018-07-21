@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
@@ -83,7 +84,7 @@ public class ModularMSMF extends JavaPlugin implements CommandExecutor {
 		keyset.forEach(s -> s.toLowerCase());
 		
 		ArrayList<String> loadedCommandLabels = new ArrayList<String>();
-		commandList.forEach(cmd -> loadedCommandLabels.add(cmd.getCommandLabel().toLowerCase()));
+		commandList.forEach(cmd -> loadedCommandLabels.addAll(Arrays.asList(cmd.getCommandLabels())));
 		
 		ArrayList<String> commandsNotCoveredByYaml = new ArrayList<String>(loadedCommandLabels);
 		commandsNotCoveredByYaml.removeAll(keyset);
@@ -94,8 +95,15 @@ public class ModularMSMF extends JavaPlugin implements CommandExecutor {
 		commandsNotCoveredByCommandList.removeAll(loadedCommandLabels);
 		commandsNotCoveredByCommandList.forEach(s -> getLogger().severe("The command " + s + " from the plugin.yml is not loaded! A notification will be displayed when it is executed."));
 
-		commandList.removeIf(cmd -> commandsNotCoveredByYaml.contains(cmd.getCommandLabel().toLowerCase()));
-		commandList.forEach(cmd -> this.getCommand(cmd.getCommandLabel().toLowerCase()).setExecutor(cmd));
+		commandList.removeIf(cmd -> commandsNotCoveredByYaml.containsAll(Arrays.asList(cmd.getCommandLabels())));
+		//commandList.forEach(cmd -> this.getCommand(cmd.getCommandLabel().toLowerCase()).setExecutor(cmd));
+		commandList.forEach(
+				cmd -> {
+					Arrays.asList(cmd.getCommandLabels()).forEach(
+							s -> {
+								this.getCommand(s).setExecutor(cmd);
+								});
+					});
 		
 		commandsNotCoveredByCommandList.forEach(s -> this.getCommand(s).setExecutor(this));
 		

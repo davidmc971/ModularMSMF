@@ -28,8 +28,8 @@ public class CommandSlaughter extends AbstractCommand {
 	}
 
 	@Override
-	public String getCommandLabel() {
-		return "slaughter";
+	public String[] getCommandLabels() {
+		return new String[]{ "slaughter" };
 	}
 
 }

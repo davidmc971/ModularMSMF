@@ -20,6 +20,11 @@ public class CommandFeed extends AbstractCommand {
 	}
 
 	@Override
+	public String[] getCommandLabels() {
+		return new String[]{ "feed" };
+	}
+
+	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		YamlConfiguration language = Utils.configureCommandLanguage(sender, plugin);
 		
@@ -65,10 +70,5 @@ public class CommandFeed extends AbstractCommand {
 			break;
 		}
 		return true;
-	}
-
-	@Override
-	public String getCommandLabel() {
-		return "feed";
 	}
 }

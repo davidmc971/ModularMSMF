@@ -73,7 +73,7 @@ public class CommandUnban extends AbstractCommand {
 	}
 
 	@Override
-	public String getCommandLabel() {
-		return "unban";
+	public String[] getCommandLabels() {
+		return new String[]{ "unban" };
 	}
 }
