@@ -5,7 +5,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
@@ -68,14 +70,24 @@ public class ModularMSMF extends JavaPlugin implements CommandExecutor {
 		this.getServer().getPluginManager().registerEvents(mainEvents, this);
 		//this.getServer().getPluginManager().registerEvents(ecoSys, this);
 
+		
+		/// COMMAND LOADING START ///
 		getLogger().info("Loading commands...");
 		//DONE: get list of commands instantiated from commands package
 		//DONE: compare to list of commands from plugin.yml
 		//DONE: inform about missing commands
 		
 		CommandLoader loader = new CommandLoader(this);
-		ArrayList<AbstractCommand> commandList = loader.loadCommands(this.getClassLoader());
+		
+		//<commandLabel, instance of AbstractCommand>
+		Map<String, AbstractCommand> commandMap = new LinkedHashMap<String, AbstractCommand>();
+		loader.loadCommands(this.getClassLoader()).forEach(cmd -> {
+			Arrays.asList(cmd.getCommandLabels()).forEach(label -> {
+				commandMap.put(label.toLowerCase(), cmd);
+			});
+		});
 
+		//load plugin.yml for comparison
 		YamlConfiguration pluginyaml = YamlConfiguration
 				.loadConfiguration(new InputStreamReader(this.getResource("plugin.yml")));
 		ConfigurationSection cs = pluginyaml.getConfigurationSection("commands");
@@ -83,32 +95,38 @@ public class ModularMSMF extends JavaPlugin implements CommandExecutor {
 		keyset.removeIf(s -> s.contains("."));
 		keyset.forEach(s -> s.toLowerCase());
 		
+		//all the commandLabels loaded from commands package
 		ArrayList<String> loadedCommandLabels = new ArrayList<String>();
-		commandList.forEach(cmd -> loadedCommandLabels.addAll(Arrays.asList(cmd.getCommandLabels())));
+		commandMap.forEach((label, cmd) -> loadedCommandLabels.add(label));
 		
+		//create a list for commands not covered by plugin.yml and remove all that are covered from it
 		ArrayList<String> commandsNotCoveredByYaml = new ArrayList<String>(loadedCommandLabels);
 		commandsNotCoveredByYaml.removeAll(keyset);
 		commandsNotCoveredByYaml.forEach(s -> getLogger().severe("The command " + s + " has been loaded but is not in the plugin.yml, it will be unloaded!"));
 		//TODO: modify own plugin.yml to include commands
 		
+		//create a list for all commands that are in plugin.yml but not loaded from commands package
 		ArrayList<String> commandsNotCoveredByCommandList = new ArrayList<String>(keyset);
 		commandsNotCoveredByCommandList.removeAll(loadedCommandLabels);
 		commandsNotCoveredByCommandList.forEach(s -> getLogger().severe("The command " + s + " from the plugin.yml is not loaded! A notification will be displayed when it is executed."));
 
-		commandList.removeIf(cmd -> commandsNotCoveredByYaml.containsAll(Arrays.asList(cmd.getCommandLabels())));
-		//commandList.forEach(cmd -> this.getCommand(cmd.getCommandLabel().toLowerCase()).setExecutor(cmd));
-		commandList.forEach(
-				cmd -> {
-					Arrays.asList(cmd.getCommandLabels()).forEach(
-							s -> {
-								this.getCommand(s).setExecutor(cmd);
-								});
-					});
+		//commandMap contains only commands present in commands package
+		commandMap.forEach((label, cmd) -> {
+			if (!commandsNotCoveredByYaml.contains(label)) {
+				//register all commands normally that are present in plugin.yml and commands package
+				this.getCommand(label).setExecutor(cmd);
+			}
+		});
 		
+		//register commands that are in plugin.yml but not in commands package to display error message
 		commandsNotCoveredByCommandList.forEach(s -> this.getCommand(s).setExecutor(this));
 		
+		//clean up
 		commandsNotCoveredByYaml.clear();
 		commandsNotCoveredByCommandList.clear();
+		
+		/// COMMAND LOADING END ///
+		
 		
 		if (debug) {
 			InputStream in = this.getResource("build_timestamp.properties");
