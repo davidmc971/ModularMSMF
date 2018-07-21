@@ -27,9 +27,9 @@ commands:
     seekickedall: _player wurde vom Server gekickt!
     seekickedallreason: '_player wurde aus folgendem Grund gekickt: _reason'
   language:
-    commandnotforconsole: Dieser Befehl ist fuer die Konsole nicht verfügbar.
+    commandnotforconsole: Dieser Befehl ist fuer die Konsole nicht verfuegbar.
     activelanguage: 'Deine aktuelle Sprache: _language'
-    availablelanguages: 'Verfügbare Sprachen: _var'
+    availablelanguages: 'Verfuegbare Sprachen: _var'
     setsuccessplayer: Deine Sprache wurde erfolgreich geaendert.
     notvalid: Das ist keine gueltige Sprache.
     setsuccessconsole: Die Standardsprache wurde erfolgreich geaendert.
