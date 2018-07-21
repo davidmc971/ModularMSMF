@@ -40,7 +40,7 @@ public class CommandFeed extends AbstractCommand {
 				sender.sendMessage(noPermPrefix+language.getString("general.nopermission"));
 				} 
 			} else {
-			sender.sendMessage(noPermPrefix+"You cannot feed the console");
+			sender.sendMessage(noPermPrefix+"general.noconsole");
 			}
 			break;
 		default:

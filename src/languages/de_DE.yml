@@ -10,7 +10,7 @@ general:
     invalidcustomlanguage: Ungueltige Standardsprache ('_language') fuer den Spieler _player. Standardsprache wird stattdessen verwendet.
     invalidarguments: Ungueltige Argumente.
     invalidcommand: Ungueltiger Befehl.
-    nospawnconsole: Console darf kein Spawn setzen.
+    noconsole: Die Konsole darf diesen Befehl nicht nutzen.
 commands:
   ban:
     defaultbanreason: Du wurdest gebannt!

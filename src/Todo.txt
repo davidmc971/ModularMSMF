@@ -13,7 +13,10 @@ COMMANDS:
 			
 	FEED:
 		PROGRESS:
-			
+			- can feed yourself (with permission)
+			- can feed other users (with permission)
+			- cannot feed console (only player can be feeded)
+			- console can feed everyone (w/o permissions)
 	HEAL:
 		PROGRESS:
 			

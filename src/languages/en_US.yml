@@ -10,7 +10,7 @@ general:
     invalidcustomlanguage: Invalid custom language ('_language') for player _player. Standard language will be used instead.
     invalidarguments: Invalid arguments.
     invalidcommand: Invalid command.
-    nospawnconsole: Console is not permitted to set Spawn.
+    noconsole: Console is not permitted to use this command.
 commands:
   ban:
     defaultbanreason: You have been banned!
