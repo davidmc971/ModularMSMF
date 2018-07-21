@@ -1,9 +1,5 @@
 package commands;
 
-import java.util.UUID;
-
-import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -11,7 +7,6 @@ import org.bukkit.entity.Player;
 
 import main.ModularMSMF;
 import util.ChatUtils;
-import util.DataManager;
 import util.PermissionManager;
 import util.Utils;
 
