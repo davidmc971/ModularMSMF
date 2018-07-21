@@ -42,7 +42,7 @@ public class CommandBan extends AbstractCommand {
 		
 		String infoPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.INFO);
 		String errorPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.ERROR);
-		//String noPermPrefix = ChatUtils.getFormattedPrefix(ChatUtils.MsgLevel.NOPERM);
+		String noPermPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.NOPERM);
 
 		if (sender.hasPermission(PermissionManager.getPermission("banplayer"))) {
 			if (args.length == 0) {
@@ -73,6 +73,8 @@ public class CommandBan extends AbstractCommand {
 				break;
 			}
 			sender.sendMessage(infoPrefix+language.getString("commands.ban.playerbanned").replaceAll("_player", args[0]).replaceAll("_reason", reason));
+		} else {
+			sender.sendMessage(PermissionManager.getPermission(noPermPrefix+language.getString("general.nopermission")));
 		}
 		
 		return true;
