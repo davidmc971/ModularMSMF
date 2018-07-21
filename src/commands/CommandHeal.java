@@ -36,10 +36,10 @@ public class CommandHeal extends AbstractCommand {
 				((Player) sender).setHealth(20);
 				sender.sendMessage(infoPrefix+language.getString("commands.heal.healself"));
 			} else {
-				sender.sendMessage(noPermPrefix+"general.nopermission");
+				sender.sendMessage(noPermPrefix+language.getString("general.nopermission"));
 			}
 			}else {
-				sender.sendMessage(noPermPrefix+"general.noconsole");
+				sender.sendMessage(noPermPrefix+language.getString("general.noconsole"));
 			}
 			break;
 		default:
@@ -53,7 +53,7 @@ public class CommandHeal extends AbstractCommand {
 						if (p.getUniqueId().toString().equalsIgnoreCase(target.toString())) {
 							Bukkit.getPlayer(target).setHealth(20);
 							sender.sendMessage(infoPrefix+language.getString("commands.heal.healother").replaceAll("_player", p.getName()));
-							p.sendMessage(infoPrefix+"You have been healed by "+sender.getName());
+							p.sendMessage(infoPrefix+language.getString("commands.heal.gothealed").replaceAll(_sender, sender.getName()));
 							return true;
 						}
 					}

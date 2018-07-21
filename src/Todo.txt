@@ -9,8 +9,9 @@ COMMANDS:
 		PROGRESS:
 			structure updated, needs work
 	BAN:
-		PROGRESS:
-			
+		PROGRESS: 
+			- console can ban (w/o permission)
+			- can ban player on+offline (with permission)
 	FEED:
 		PROGRESS: (100%)
 			- can feed yourself (with permission)

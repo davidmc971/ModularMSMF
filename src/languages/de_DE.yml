@@ -46,6 +46,7 @@ commands:
   heal:
     healself: Du hast dich selbst geheilt!
     healother: Du hast _player geheilt!
+    gothealed: Du wurdest von _sender geheilt!
   spawn:
     nospawnset: Es wurde kein Spawn gesetzt.
     spawnset: Der Spawn wurde gesetzt!
