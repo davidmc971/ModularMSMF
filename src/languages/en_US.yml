@@ -46,6 +46,7 @@ commands:
   heal:
     healself: You healed yorself!
     healother: You healed _player!
+    gothealed: You were healed by _sender!
   spawn:
     nospawnset: No spawn has been set.
     spawnset: Spawn has been set!
@@ -55,3 +56,7 @@ commands:
     repnodesc: Please write down the description!
     rep: Thanks for your report! We will take action about this. 
     repmissingcmd: Please write down the right report-level!
+  home:
+    notset:
+    alreadyset:
+    notdeleted:

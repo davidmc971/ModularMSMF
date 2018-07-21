@@ -53,7 +53,7 @@ public class CommandHeal extends AbstractCommand {
 						if (p.getUniqueId().toString().equalsIgnoreCase(target.toString())) {
 							Bukkit.getPlayer(target).setHealth(20);
 							sender.sendMessage(infoPrefix+language.getString("commands.heal.healother").replaceAll("_player", p.getName()));
-							p.sendMessage(infoPrefix+language.getString("commands.heal.gothealed").replaceAll(_sender, sender.getName()));
+							p.sendMessage(infoPrefix+language.getString("commands.heal.gothealed").replaceAll("_sender", sender.getName()));
 							return true;
 						}
 					}
