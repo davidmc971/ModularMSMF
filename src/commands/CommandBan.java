@@ -21,10 +21,16 @@ import util.DataManager;
 import util.PermissionManager;
 import util.Utils;
 
+/*	This command handles requests for player 'ban's, 'unban's and 'ban-ip's.
+ * 	It uses util. Banutils for interfacing with DataManager.
+ * 
+ * 
+ */
+
 public class CommandBan extends AbstractCommand {
 	@Override
 	public String[] getCommandLabels() {
-		return new String[]{ "ban" };
+		return new String[]{ "ban", "unban", "ban-ip" };
 	}
 
 	public CommandBan(ModularMSMF plugin) {
@@ -96,4 +102,65 @@ public class CommandBan extends AbstractCommand {
 		}
 		return null;
 	}
+	/* FROM OLD UNBAN
+	 * 
+	 * @Override
+	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+		YamlConfiguration language = Utils.configureCommandLanguage(sender, plugin);
+
+		if (!sender.hasPermission("modularmsmf.unban")) {
+			sender.sendMessage(language.getString("general.nopermission"));
+			return true;
+		}
+		
+		switch(args.length){
+		case 0:
+			sender.sendMessage(language.getString("general.missing_playername"));
+			break;
+		case 1:
+			for(OfflinePlayer p : Bukkit.getOfflinePlayers()){
+				if(p.getName().equalsIgnoreCase(args[0])){
+					YamlConfiguration cfg = DataManager.getPlayerCfg(p.getUniqueId());
+					if(cfg.getBoolean("banned")){
+						cfg.set("banned", false);
+						cfg.set("reason", "none");
+						sender.sendMessage(language.getString("commands.unban.playerunbanned").replaceAll("_player", args[0]));
+					} else {
+						sender.sendMessage(language.getString("commands.unban.notbanned"));
+					}
+					return true;
+				}
+			}
+			sender.sendMessage(language.getString("general.playernotfound"));
+			break;
+		case 2:
+			if(args[0].toLowerCase().equals("uuid")){
+				for(OfflinePlayer p : Bukkit.getOfflinePlayers()){
+					if(p.getUniqueId().toString().equals(args[1])){
+						YamlConfiguration cfg = DataManager.getPlayerCfg(p.getUniqueId());
+						if(cfg.getBoolean("banned")){
+							cfg.set("banned", false);
+							cfg.set("reason", "none");
+							sender.sendMessage(language.getString("commands.unban.unbanuuid").replaceAll("_player", p.getName()));
+						} else {
+							sender.sendMessage(language.getString("commands.unban.notbanned"));
+						}
+						return true;
+					}
+				}
+				sender.sendMessage(language.getString("commands.unban.playernotfounduuid"));
+			} else {
+				sender.sendMessage(language.getString("commands.unban.invalidcommand"));
+			}
+			break;
+		default:
+			sender.sendMessage(language.getString("general.toomanyarguments"));
+			break;
+		}
+		return true;
+	}
+	 * 
+	 * 
+	 * 
+	 */
 }

@@ -98,8 +98,7 @@ public class CommandLoader {
 				new CommandSetSpawn(plugin),
 				new CommandSlaughter(plugin),
 				new CommandSpawn(plugin),
-				new CommandTeleport(plugin),
-				new CommandUnban(plugin)
+				new CommandTeleport(plugin)
 		}) {
 			commandList.add(cmd);
 		}
