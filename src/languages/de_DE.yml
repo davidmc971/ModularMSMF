@@ -41,7 +41,7 @@ commands:
     nomoneyleft: Du wuerdest dich verschulden!
   feed:
     feeded: Du hast dich gesaettigt!
-    othersfeeded: hat dich gesaettigt!
+    othersfeeded: _sender hat dich gesaettigt!
     feededperson: Du hast _player gesaettigt!
   heal:
     healself: Du hast dich selbst geheilt!

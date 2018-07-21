@@ -41,7 +41,7 @@ commands:
     nomoneyleft: You would run into debt!
   feed:
     feeded: You have satisfied yourself!
-    othersfeeded: has satisfied you!
+    othersfeeded: _sender has satisfied you!
     feededperson: You satisfied _player!
   heal:
     healself: You healed yorself!
