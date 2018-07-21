@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 
 import main.ModularMSMF;
 import util.ChatUtils;
+import util.PermissionManager;
 import util.Utils;
 
 public class CommandHeal extends AbstractCommand {
@@ -23,8 +24,6 @@ public class CommandHeal extends AbstractCommand {
 
 		YamlConfiguration language = Utils.configureCommandLanguage(sender, plugin);
 
-		String permself = "modularmsmf.heal";
-		String permothers = "modularmsmf.heal.others";
 		String infoPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.INFO);
 		String errorPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.ERROR);
 		String noPermPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.NOPERM);
@@ -33,19 +32,19 @@ public class CommandHeal extends AbstractCommand {
 		switch (args.length) {
 		case 0:
 			if((sender instanceof Player)) {
-			if (sender.hasPermission(permself)) {
+			if (sender.hasPermission(PermissionManager.getPermission("healself"))) {
 				((Player) sender).setHealth(20);
 				sender.sendMessage(infoPrefix+language.getString("commands.heal.healself"));
 			} else {
-				sender.sendMessage(noPermPrefix+"You don't have Permission to use this!");
+				sender.sendMessage(noPermPrefix+"general.nopermission");
 			}
 			}else {
-				sender.sendMessage("You cannot heal your own console!");
+				sender.sendMessage(noPermPrefix+"general.noconsole");
 			}
 			break;
 		default:
 			target = Utils.getPlayerUUIDByName(args[0]);
-			if (sender.hasPermission(permothers)) {
+			if (sender.hasPermission(PermissionManager.getPermission("healother"))) {
 				if (target == null) {
 					sender.sendMessage(errorPrefix+language.getString("general.playernotfound"));
 					return true;

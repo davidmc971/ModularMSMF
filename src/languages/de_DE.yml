@@ -55,3 +55,7 @@ commands:
     repnodesc: Bitte gib eine Beschreibung an!
     rep: Wir kuemmern uns um diese Angelegenheit! 
     repmissingcmd: Bitte gib das Report-Level an!
+  home:
+    notset:
+    alreadyset:
+    notdeleted:

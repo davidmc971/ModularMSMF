@@ -8,7 +8,7 @@ public class PermissionManager {
 			{ "feedself", "modularmsmf.feed.feedself" }, { "feedothers", "modularmsmf.feed.feedothers" },
 			{ "eco_set", "modularmsmf.eco.set" }, { "eco_add", "modularmsmf.eco.add" },
 			{ "eco_take", "modularmsmf.eco.take" }, { "eco_pay", "modularmsmf.eco.pay" },
-			{ "eco_lookup", "modularmsmf.eco.lookup" }, { "home_home", "modularmsmf.home.home" },
+			{ "eco_lookup", "modularmsmf.eco.lookup" }, { "home", "modularmsmf.home" },
 			{ "home_list", "modularmsmf.home.list" }
 
 	};
