@@ -3,6 +3,8 @@ package handlers;
 import java.util.UUID;
 
 import main.ModularMSMF;
+import util.DataManager;
+import util.LanguageManager;
 
 /*	@author davidmc971
  * 	
@@ -13,26 +15,21 @@ import main.ModularMSMF;
  */
 
 public class BanHandler {
-	public enum STDBanReasons {
+	public enum STDBanReason {
 		DEFAULT ("modularmsmf.commands.ban.reason.default"),
-		HACKING ("modularmsmf.commands.ban.reason.default"),
-		VERBAL ("modularmsmf.commands.ban.reason.default"),
-		GRIEFING ("modularmsmf.commands.ban.reason.default");
+		HACKING ("modularmsmf.commands.ban.reason.hacking"),
+		VERBAL ("modularmsmf.commands.ban.reason.verbal"),
+		GRIEFING ("modularmsmf.commands.ban.reason.griefing");
 
 		private String reason;
 		
-		STDBanReasons(String reason){
+		STDBanReason(String reason){
 			this.reason = reason;
 		}
 
 		public String getReason() {
 			return reason;
 		}
-		
-		/*public String getLocalizedReason(Language language) {
-			
-			return reason;
-		}*/
 	}
 	
 	ModularMSMF plugin;
@@ -42,11 +39,18 @@ public class BanHandler {
 	}
 	
 	public boolean banPlayer(UUID playerid) {
-		return banPlayer(playerid, null);
+		String temp = null;
+		return banPlayer(playerid, temp);
+	}
+	
+	public boolean banPlayer(UUID playerid, STDBanReason reason) {
+		//convert reason into localized string
+		return banPlayer(playerid, reason.getReason());
 	}
 	
 	public boolean banPlayer(UUID playerid, String reason) {
-		//get players language for localizing reason
+		DataManager dtm = plugin.getDataManager();
+		LanguageManager lgm = plugin.getLanguageManager();
 		
 		return true;
 	}
