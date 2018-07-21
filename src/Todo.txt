@@ -44,6 +44,8 @@ COMMANDS:
 			
 	HOME: 
 		PROGRESS:
+			- only displaying messages and permissions has been set
+			- no playerdata atm
 			
 	MUTE / UNMUTE:
 		PROGRESS:

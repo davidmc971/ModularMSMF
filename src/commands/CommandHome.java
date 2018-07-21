@@ -1,5 +1,9 @@
 package commands;
 
+import java.util.UUID;
+
+import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -34,10 +38,31 @@ public class CommandHome extends AbstractCommand {
 		// Playerdata plrdat =
 
 		if(args.length > 0) {
+			
+			UUID target = null;
+			target = Utils.getPlayerUUIDByName(args[0]);
+			
 			switch (args[0].toLowerCase()) {
 			case "list":
 				if(sender.hasPermission(PermissionManager.getPermission("home_list"))) {
 					//src for listing all homes set by it's own. admin can list player's home's for itself
+					if(args.length == 1) {
+					//Utils.getPlayerHome(sender);
+					}
+					
+					else if(args.length == 2) {
+						for (Player p : Bukkit.getOnlinePlayers()) {
+							if(p.getUniqueId().toString().equalsIgnoreCase(target.toString())) {
+								//sender.sendMessage("All homes of _player:"+(Utils.listPlayerHome));
+							}
+						}
+						for (OfflinePlayer p : Bukkit.getOfflinePlayers()) {
+							if(p.getUniqueId().toString().equalsIgnoreCase(target.toString())) {
+								
+							}
+						}
+					}
+					
 				} else {
 					sender.sendMessage(noPermPrefix+language.getString("general.nopermission"));
 				}
