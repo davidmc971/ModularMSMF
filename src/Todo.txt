@@ -57,6 +57,17 @@ COMMANDS:
     
 GENERAL TODO AND IDEAS:
 
+Lightkeks:
+	Commands:
+		Home:
+			* TODO Implementing hasNoHome (delhome, home)
+			* TODO Implementing hasHome (home, delhome)
+			* TODO Implementing hasAlreadyHome (sethome)
+			* TODO Implementing changeLocHome (sethome)
+			* TODO Implementing changeLocHomeOtherPlayer (sethome)
+		All cmds:
+			* TODO Rewrite all permissions in all cmds
+			
 davidmc971:
 	Command structure:
 		AbstractCommand
