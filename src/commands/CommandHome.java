@@ -39,6 +39,18 @@ public class CommandHome extends AbstractCommand {
 				//src for home spawning
 				if(sender.hasPermission(PermissionManager.getPermission("home_list"))) {
 					if(args.length == 1 || args.equals("list")){
+						/*
+						 * LOGISCHE OPERATOREN
+						 * ODER									||
+						 * UND									&&
+						 * KLEINER, KLEINER GLEICH				<	<=
+						 * GROESSER								>	>=
+						 * GLEICH								==
+						 * NICHT GLEICH							!=
+						 * NEGIERT (boolean)					!
+						 * 
+						 * 
+						 */
 						//listing all homes which the player has set
 					} else {
 						sender.sendMessage(errorPrefix+"commands.home.notset");
