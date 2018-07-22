@@ -43,33 +43,45 @@ public class CommandHome extends AbstractCommand {
 			target = Utils.getPlayerUUIDByName(args[0]); //getting UUID from player if target/sender is online and matches args[0]
 			
 			switch (args[0].toLowerCase()) {
-			case "list":
+			case "list": //for listing homes of users
 				if(sender.hasPermission(PermissionManager.getPermission("home_list"))) {
 					//src for listing all homes set by it's own. admin can list player's home's for itself
 					if(args.length == 1) {
+						//should list all homes of it's own
 					//sender.sendMessage(infoPrefix+language.getString("commands.home.Utils.getPlayerHome(sender);
 					}
 					
 					else if(args.length == 2) {
-						for (Player p : Bukkit.getOnlinePlayers()) {
-							if(p.getUniqueId().toString().equalsIgnoreCase(target.toString())) {
-								//sender.sendMessage(infoPrefix+"All homes of _player:"+(Utils.listPlayerHome)); // not implemented yet in Utils ~Lightkeks
+						//checks if there are more than only "list" as arg
+						if(sender.hasPermission(PermissionManager.getPermission("home_list_admin"))) {
+							//checks if user granted permission to list other player's home's
+							for (Player p : Bukkit.getOnlinePlayers()) {
+								//checks if specified user is online
+								if(p.getUniqueId().toString().equalsIgnoreCase(target.toString())) {
+									//listing homes of specified target
+									//sender.sendMessage(infoPrefix+"All homes of /*_player <-- need to replace it with args*/:"+(Utils.listPlayerHome)); // not implemented yet in Utils ~Lightkeks
+								}
 							}
-						}
-						for (OfflinePlayer p : Bukkit.getOfflinePlayers()) {
-							if(p.getUniqueId().toString().equalsIgnoreCase(target.toString())) {
-								sender.sendMessage(errorPrefix+language.getString("general.playernotfound"));
+							for (OfflinePlayer p : Bukkit.getOfflinePlayers()) {
+								//otherwise checks if user is offline
+								if(p.getUniqueId().toString().equalsIgnoreCase(target.toString())) {
+									sender.sendMessage(errorPrefix+language.getString("general.playernotfound"));
+								}
 							}
+						} else {
+							//so this boi doesnt have permission to use admin privilegues
+							sender.sendMessage(noPermPrefix+language.getString("general.nopermission"));
 						}
-					}
-					
+					} // @davidmc971: kann man hier noch checken ob der user ueberhaupt auf dem server war?
 				} else {
+					//checks if user has permission for "list"
 					sender.sendMessage(noPermPrefix+language.getString("general.nopermission"));
 				}
 				break;
-			case "set":
+			case "set": //for setting home's for players
 				if(sender.hasPermission(PermissionManager.getPermission("home_set"))) {
-					//src for setting a home's player. admin can set on it's own position a new home for a player too.
+					//src for setting a home's player. admin can set on it's own position or from a player's a new home too.
+					
 				} else {
 					sender.sendMessage(noPermPrefix+language.getString("general.nopermission"));
 				}
