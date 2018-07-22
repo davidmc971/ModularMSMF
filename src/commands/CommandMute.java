@@ -5,10 +5,8 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 
 import main.ModularMSMF;
-import util.DataManager;
 
 public class CommandMute extends AbstractCommand {
 
@@ -31,15 +29,15 @@ public class CommandMute extends AbstractCommand {
 		return true;
 	}
 
-	public static void mute(Player player) { // TODO UUID Support
-		YamlConfiguration playercfg = DataManager.getPlayerCfg(player.getUniqueId());
+	public void mute(Player player) { // TODO UUID Support
+		YamlConfiguration playercfg = plugin.getDataManager().getPlayerCfg(player.getUniqueId());
 		playercfg.set("muted", true);
 	}
 
-	public static void setTempMute(Player player, int time, Plugin plugin) { // TODO
+	public void setTempMute(Player player, int time) { // TODO
 																			// UUID
 																			// Support
-		YamlConfiguration playercfg = DataManager.getPlayerCfg(player.getUniqueId());
+		YamlConfiguration playercfg = plugin.getDataManager().getPlayerCfg(player.getUniqueId());
 		playercfg.set("muted", true);
 		Bukkit.getScheduler().runTaskLater(plugin, new Runnable() {
 			public void run() {
@@ -48,16 +46,16 @@ public class CommandMute extends AbstractCommand {
 		}, time * 20);
 	}
 
-	public static boolean alreadyMute(Player player) { // TODO UUID Support
-		YamlConfiguration playercfg = DataManager.getPlayerCfg(player.getUniqueId());
+	public boolean alreadyMute(Player player) { // TODO UUID Support
+		YamlConfiguration playercfg = plugin.getDataManager().getPlayerCfg(player.getUniqueId());
 		if (playercfg.isBoolean("muted")) {
 			return playercfg.getBoolean("muted");
 		}
 		return false;
 	}
 
-	public static void unmute(Player player) { // TODO UUID Support
-		YamlConfiguration playercfg = DataManager.getPlayerCfg(player.getUniqueId());
+	public void unmute(Player player) { // TODO UUID Support
+		YamlConfiguration playercfg = plugin.getDataManager().getPlayerCfg(player.getUniqueId());
 		playercfg.set("muted", false);
 	}
 

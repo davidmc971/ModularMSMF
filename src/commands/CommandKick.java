@@ -7,8 +7,8 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 
+import core.PermissionManager;
 import main.ModularMSMF;
-import util.PermissionManager;
 import util.Utils;
 
 public class CommandKick extends AbstractCommand {

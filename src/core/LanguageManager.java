@@ -1,4 +1,4 @@
-package util;
+package core;
 
 import java.io.File;
 import java.io.IOException;
@@ -31,7 +31,7 @@ public class LanguageManager {
 		
 		standardLanguageEntry = null;
 		for(Entry<LanguageInformation, YamlConfiguration> e : allLanguages.entrySet()){
-			if(e.getValue().getString("language.id").equalsIgnoreCase(DataManager.settingsyaml.getString("language.standard"))){
+			if(e.getValue().getString("language.id").equalsIgnoreCase(plugin.getDataManager().settingsyaml.getString("language.standard"))){
 				standardLanguageEntry = e;
 			}
 		}

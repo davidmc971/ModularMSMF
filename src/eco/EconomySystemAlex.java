@@ -8,18 +8,19 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
+import core.PermissionManager;
 import main.ModularMSMF;
-import util.DataManager;
-import util.PermissionManager;
 import util.Utils;
 
 public class EconomySystemAlex {
+	private ModularMSMF plugin;
 	public static double defaultMoney = 500.0;
 	
 	public EconomySystemAlex(ModularMSMF plugin) {
+		this.plugin = plugin;
 	}
 
-	public boolean cmd(CommandSender sender, Command cmd, String commandLabel, String[] args, ModularMSMF plugin) {
+	public boolean cmd(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 
 		YamlConfiguration language = Utils.configureCommandLanguage(sender, plugin);
 
@@ -251,14 +252,14 @@ public class EconomySystemAlex {
 	private String moneykey = "economyalex.money";
 
 	private void setMoney(UUID uuid, double amount) {
-		YamlConfiguration cfg = DataManager.getPlayerCfg(uuid);
+		YamlConfiguration cfg = plugin.getDataManager().getPlayerCfg(uuid);
 		if (cfg.isDouble(moneykey)) {
 			cfg.set(moneykey, amount);
 		}
 	}
 
 	private void takeMoney(UUID uuid, double amount) {
-		YamlConfiguration cfg = DataManager.getPlayerCfg(uuid);
+		YamlConfiguration cfg = plugin.getDataManager().getPlayerCfg(uuid);
 		if (cfg.isDouble(moneykey)) {
 			double money = cfg.getDouble(moneykey);
 			money -= amount;
@@ -267,7 +268,7 @@ public class EconomySystemAlex {
 	}
 
 	private void addMoney(UUID uuid, double amount) {
-		YamlConfiguration cfg = DataManager.getPlayerCfg(uuid);
+		YamlConfiguration cfg = plugin.getDataManager().getPlayerCfg(uuid);
 		if (cfg.isDouble(moneykey)) {
 			double money = cfg.getDouble(moneykey);
 			money += amount;
@@ -276,7 +277,7 @@ public class EconomySystemAlex {
 	}
 
 	private double getMoney(UUID uuid) {
-		YamlConfiguration cfg = DataManager.getPlayerCfg(uuid);
+		YamlConfiguration cfg = plugin.getDataManager().getPlayerCfg(uuid);
 		if (cfg.isDouble(moneykey)) {
 			return cfg.getDouble(moneykey);
 		}

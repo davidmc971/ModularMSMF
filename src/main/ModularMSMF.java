@@ -20,11 +20,11 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import commands.*;
+import core.DataManager;
+import core.LanguageManager;
 import listeners.Events;
 import util.ChatUtils;
 import util.ChatUtils.ChatFormat;
-import util.DataManager;
-import util.LanguageManager;
 
 /**
  * @author Lightkeks

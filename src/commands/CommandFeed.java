@@ -8,9 +8,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
+import core.PermissionManager;
 import main.ModularMSMF;
 import util.ChatUtils;
-import util.PermissionManager;
 import util.Utils;
 
 public class CommandFeed extends AbstractCommand {

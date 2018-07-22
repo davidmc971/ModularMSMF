@@ -17,13 +17,12 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerLoginEvent.Result;
+
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 
 import main.ModularMSMF;
 import net.md_5.bungee.api.ChatColor;
-import stats.Statistics;
-import util.DataManager;
 import util.KillType;
 
 public class Events implements Listener {
@@ -52,7 +51,7 @@ public class Events implements Listener {
 	@EventHandler
 	public void onLogin(PlayerLoginEvent event) {
 		Player player = event.getPlayer();
-		YamlConfiguration cfg = DataManager.getPlayerCfg(player.getUniqueId());
+		YamlConfiguration cfg = plugin.getDataManager().getPlayerCfg(player.getUniqueId());
 		if (cfg.isBoolean("banned") && cfg.getBoolean("banned")) {
 			if (cfg.isString("reason")) {
 				event.disallow(Result.KICK_BANNED, cfg.getString("reason"));
@@ -98,7 +97,7 @@ public class Events implements Listener {
 
 	@EventHandler // TODO Muss auch geändert werden!
 	public void onKick(PlayerKickEvent event) {
-		Statistics.getKickCounter(event.getPlayer().getUniqueId()); //TODO man siehe stats.Statistics.java
+		//Statistics.getKickCounter(event.getPlayer().getUniqueId()); //TODO man siehe stats.Statistics.java
 	}
 
 	/*CommandSender[] activeConsole = new CommandSender[2];
@@ -136,7 +135,7 @@ public class Events implements Listener {
 
 	@EventHandler
 	public void onChat(AsyncPlayerChatEvent event) {
-		YamlConfiguration playercfg = DataManager.getPlayerCfg(event.getPlayer().getUniqueId());
+		YamlConfiguration playercfg = plugin.getDataManager().getPlayerCfg(event.getPlayer().getUniqueId());
 		if (playercfg.isBoolean("muted") && playercfg.getBoolean("muted") && !event.getMessage().startsWith("/")) {
 			event.setCancelled(true);
 			event.getPlayer().sendMessage("[Muter] Du bist gemuted!");

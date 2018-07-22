@@ -5,9 +5,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
+import core.LanguageManager;
 import main.ModularMSMF;
-import util.DataManager;
-import util.LanguageManager;
 import util.Utils;
 
 public class CommandLanguage extends AbstractCommand {
@@ -52,7 +51,7 @@ public class CommandLanguage extends AbstractCommand {
 							}
 						}
 						if(success){
-							DataManager.getPlayerCfg(((Player)sender).getUniqueId()).set("language", args[1]);
+							plugin.getDataManager().getPlayerCfg(((Player)sender).getUniqueId()).set("language", args[1]);
 							sender.sendMessage(language.getString("commands.language.setsuccessplayer"));
 						} else {
 							sender.sendMessage(language.getString("commands.language.notvalid"));

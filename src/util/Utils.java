@@ -8,6 +8,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
+import core.LanguageManager;
 import main.ModularMSMF;
 
 public class Utils {
@@ -39,7 +40,7 @@ public class Utils {
 		LanguageManager languageManager = plugin.getLanguageManager();
 		YamlConfiguration language = languageManager.getStandardLanguage();
 		if(sender instanceof Player){
-			String lang = DataManager.getPlayerCfg(((Player) sender).getUniqueId()).getString("language");
+			String lang = plugin.getDataManager().getPlayerCfg(((Player) sender).getUniqueId()).getString("language");
 			if(lang != null){
 				YamlConfiguration temp = languageManager.getLanguage(lang);
 				if(temp != null && temp.contains("language.id")){

@@ -1,4 +1,4 @@
-package util;
+package core;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,19 +17,29 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+/*	Should serve as a single access point to the plugin's data management.
+ * 	All files and structures in volatile memory will be held here.
+ * 	Saving and loading from the file system will be done through
+ * 	different FileManagers that base off the same interface
+ * 	so that different formats can be implemented easily.
+ * 	First goal is to be able to handle YAML and JSON formats.
+ * 
+ * 	TODO: review / rewrite whole DataManager
+ */
+
 public class DataManager implements Listener {
-	public static final String pathMain = "plugins/ModularMSMF/";
-	public static final String pathUserdata = pathMain + "userdata/";
-	public static final String pathBankdata = pathMain + "bankdata/";
-	public static final YamlConfiguration settingsyaml = loadCfg(pathMain + "settings.yml");
-	public static final YamlConfiguration defaultUserdatayaml = loadCfg(pathUserdata + "default.yml");
+	public String pathMain = "plugins/ModularMSMF/";
+	public String pathUserdata = pathMain + "userdata/";
+	public String pathBankdata = pathMain + "bankdata/";
+	public YamlConfiguration settingsyaml = loadCfg(pathMain + "settings.yml");
+	public YamlConfiguration defaultUserdatayaml = loadCfg(pathUserdata + "default.yml");
 	
 	private Logger logger;
 	
 	private Map<String, Object> defaultSettings = new HashMap<String, Object>();
 	private Map<String, Object> defaultUserdata = new HashMap<String, Object>();
 	
-	private static Map<UUID, YamlConfiguration> allUsers = new HashMap<UUID, YamlConfiguration>();
+	private Map<UUID, YamlConfiguration> allUsers = new HashMap<UUID, YamlConfiguration>();
 	
 	public DataManager(Logger logger){
 		this.logger = logger;
@@ -82,7 +92,7 @@ public class DataManager implements Listener {
         }
     }
 	
-	public static YamlConfiguration getPlayerCfg(UUID uuid){
+	public YamlConfiguration getPlayerCfg(UUID uuid){
 		for(Entry<UUID, YamlConfiguration> e : allUsers.entrySet()){
 			if(e.getKey().toString().equalsIgnoreCase(uuid.toString()))
 				return e.getValue();
@@ -90,7 +100,7 @@ public class DataManager implements Listener {
 		return null;
 	}
 	
-	public static YamlConfiguration loadCfg(String path) {
+	public YamlConfiguration loadCfg(String path) {
 		File file = new File(path);
 		if (!file.exists()) {
 			try {
@@ -103,11 +113,11 @@ public class DataManager implements Listener {
 		return YamlConfiguration.loadConfiguration(file);
 	}
 	
-	public static YamlConfiguration loadPlayerCfg(UUID uuid){
+	public YamlConfiguration loadPlayerCfg(UUID uuid){
 		return loadCfg(pathUserdata + uuid.toString() + ".yml");
 	}
 	
-	public static void saveCfg(YamlConfiguration cfg, String path) {
+	public void saveCfg(YamlConfiguration cfg, String path) {
 		File file = new File(path);
 		try {
 			cfg.save(file);
@@ -116,7 +126,7 @@ public class DataManager implements Listener {
 		}
 	}
 	
-	public static void savePlayerCfg(YamlConfiguration playercfg, UUID uuid) {
+	public void savePlayerCfg(YamlConfiguration playercfg, UUID uuid) {
 		saveCfg(playercfg, pathUserdata + uuid.toString() + ".yml");
 	}
 	

@@ -15,10 +15,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
+import core.PermissionManager;
 import main.ModularMSMF;
 import util.ChatUtils;
-import util.DataManager;
-import util.PermissionManager;
 import util.Utils;
 
 /*	This command handles requests for player 'ban's, 'unban's and 'ban-ip's.
@@ -28,6 +27,7 @@ import util.Utils;
  */
 
 public class CommandBan extends AbstractCommand {
+	
 	@Override
 	public String[] getCommandLabels() {
 		return new String[]{ "ban", "unban", "ban-ip" };
@@ -38,6 +38,19 @@ public class CommandBan extends AbstractCommand {
 	}
 
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
+		switch (commandLabel.toLowerCase()) {
+		case "ban":
+			return banCommand(sender, cmd, commandLabel, args);
+		case "unban":
+			return unbanCommand(sender, cmd, commandLabel, args);
+		case "ban-ip":
+			return false; //banCommand(sender, cmd, commandLabel, args);
+		}
+		return false;
+	}
+	
+	
+	public boolean banCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 		YamlConfiguration language = Utils.configureCommandLanguage(sender, plugin);
 		
 		String infoPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.INFO);
@@ -55,7 +68,7 @@ public class CommandBan extends AbstractCommand {
 			if (uuid == null) {
 				sender.sendMessage(errorPrefix+language.getString("general.playerunknown"));
 				return true;
-			} else if (DataManager.getPlayerCfg(uuid).getBoolean("banned")) {
+			} else if (plugin.getDataManager().getPlayerCfg(uuid).getBoolean("banned")) {
 				sender.sendMessage(errorPrefix+language.getString("commands.ban.alreadybanned"));
 				return true;
 			}
@@ -80,8 +93,8 @@ public class CommandBan extends AbstractCommand {
 		return true;
 	}
 
-	public static void banPlayer(UUID uuid, String reason, YamlConfiguration language) {
-		YamlConfiguration cfg = DataManager.getPlayerCfg(uuid);
+	public void banPlayer(UUID uuid, String reason, YamlConfiguration language) {
+		YamlConfiguration cfg = plugin.getDataManager().getPlayerCfg(uuid);
 		cfg.set("banned", true);
 		cfg.set("reason", reason);
 		for (Player player : Bukkit.getServer().getOnlinePlayers()) {
@@ -91,7 +104,7 @@ public class CommandBan extends AbstractCommand {
 		}
 	}
 
-	private static UUID getPlayerUUIDByNameForBan(String name) {
+	private UUID getPlayerUUIDByNameForBan(String name) {
 		for (Player p : Bukkit.getOnlinePlayers()) {
 			if (p.getName().equals(name)) {
 				return p.getUniqueId();
@@ -104,10 +117,8 @@ public class CommandBan extends AbstractCommand {
 		}
 		return null;
 	}
-	/* FROM OLD UNBAN
-	 * 
-	 * @Override
-	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+
+	public boolean unbanCommand(CommandSender sender, Command command, String label, String[] args) {
 		YamlConfiguration language = Utils.configureCommandLanguage(sender, plugin);
 
 		if (!sender.hasPermission("modularmsmf.unban")) {
@@ -122,7 +133,7 @@ public class CommandBan extends AbstractCommand {
 		case 1:
 			for(OfflinePlayer p : Bukkit.getOfflinePlayers()){
 				if(p.getName().equalsIgnoreCase(args[0])){
-					YamlConfiguration cfg = DataManager.getPlayerCfg(p.getUniqueId());
+					YamlConfiguration cfg = plugin.getDataManager().getPlayerCfg(p.getUniqueId());
 					if(cfg.getBoolean("banned")){
 						cfg.set("banned", false);
 						cfg.set("reason", "none");
@@ -139,7 +150,7 @@ public class CommandBan extends AbstractCommand {
 			if(args[0].toLowerCase().equals("uuid")){
 				for(OfflinePlayer p : Bukkit.getOfflinePlayers()){
 					if(p.getUniqueId().toString().equals(args[1])){
-						YamlConfiguration cfg = DataManager.getPlayerCfg(p.getUniqueId());
+						YamlConfiguration cfg = plugin.getDataManager().getPlayerCfg(p.getUniqueId());
 						if(cfg.getBoolean("banned")){
 							cfg.set("banned", false);
 							cfg.set("reason", "none");
@@ -161,8 +172,4 @@ public class CommandBan extends AbstractCommand {
 		}
 		return true;
 	}
-	 * 
-	 * 
-	 * 
-	 */
 }
