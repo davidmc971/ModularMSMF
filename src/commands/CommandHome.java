@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 
 import core.PermissionManager;
 import main.ModularMSMF;
+import net.md_5.bungee.api.ChatColor;
 import util.ChatUtils;
 import util.Utils;
 
@@ -29,9 +30,18 @@ public class CommandHome extends AbstractCommand {
 		String errorPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.ERROR);
 		String noPermPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.NOPERM);
 		
+		/**home <help>
+		 * home <default OR name>
+		 * home list <admin:user>
+		 * home set <default OR name>
+		 * home remove <default OR name>
+		 * home rtp <user>
+		 * home admin <list:user set:user:default OR name remove:user:default OR name tp:user:default OR name>
+		 */
+		
 		if (!(sender instanceof Player)) {
 			//TODO: console could maybe set home by hand to specific coordinates
-			sender.sendMessage(noPermPrefix+language.getString("general.noconsole"));
+			/*} else {*/sender.sendMessage(noPermPrefix+language.getString("general.noconsole"));
 			return true;
 		}
 		// TODO: Implementieren
@@ -43,36 +53,27 @@ public class CommandHome extends AbstractCommand {
 			target = Utils.getPlayerUUIDByName(args[0]); //getting UUID from player if target/sender is online and matches args[0]
 			
 			switch (args[0].toLowerCase()) {
+			case "help": //shows help for these commands
+				sender.sendMessage(infoPrefix+"List of your aviable commands:");
+				//shows help if permissions were given
+				if(sender.hasPermission(PermissionManager.getPermission("home_list"))) {
+					sender.sendMessage(ChatColor.GRAY+" [Home:list] "+" /home list -> List all your homes");
+				}
+				if(sender.hasPermission(PermissionManager.getPermission("home_set"))) {
+					sender.sendMessage(ChatColor.GRAY+" [Home:set] "+" /home set -> Set's your individual home");
+				}
+				if(sender.hasPermission(PermissionManager.getPermission("home_remove"))) {
+					//stopped heres
+				}
+				
+				break;
 			case "list": //for listing homes of users
 				if(sender.hasPermission(PermissionManager.getPermission("home_list"))) {
-					//src for listing all homes set by it's own. admin can list player's home's for itself
+					//src for listing all homes set by it's own.
 					if(args.length == 1) {
 						//should list all homes of it's own
 					//sender.sendMessage(infoPrefix+language.getString("commands.home.Utils.getPlayerHome(sender);
 					}
-					
-					else if(args.length == 2) {
-						//checks if there are more than only "list" as arg
-						if(sender.hasPermission(PermissionManager.getPermission("home_list_admin"))) {
-							//checks if user granted permission to list other player's home's
-							for (Player p : Bukkit.getOnlinePlayers()) {
-								//checks if specified user is online
-								if(p.getUniqueId().toString().equalsIgnoreCase(target.toString())) {
-									//listing homes of specified target
-									//sender.sendMessage(infoPrefix+"All homes of /*_player <-- need to replace it with args*/:"+(Utils.listPlayerHome)); // not implemented yet in Utils ~Lightkeks
-								}
-							}
-							for (OfflinePlayer p : Bukkit.getOfflinePlayers()) {
-								//otherwise checks if user is offline
-								if(p.getUniqueId().toString().equalsIgnoreCase(target.toString())) {
-									sender.sendMessage(errorPrefix+language.getString("general.playernotfound"));
-								}
-							}
-						} else {
-							//so this boi doesnt have permission to use admin privilegues
-							sender.sendMessage(noPermPrefix+language.getString("general.nopermission"));
-						}
-					} // @davidmc971: kann man hier noch checken ob der user ueberhaupt auf dem server war?
 				} else {
 					//checks if user has permission for "list"
 					sender.sendMessage(noPermPrefix+language.getString("general.nopermission"));
@@ -80,27 +81,36 @@ public class CommandHome extends AbstractCommand {
 				break;
 			case "set": //for setting home's for players
 				if(sender.hasPermission(PermissionManager.getPermission("home_set"))) {
-					//src for setting a home's player. admin can set on it's own position or from a player's a new home too.
+					//src for setting a home's player.
 					
 				} else {
+					//well done, you don't have permission
 					sender.sendMessage(noPermPrefix+language.getString("general.nopermission"));
 				}
 				break;
 			case "remove":
+				//removing a home
 				if(sender.hasPermission(PermissionManager.getPermission("home_remove"))) {
-					//src for removing home(s) which has been set, otherwise admin can remove selected or all homes from a player
+					//src for removing home(s) which has been set
 				} else {
 					sender.sendMessage(noPermPrefix+language.getString("general.nopermission"));
 				}
 				break;
 			case "rtp":
 				if(sender.hasPermission(PermissionManager.getPermission("home_rtp"))) {
-					//src for requesting an teleport for another home's location from a player who's online. admin can w/o requesting.
+					//src for requesting an teleport for another default or first home's location from a player who's online.
 				} else {
 					sender.sendMessage(noPermPrefix+language.getString("general.nopermission"));
 				}
 				break;
+			case "admin":
+				//all commands which an admin should use wisely. every child command has its own permission too to select.
+				
+				break;
 			default:
+				if(sender.hasPermission(PermissionManager.getPermission("home"))) {
+					
+				}
 				//src for teleporting to its home or any home which has been labeled with a custom name, which was defined under "set"
 				/** } else {
 				 * sender.sendMessage(errorPrefix+"language.getString("commands.home.notfoundhome"));
