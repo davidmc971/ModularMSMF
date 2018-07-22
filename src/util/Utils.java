@@ -13,6 +13,8 @@ import main.ModularMSMF;
 
 public class Utils {
 
+	//public static String listPlayerHome; //not implemented yet ~Lightkeks
+
 	public static Player getPlayerByName(String name) {
 		for (Player p : Bukkit.getOnlinePlayers()) {
 			if (p.getName().equalsIgnoreCase(name)) {

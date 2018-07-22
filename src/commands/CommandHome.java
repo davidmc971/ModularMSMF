@@ -53,12 +53,12 @@ public class CommandHome extends AbstractCommand {
 					else if(args.length == 2) {
 						for (Player p : Bukkit.getOnlinePlayers()) {
 							if(p.getUniqueId().toString().equalsIgnoreCase(target.toString())) {
-								//sender.sendMessage("All homes of _player:"+(Utils.listPlayerHome));
+								//sender.sendMessage(infoPrefix+"All homes of _player:"+(Utils.listPlayerHome)); // not implemented yet in Utils ~Lightkeks
 							}
 						}
 						for (OfflinePlayer p : Bukkit.getOfflinePlayers()) {
 							if(p.getUniqueId().toString().equalsIgnoreCase(target.toString())) {
-								
+								sender.sendMessage(errorPrefix+language.getString("general.playernotfound"));
 							}
 						}
 					}
