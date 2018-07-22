@@ -32,26 +32,34 @@ public class CommandHeal extends AbstractCommand {
 		switch (args.length) {
 		case 0:
 			if((sender instanceof Player)) {
+				//checking if command sender is player instead of console
 			if (sender.hasPermission(PermissionManager.getPermission("healself"))) {
-				((Player) sender).setHealth(20);
+				//checking, if user has permission to use /heal
+				((Player) sender).setHealth(20); //full heal for sender
 				sender.sendMessage(infoPrefix+language.getString("commands.heal.healself"));
+				//using ChatUtils and YamlConfiguration for easier messages
 			} else {
+				//if no permission was given, it will negate the if phrase
 				sender.sendMessage(noPermPrefix+language.getString("general.nopermission"));
 			}
 			}else {
+				//if console should not be permitted to use a command, this comes out
 				sender.sendMessage(noPermPrefix+language.getString("general.noconsole"));
 			}
 			break;
 		default:
 			target = Utils.getPlayerUUIDByName(args[0]);
+			//trying to find out the UUID by player name
 			if (sender.hasPermission(PermissionManager.getPermission("healother"))) {
+				//check if user has permission to heal others
 				if (target == null) {
+					//check if user exists
 					sender.sendMessage(errorPrefix+language.getString("general.playernotfound"));
-					return true;
-				} else
+					return true; //return's true if target's not online
+				} else //return's true otherwise if target's online
 					for (Player p : Bukkit.getOnlinePlayers()) {
 						if (p.getUniqueId().toString().equalsIgnoreCase(target.toString())) {
-							Bukkit.getPlayer(target).setHealth(20);
+							Bukkit.getPlayer(target).setHealth(20); //full heal for target
 							sender.sendMessage(infoPrefix+language.getString("commands.heal.healother").replaceAll("_player", p.getName()));
 							p.sendMessage(infoPrefix+language.getString("commands.heal.gothealed").replaceAll("_sender", sender.getName()));
 							return true;
@@ -64,7 +72,7 @@ public class CommandHeal extends AbstractCommand {
 	}
 
 	@Override
-	public String[] getCommandLabels() {
+	public String[] getCommandLabels() { //only using for AbstractCommand
 		return new String[]{ "heal" };
 	}
 }
