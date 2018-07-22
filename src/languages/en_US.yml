@@ -57,7 +57,7 @@ commands:
     rep: Thanks for your report! We will take action about this. 
     repmissingcmd: Please write down the right report-level!
   home:
-    notset:
-    alreadyset:
-    notdeleted:
-    notfoundhome:
+    notset: Your home has not been set!
+    alreadyset: This home was already set!
+    notdeleted: Your home has not been removed!
+    notfoundhome: _homename has not been found!

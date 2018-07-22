@@ -57,7 +57,8 @@ commands:
     rep: Wir kuemmern uns um diese Angelegenheit! 
     repmissingcmd: Bitte gib das Report-Level an!
   home:
-    notset:
-    alreadyset:
-    notdeleted:
-    notfoundhome:
+    notset: Das Zuhause wurde nicht gesetzt!
+    alreadyset: Das Zuhause wurde schon gesetzt!
+    notdeleted: Das Zuhause wurde nicht entfernt!
+    notfoundhome: Das Zuhause wurde nicht gefunden!
+    allhomes: 

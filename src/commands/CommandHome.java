@@ -39,15 +39,15 @@ public class CommandHome extends AbstractCommand {
 
 		if(args.length > 0) {
 			
-			UUID target = null;
-			target = Utils.getPlayerUUIDByName(args[0]);
+			UUID target = null; //default set to null because no UUID has been chosen
+			target = Utils.getPlayerUUIDByName(args[0]); //getting UUID from player if target/sender is online and matches args[0]
 			
 			switch (args[0].toLowerCase()) {
 			case "list":
 				if(sender.hasPermission(PermissionManager.getPermission("home_list"))) {
 					//src for listing all homes set by it's own. admin can list player's home's for itself
 					if(args.length == 1) {
-					//Utils.getPlayerHome(sender);
+					//sender.sendMessage(infoPrefix+language.getString("commands.home.Utils.getPlayerHome(sender);
 					}
 					
 					else if(args.length == 2) {
