@@ -63,7 +63,7 @@ public class CommandHome extends AbstractCommand {
 					sender.sendMessage(ChatColor.GRAY+" [Home:set] "+" /home set -> Set's your individual home");
 				}
 				if(sender.hasPermission(PermissionManager.getPermission("home_remove"))) {
-					//stopped heres
+					//stopped here
 				}
 				
 				break;
