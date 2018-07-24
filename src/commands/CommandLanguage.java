@@ -14,6 +14,10 @@ public class CommandLanguage extends AbstractCommand {
 	public CommandLanguage(ModularMSMF plugin) {
 		super(plugin);
 	}
+	
+	/**
+	 * @TODO need prefix as text
+	 */
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {

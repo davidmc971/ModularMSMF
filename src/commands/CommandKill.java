@@ -30,7 +30,7 @@ public class CommandKill extends AbstractCommand {
 			sender.sendMessage("Bitte gib Argumente an!");
 			return true;
 		}
-		switch (args[0]) {
+		switch (args[0]) { // missing prefix as text
 		case "me":
 			if (sender instanceof Player) {
 				if (sender.hasPermission("modularmsmf.kill.me")) {

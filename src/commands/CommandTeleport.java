@@ -13,6 +13,9 @@ public class CommandTeleport extends AbstractCommand {
 	public CommandTeleport(ModularMSMF plugin) {
 		super(plugin);
 	}
+	/**
+	 * @TODO implement and finishing this
+	 */
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {

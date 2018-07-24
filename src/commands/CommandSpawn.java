@@ -18,6 +18,10 @@ public class CommandSpawn extends AbstractCommand {
 		super(plugin);
 	}
 	
+	/**
+	 * @TODO finishing this
+	 */
+	
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		

@@ -14,7 +14,9 @@ public class CommandSlaughter extends AbstractCommand {
 	public CommandSlaughter(ModularMSMF plugin) {
 		super(plugin);
 	}
-
+		/**
+		 * @TODO finishing this
+		 */
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (sender instanceof Player) {

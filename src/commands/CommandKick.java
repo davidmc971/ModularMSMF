@@ -26,7 +26,7 @@ public class CommandKick extends AbstractCommand {
 		String reason = language.getString("commands.kick.defaultkickreason");
 
 		switch(args.length){
-		case 0:
+		case 0: //missing prefix as text
 			if(sender.hasPermission(PermissionManager.getPermission("kickplayer"))){
 				sender.sendMessage(language.getString("general.missing_playername"));
 			} else {

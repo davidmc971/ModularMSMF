@@ -12,7 +12,10 @@ import main.ModularMSMF;
 
 public class CommandMotd extends AbstractCommand {
 	
-	// @TODO HALLOOOOOOOONFC#+poarwenb+oprenb
+	/**
+	 * @TODO onplayerjoinevent und normal zum abrufen
+	 * @param plugin
+	 */
 	
 	//private File dataStore = new File("plugins/ModularMSMF/motd.txt");
 	

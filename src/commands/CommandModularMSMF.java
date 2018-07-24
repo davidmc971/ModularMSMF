@@ -28,7 +28,7 @@ public class CommandModularMSMF extends AbstractCommand {
 				if (args.length == 0) {
 					sender.sendMessage(infoPrefix+"Plugin enabled on: " + Bukkit.getServerName());
 					sender.sendMessage(infoPrefix+"More help:");
-					sender.sendMessage(infoPrefix+"info || discord || report");
+					sender.sendMessage(infoPrefix+"info || discord || report"); // missing report, not implemented yet
 				} else if (args.length == 1) {
 					switch (args[0].toLowerCase()) {
 					case "info":
@@ -43,6 +43,8 @@ public class CommandModularMSMF extends AbstractCommand {
 						if (args.length == 1) {
 							sender.sendMessage(infoPrefix+"Discord-URL: " + ChatColor.BLUE + "https://discord.gg/Y2s4tkA");
 						}
+						break;
+					case "report":
 						break;
 					}
 				} else if (args.length >= 2) {

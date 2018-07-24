@@ -28,6 +28,11 @@ public class CommandMute extends AbstractCommand {
 
 		return true;
 	}
+	
+	/**
+	 * @TODO implement mute
+	 * @param player
+	 */
 
 	public void mute(Player player) { // TODO UUID Support
 		YamlConfiguration playercfg = plugin.getDataManager().getPlayerCfg(player.getUniqueId());

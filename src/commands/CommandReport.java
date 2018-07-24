@@ -38,6 +38,9 @@ public class CommandReport extends AbstractCommand {
 	 * @param commandLabe the label of the command, case-sensitive
 	 * @param args provided arguments without the label
 	 * @param plugin the parent plugin
+	 * 
+	 * @TODO using database for worldwide support ingame and webinterface
+	 * @TODO using ingame chat as worldwide support ingame and webinterface
 	 */
 
 	@Override

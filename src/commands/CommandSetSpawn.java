@@ -16,6 +16,10 @@ public class CommandSetSpawn extends AbstractCommand {
 	public CommandSetSpawn(ModularMSMF plugin) {
 		super(plugin);
 	}
+	
+	/**
+	 * @TODO finishing this
+	 */
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {

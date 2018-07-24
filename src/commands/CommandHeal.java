@@ -51,7 +51,7 @@ public class CommandHeal extends AbstractCommand {
 				sender.sendMessage(noPermPrefix+language.getString("general.noconsole"));
 			}
 			break;
-		default:
+		default: // missing args length
 			target = Utils.getPlayerUUIDByName(args[0]);
 			//trying to find out the UUID by player name
 			if (sender.hasPermission(PermissionManager.getPermission("healother"))) {

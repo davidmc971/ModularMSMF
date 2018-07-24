@@ -48,7 +48,7 @@ public class CommandFeed extends AbstractCommand {
 			sender.sendMessage(noPermPrefix+language.getString("general.noconsole"));
 			}
 			break;
-		default:
+		default: // missing args length
 			target = Utils.getPlayerUUIDByName(args[0]);
 			if (target == null) {
 				sender.sendMessage(errorPrefix+language.getString("general.playernotfound"));
