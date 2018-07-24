@@ -53,7 +53,7 @@ public class CommandHome extends AbstractCommand {
 			target = Utils.getPlayerUUIDByName(args[0]); //getting UUID from player if target/sender is online and matches args[0]
 			
 			switch (args[0].toLowerCase()) {
-			case "help": //shows help for these commands
+			case "help": //shows help for these commands - FINISHED WRITING IT
 				if(args.length == 1) {
 					sender.sendMessage(infoPrefix+"List of your aviable commands:");
 					sender.sendMessage(infoPrefix+"For more details just do /home help <command>");
@@ -79,11 +79,11 @@ public class CommandHome extends AbstractCommand {
 					return true;
 					}
 				} else if(args.length == 2){
-					switch (args[1].toLowerCase()){
+					switch (args[1].toLowerCase()){ //shows permission like above which perm is given and it's message
 					case "list":
 						if(args.length == 2) {
 							if(sender.hasPermission(PermissionManager.getPermission("home_list"))) {
-								sender.sendMessage(ChatColor.GRAY+" [Home:list] "+" Listing all your own home's like the default non-named first and all other named homes, if you ever forget one home.");
+								sender.sendMessage(ChatColor.GRAY+" [Home:list] Listing all your own home's like the default non-named first and all other named homes, if you ever forget one home.");
 							} else {
 								sender.sendMessage(noPermPrefix+"You don't have permission to use /home list ? Ask your permission manager why not.");
 							}
@@ -92,22 +92,50 @@ public class CommandHome extends AbstractCommand {
 					case "set":
 						if(args.length == 2) {
 							if(sender.hasPermission(PermissionManager.getPermission("home_set"))) {
-								sender.sendMessage(ChatColor.GRAY+" [Home:set] "+" Setting your individual home means you can set a home without giving it a name by doing /home set < > or you can set a name by doing /home set <name>. Your choice, "+sender.getName());
+								sender.sendMessage(ChatColor.GRAY+" [Home:set] Setting your individual home means you can set a home without giving it a name by doing /home set < > or you can set a name by doing /home set <name>. Your choice, "+sender.getName());
 							} else {
 								sender.sendMessage(noPermPrefix+"You don't have permission to use /home set ? Ask your permission manager why not.");
 							}
 						}
 						break;
 					case "remove":
+						if(args.length == 2) {
+							if(sender.hasPermission(PermissionManager.getPermission("home_remove"))) {
+								sender.sendMessage(ChatColor.GRAY+" [Home:remove] Remove's your default or individual home which you can find under /home list. Remove it like this: /home remove < > or if a name is given with /home remove <NAME>");
+							} else {
+								sender.sendMessage(noPermPrefix+"You don't have permission to use /home remove ? Ask your permission manager why not.");
+							}
+						}
 						break;
 					case "rtp":
+						if(args.length == 2) {
+							if(sender.hasPermission(PermissionManager.getPermission("home_rtp"))) {
+								sender.sendMessage(ChatColor.GRAY+" [Home:rtp] Requests an teleport to any user's home set. Mostly only default home is chosen, if not otherwise known.");
+							} else {
+								sender.sendMessage(noPermPrefix+"You don't have permission to use /home rtp ? Ask your permission manager why not.");
+							}
+						}
 						break;
 					case "admin":
+						if(sender.hasPermission(PermissionManager.getPermission("home_admin"))) {
+							if(args.length == 2) {
+								sender.sendMessage(ChatColor.GRAY+" [Home:admin] There are all relevant administrative tools to control all user's homes. There's nothing which could miss. Otherwise ask the dev's of this plugin under /mmsmf info ");
+							}
+							if(sender.isOp()) {
+								sender.sendMessage(ChatColor.RED+" [Home:admin as OP] There is nothing you can't do. Just use it wisely.");
+							} else {
+								sender.sendMessage(noPermPrefix+"Sad story bruh, no OP?");
+							}
+						} else {
+							sender.sendMessage(noPermPrefix+"You don't have permission to use /home admin ? Well, ask one of the administrator's why.");
+						}
 						break;
 					default:
-						sender.sendMessage(errorPrefix+"This argument "+ChatColor.GRAY+args[0]+ChatColor.RED+" does not exist!");
+						sender.sendMessage(errorPrefix+"This argument "+ChatColor.GRAY+args[1]+ChatColor.RED+" does not exist!");
 						break;
 					}
+				} else {
+					sender.sendMessage(errorPrefix+"Too many args boi");
 				}
 				
 				break;
@@ -143,6 +171,17 @@ public class CommandHome extends AbstractCommand {
 			case "rtp":
 				if(sender.hasPermission(PermissionManager.getPermission("home_rtp"))) {
 					//src for requesting an teleport for another default or first home's location from a player who's online.
+					if(args[1].equals(target)) { //teleporting to user's first, default home
+						
+					}
+					//request which can do /home rtp <username> <homename OR default> and the other, which receive invite do /home rtp <yes OR no> || @TODO should work IF THERE'S AN REQUEST, IF NOT, THE USER MUST BE NOTIFIED or NOTHING SHOULD HAPPEN!
+					if(args[1].equals("yes") || args[2].equals("no")) {
+						if(args[1].equals("yes")){
+							
+						} else if(args[2].equals("no")) {
+							
+						}
+					}
 				} else {
 					sender.sendMessage(noPermPrefix+language.getString("general.nopermission"));
 				}
