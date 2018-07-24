@@ -54,16 +54,55 @@ public class CommandHome extends AbstractCommand {
 			
 			switch (args[0].toLowerCase()) {
 			case "help": //shows help for these commands
-				sender.sendMessage(infoPrefix+"List of your aviable commands:");
-				//shows help if permissions were given
-				if(sender.hasPermission(PermissionManager.getPermission("home_list"))) {
-					sender.sendMessage(ChatColor.GRAY+" [Home:list] "+" /home list -> List all your homes");
+				if(args.length < 1) {
+					sender.sendMessage(infoPrefix+"List of your aviable commands:");
+					sender.sendMessage(infoPrefix+"For more details just do /home help <command>");
+					//shows help if permissions were given
+					if(sender.hasPermission(PermissionManager.getPermission("home_list"))) {
+						sender.sendMessage(ChatColor.GRAY+" [Home:list] "+" /home list -> List all your homes");
+					}
+					if(sender.hasPermission(PermissionManager.getPermission("home_set"))) {
+						sender.sendMessage(ChatColor.GRAY+" [Home:set] "+" /home set -> Set's your individual home");
+					}
+					if(sender.hasPermission(PermissionManager.getPermission("home_remove"))) {
+						sender.sendMessage(ChatColor.GRAY+" [Home:remove] "+" /home remove -> Remove's your individual home");
+					}
+					if(sender.hasPermission(PermissionManager.getPermission("home_rtp"))) {
+						sender.sendMessage(ChatColor.GRAY+" [Home:rtp] " +" /home rtp -> Teleport request to any chosen default's home from a user");
+					}
+					if(sender.hasPermission(PermissionManager.getPermission("home_admin"))) {
+						sender.sendMessage(ChatColor.RED+" [Home:admin] "+" /home admin -> any admin-relevant commands for home");
+					}
+					//otherwise if no perms (no admin) have been given the statement under this will show up
+					if(!sender.hasPermission(PermissionManager.getPermission("home_list")) && !sender.hasPermission(PermissionManager.getPermission("home_set")) && !sender.hasPermission(PermissionManager.getPermission("home_remove")) && !sender.hasPermission(PermissionManager.getPermission("home_rtp"))){
+						sender.sendMessage(noPermPrefix+"It seem's like you don't have any relevant permissions to use any commands! Sorry, "+sender.getName());
+					return true;
+					}
 				}
-				if(sender.hasPermission(PermissionManager.getPermission("home_set"))) {
-					sender.sendMessage(ChatColor.GRAY+" [Home:set] "+" /home set -> Set's your individual home");
-				}
-				if(sender.hasPermission(PermissionManager.getPermission("home_remove"))) {
-					//stopped here
+				switch (args[1]){
+				case "list":
+						if(sender.hasPermission(PermissionManager.getPermission("home_list"))) {
+							sender.sendMessage(ChatColor.GRAY+" [Home:list] "+" Listing all your own home's like the default non-named first and all other named homes, if you ever forget one home.");
+						} else {
+							sender.sendMessage(noPermPrefix+"You don't have permission to use /home list ? Ask your permission manager why not.");
+						}
+						break;
+				case "set":
+					if(sender.hasPermission(PermissionManager.getPermission("home_set"))) {
+							sender.sendMessage(ChatColor.GRAY+" [Home:set] "+" Setting your individual home means you can set a home without giving it a name by doing /home set < > or you can set a name by doing /home set <name>. Your choice, "+sender.getName());
+						} else {
+							sender.sendMessage(noPermPrefix+"You don't have permission to use /home set ? Ask your permission manager why not.");
+						}
+					break;
+				case "remove":
+					break;
+				case "rtp":
+					break;
+				case "admin":
+					break;
+				default:
+					sender.sendMessage(errorPrefix+"This argument "+ChatColor.GRAY+args[1]+ChatColor.RED+" does not exist!");
+					break;
 				}
 				
 				break;
