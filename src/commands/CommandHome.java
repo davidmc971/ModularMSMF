@@ -54,7 +54,7 @@ public class CommandHome extends AbstractCommand {
 			
 			switch (args[0].toLowerCase()) {
 			case "help": //shows help for these commands
-				if(args.length < 1) {
+				if(args.length == 1) {
 					sender.sendMessage(infoPrefix+"List of your aviable commands:");
 					sender.sendMessage(infoPrefix+"For more details just do /home help <command>");
 					//shows help if permissions were given
@@ -78,31 +78,36 @@ public class CommandHome extends AbstractCommand {
 						sender.sendMessage(noPermPrefix+"It seem's like you don't have any relevant permissions to use any commands! Sorry, "+sender.getName());
 					return true;
 					}
-				}
-				switch (args[1]){
-				case "list":
-						if(sender.hasPermission(PermissionManager.getPermission("home_list"))) {
-							sender.sendMessage(ChatColor.GRAY+" [Home:list] "+" Listing all your own home's like the default non-named first and all other named homes, if you ever forget one home.");
-						} else {
-							sender.sendMessage(noPermPrefix+"You don't have permission to use /home list ? Ask your permission manager why not.");
+				} else if(args.length == 2){
+					switch (args[1].toLowerCase()){
+					case "list":
+						if(args.length == 2) {
+							if(sender.hasPermission(PermissionManager.getPermission("home_list"))) {
+								sender.sendMessage(ChatColor.GRAY+" [Home:list] "+" Listing all your own home's like the default non-named first and all other named homes, if you ever forget one home.");
+							} else {
+								sender.sendMessage(noPermPrefix+"You don't have permission to use /home list ? Ask your permission manager why not.");
+							}
 						}
 						break;
-				case "set":
-					if(sender.hasPermission(PermissionManager.getPermission("home_set"))) {
-							sender.sendMessage(ChatColor.GRAY+" [Home:set] "+" Setting your individual home means you can set a home without giving it a name by doing /home set < > or you can set a name by doing /home set <name>. Your choice, "+sender.getName());
-						} else {
-							sender.sendMessage(noPermPrefix+"You don't have permission to use /home set ? Ask your permission manager why not.");
+					case "set":
+						if(args.length == 2) {
+							if(sender.hasPermission(PermissionManager.getPermission("home_set"))) {
+								sender.sendMessage(ChatColor.GRAY+" [Home:set] "+" Setting your individual home means you can set a home without giving it a name by doing /home set < > or you can set a name by doing /home set <name>. Your choice, "+sender.getName());
+							} else {
+								sender.sendMessage(noPermPrefix+"You don't have permission to use /home set ? Ask your permission manager why not.");
+							}
 						}
-					break;
-				case "remove":
-					break;
-				case "rtp":
-					break;
-				case "admin":
-					break;
-				default:
-					sender.sendMessage(errorPrefix+"This argument "+ChatColor.GRAY+args[1]+ChatColor.RED+" does not exist!");
-					break;
+						break;
+					case "remove":
+						break;
+					case "rtp":
+						break;
+					case "admin":
+						break;
+					default:
+						sender.sendMessage(errorPrefix+"This argument "+ChatColor.GRAY+args[0]+ChatColor.RED+" does not exist!");
+						break;
+					}
 				}
 				
 				break;
