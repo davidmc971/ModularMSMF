@@ -41,10 +41,76 @@ public class CommandHome extends AbstractCommand {
 		 * home remove <default OR name>
 		 * home rtp <user>
 		 * home admin <list:user set:user:default OR name remove:user:default OR name tp:user:default OR name>
+		 * 
+		 * 	CONSOLE COMMANDS:
+		 * 	home console
+		 * 	home help -> home console
+		 * 	home -> home console
+		 * 	home * -> error!
+		 * 
+		 * 	PLAYER COMMANDS:
+		 * 	home [optional: homeName]
+		 * 	home set [optional: homeName]
+		 * 	home remove [optional: homeName]
+		 * 	home list
+		 * 	home rtp [userName] [optional: homeName]
+		 * 	home admin [args]
 		 */
 
 		// TODO: Implementieren
 		// Playerdata plrdat =
+
+		boolean isPlayer = sender instanceof Player;
+
+		if (args.length == 0) {
+			//only /home without args
+			if (isPlayer) {
+				//teleport player to default home if set
+				
+				return true;
+			} else {
+				//modify args to display console subcommand
+				args = new String[] {"console"};
+			}
+		}
+
+		switch (args[0].toLowerCase()) {
+		case "help":
+			if(isPlayer) {
+				//display player help
+				
+				break;
+			}
+			//if console types /home help the switch jumps down to case "console"
+		case "console":
+			if(!isPlayer) {
+				//display console help
+				
+			} else {
+				//tell player this command is not available
+				
+			}
+			break;
+		case "set":
+
+			break;
+		case "remove":
+
+			break;
+		case "list":
+
+			break;
+		case "rtp":
+
+			break;
+		case "admin":
+
+			break;
+		default:
+			//error
+			break;
+		}
+
 
 		if (!(sender instanceof Player)) {
 			switch(args[0].toLowerCase()) {
@@ -57,12 +123,12 @@ public class CommandHome extends AbstractCommand {
 					sender.sendMessage(" /home admin - Just type it in to get the commands");
 				} else if(args.length == 2) {
 					switch (args[1].toLowerCase()) {
-					
+
 					}
 				}
 				break;
 			default:
-				
+
 				break;
 			}
 			return true;
