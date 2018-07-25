@@ -92,10 +92,16 @@ public class CommandHome extends AbstractCommand {
 					sender.sendMessage(" /home list <user> - Listing Homes of <user>");
 					sender.sendMessage(" /home set <user> <default OR name> - Set's an home given to it's player's location with notification");
 					sender.sendMessage(" /home remove <user> <default OR name> - Remove's an home given by it's player with notification");
-					sender.sendMessage(" /home admin - Just type it in to get the commands");
 				} else if(args.length == 2) {
 					switch (args[1].toLowerCase()) {
-
+					case "list":
+						break;
+					case "set":
+						break;
+					case "remove":
+						break;
+					default:
+						break;
 					}
 				}
 			} else {
@@ -280,4 +286,15 @@ public class CommandHome extends AbstractCommand {
 	public String[] getCommandLabels() {
 		return new String[]{ "home" };
 	}
+	
+	private static void getPlayerHome(UUID uuid, String posHome) {
+		
+	}
+	private static void setPlayerHome(UUID uuid, String posHome) {
+		
+	}
+	private static void listPlayerHome(UUID uuid, String SlistHome, int IlistHome) {
+		
+	}
+	
 }
