@@ -43,16 +43,30 @@ public class CommandHome extends AbstractCommand {
 		 * home admin <list:user set:user:default OR name remove:user:default OR name tp:user:default OR name>
 		 */
 
-		if (!(sender instanceof Player)) {
-			//TODO: console could maybe set or remove home by hand to specific players
-			/*} else {*/sender.sendMessage(noPermPrefix+language.getString("general.noconsole"));
-			return true;
-		}
 		// TODO: Implementieren
 		// Playerdata plrdat =
 
-		if(args.length > 0) {
-
+		if (!(sender instanceof Player)) {
+			switch(args[0].toLowerCase()) {
+			case "console":
+				if(args.length == 1) {
+					sender.sendMessage(infoPrefix+"Console-helping Commands for Home");
+					sender.sendMessage(" /home list <user> - Listing Homes of <user>");
+					sender.sendMessage(" /home set <user> <default OR name> - Set's an home given to it's player's location with notification");
+					sender.sendMessage(" /home remove <user> <default OR name> - Remove's an home given by it's player with notification");
+					sender.sendMessage(" /home admin - Just type it in to get the commands");
+				} else if(args.length == 2) {
+					switch (args[1].toLowerCase()) {
+					
+					}
+				}
+				break;
+			default:
+				
+				break;
+			}
+			return true;
+		} else {
 			UUID target = null; //default set to null because no UUID has been chosen
 			target = Utils.getPlayerUUIDByName(args[0]); //getting UUID from player if target/sender is online and matches args[0]
 
@@ -63,19 +77,19 @@ public class CommandHome extends AbstractCommand {
 					sender.sendMessage(infoPrefix+"For more details just do /home help <command>");
 					//shows help if permissions were given
 					if(sender.hasPermission(PermissionManager.getPermission("home_list"))) {
-						sender.sendMessage(ChatColor.GRAY+" [Home:list] "+" /home list -> List all your homes");
+						sender.sendMessage(ChatColor.GRAY+" /home list -> List all your homes");
 					}
 					if(sender.hasPermission(PermissionManager.getPermission("home_set"))) {
-						sender.sendMessage(ChatColor.GRAY+" [Home:set] "+" /home set -> Set's your individual home");
+						sender.sendMessage(ChatColor.GRAY+" /home set -> Set's your individual home");
 					}
 					if(sender.hasPermission(PermissionManager.getPermission("home_remove"))) {
-						sender.sendMessage(ChatColor.GRAY+" [Home:remove] "+" /home remove -> Remove's your individual home");
+						sender.sendMessage(ChatColor.GRAY+" /home remove -> Remove's your individual home");
 					}
 					if(sender.hasPermission(PermissionManager.getPermission("home_rtp"))) {
-						sender.sendMessage(ChatColor.GRAY+" [Home:rtp] " +" /home rtp -> Teleport request to any chosen default's home from a user");
+						sender.sendMessage(ChatColor.GRAY+" /home rtp -> Teleport request to any chosen default's home from a user");
 					}
 					if(sender.hasPermission(PermissionManager.getPermission("home_admin"))) {
-						sender.sendMessage(ChatColor.RED+" [Home:admin] "+" /home admin -> any admin-relevant commands for home");
+						sender.sendMessage(ChatColor.RED+" /home admin -> any admin-relevant commands for home");
 					}
 					//otherwise if no perms (no admin) have been given the statement under this will show up
 					if(!sender.hasPermission(PermissionManager.getPermission("home_list")) && !sender.hasPermission(PermissionManager.getPermission("home_set")) && !sender.hasPermission(PermissionManager.getPermission("home_remove")) && !sender.hasPermission(PermissionManager.getPermission("home_rtp"))){
@@ -87,7 +101,7 @@ public class CommandHome extends AbstractCommand {
 					case "list":
 						if(args.length == 2) {
 							if(sender.hasPermission(PermissionManager.getPermission("home_list"))) {
-								sender.sendMessage(ChatColor.GRAY+" [Home:list] Listing all your own home's like the default non-named first and all other named homes, if you ever forget one home.");
+								sender.sendMessage(ChatColor.GRAY+" Listing all your own home's like the default non-named first and all other named homes, if you ever forget one home.");
 							} else {
 								sender.sendMessage(noPermPrefix+language.getString("general.nopermission"));
 							}
@@ -96,7 +110,7 @@ public class CommandHome extends AbstractCommand {
 					case "set":
 						if(args.length == 2) {
 							if(sender.hasPermission(PermissionManager.getPermission("home_set"))) {
-								sender.sendMessage(ChatColor.GRAY+" [Home:set] Setting your individual home means you can set a home without giving it a name by doing /home set < > or you can set a name by doing /home set <name>. Your choice, "+sender.getName());
+								sender.sendMessage(ChatColor.GRAY+" Setting your individual home means you can set a home without giving it a name by doing /home set < > or you can set a name by doing /home set <name>. Your choice, "+sender.getName());
 							} else {
 								sender.sendMessage(noPermPrefix+language.getString("general.nopermission"));
 							}
@@ -105,7 +119,7 @@ public class CommandHome extends AbstractCommand {
 					case "remove":
 						if(args.length == 2) {
 							if(sender.hasPermission(PermissionManager.getPermission("home_remove"))) {
-								sender.sendMessage(ChatColor.GRAY+" [Home:remove] Remove's your default or individual home which you can find under /home list. Remove it like this: /home remove < > or if a name is given with /home remove <NAME>");
+								sender.sendMessage(ChatColor.GRAY+" Remove's your default or individual home which you can find under /home list. Remove it like this: /home remove < > or if a name is given with /home remove <NAME>");
 							} else {
 								sender.sendMessage(noPermPrefix+language.getString("general.nopermission"));
 							}
@@ -114,7 +128,7 @@ public class CommandHome extends AbstractCommand {
 					case "rtp":
 						if(args.length == 2) {
 							if(sender.hasPermission(PermissionManager.getPermission("home_rtp"))) {
-								sender.sendMessage(ChatColor.GRAY+" [Home:rtp] Requests an teleport to any user's home set. Mostly only default home is chosen, if not otherwise known.");
+								sender.sendMessage(ChatColor.GRAY+" Requests an teleport to any user's home set. Mostly only default home is chosen, if not otherwise known.");
 							} else {
 								sender.sendMessage(noPermPrefix+language.getString("general.nopermission"));
 							}
@@ -123,10 +137,10 @@ public class CommandHome extends AbstractCommand {
 					case "admin":
 						if(sender.hasPermission(PermissionManager.getPermission("home_admin"))) {
 							if(args.length == 2) {
-								sender.sendMessage(ChatColor.GRAY+" [Home:admin] These are all relevant administrative tools to control all user's homes. There's nothing which could miss. Otherwise ask the dev's of this plugin under /mmsmf info ");
+								sender.sendMessage(ChatColor.GRAY+" These are all relevant administrative tools to control all user's homes. There's nothing which could miss. Otherwise ask the dev's of this plugin under /mmsmf info ");
 							}
 							if(sender.isOp()) {
-								sender.sendMessage(ChatColor.RED+" [Home:admin as OP] There is nothing you can't do. Just use it wisely.");
+								sender.sendMessage(ChatColor.RED+" OP: There is nothing you can't do. Just use it wisely.");
 							} else {
 								sender.sendMessage(noPermPrefix+language.getString("general.nopermission"));
 							}
@@ -230,7 +244,6 @@ public class CommandHome extends AbstractCommand {
 				break;
 			}
 
-		} else {
 			//args leer, entsprechende description senden
 		}
 		return true;
