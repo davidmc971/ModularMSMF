@@ -30,6 +30,12 @@ commands:
   unban:
     description: Entbannt einen Spieler.
     usage: /<command> [args] <player>
+  ban-ip:
+    description: Bans a player by IP.
+    usage: /<command> [args]
+  playershell:
+    description: Enables console to act as a virtual player.
+    usage: /<command> <playername>
   kick:
     description: Kickt einen Spieler.
     usage: /<command> <player>

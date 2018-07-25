@@ -10,6 +10,8 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 import core.PermissionManager;
+import handlers.HomeHandler;
+import handlers.HomeHandler.Home;
 import main.ModularMSMF;
 import net.md_5.bungee.api.ChatColor;
 import util.ChatUtils;
@@ -20,6 +22,7 @@ import util.Utils;
  */
 
 public class CommandHome extends AbstractCommand {
+	private HomeHandler homeHandler;
 
 	private String infoPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.INFO);
 	private String errorPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.ERROR);
@@ -27,6 +30,7 @@ public class CommandHome extends AbstractCommand {
 	
 	public CommandHome(ModularMSMF plugin) {
 		super(plugin);
+		this.homeHandler = new HomeHandler();
 	}
 
 	@Override
@@ -285,16 +289,6 @@ public class CommandHome extends AbstractCommand {
 	@Override
 	public String[] getCommandLabels() {
 		return new String[]{ "home" };
-	}
-	
-	private static void getPlayerHome(UUID uuid, String posHome) {
-		
-	}
-	private static void setPlayerHome(UUID uuid, String posHome) {
-		
-	}
-	private static void listPlayerHome(UUID uuid, String SlistHome, int IlistHome) {
-		
 	}
 	
 }

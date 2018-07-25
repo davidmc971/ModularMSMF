@@ -1,7 +1,13 @@
 package commands;
 
+import java.util.Map;
+
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.server.ServerCommandEvent;
 
 import main.ModularMSMF;
 
@@ -16,15 +22,26 @@ import main.ModularMSMF;
  * 	purposes.
  */
 
-public class CommandPlayershell extends AbstractCommand {
+public class CommandPlayershell extends AbstractCommand implements Listener {
 
+	private Player activeShellPlayer = null;
+	
+	
 	public CommandPlayershell(ModularMSMF plugin) {
 		super(plugin);
 	}
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-		sender.sendMessage("bla");
+		if (sender instanceof Player) {
+			sender.sendMessage("Only for console.");
+			return true;
+		}
+		
+		/*	/playershell start <playername>
+		 * 	/playershell exit
+		 */
+		
 		return true;
 	}
 
@@ -33,4 +50,10 @@ public class CommandPlayershell extends AbstractCommand {
 		return new String[]{ "playershell" };
 	}
 
+	@EventHandler
+	public void onServerCommandEvent(ServerCommandEvent event) {
+		if (activeShellPlayer != null) {
+			
+		}
+	}
 }

@@ -52,6 +52,8 @@ public class ModularMSMF extends JavaPlugin implements CommandExecutor {
 	public String nameplugin = this.getDescription().getName();
 	public List<String> authors = this.getDescription().getAuthors();
 
+	private Map<String, AbstractCommand> commandMap = null;
+	
 	//here our plugin is loaded and will be enabled
 	@Override
 	public void onEnable() {
@@ -79,7 +81,7 @@ public class ModularMSMF extends JavaPlugin implements CommandExecutor {
 		CommandLoader loader = new CommandLoader(this);
 		
 		//<commandLabel, instance of AbstractCommand>
-		Map<String, AbstractCommand> commandMap = new LinkedHashMap<String, AbstractCommand>();
+		commandMap = new LinkedHashMap<String, AbstractCommand>();
 		loader.loadCommands(this.getClassLoader()).forEach(cmd -> {
 			Arrays.asList(cmd.getCommandLabels()).forEach(label -> {
 				commandMap.put(label.toLowerCase(), cmd);
@@ -166,5 +168,9 @@ public class ModularMSMF extends JavaPlugin implements CommandExecutor {
 
 	public DataManager getDataManager() {
 		return dataManager;
+	}
+	
+	public Map<String, AbstractCommand> getCommandMap(){
+		return commandMap;
 	}
 }
