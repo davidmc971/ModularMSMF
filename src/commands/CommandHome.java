@@ -72,7 +72,10 @@ public class CommandHome extends AbstractCommand {
 			//only /home without args
 			if (isPlayer) {
 				//teleport player to default home if set
-				
+				boolean success = teleportToHome((Player)sender, null);
+				if (!success) {
+					sender.sendMessage(infoPrefix + "Default home has not been set.");
+				}
 				return true;
 			} else {
 				//modify args to display console subcommand
@@ -93,10 +96,10 @@ public class CommandHome extends AbstractCommand {
 				//display console help
 				if(args.length == 1) {
 					sender.sendMessage(infoPrefix+"Console-helping Commands for Home");
-					sender.sendMessage(" /home list <user> - Listing Homes of <user>");
-					sender.sendMessage(" /home set <user> <default OR name> - Set's an home given to it's player's location with notification");
-					sender.sendMessage(" /home remove <user> <default OR name> - Remove's an home given by it's player with notification");
-				} else if(args.length == 2) {
+					sender.sendMessage(" /home console list <user> - Listing Homes of <user>");
+					sender.sendMessage(" /home console set <user> <default OR name> - Set's an home given to it's player's location with notification");
+					sender.sendMessage(" /home console remove <user> <default OR name> - Remove's an home given by it's player with notification");
+				} else if(args.length >= 2) {
 					switch (args[1].toLowerCase()) {
 					case "list":
 						break;
@@ -114,6 +117,11 @@ public class CommandHome extends AbstractCommand {
 			}
 			break;
 		case "set":
+			if (isPlayer) {
+				homeHandler.setPlayerHome(((Player)sender).getUniqueId(), null, ((Player)sender).getLocation());
+			}
+			
+			
 			if(sender.hasPermission(PermissionManager.getPermission("home_set"))) {
 				//src for setting a home's player.
 
@@ -198,6 +206,16 @@ public class CommandHome extends AbstractCommand {
 		return true;
 	}
 	
+	private boolean teleportToHome(Player player, String name) {
+		UUID uuid = player.getUniqueId();
+		Home h = homeHandler.getPlayerHome(uuid, null);
+		if (h != null) {
+			player.teleport(h.getLoc());
+			return true;
+		}
+		return false;
+	}
+
 	private boolean displayHelp(CommandSender sender, String[] args, YamlConfiguration language) {
 		if(args.length == 1) {
 			sender.sendMessage(infoPrefix+"List of your aviable commands:");
