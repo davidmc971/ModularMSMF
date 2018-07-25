@@ -7,8 +7,9 @@ import java.util.UUID;
 
 import org.bukkit.Location;
 
+import main.ModularMSMF;
+
 public class HomeHandler {
-	
 	/*	Class representing a players home.
 	 */
 	public class Home {
@@ -36,14 +37,17 @@ public class HomeHandler {
 			this.name = name;
 		}
 	}
+
+	ModularMSMF plugin;
 	
 	private HashMap<UUID, ArrayList<Home>> homeMap;
 	
-	public HomeHandler() {
-		//init homeMap from storage
-		homeMap = new HashMap<UUID, ArrayList<Home>>();
+	public HomeHandler(ModularMSMF plugin) {
+		this.plugin = plugin;
+		//init homeMap from storage and
 		//load all entries from config
-		
+		homeMap = new HashMap<UUID, ArrayList<Home>>();
+		//TODO
 		
 	}
 	

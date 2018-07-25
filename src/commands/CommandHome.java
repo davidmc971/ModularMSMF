@@ -30,7 +30,7 @@ public class CommandHome extends AbstractCommand {
 	
 	public CommandHome(ModularMSMF plugin) {
 		super(plugin);
-		this.homeHandler = new HomeHandler();
+		this.homeHandler = new HomeHandler(plugin);
 	}
 
 	@Override
