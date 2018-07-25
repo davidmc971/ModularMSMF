@@ -41,6 +41,8 @@ public class CommandReport extends AbstractCommand {
 	 * 
 	 * @TODO using database for worldwide support ingame and webinterface
 	 * @TODO using ingame chat as worldwide support ingame and webinterface
+	 * 
+	 * @author Lightkeks, davidmc971
 	 */
 
 	@Override

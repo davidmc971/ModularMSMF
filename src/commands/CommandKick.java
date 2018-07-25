@@ -11,6 +11,12 @@ import core.PermissionManager;
 import main.ModularMSMF;
 import util.Utils;
 
+/**
+ * 
+ * @authors Lightkeks, davidmc971
+ *
+ */
+
 public class CommandKick extends AbstractCommand {
 
 	public CommandKick(ModularMSMF plugin) {

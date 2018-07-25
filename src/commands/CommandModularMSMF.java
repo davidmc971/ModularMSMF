@@ -8,6 +8,12 @@ import main.ModularMSMF;
 import net.md_5.bungee.api.ChatColor;
 import util.ChatUtils;
 
+/**
+ * 
+ * @author Lightkeks
+ *
+ */
+
 public class CommandModularMSMF extends AbstractCommand {
 
 	public CommandModularMSMF(ModularMSMF plugin) {
@@ -41,10 +47,11 @@ public class CommandModularMSMF extends AbstractCommand {
 						break;
 					case "discord":
 						if (args.length == 1) {
-							sender.sendMessage(infoPrefix+"Discord-URL: " + ChatColor.BLUE + "https://discord.gg/Y2s4tkA");
+							sender.sendMessage(infoPrefix+"Discord-URL: " + ChatColor.BLUE + "https://discord.gg/Y2s4tkA"); //hovering over url + no link shown + clickable text in one section
 						}
 						break;
 					case "report":
+						sender.sendMessage("Not implemented yet.");
 						break;
 					}
 				} else if (args.length >= 2) {

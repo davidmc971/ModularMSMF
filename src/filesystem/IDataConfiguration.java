@@ -9,6 +9,12 @@ import org.bukkit.configuration.file.FileConfiguration;
  * 	Not yet sure if it will be needed. Might get removed later!
  */
 
+/**
+ * 
+ * @author davidmc971
+ *
+ */
+
 public class IDataConfiguration extends FileConfiguration {
 
 	@Override

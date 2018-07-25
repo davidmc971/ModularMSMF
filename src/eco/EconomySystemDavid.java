@@ -6,6 +6,12 @@ import org.bukkit.entity.Player;
 import main.ModularMSMF;
 import util.Utils;
 
+/**
+ * 
+ * @author davidmc971
+ *
+ */
+
 public class EconomySystemDavid {
 	private ModularMSMF plugin;
 

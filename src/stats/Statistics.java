@@ -6,6 +6,12 @@ package stats;
 //
 //import core.DataManager;
 
+/**
+ * 
+ * @author Lightkeks
+ *
+ */
+
 public class Statistics {
 
 //	private static String kickkey = "kickcounter";

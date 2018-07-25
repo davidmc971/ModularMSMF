@@ -4,6 +4,12 @@ import org.bukkit.configuration.file.FileConfiguration;
 
 import main.ModularMSMF;
 
+/**
+ * 
+ * @author Lightkeks
+ *
+ */
+
 public class BankSystem {
 
 	private ModularMSMF plugin;

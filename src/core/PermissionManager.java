@@ -1,5 +1,11 @@
 package core;
 
+/**
+ * 
+ * @author davidmc971
+ *
+ */
+
 public class PermissionManager {
 
 	private static final String[][] permissions = { { "banplayer", "modularmsmf.ban.banplayer" },

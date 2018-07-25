@@ -9,6 +9,12 @@ import core.LanguageManager;
 import main.ModularMSMF;
 import util.Utils;
 
+/**
+ * 
+ * @author davidmc971
+ *
+ */
+
 public class CommandLanguage extends AbstractCommand {
 
 	public CommandLanguage(ModularMSMF plugin) {

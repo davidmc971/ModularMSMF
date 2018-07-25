@@ -17,6 +17,12 @@ import main.ModularMSMF;
 import util.ChatUtils;
 import util.Utils;
 
+/**
+ * 
+ * @author Lightkeks
+ *
+ */
+
 public class CommandHeal extends AbstractCommand {
 
 	public CommandHeal(ModularMSMF plugin) {

@@ -11,6 +11,12 @@ import org.bukkit.entity.Player;
 
 import main.ModularMSMF;
 
+/**
+ * 
+ * @authors davidmc971
+ *  
+ */
+
 public class CommandSetSpawn extends AbstractCommand {
 
 	public CommandSetSpawn(ModularMSMF plugin) {

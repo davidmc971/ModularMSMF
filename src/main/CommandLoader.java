@@ -7,6 +7,12 @@ import com.google.common.reflect.ClassPath;
 
 import commands.*;
 
+/**
+ * 
+ * @author davidmc971
+ *
+ */
+
 public class CommandLoader {
 	ModularMSMF plugin;
 	

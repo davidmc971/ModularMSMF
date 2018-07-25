@@ -2,6 +2,12 @@ package util;
 
 import net.md_5.bungee.api.ChatColor;
 
+/**
+ * 
+ * @author davidmc971
+ *
+ */
+
 public class ChatUtils {
 	public enum ChatFormat {
 		INFO, ERROR, MSG, BROADCAST, STANDARD, RAINBOW, NOPERM

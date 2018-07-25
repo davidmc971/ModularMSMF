@@ -12,6 +12,12 @@ import core.PermissionManager;
 import main.ModularMSMF;
 import util.Utils;
 
+/**
+ * 
+ * @author Lightkeks
+ * with help from @author davidmc971
+ */
+
 public class EconomySystemAlex {
 	private ModularMSMF plugin;
 	public static double defaultMoney = 500.0;

@@ -8,6 +8,12 @@ import org.bukkit.entity.Player;
 
 import main.ModularMSMF;
 
+/**
+ * 
+ * @author Lightkeks, davidmc971
+ *
+ */
+
 public class CommandMute extends AbstractCommand {
 
 	public CommandMute(ModularMSMF plugin) {

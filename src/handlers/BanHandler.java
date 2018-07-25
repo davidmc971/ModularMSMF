@@ -12,6 +12,12 @@ import main.ModularMSMF;
  * 
  */
 
+/**
+ * 
+ * @author davidmc971
+ *
+ */
+
 public class BanHandler {
 	public enum STDBanReason {
 		DEFAULT ("modularmsmf.commands.ban.reason.default"),

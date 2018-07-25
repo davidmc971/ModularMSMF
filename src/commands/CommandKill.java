@@ -8,6 +8,12 @@ import org.bukkit.entity.Player;
 import main.ModularMSMF;
 import util.KillType;
 
+/**
+ * 
+ * @author Lightkeks
+ *
+ */
+
 public class CommandKill extends AbstractCommand {
 
 	public CommandKill(ModularMSMF plugin) {

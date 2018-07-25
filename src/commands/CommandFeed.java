@@ -13,6 +13,11 @@ import main.ModularMSMF;
 import util.ChatUtils;
 import util.Utils;
 
+/**
+ * @author Lightkeks
+ *
+ */
+
 public class CommandFeed extends AbstractCommand {
 
 	public CommandFeed(ModularMSMF plugin) {

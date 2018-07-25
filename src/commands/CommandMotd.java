@@ -15,6 +15,7 @@ public class CommandMotd extends AbstractCommand {
 	/**
 	 * @TODO onplayerjoinevent und normal zum abrufen
 	 * @param plugin
+	 * @author Lightkeks
 	 */
 	
 	//private File dataStore = new File("plugins/ModularMSMF/motd.txt");

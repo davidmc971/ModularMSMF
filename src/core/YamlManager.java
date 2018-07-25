@@ -5,6 +5,12 @@ package core;
 //
 //import org.bukkit.configuration.file.YamlConfiguration;
 
+/**
+ * 
+ * @author davidmc971
+ *
+ */
+
 public class YamlManager {
 //	public static String pathMain = "plugins/ModularMSMF/";
 //	public static String pathUserdata = pathMain + "userdata/";

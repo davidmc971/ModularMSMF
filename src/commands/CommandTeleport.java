@@ -8,6 +8,12 @@ import org.bukkit.entity.Player;
 import main.ModularMSMF;
 import net.md_5.bungee.api.ChatColor;
 
+/**
+ * 
+ * @author davidmc971
+ *
+ */
+
 public class CommandTeleport extends AbstractCommand {
 	
 	public CommandTeleport(ModularMSMF plugin) {

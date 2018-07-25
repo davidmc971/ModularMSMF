@@ -9,6 +9,12 @@ import org.bukkit.entity.Player;
 
 import main.ModularMSMF;
 
+/**
+ * 
+ * @author davidmc971
+ *
+ */
+
 public class CommandSlaughter extends AbstractCommand {
 
 	public CommandSlaughter(ModularMSMF plugin) {

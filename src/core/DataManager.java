@@ -17,6 +17,12 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+/**
+ * 
+ * @author davidmc971
+ *
+ */
+
 /*	Should serve as a single access point to the plugin's data management.
  * 	All files and structures in volatile memory will be held here.
  * 	Saving and loading from the file system will be done through

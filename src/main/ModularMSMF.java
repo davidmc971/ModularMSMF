@@ -27,8 +27,7 @@ import util.ChatUtils;
 import util.ChatUtils.ChatFormat;
 
 /**
- * @author Lightkeks
- * @author davidmc971
+ * @author Lightkeks, davidmc971
  */
 
 public class ModularMSMF extends JavaPlugin implements CommandExecutor {

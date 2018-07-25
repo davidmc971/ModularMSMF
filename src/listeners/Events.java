@@ -25,6 +25,12 @@ import main.ModularMSMF;
 import net.md_5.bungee.api.ChatColor;
 import util.KillType;
 
+/**
+ * 
+ * @author Lightkeks, davidmc971
+ *
+ */
+
 public class Events implements Listener {
 
 	public ModularMSMF plugin;

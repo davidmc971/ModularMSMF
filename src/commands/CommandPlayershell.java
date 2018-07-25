@@ -5,6 +5,12 @@ import org.bukkit.command.CommandSender;
 
 import main.ModularMSMF;
 
+/**
+ * 
+ * @author davidmc971
+ *
+ */
+
 /*	This command is supposed to be a shell, enabling
  * 	the console to emulate being a player for testing
  * 	purposes.

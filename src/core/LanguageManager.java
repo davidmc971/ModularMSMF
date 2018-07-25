@@ -14,6 +14,12 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import main.ModularMSMF;
 
+/**
+ * 
+ * @author davidmc971
+ *
+ */
+
 public class LanguageManager {
 	private final ModularMSMF plugin;
 	private final ArrayList<String> standards;

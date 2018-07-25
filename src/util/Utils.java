@@ -11,6 +11,12 @@ import org.bukkit.entity.Player;
 import core.LanguageManager;
 import main.ModularMSMF;
 
+/**
+ * 
+ * @author davidmc971
+ *
+ */
+
 public class Utils {
 
 	//public static String listPlayerHome; //not implemented yet ~Lightkeks

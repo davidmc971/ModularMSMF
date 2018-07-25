@@ -7,6 +7,12 @@ import org.bukkit.command.CommandSender;
 import main.ModularMSMF;
 import util.ChatUtils;
 
+/**
+ * 
+ * @author Lightkeks
+ *
+ */
+
 public class CommandServerInfo extends AbstractCommand {
 
 	public CommandServerInfo(ModularMSMF plugin) {

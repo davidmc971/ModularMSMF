@@ -5,6 +5,12 @@ import org.bukkit.command.CommandSender;
 
 import main.ModularMSMF;
 
+/**
+ * 
+ * @author Lightkeks, davidmc971
+ *
+ */
+
 public class CommandMoney extends AbstractCommand {
 
 	public CommandMoney(ModularMSMF plugin) {

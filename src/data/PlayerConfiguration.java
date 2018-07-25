@@ -6,6 +6,12 @@ package data;
  * 	Will be tied in tightly with DataManager.
  */
 
+/** 
+ * 
+ * @author davidmc971
+ *
+ */
+
 public class PlayerConfiguration {
 	
 }

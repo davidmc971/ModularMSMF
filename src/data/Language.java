@@ -7,6 +7,12 @@ package data;
  * 	and every PlayerConfiguration points to the configured Language object. 
  */
 
+/**
+ * 
+ * @author davidmc971
+ *
+ */
+
 public class Language {
 	
 }
