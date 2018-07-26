@@ -20,10 +20,14 @@ import main.ModularMSMF;
 import util.ChatUtils;
 import util.Utils;
 
-/*	This command handles requests for player 'ban's, 'unban's and 'ban-ip's.
+/**	This command handles requests for player 'ban's, 'unban's and 'ban-ip's.
  * 	It uses util. Banutils for interfacing with DataManager.
  * 
- * 
+ * @IDEAS:
+ * @Lightkeks
+ * Worldwide support for warning admins that any user who got banned <times> from <count servers> and which servers by checking?
+ * need a database for checking
+ * So an admin can check over this guy what's he doing?
  */
 
 public class CommandBan extends AbstractCommand {
