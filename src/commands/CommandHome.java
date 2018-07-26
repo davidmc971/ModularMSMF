@@ -79,46 +79,48 @@ public class CommandHome extends AbstractCommand {
 				return true;
 			} else {
 				//modify args to display console subcommand
-				args = new String[] {"console"};
+				args = new String[] {"help"};
 			}
 		}
 
 		
 		switch (args[0].toLowerCase()) {
+		//HELP COMMANDS
 		case "help":
 			if(isPlayer) {
 				//display player help
 				return displayHelp(sender, args, language);
-			}
-			//if console types /home help the switch jumps down to case "console"
-		case "console":
-			if(!isPlayer) {
+			} else {
 				//display console help
 				if(args.length == 1) {
 					sender.sendMessage(infoPrefix+"Console-helping Commands for Home");
-					sender.sendMessage(" /home console list <user> - Listing Homes of <user>");
-					sender.sendMessage(" /home console set <user> <default OR name> - Set's an home given to it's player's location with notification");
-					sender.sendMessage(" /home console remove <user> <default OR name> - Remove's an home given by it's player with notification");
-				} else if(args.length >= 2) {
-					switch (args[1].toLowerCase()) {
-					case "list":
-						break;
-					case "set":
-						break;
-					case "remove":
-						break;
-					default:
-						break;
-					}
+					sender.sendMessage(" /home list <user> - Listing Homes of <user>");
+					sender.sendMessage(" /home set <user> <default OR name> - Set's an home given to it's player's location with notification");
+					sender.sendMessage(" /home remove <user> <default OR name> - Remove's an home given by it's player with notification");
 				}
-			} else {
-				//tell player this command is not available
-				
 			}
 			break;
+		//FUNCTIONAL COMMANDS
 		case "set":
 			if (isPlayer) {
-				homeHandler.setPlayerHome(((Player)sender).getUniqueId(), null, ((Player)sender).getLocation());
+				//PLAYER VERSION of /home set
+				switch(args.length) {
+				case 1:
+					//set default home
+					homeHandler.setPlayerHome(((Player)sender).getUniqueId(), null, ((Player)sender).getLocation());
+					break;
+				case 2:
+					
+					break;
+				case 3:
+					
+					break;
+				default:
+					
+					break;
+				}
+			} else {
+				//CONSOLE VERSION of /home set
 			}
 			
 			

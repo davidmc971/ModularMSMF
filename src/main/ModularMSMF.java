@@ -22,6 +22,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import commands.*;
 import core.DataManager;
 import core.LanguageManager;
+import core.PlayerManager;
 import listeners.Events;
 import util.ChatUtils;
 import util.ChatUtils.ChatFormat;
@@ -33,6 +34,8 @@ import util.ChatUtils.ChatFormat;
 public class ModularMSMF extends JavaPlugin implements CommandExecutor {
 	private DataManager dataManager;
 	private LanguageManager languageManager;
+	private PlayerManager playerManager;
+
 	private CommandMotd motd;
 
 	public final boolean debug = true;
@@ -57,11 +60,12 @@ public class ModularMSMF extends JavaPlugin implements CommandExecutor {
 	//here our plugin is loaded and will be enabled
 	@Override
 	public void onEnable() {
-		dataManager = new DataManager(this.getLogger());
-		dataManager.init();
+		dataManager = new DataManager(this);
 		this.getServer().getPluginManager().registerEvents(dataManager, this);
 
 		languageManager = new LanguageManager(this);
+		
+		playerManager = new PlayerManager(this);
 
 		motd = new CommandMotd(this);
 		motd.load();
@@ -168,6 +172,10 @@ public class ModularMSMF extends JavaPlugin implements CommandExecutor {
 
 	public DataManager getDataManager() {
 		return dataManager;
+	}
+	
+	public PlayerManager getPlayerManager() {
+		return playerManager;
 	}
 	
 	public Map<String, AbstractCommand> getCommandMap(){

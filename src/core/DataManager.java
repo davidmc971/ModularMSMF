@@ -16,6 +16,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.scheduler.BukkitRunnable;
+
+import main.ModularMSMF;
 
 /**
  * 
@@ -34,6 +37,22 @@ import org.bukkit.event.player.PlayerQuitEvent;
  */
 
 public class DataManager implements Listener {
+	private class AutosaveTask extends BukkitRunnable {
+		DataManager dtm;
+		
+		public AutosaveTask(DataManager dtm) {
+			this.dtm = dtm;
+		}
+		
+		@Override
+		public void run() {
+			dtm.saveAllUserdata();
+			dtm.logger.info("Autosaved userdata.");
+		}
+	}
+	
+	private AutosaveTask autosaveTask;
+	
 	public String pathMain = "plugins/ModularMSMF/";
 	public String pathUserdata = pathMain + "userdata/";
 	public String pathBankdata = pathMain + "bankdata/";
@@ -41,14 +60,27 @@ public class DataManager implements Listener {
 	public YamlConfiguration defaultUserdatayaml = loadCfg(pathUserdata + "default.yml");
 	
 	private Logger logger;
+	private ModularMSMF plugin;
 	
 	private Map<String, Object> defaultSettings = new HashMap<String, Object>();
 	private Map<String, Object> defaultUserdata = new HashMap<String, Object>();
 	
 	private Map<UUID, YamlConfiguration> allUsers = new HashMap<UUID, YamlConfiguration>();
 	
-	public DataManager(Logger logger){
-		this.logger = logger;
+	public DataManager(ModularMSMF plugin){
+		this.plugin = plugin;
+		this.logger = this.plugin.getLogger();
+		autosaveTask = new AutosaveTask(this);
+		/*	Autosave every 10 minutes
+		 * 	-> 10(min) * 60(sec) * 20(tps)
+		 *  TODO: load tick delay from config
+		 */
+		long ticks = (10*60*20);
+		if(plugin.debug)
+			ticks = 1200; 
+		autosaveTask.runTaskTimer(plugin, ticks, ticks);
+		
+		init();
 	}
 	
 	public void init(){
