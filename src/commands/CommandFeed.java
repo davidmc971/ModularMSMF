@@ -32,28 +32,28 @@ public class CommandFeed extends AbstractCommand {
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		YamlConfiguration language = Utils.configureCommandLanguage(sender, plugin);
-		
-		String infoPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.INFO);
+
 		String errorPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.ERROR);
 		String noPermPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.NOPERM);
-		
+		String successfulPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.SUCCESS);
+
 		UUID target = null;
-		
+
 		switch (args.length) {
 		case 0:
 			if((sender instanceof Player)) {
-			if (sender.hasPermission(PermissionManager.getPermission("feedself"))) {
-				sender.sendMessage(infoPrefix+language.getString("commands.feed.feeded"));
-				((Player) sender).setSaturation(20);
-				return true;
-			} else {
-				sender.sendMessage(noPermPrefix+language.getString("general.nopermission"));
+				if (sender.hasPermission(PermissionManager.getPermission("feedself"))) {
+					sender.sendMessage(successfulPrefix+language.getString("commands.feed.feeded"));
+					((Player) sender).setSaturation(20);
+					return true;
+				} else {
+					sender.sendMessage(noPermPrefix+language.getString("general.nopermission"));
 				} 
 			} else {
-			sender.sendMessage(noPermPrefix+language.getString("general.noconsole"));
+				sender.sendMessage(noPermPrefix+language.getString("general.noconsole"));
 			}
 			break;
-		default: // missing args length
+		case 1: 
 			target = Utils.getPlayerUUIDByName(args[0]);
 			if (target == null) {
 				sender.sendMessage(errorPrefix+language.getString("general.playernotfound"));
@@ -65,13 +65,21 @@ public class CommandFeed extends AbstractCommand {
 			}
 			for (Player p : Bukkit.getOnlinePlayers()) {
 				if (p.getUniqueId().toString().equalsIgnoreCase(target.toString())) {
-					Bukkit.getPlayer(target).setSaturation(20);
-					sender.sendMessage(infoPrefix+language.getString("commands.feed.feededperson").replaceAll("_player", p.getName()));
-					p.sendMessage(infoPrefix+language.getString("commands.feed.othersfeeded").replaceAll("_sender", sender.getName()));
+					if(sender == p) {
+						sender.sendMessage(successfulPrefix+language.getString("commands.feed.feeded"));
+						((Player) sender).setSaturation(20);
+					} else {
+						sender.sendMessage(successfulPrefix+language.getString("commands.feed.feededperson").replaceAll("_player", p.getName()));
+						p.sendMessage(successfulPrefix+language.getString("commands.feed.othersfeeded").replaceAll("_sender", sender.getName()));
+						p.setSaturation(20);
+					}
 					return true;
 				}
 			}
 			sender.sendMessage(noPermPrefix+language.getString("general.playernotfound"));
+			break;
+		default:
+			sender.sendMessage(errorPrefix+language.getString("general.toomanyarguments"));
 			break;
 		}
 		return true;
