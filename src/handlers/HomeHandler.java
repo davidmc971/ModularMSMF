@@ -2,11 +2,20 @@ package handlers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.UUID;
 
 import org.bukkit.Location;
+import org.bukkit.scheduler.BukkitRunnable;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
+
+import core.PlayerManager;
 import main.ModularMSMF;
 
 public class HomeHandler {
@@ -37,20 +46,56 @@ public class HomeHandler {
 			this.name = name;
 		}
 	}
+	
+	private class SaveTask extends BukkitRunnable {
+		HomeHandler handler;
+		
+		public SaveTask(HomeHandler handler) {
+			this.handler = handler;
+		}
+		
+		@Override
+		public void run() {
+			handler.saveAll();
+		}
+		
+	}
 
 	ModularMSMF plugin;
-	
+	PlayerManager plrm;
+	Gson gson;
 	private HashMap<UUID, ArrayList<Home>> homeMap;
 	
 	public HomeHandler(ModularMSMF plugin) {
 		this.plugin = plugin;
+		plrm = plugin.getPlayerManager();
+		gson = new Gson();
+		plrm.registerSaveTask(new SaveTask(this));
 		//init homeMap from storage and
 		//load all entries from config
 		homeMap = new HashMap<UUID, ArrayList<Home>>();
-		//TODO
 		
+		Map<UUID, JsonObject> storage = plrm.getPlayerStorage();
+		storage.forEach((uuid, json) -> {
+			if (json.has("homes")) {
+				ArrayList<Home> homeList = gson.fromJson(json.get("homes"), new TypeToken<List<Home>>(){}.getType());
+				homeMap.put(uuid, homeList);
+			}
+		});
 	}
 	
+	private void saveAll() {
+		
+		homeMap.forEach((uuid, homes) -> {
+			JsonElement temp = gson.toJsonTree(homes, new TypeToken<List<Home>>(){}.getType());
+			JsonObject data = plrm.getPlayerStorage(uuid);
+			if(data.has("homes")) {
+				data.remove("homes");
+			}
+			data.add("homes", temp);
+		});
+	}
+
 	/*	Method for getting a named home from a player whose
 	 * 	UUID is given. If name equals null, default home is
 	 * 	returned (if existing). If home was not found,

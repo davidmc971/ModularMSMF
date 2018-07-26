@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -46,6 +48,8 @@ public class PlayerManager {
 	
 	ModularMSMF plugin;
 
+	List<BukkitRunnable> saveTasks;
+	
 	private String folderPlayers = "/players/";
 	private String filePlayerDefaults = "default.json";
 	private String dataroot = null;
@@ -54,8 +58,13 @@ public class PlayerManager {
 
 	private Map<UUID, JsonObject> playerStorage = null;
 
+	public Map<UUID, JsonObject> getPlayerStorage() {
+		return playerStorage;
+	}
+
 	public PlayerManager(ModularMSMF plugin) {
 		this.plugin = plugin;
+		saveTasks = new ArrayList<BukkitRunnable>();
 		init();
 		autosaveTask = new AutosaveTask(this);
 		/*	Autosave every 10 minutes
@@ -105,6 +114,9 @@ public class PlayerManager {
 	}
 
 	public void saveAll() {
+		saveTasks.forEach(task -> {
+			task.run();
+		});
 		playerStorage.forEach((uuid, json) -> {
 			saveJson(json, uuid);
 		});
@@ -185,5 +197,9 @@ public class PlayerManager {
 		}
 
 		saveJson(configuredDefaults, defaultsFile);
+	}
+
+	public void registerSaveTask(BukkitRunnable task) {
+		saveTasks.add(task);
 	}
 }

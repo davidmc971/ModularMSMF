@@ -110,10 +110,8 @@ public class CommandHome extends AbstractCommand {
 					homeHandler.setPlayerHome(((Player)sender).getUniqueId(), null, ((Player)sender).getLocation());
 					break;
 				case 2:
-					
-					break;
-				case 3:
-					
+					//set named home
+					homeHandler.setPlayerHome(((Player)sender).getUniqueId(), args[1].toLowerCase(), ((Player)sender).getLocation());
 					break;
 				default:
 					
@@ -200,8 +198,10 @@ public class CommandHome extends AbstractCommand {
 			}
 			break;
 		default:
-			//error
-			
+			boolean success = teleportToHome((Player)sender, args[0].toLowerCase());
+			if (!success) {
+				sender.sendMessage(infoPrefix + "Home \"" + args[0] + "\" has not been set.");
+			}
 			break;
 		}
 		

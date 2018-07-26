@@ -156,6 +156,7 @@ public class ModularMSMF extends JavaPlugin implements CommandExecutor {
 	@Override
 	public void onDisable() {
 		dataManager.saveAllUserdata();
+		playerManager.saveAll();
 		this.getLogger().info("ModularMSMF has been disabled.");
 	}
 
