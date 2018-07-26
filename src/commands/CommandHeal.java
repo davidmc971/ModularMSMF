@@ -37,27 +37,28 @@ public class CommandHeal extends AbstractCommand {
 		String infoPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.INFO);
 		String errorPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.ERROR);
 		String noPermPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.NOPERM);
+		String successfulPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.SUCCESS);
 
 		UUID target = null;
 		switch (args.length) {
 		case 0:
 			if((sender instanceof Player)) {
 				//checking if command sender is player instead of console
-			if (sender.hasPermission(PermissionManager.getPermission("healself"))) {
-				//checking, if user has permission to use /heal
-				((Player) sender).setHealth(20); //full heal for sender
-				sender.sendMessage(infoPrefix+language.getString("commands.heal.healself"));
-				//using ChatUtils and YamlConfiguration for easier messages
+				if (sender.hasPermission(PermissionManager.getPermission("healself"))) {
+					//checking, if user has permission to use /heal
+					((Player) sender).setHealth(20); //full heal for sender
+					sender.sendMessage(successfulPrefix+language.getString("commands.heal.healself"));
+					//using ChatUtils and YamlConfiguration for easier messages
+				} else {
+					//if no permission was given, it will negate the if phrase
+					sender.sendMessage(noPermPrefix+language.getString("general.nopermission"));
+				}
 			} else {
-				//if no permission was given, it will negate the if phrase
-				sender.sendMessage(noPermPrefix+language.getString("general.nopermission"));
-			}
-			}else {
 				//if console should not be permitted to use a command, this comes out
 				sender.sendMessage(noPermPrefix+language.getString("general.noconsole"));
 			}
 			break;
-		default: // missing args length
+		case 1: // missing args length
 			target = Utils.getPlayerUUIDByName(args[0]);
 			//trying to find out the UUID by player name
 			if (sender.hasPermission(PermissionManager.getPermission("healother"))) {
@@ -69,14 +70,22 @@ public class CommandHeal extends AbstractCommand {
 				} else //return's true otherwise if target's online
 					for (Player p : Bukkit.getOnlinePlayers()) {
 						if (p.getUniqueId().toString().equalsIgnoreCase(target.toString())) {
-							Bukkit.getPlayer(target).setHealth(20); //full heal for target
-							sender.sendMessage(infoPrefix+language.getString("commands.heal.healother").replaceAll("_player", p.getName()));
-							p.sendMessage(infoPrefix+language.getString("commands.heal.gothealed").replaceAll("_sender", sender.getName()));
-							return true;
+							//questioning it, if sender is the target
+							if(sender == p) {
+								sender.sendMessage(successfulPrefix+language.getString("commands.heal.healself"));
+								((Player)sender).setHealth(20);
+							} else { //if sender is not target, then the target will be healed then
+								sender.sendMessage(successfulPrefix+language.getString("commands.heal.healother").replaceAll("_player", p.getName()));
+								p.sendMessage(successfulPrefix+language.getString("commands.heal.gothealed").replaceAll("_sender", sender.getName()));
+								p.setHealth(20);
+							}
 						}
 					}
 				break;
 			}
+		default:
+			sender.sendMessage(errorPrefix+language.getString("general.toomanyarguments"));
+			break;
 		}
 		return true;
 	}
