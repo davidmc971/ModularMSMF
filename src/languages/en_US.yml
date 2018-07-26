@@ -11,6 +11,7 @@ general:
     invalidarguments: Invalid arguments.
     invalidcommand: Invalid command.
     noconsole: Console is not permitted to use this command.
+    missingarguments: Please specify an argument!
 commands:
   ban:
     defaultbanreason: You have been banned!

@@ -11,6 +11,7 @@ general:
     invalidarguments: Ungueltige Argumente.
     invalidcommand: Ungueltiger Befehl.
     noconsole: Die Konsole darf diesen Befehl nicht nutzen.
+    missingarguments: Bitte gib passende Argumente an!
 commands:
   ban:
     defaultbanreason: Du wurdest gebannt!

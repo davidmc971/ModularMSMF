@@ -3,10 +3,14 @@ package commands;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
+import core.PermissionManager;
 import main.ModularMSMF;
+import util.ChatUtils;
 import util.KillType;
+import util.Utils;
 
 /**
  * 
@@ -31,25 +35,31 @@ public class CommandKill extends AbstractCommand {
 		 * 
 		 *         Sollte schon klappen
 		 */
-
+		String infoPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.INFO);
+		String errorPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.ERROR);
+		String noPermPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.NOPERM);
+		String successfulPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.SUCCESS);
+		YamlConfiguration language = Utils.configureCommandLanguage(sender, plugin);		
+		
 		if (args.length == 0) {
-			sender.sendMessage("Bitte gib Argumente an!");
+			sender.sendMessage(errorPrefix+language.getString("general.missingarguments"));
 			return true;
 		}
-		switch (args[0]) { // missing prefix as text
+		
+		switch (args[0].toLowerCase()) { // missing prefix as text
 		case "me":
 			if (sender instanceof Player) {
-				if (sender.hasPermission("modularmsmf.kill.me")) {
+				if (sender.hasPermission(PermissionManager.getPermission("kill_me"))) {
 					Player player = ((Player) sender);
 					plugin.getMainEvents().registerKilledPlayer(player, KillType.SUICIDE);
 					player.setHealth(0);
 				}
 			} else {
-				sender.sendMessage("Konsole darf kein Suizid durchfuehren");
+				sender.sendMessage(errorPrefix+language.getString("general.noconsole"));
 			}
 			break;
 		case "all":
-			if (sender.hasPermission("modularmsmf.kill.all")) {
+			if (sender.hasPermission(PermissionManager.getPermission("kill_all"))) {
 				for (Player player : Bukkit.getOnlinePlayers()) {
 					plugin.getMainEvents().registerKilledPlayer(player, KillType.HOMOCIDE);
 					player.setHealth(0);
@@ -57,7 +67,7 @@ public class CommandKill extends AbstractCommand {
 			}
 			break;
 		default:
-			if (sender.hasPermission("modularmsmf.kill")) {
+			if (sender.hasPermission(PermissionManager.getPermission("kill"))) {
 				if (sender instanceof Player) {
 					boolean temp = false;
 					for (Player player : Bukkit.getOnlinePlayers()) {
@@ -69,12 +79,12 @@ public class CommandKill extends AbstractCommand {
 						}
 					}
 					if (!temp)
-						sender.sendMessage("Dieser Spieler ist nicht online!");
+						sender.sendMessage(errorPrefix+language.getString("general.playernotfound"));
 				} else {
-					sender.sendMessage("Die Konsole darf keinen Spieler toeten!");
+					sender.sendMessage(noPermPrefix+language.getString("general.noconsole"));
 				}
 			} else {
-				sender.sendMessage("Du hast keine Rechte, jemanden zu toeten!");
+				sender.sendMessage(noPermPrefix+language.getString("general.nopermission"));
 			}
 		}
 		return true;
