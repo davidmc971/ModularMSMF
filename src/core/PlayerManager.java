@@ -17,11 +17,9 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.google.gson.stream.JsonReader;
 
-import defaults.PlayerDefaults;
+import data.PlayerData;
 import main.ModularMSMF;
 
 /*	Manages all players settings and data.
@@ -51,16 +49,10 @@ public class PlayerManager {
 	List<BukkitRunnable> saveTasks;
 	
 	private String folderPlayers = "/players/";
-	private String filePlayerDefaults = "default.json";
+	//private String filePlayerDefaults = "default.json";
 	private String dataroot = null;
 
-	private JsonObject configuredDefaults = null;
-
-	private Map<UUID, JsonObject> playerStorage = null;
-
-	public Map<UUID, JsonObject> getPlayerStorage() {
-		return playerStorage;
-	}
+	private Map<UUID, PlayerData> playerStorage = null;
 
 	public PlayerManager(ModularMSMF plugin) {
 		this.plugin = plugin;
@@ -77,7 +69,7 @@ public class PlayerManager {
 		autosaveTask.runTaskTimer(plugin, ticks, ticks);
 	}
 	
-	public JsonObject getPlayerStorage(UUID uuid) {
+	public PlayerData getPlayerData(UUID uuid) {
 		return playerStorage.get(uuid);
 	}
 
@@ -85,32 +77,33 @@ public class PlayerManager {
 		plugin.getLogger().info("PlayerManager init start.");
 		
 		dataroot = plugin.getDataFolder().getPath().replace("\\", "/");
-		initDefaultJSON();
 
 		//load userdata for each player
-		playerStorage = new HashMap<UUID, JsonObject>();
+		playerStorage = new HashMap<UUID, PlayerData>();
 
 		for(OfflinePlayer p : Bukkit.getOfflinePlayers()) {
 			UUID uuid = p.getUniqueId();
-			JsonObject cfg = loadJson(uuid);
-			playerStorage.put(uuid, cfg);
+			PlayerData data = loadJson(uuid);
+			playerStorage.put(uuid, data);
 		}
 		for(Player p : Bukkit.getOnlinePlayers()) {
 			UUID uuid = p.getUniqueId();
-			JsonObject cfg = loadJson(uuid);
-			playerStorage.put(uuid, cfg);
+			PlayerData data = loadJson(uuid);
+			playerStorage.put(uuid, data);
 		}
-
-		//populate defaults
-		playerStorage.forEach((uuid, json) -> {
-			configuredDefaults.entrySet().forEach((entry) -> {
-				if (!json.has(entry.getKey())) {
-					json.add(entry.getKey(), entry.getValue());
-				}
-			});
+		
+		playerStorage.forEach((uuid, data) -> {
+			if (data == null) {
+				data = new PlayerData(uuid);
+				data.money = 500;
+			}
 		});
 
 		plugin.getLogger().info("PlayerManager init done!");
+	}
+
+	public Map<UUID, PlayerData> getPlayerStorage() {
+		return playerStorage;
 	}
 
 	public void saveAll() {
@@ -122,8 +115,8 @@ public class PlayerManager {
 		});
 	}
 
-	private JsonObject loadJson(File file) {
-		JsonObject temp = null;
+	private PlayerData loadJson(File file) {
+		PlayerData temp = null;
 		if (!file.exists()) {
 			try {
 				file.getParentFile().mkdirs();
@@ -132,27 +125,29 @@ public class PlayerManager {
 				e.printStackTrace();
 			}
 		}
-		JsonParser parser = new JsonParser();
+		
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		
 		try {
-			temp = parser.parse(new FileReader(file)).getAsJsonObject();
+			temp = gson.fromJson(new JsonReader(new FileReader(file)), PlayerData.class);
 		} catch (Exception e) {
-			temp = new JsonObject();
+			e.printStackTrace();
 		}
 		return temp;
 	}
 
-	private JsonObject loadJson(String path) {
+	private PlayerData loadJson(String path) {
 		return loadJson(new File(path));
 	}
 
-	private JsonObject loadJson(UUID uuid) {
+	private PlayerData loadJson(UUID uuid) {
 		String path = dataroot + folderPlayers + uuid + ".json";
 		return loadJson(path);
 	}
 
-	private boolean saveJson(JsonObject json, File file) {
+	private boolean saveJson(PlayerData json, File file) {
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		String prettyJson = gson.toJson(json);
+		String prettyJson = gson.toJson(json, PlayerData.class);
 		try {
 			FileWriter fw = new FileWriter(file);
 			fw.write(prettyJson.toString());
@@ -165,38 +160,13 @@ public class PlayerManager {
 		return false;
 	}
 
-	private boolean saveJson(JsonObject json, String path) {
+	private boolean saveJson(PlayerData json, String path) {
 		return saveJson(json, new File(path));
 	}
 
-	private boolean saveJson(JsonObject json, UUID uuid) {
+	private boolean saveJson(PlayerData json, UUID uuid) {
 		String path = dataroot + folderPlayers + uuid + ".json";
 		return saveJson(json, path);
-	}
-
-	private void initDefaultJSON() {
-		File defaultsFile = new File(dataroot + folderPlayers + filePlayerDefaults);
-		configuredDefaults = loadJson(defaultsFile);
-
-		PlayerDefaults playerDefaults = new PlayerDefaults();
-
-		playerDefaults.getDefaults().forEach((key, value) -> {
-			if (!configuredDefaults.has(key)) {
-				if (value instanceof JsonArray) {
-					configuredDefaults.add(key, (JsonArray) value);
-				} else {
-					configuredDefaults.addProperty(key, value.toString());
-				}
-			}
-		});
-
-		if(plugin.debug) {
-			Gson gson = new GsonBuilder().setPrettyPrinting().create();
-			String prettyJson = gson.toJson(configuredDefaults);
-			plugin.getLogger().info("Loaded player defaults:\n" + prettyJson);
-		}
-
-		saveJson(configuredDefaults, defaultsFile);
 	}
 
 	public void registerSaveTask(BukkitRunnable task) {

@@ -2,20 +2,14 @@ package handlers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
 import java.util.UUID;
 
 import org.bukkit.Location;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.reflect.TypeToken;
-
 import core.PlayerManager;
+import data.PlayerData;
 import main.ModularMSMF;
 
 public class HomeHandler {
@@ -63,36 +57,39 @@ public class HomeHandler {
 
 	ModularMSMF plugin;
 	PlayerManager plrm;
-	Gson gson;
+	
 	private HashMap<UUID, ArrayList<Home>> homeMap;
 	
 	public HomeHandler(ModularMSMF plugin) {
 		this.plugin = plugin;
 		plrm = plugin.getPlayerManager();
-		gson = new Gson();
 		plrm.registerSaveTask(new SaveTask(this));
-		//init homeMap from storage and
-		//load all entries from config
+		
 		homeMap = new HashMap<UUID, ArrayList<Home>>();
 		
-		Map<UUID, JsonObject> storage = plrm.getPlayerStorage();
-		storage.forEach((uuid, json) -> {
-			if (json.has("homes")) {
-				ArrayList<Home> homeList = gson.fromJson(json.get("homes"), new TypeToken<List<Home>>(){}.getType());
+		plrm.getPlayerStorage().forEach((uuid, data) -> {
+			if (data != null && data.homes != null) {
+				ArrayList<Home> homeList = new ArrayList<Home>();
+				for (Home h : data.homes) {
+					homeList.add(h);
+				}
 				homeMap.put(uuid, homeList);
 			}
 		});
 	}
 	
 	private void saveAll() {
-		
 		homeMap.forEach((uuid, homes) -> {
-			JsonElement temp = gson.toJsonTree(homes, new TypeToken<List<Home>>(){}.getType());
-			JsonObject data = plrm.getPlayerStorage(uuid);
-			if(data.has("homes")) {
-				data.remove("homes");
+			PlayerData data = plrm.getPlayerData(uuid);
+			if (data == null) {
+				data = new PlayerData(uuid);
 			}
-			data.add("homes", temp);
+			
+			Home[] temp = new Home[homes.size()];
+			for (int i = 0; i < temp.length; i++) {
+				temp[i] = homes.get(i);
+			}
+			data.homes = temp;
 		});
 	}
 

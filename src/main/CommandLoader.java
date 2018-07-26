@@ -48,7 +48,6 @@ public class CommandLoader {
 					try {
 						Class<?> clazz = Class.forName(info.getName(), true, classLoader);
 						commandList.add((AbstractCommand)clazz.getConstructor(plugin.getClass()).newInstance(plugin));
-
 					} catch (Exception e) {
 						plugin.getLogger().severe(e.toString());
 					}
