@@ -21,7 +21,7 @@ public class CommandSlaughter extends AbstractCommand {
 		super(plugin);
 	}
 		/**
-		 * @TODO finishing this
+		 * @TODO finishing this because does not work properly, only message works
 		 */
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -30,7 +30,9 @@ public class CommandSlaughter extends AbstractCommand {
 			for (Entity e : ((Player) sender).getWorld().getNearbyEntities(playerloc, 500, 500, 500)) {
 				if (!(e instanceof Player) && (e instanceof Monster))
 					e.remove();
+				
 			}
+			sender.sendMessage("Es wurde alles im Umkreis abgeschlachtet");
 		}
 		return true;
 	}
