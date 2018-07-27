@@ -12,6 +12,7 @@ general:
     invalidcommand: Invalid command.
     noconsole: Console is not permitted to use this command.
     missingarguments: Please specify an argument!
+    couldnotcreatefile: File couldn't be created!
 commands:
   ban:
     defaultbanreason: You have been banned!
@@ -62,3 +63,4 @@ commands:
     alreadyset: This home was already set!
     notdeleted: Your home has not been removed!
     notfoundhome: _homename has not been found!
+    allhomes: 

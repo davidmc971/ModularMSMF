@@ -14,7 +14,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerKickEvent;
+//import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerLoginEvent.Result;
 
@@ -41,20 +41,19 @@ public class Events implements Listener {
 	}
 
 	@EventHandler
+	/**
+	 * @TODO needs some rewrite
+	 */
 	public void onPlayerJoin(PlayerJoinEvent event) throws IOException {
 		Player player = event.getPlayer();
-		event.setJoinMessage(ChatColor.GRAY + player.getDisplayName() + " hat den Server " + ChatColor.GREEN
-				+ "betreten" + ChatColor.GRAY + "!");
-		// MOTD
-		/*
-		 * player.sendMessage("§6[ §e§lMOTD§r §6]§7 - Message Of The Day");
-		 * player.sendMessage("§6[ §e§l" + Bukkit.getServerName() +
-		 * " §r§6]§7 - Unser Server."); /** MOTD muss bald auf yaml erstellt
-		 * werden!
-		 */
+		event.setJoinMessage(ChatColor.GRAY + player.getDisplayName() + " hat den Server " + ChatColor.GREEN + "betreten" + ChatColor.GRAY + "!");
+
 	}
 
 	@EventHandler
+	/**
+	 * @TODO needs some rewrite
+	 */
 	public void onLogin(PlayerLoginEvent event) {
 		Player player = event.getPlayer();
 		YamlConfiguration cfg = plugin.getDataManager().getPlayerCfg(player.getUniqueId());
@@ -67,13 +66,19 @@ public class Events implements Listener {
 		}
 	}
 
-	@EventHandler // TODO Muss auch geändert werden!
+	@EventHandler
+	/**
+	 * @TODO needs some rewrite
+	 */
 	public void onQuit(PlayerQuitEvent event) throws IOException {
 		Player player = event.getPlayer();
 		event.setQuitMessage(ChatColor.GRAY + player.getName() + " hat den Server " + ChatColor.RED + "verlassen.");
 	}
 
-	@EventHandler // TODO Muss auch geändert werden!
+	@EventHandler
+	/**
+	 * @TODO needs some rewrite
+	 */
 	public void onDeath(PlayerDeathEvent event) {
 		boolean temp = false;
 		for(PlayerKillConfig pkf : killedPlayers){
@@ -81,13 +86,22 @@ public class Events implements Listener {
 				String msg = "";
 				switch(pkf.getKt()){
 				case KILL:
-					msg = "Der arme Mitspieler namens " + event.getEntity().getName() + " wurde getötet!\n";
+					//msg = "Der arme Mitspieler namens " + event.getEntity().getName() + " wurde getötet!\n";
+					/**
+					 * @TODO
+					 */
 					break;
 				case SUICIDE:
-					msg = "Der arme Mitspieler namens " + event.getEntity().getName() + " hat Suizid begangen!\n";
+					//msg = "Der arme Mitspieler namens " + event.getEntity().getName() + " hat Suizid begangen!\n";
+					/**
+					 * @TODO
+					 */
 					break;
 				case HOMOCIDE:
-					msg = "Der arme Mitspieler namens " + event.getEntity().getName() + " wurde in einem Homozid brutal ermordet!\n";
+					//msg = "Der arme Mitspieler namens " + event.getEntity().getName() + " wurde in einem Homozid brutal ermordet!\n";
+					/**
+					 * @TODO
+					 */
 					break;
 				}
 				event.setDeathMessage(msg);
@@ -97,14 +111,18 @@ public class Events implements Listener {
 			}
 		}
 		if(!temp){
-			event.setDeathMessage("Der arme Mitspieler namens " + event.getEntity().getName() + " ist gestorben!\n");
+			//event.setDeathMessage("Der arme Mitspieler namens " + event.getEntity().getName() + " ist gestorben!\n");
+			
 		}
 	}
 
-	@EventHandler // TODO Muss auch geändert werden!
-	public void onKick(PlayerKickEvent event) {
-		//Statistics.getKickCounter(event.getPlayer().getUniqueId()); //TODO man siehe stats.Statistics.java
-	}
+	/**
+	 * @TODO onKick needs to rewrote
+	 */
+	//@EventHandler // TODO Muss auch geändert werden!
+	//public void onKick(PlayerKickEvent event) {
+	//Statistics.getKickCounter(event.getPlayer().getUniqueId()); //TODO man siehe stats.Statistics.java
+	//}
 
 	/*CommandSender[] activeConsole = new CommandSender[2];
 	ForwardLogHandler myHandler = new ForwardLogHandler(){
@@ -120,23 +138,23 @@ public class Events implements Listener {
 	/*@EventHandler
 	public void onRemoteServerCommand(RemoteServerCommandEvent event){
 		//CommandSender sender = event.getSender();
-		
+
 		switch(event.getCommand().toLowerCase()){
 		case "getconsoleoutput":
 			activeConsole[0] = Bukkit.getPlayer(Utils.getPlayerUUIDByName("ernikillerxd64"));
 			activeConsole[1] = Bukkit.getPlayer(Utils.getPlayerUUIDByName("Lightkeks"));
 			//System.setOut(myOutStream);
 			plugin.getLogger().getParent().getParent().addHandler(myHandler);
-			
+
 			event.setCancelled(true);
 			break;
 		case "gethandlers":
 			plugin.getServer().getLogger().addHandler(myHandler);
-			
+
 			event.setCancelled(true);
 			break;
 		}
-		
+
 	}*/
 
 	@EventHandler
@@ -163,16 +181,16 @@ public class Events implements Listener {
 	/*
 	 * public HandlerList getHandlers() { return getHandlers(); }
 	 */
-	
+
 	@EventHandler
 	public void onRespawn(PlayerRespawnEvent e){
 		Player p = e.getPlayer();
-		
+
 		File file = new File("plugins/SetSpawn/config.yml");
 		if(!file.exists()){
 			p.sendMessage("Es wurde kein Spawn gesetzt");
 		}
-		
+
 		YamlConfiguration cfg = YamlConfiguration.loadConfiguration(file);
 		double x = cfg.getDouble("X");
 		double y = cfg.getDouble("Y");
@@ -180,18 +198,18 @@ public class Events implements Listener {
 		double yaw = cfg.getDouble("Yaw");
 		double pitch = cfg.getDouble("Pitch");
 		String worldname = cfg.getString("Worldname");
-		
+
 		Location loc = p.getLocation();
-		
+
 		loc.setX(x);
 		loc.setY(y);
 		loc.setZ(z);
 		loc.setYaw((float)yaw);
 		loc.setPitch((float)pitch);
-		
+
 		World welt = Bukkit.getWorld(worldname);
 		loc.setWorld(welt);
-		
+
 		e.setRespawnLocation(loc);;
 		p.sendMessage("Du wurdest gespawnt!");
 	}

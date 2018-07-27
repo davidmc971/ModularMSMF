@@ -1,10 +1,10 @@
 package stats;
 
-//import java.util.UUID;
-//
-//import org.bukkit.configuration.file.YamlConfiguration;
-//
-//import core.DataManager;
+import java.util.UUID;
+
+import org.bukkit.configuration.file.YamlConfiguration;
+
+import core.DataManager;
 
 /**
  * 
@@ -12,35 +12,19 @@ package stats;
  *
  */
 
+@SuppressWarnings("unused")
 public class Statistics {
 
-//	private static String kickkey = "kickcounter";
+	public void getIpAdress(UUID uuid) {
+		//should get every IP address logged to its user, listed which IP's have been used so far
+		// ONLY FOR BANNING PURPOSES ONLY!
 
-//	public static double getKickCounter(UUID uuid) {
-//		YamlConfiguration cfg = DataManager.getPlayerCfg(uuid);
-//		if (cfg.isDouble(kickkey)) {
-//			return cfg.getDouble(kickkey);
-//		}
-//		return 0;
-//	}
-// TODO Lets rewrite it.
-//	private void setKickCounter(UUID uuid) {
-//		YamlConfiguration cfg = DataManager.getPlayerCfg(uuid);
-//		if (cfg.isDouble(kickkey)) {
-//			double count = cfg.getDouble(kickkey);
-//			count += 1;
-//			cfg.set(kickkey, uuid);
-//		}
-//	}
+	}
 
-//	@SuppressWarnings("unused")
-//	private void getIpAdress(UUID uuid) {
-//
-//	}
-//
-//	@SuppressWarnings("unused")
-//	private void saveIpAdress(UUID uuid) {
-//
-//	}
+	public void saveIpAdress(UUID uuid) {
+		//should save every IP address logged so far for every user. 
+		// ONLY FOR BANNING PURPOSES ONLY!
+
+	}
 
 }

@@ -39,34 +39,34 @@ import main.ModularMSMF;
 public class DataManager implements Listener {
 	private class AutosaveTask extends BukkitRunnable {
 		DataManager dtm;
-		
+
 		public AutosaveTask(DataManager dtm) {
 			this.dtm = dtm;
 		}
-		
+
 		@Override
 		public void run() {
 			dtm.saveAllUserdata();
 			dtm.logger.info("Autosaved userdata.");
 		}
 	}
-	
+
 	private AutosaveTask autosaveTask;
-	
+
 	public String pathMain = "plugins/ModularMSMF/";
 	public String pathUserdata = pathMain + "userdata/";
-	public String pathBankdata = pathMain + "bankdata/";
+	//public String pathBankdata = pathMain + "bankdata/";
 	public YamlConfiguration settingsyaml = loadCfg(pathMain + "settings.yml");
 	public YamlConfiguration defaultUserdatayaml = loadCfg(pathUserdata + "default.yml");
-	
+
 	private Logger logger;
 	private ModularMSMF plugin;
-	
+
 	private Map<String, Object> defaultSettings = new HashMap<String, Object>();
 	private Map<String, Object> defaultUserdata = new HashMap<String, Object>();
-	
+
 	private Map<UUID, YamlConfiguration> allUsers = new HashMap<UUID, YamlConfiguration>();
-	
+
 	public DataManager(ModularMSMF plugin){
 		this.plugin = plugin;
 		this.logger = this.plugin.getLogger();
@@ -79,14 +79,14 @@ public class DataManager implements Listener {
 		if(plugin.debug)
 			ticks = 1200; 
 		autosaveTask.runTaskTimer(plugin, ticks, ticks);
-		
+
 		init();
 	}
-	
+
 	public void init(){
 		initDefaultSettings();
 		initDefaultUserdata();
-		
+
 		allUsers.clear();
 		for(OfflinePlayer p : Bukkit.getOfflinePlayers()){
 			YamlConfiguration cfg = loadPlayerCfg(p.getUniqueId());
@@ -100,36 +100,36 @@ public class DataManager implements Listener {
 		saveAllUserdata();
 		logger.info("DataManager init done.");
 	}
-	
+
 	public void saveAllUserdata(){
 		allUsers.forEach((uuid, cfg) -> savePlayerCfg(cfg, uuid));
 	}
-	
+
 	@EventHandler
-    public void onPlayerJoin(PlayerJoinEvent event) {
+	public void onPlayerJoin(PlayerJoinEvent event) {
 		UUID uuid = event.getPlayer().getUniqueId();
-        for(Entry<UUID, YamlConfiguration> e : allUsers.entrySet()){
-        	if(e.getKey().toString().equalsIgnoreCase(uuid.toString())){
-        		initUserDefaults(e.getValue(), uuid);
-        		e.getValue().set("online", true);
-        		return;
-        	}
-        }
-        YamlConfiguration newcfg = loadPlayerCfg(uuid);
-        initUserDefaults(newcfg, uuid);
-        newcfg.set("online", true);
-        allUsers.put(uuid, newcfg);
-    }
- 
-    @EventHandler
-    public void onQuit(PlayerQuitEvent event) {
-        for(Entry<UUID, YamlConfiguration> e : allUsers.entrySet()){
-        	if(e.getKey().toString().equalsIgnoreCase(event.getPlayer().getUniqueId().toString())){
-        		e.getValue().set("online", false);
-        	}
-        }
-    }
-	
+		for(Entry<UUID, YamlConfiguration> e : allUsers.entrySet()){
+			if(e.getKey().toString().equalsIgnoreCase(uuid.toString())){
+				initUserDefaults(e.getValue(), uuid);
+				e.getValue().set("online", true);
+				return;
+			}
+		}
+		YamlConfiguration newcfg = loadPlayerCfg(uuid);
+		initUserDefaults(newcfg, uuid);
+		newcfg.set("online", true);
+		allUsers.put(uuid, newcfg);
+	}
+
+	@EventHandler
+	public void onQuit(PlayerQuitEvent event) {
+		for(Entry<UUID, YamlConfiguration> e : allUsers.entrySet()){
+			if(e.getKey().toString().equalsIgnoreCase(event.getPlayer().getUniqueId().toString())){
+				e.getValue().set("online", false);
+			}
+		}
+	}
+
 	public YamlConfiguration getPlayerCfg(UUID uuid){
 		for(Entry<UUID, YamlConfiguration> e : allUsers.entrySet()){
 			if(e.getKey().toString().equalsIgnoreCase(uuid.toString()))
@@ -137,7 +137,7 @@ public class DataManager implements Listener {
 		}
 		return null;
 	}
-	
+
 	public YamlConfiguration loadCfg(String path) {
 		File file = new File(path);
 		if (!file.exists()) {
@@ -150,11 +150,11 @@ public class DataManager implements Listener {
 		}
 		return YamlConfiguration.loadConfiguration(file);
 	}
-	
+
 	public YamlConfiguration loadPlayerCfg(UUID uuid){
 		return loadCfg(pathUserdata + uuid.toString() + ".yml");
 	}
-	
+
 	public void saveCfg(YamlConfiguration cfg, String path) {
 		File file = new File(path);
 		try {
@@ -163,15 +163,15 @@ public class DataManager implements Listener {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void savePlayerCfg(YamlConfiguration playercfg, UUID uuid) {
 		saveCfg(playercfg, pathUserdata + uuid.toString() + ".yml");
 	}
-	
+
 	private void initDefaultSettings(){
 		defaultSettings.clear();
 		defaultSettings.put("economy.money", 500.0d);
-		defaultSettings.put("kickcounter", 0);
+		//defaultSettings.put("kickcounter", 0);
 		defaultSettings.put("language.standard", "en_US");
 		for(Entry<String, Object> e : defaultSettings.entrySet()){
 			if(settingsyaml.get(e.getKey()) == null){
@@ -180,12 +180,12 @@ public class DataManager implements Listener {
 		}
 		saveCfg(settingsyaml, pathMain + "settings.yml");
 	}
-	
+
 	private void initDefaultUserdata(){
 		defaultUserdata.clear();
 		defaultUserdata.put("economy.money", settingsyaml.get("economy.money"));
 		defaultUserdata.put("economyalex.money", settingsyaml.get("economy.money"));
-		defaultUserdata.put("kickcounter", settingsyaml.get("kickcounter"));
+		//defaultUserdata.put("kickcounter", settingsyaml.get("kickcounter"));
 		defaultUserdata.put("language", null);
 		for(Entry<String, Object> e : defaultUserdata.entrySet()){
 			if(defaultUserdatayaml.get(e.getKey()) == null){
@@ -194,19 +194,21 @@ public class DataManager implements Listener {
 		}
 		saveCfg(defaultUserdatayaml, pathUserdata + "default.yml");
 	}
-	
+
 	private void initUserDefaults(YamlConfiguration cfg, UUID uuid){
 		for(String s : defaultUserdatayaml.getKeys(true)){
 			if(cfg.get(s) == null || !cfg.get(s).getClass().equals(defaultUserdatayaml.get(s).getClass())){
 				cfg.set(s, defaultUserdatayaml.get(s));
 			}
 		}
+		
 		/*
 		if		(!cfg.contains("name"))		{ cfg.set("name", Bukkit.getPlayer(uuid).getName()); }
 		else if	(!cfg.isString("name"))		{ cfg.set("name", Bukkit.getPlayer(uuid).getName()); }
 		if		(!cfg.contains("online"))	{ cfg.set("online", Bukkit.getPlayer(uuid).isOnline()); }
 		else if	(!cfg.isBoolean("online"))	{ cfg.set("online", Bukkit.getPlayer(uuid).isOnline()); }
-		*/
+		 */
+		
 		savePlayerCfg(cfg, uuid);
 	}
 }

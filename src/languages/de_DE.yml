@@ -12,6 +12,7 @@ general:
     invalidcommand: Ungueltiger Befehl.
     noconsole: Die Konsole darf diesen Befehl nicht nutzen.
     missingarguments: Bitte gib passende Argumente an!
+    couldnotcreatefile: Die Datei konnte nicht erstellt werden!
 commands:
   ban:
     defaultbanreason: Du wurdest gebannt!
