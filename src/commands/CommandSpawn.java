@@ -7,10 +7,13 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 import main.ModularMSMF;
+import util.ChatUtils;
+import util.Utils;
 
 /**
  * 
@@ -25,22 +28,28 @@ public class CommandSpawn extends AbstractCommand {
 	}
 	
 	/**
-	 * @TODO finishing this
+	 * @TODO Complete rewrite
 	 */
 	
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+
+		YamlConfiguration language = Utils.configureCommandLanguage(sender, plugin);
+
+		String errorPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.ERROR);
+		String noPermPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.NOPERM);
+		String successfulPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.SUCCESS);
 		
-		if(!(sender instanceof Player)){
-			System.out.println("general.nospawnconsole");
-		}
+		if(sender instanceof ConsoleCommandSender) {
+			sender.sendMessage(noPermPrefix+language.getString("general.noconsole"));
+		} else {
 		Player p = (Player)sender;
 		
 		if(!p.hasPermission("spawn.spawn")){
 			p.sendMessage("Du hast keine Rechte!");
 		}
 		
-		File file = new File("plugins/SetSpawn/config.yml");
+		File file = new File("plugins/ModularMSMF/spawnconfig.yml");
 		if(!file.exists()){
 			p.sendMessage("Es wurde kein Spawn gesetzt");
 		}
@@ -65,8 +74,10 @@ public class CommandSpawn extends AbstractCommand {
 		loc.setWorld(welt);
 		
 		p.teleport(loc);
-		p.sendMessage("Du wurdest gespawnt!");
+		p.sendMessage(successfulPrefix+language.getString("spawn.spawned")+"Du wurdest gespawnt!");
 		
+		return true;
+		}
 		return true;
 	}
 

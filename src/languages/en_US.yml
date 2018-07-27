@@ -52,6 +52,7 @@ commands:
   spawn:
     nospawnset: No spawn has been set.
     spawnset: Spawn has been set!
+    spawned: You were spawned!
   report:
     repplayeradmin: Cannot report an Admin!
     repplayersuccess: _player has been reported successfully!

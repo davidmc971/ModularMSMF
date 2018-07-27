@@ -29,12 +29,13 @@ public class CommandSetSpawn extends AbstractCommand {
 	}
 
 	/**
-	 * @TODO finishing this
+	 * @TODO Complete rewrite
 	 */
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-		
+
+		//Player p = (Player)sender;
 		YamlConfiguration language = Utils.configureCommandLanguage(sender, plugin);
 
 		String errorPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.ERROR);
@@ -80,7 +81,10 @@ public class CommandSetSpawn extends AbstractCommand {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			//p.sendMessage(successfulPrefix+language.getString("spawn.spawnset")); //gibt NULL aus, woran liegt das?
+			//p.sendMessage(successfulPrefix+"Spawn has been set."); //gibt NULL aus, woran liegt das? entweder ohne string oder 
+			p.sendMessage(successfulPrefix+language.getString("spawn.spawnset") + successfulPrefix+"Spawn has been set.");
+			sender.sendMessage(successfulPrefix+language.getString("spawn.spawnset") + successfulPrefix+"Spawn has been set.");
+			return true;
 		}
 		return true;
 	}
