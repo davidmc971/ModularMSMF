@@ -35,10 +35,10 @@ public class CommandKill extends AbstractCommand {
 		 * 
 		 *         Sollte schon klappen
 		 */
-		String infoPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.INFO);
+		//String infoPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.INFO);
 		String errorPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.ERROR);
 		String noPermPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.NOPERM);
-		String successfulPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.SUCCESS);
+		//String successfulPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.SUCCESS);
 		YamlConfiguration language = Utils.configureCommandLanguage(sender, plugin);		
 		
 		if (args.length == 0) {

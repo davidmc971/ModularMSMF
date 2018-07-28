@@ -2,14 +2,11 @@ package commands;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.UUID;
-
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 import main.ModularMSMF;
@@ -35,10 +32,8 @@ public class CommandSetSpawn extends AbstractCommand {
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-		//Player p = (Player)sender;
 		YamlConfiguration language = Utils.configureCommandLanguage(sender, plugin);
-
-		String errorPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.ERROR);
+		
 		String noPermPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.NOPERM);
 		String successfulPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.SUCCESS);
 
@@ -81,9 +76,7 @@ public class CommandSetSpawn extends AbstractCommand {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			//p.sendMessage(successfulPrefix+"Spawn has been set."); //gibt NULL aus, woran liegt das? entweder ohne string oder 
-			p.sendMessage(successfulPrefix+language.getString("spawn.spawnset") + successfulPrefix+"Spawn has been set.");
-			sender.sendMessage(successfulPrefix+language.getString("spawn.spawnset") + successfulPrefix+"Spawn has been set.");
+			p.sendMessage(successfulPrefix+language.getString("commands.spawn.spawnset"));
 			return true;
 		}
 		return true;

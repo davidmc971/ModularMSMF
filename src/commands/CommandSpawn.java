@@ -35,8 +35,7 @@ public class CommandSpawn extends AbstractCommand {
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
 		YamlConfiguration language = Utils.configureCommandLanguage(sender, plugin);
-
-		String errorPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.ERROR);
+		
 		String noPermPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.NOPERM);
 		String successfulPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.SUCCESS);
 
@@ -74,7 +73,7 @@ public class CommandSpawn extends AbstractCommand {
 			loc.setWorld(welt);
 
 			p.teleport(loc);
-			p.sendMessage(successfulPrefix+language.getString("spawn.spawned")+"Du wurdest gespawnt!"); //gibt NULL aus, warum?
+			p.sendMessage(successfulPrefix+language.getString("commands.spawn.spawned"));
 		}
 		return true;
 	}

@@ -14,7 +14,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-
 import core.PermissionManager;
 import main.ModularMSMF;
 import util.ChatUtils;
@@ -89,12 +88,25 @@ public class CommandBan extends AbstractCommand {
 				banPlayer(uuid, reason, language);
 				break;
 			}
+			if(args[0].equalsIgnoreCase("banip")){
+				if(sender.hasPermission(PermissionManager.getPermission("commands.ban.banip"))) {
+					/**
+					 * @TODO adding fnctn to ban ip from a player, if not already banned as normal name, otherwise ip can get banned too
+					 * @Lightkeks
+					 */
+					
+				}
+			}
 			sender.sendMessage(infoPrefix+language.getString("commands.ban.playerbanned").replaceAll("_player", args[0]).replaceAll("_reason", reason));
 		} else {
 			sender.sendMessage(PermissionManager.getPermission(noPermPrefix+language.getString("general.nopermission")));
 		}
 		
 		return true;
+	}
+	
+	public void banPlayerIp(UUID uuid, String name, YamlConfiguration language) {
+
 	}
 
 	public void banPlayer(UUID uuid, String reason, YamlConfiguration language) {
