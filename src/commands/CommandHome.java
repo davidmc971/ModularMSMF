@@ -36,9 +36,6 @@ public class CommandHome extends AbstractCommand {
 
 		YamlConfiguration language = Utils.configureCommandLanguage(sender, plugin);
 
-		
-<<<<<<< Updated upstream
-
 		/**home <help>
 		 * home <default OR name>
 		 * home list <admin:user>
@@ -82,12 +79,10 @@ public class CommandHome extends AbstractCommand {
 			}
 		}
 
-=======
 		//String infoPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.INFO);
 		//String errorPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.ERROR);
 		String noPermPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.NOPERM);
->>>>>>> Stashed changes
-		
+
 		switch (args[0].toLowerCase()) {
 		//HELP COMMANDS
 		case "help":
