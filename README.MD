@@ -1,3 +1,5 @@
+OUTDATED GUIDE! Since we switched to maven, this guide will be updated.
+
 You need to have the following installed (when using Windows):
 	
 	Java Development Kit (JDK) (at least Java 8)
