@@ -86,3 +86,6 @@ local.properties
 
 #vscode
 .vscode/
+
+#maven build
+target/
