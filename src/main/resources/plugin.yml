@@ -1,0 +1,76 @@
+#name: ModularMSMF
+#main: main.ModularMSMF
+#version: Alpha 0.1.0
+#author: ${author}
+
+name: ${name}
+version: ${version}
+description: ${description}
+website: ${url}
+authors: [Lightkeks, davidmc971]
+
+main: ${mainClass}
+
+commands:
+  report:
+    description: Eine Meldung verfassen.
+    usage: /<command> <args>
+  mmsmf:
+    description: Zeigt Infos und mehr an.
+    usage: /<command> <args>
+    aliases: <info>
+  teleport:
+    description: teleportation zu einem Spieler.
+    usage: /<command> <target>
+    aliases: <tp, tele>
+  heal:
+    description: Heilt Spieler.
+    usage: /<command> <target>
+  money:
+    description: Geldstand anzeigen oder anderes.
+    usage: /<command> <args>
+  feed:
+    description: Saettigt den Spieler.
+    usage: /<command> <player>
+  ban:
+    description: Bannt einen Spieler.
+    usage: /<command> <player>
+  unban:
+    description: Entbannt einen Spieler.
+    usage: /<command> [args] <player>
+  ban-ip:
+    description: Bans a player by IP.
+    usage: /<command> [args]
+  playershell:
+    description: Enables console to act as a virtual player.
+    usage: /<command> <playername>
+  kick:
+    description: Kickt einen Spieler.
+    usage: /<command> <player>
+  kill:
+    description: Killt einen Spieler.
+    usage: /<command> <args>
+  mute:    
+    description: Mutet einen Spieler.
+    usage: /<command> <player>
+  serverinfo:
+    description: Gibt die Serversoftware an.
+    usage: /<command>
+  motd:
+    description: Message Of The Day.
+    usage: /<command> <args>
+  slaughter:
+    description: Destroy entities.
+    usage: bla
+  language:
+    description: Choose your language.
+    usage: /<command> <args>
+  home:
+    description: Teleports you home. Optionally specify a home name. Also sets homes.
+    usage: /<command> <args>
+  setspawn:
+    description: Set the spawn
+    usage: /<command>
+  spawn:
+    description: Spawns the player
+    usage: /<command>
