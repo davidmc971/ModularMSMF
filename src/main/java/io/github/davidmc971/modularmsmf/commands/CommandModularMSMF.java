@@ -32,7 +32,7 @@ public class CommandModularMSMF extends AbstractCommand {
 		case "mmsmf":
 			if (sender.hasPermission("mmsmf")) {
 				if (args.length == 0) {
-					sender.sendMessage(infoPrefix+"Plugin enabled on: " + Bukkit.getServer());
+					sender.sendMessage(infoPrefix+"Plugin enabled on: " + /*TODO Serverversion herrausfinden*/ "");
 					sender.sendMessage(infoPrefix+"More help:");
 					sender.sendMessage(infoPrefix+"info || discord || report"); // missing report, not implemented yet
 				} else if (args.length == 1) {
@@ -40,7 +40,7 @@ public class CommandModularMSMF extends AbstractCommand {
 					case "info":
 						if (args.length == 1) {
 							sender.sendMessage(infoPrefix+"Plugin Version: " + ChatColor.GREEN + plugin.pluginver);
-							sender.sendMessage(infoPrefix+"Server's running at: " + ChatColor.YELLOW + Bukkit.getBukkitVersion());
+							sender.sendMessage(infoPrefix+"Server's running at: " + ChatColor.YELLOW + Bukkit.getVersion());
 							sender.sendMessage(infoPrefix+"Developer: " + ChatColor.LIGHT_PURPLE + plugin.authors);
 							sender.sendMessage(errorPrefix+"Debug: Build [" + plugin.getDebugTimestamp() + "]");
 						}
