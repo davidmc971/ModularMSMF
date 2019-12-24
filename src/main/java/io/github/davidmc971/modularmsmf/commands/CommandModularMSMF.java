@@ -32,7 +32,10 @@ public class CommandModularMSMF extends AbstractCommand {
 		case "mmsmf":
 			if (sender.hasPermission("mmsmf")) {
 				if (args.length == 0) {
-					sender.sendMessage(infoPrefix+"Plugin enabled on: " + Bukkit.getName());
+					/**
+					* @TODO changing server name as its own by new command, needs to be implemented.
+					*/
+					sender.sendMessage(infoPrefix+"Plugin enabled on: " + Bukkit.getName()); 
 					sender.sendMessage(infoPrefix+"More help:");
 					sender.sendMessage(infoPrefix+"info || discord || report"); // missing report, not implemented yet
 				} else if (args.length == 1) {
