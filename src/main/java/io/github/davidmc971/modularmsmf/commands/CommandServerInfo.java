@@ -10,6 +10,7 @@ import io.github.davidmc971.modularmsmf.util.ChatUtils;
 /**
  * 
  * @author Lightkeks
+ * Will be looking for some features in future like addition of showing IP adress or some other stuff like TP
  *
  */
 

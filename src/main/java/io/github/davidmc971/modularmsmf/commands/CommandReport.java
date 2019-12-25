@@ -20,11 +20,11 @@ public class CommandReport extends AbstractCommand {
 	 * There are different categories of reports:
 	 * 	player - report a player for different reasons
 	 * 	bug - report a bug
-	 * 	other - report what you think e.g. additions to the server
+	 * 	other - report what you think e.g. additions to the server // will be removed because official discord server. only working on an official server where devs work with us.
 	 * The command structure of each category:
 	 * 	/report player <playername> <reason>
 	 * 	/report bug <description>
-	 * 	/report other <description>
+	 * 	/report other <description> // will be removed because official discord server. only working on an official server where devs work with us.
 	 * 
 	 * Individual report should be saved in a database of some kind
 	 * and be accessible through an app and/or webinterface.
@@ -35,7 +35,7 @@ public class CommandReport extends AbstractCommand {
 	 *
 	 * @param sender the CommandSender
 	 * @param cmd the Command
-	 * @param commandLabe the label of the command, case-sensitive
+	 * @param commandLabel the label of the command, case-sensitive
 	 * @param args provided arguments without the label
 	 * @param plugin the parent plugin
 	 * 

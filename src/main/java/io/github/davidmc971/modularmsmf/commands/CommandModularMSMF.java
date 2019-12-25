@@ -6,6 +6,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import io.github.davidmc971.modularmsmf.ModularMSMF;
+import io.github.davidmc971.modularmsmf.core.PermissionManager;
 import net.md_5.bungee.api.ChatColor;
 import io.github.davidmc971.modularmsmf.util.ChatUtils;
 import io.github.davidmc971.modularmsmf.util.Utils;
@@ -21,6 +22,11 @@ public class CommandModularMSMF extends AbstractCommand {
 
 	public CommandModularMSMF(ModularMSMF plugin) {
 		super(plugin);
+	}
+
+	@Override
+	public String[] getCommandLabels() {
+		return new String[]{ "mmsmf" };
 	}
 
 	@Override
@@ -41,7 +47,11 @@ public class CommandModularMSMF extends AbstractCommand {
 					*/
 					sender.sendMessage(infoPrefix+"Plugin enabled on: " + Bukkit.getName()); 
 					sender.sendMessage(infoPrefix+"More help:");
-					sender.sendMessage(infoPrefix+"info || "+/*discord ||*/ "report"); // missing report, not implemented yet
+					sender.sendMessage(infoPrefix+"info || report"); // missing report, not implemented yet
+					/**
+					 * TODO: adding ability to check for config.yml like if teamspeak is enabled or discord, and if both are enabled it will show both
+					 * 
+					 */
 				} else if (args.length == 1) {
 					switch (args[0].toLowerCase()) {
 					case "info":
@@ -52,15 +62,6 @@ public class CommandModularMSMF extends AbstractCommand {
 							sender.sendMessage(errorPrefix+"Debug: Build [" + plugin.getDebugTimestamp() + "]");
 						}
 						break;
-						/**
-						* TODO config as changeable, IF teamspeak or/and discord as reference to config.yml - if there is an existing server. so case might be "ts" or "discord", or both
-						*/
-					/*case "discord": 
-						if (args.length == 1) {
-							sender.sendMessage(infoPrefix+"Discord-URL: " + ChatColor.BLUE + "https://discord.gg/"); //hovering over url + no link shown + clickable text in one section
-						}
-						break;
-					*/
 					case "report":
 					/**
 					 * TODO will be implemented. otherwise discord/github for reporting bugs.
@@ -83,10 +84,5 @@ public class CommandModularMSMF extends AbstractCommand {
 			}
 		}
 		return true;
-	}
-
-	@Override
-	public String[] getCommandLabels() {
-		return new String[]{ "mmsmf" };
 	}
 }
