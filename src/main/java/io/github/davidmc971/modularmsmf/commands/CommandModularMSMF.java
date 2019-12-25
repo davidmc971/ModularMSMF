@@ -91,9 +91,6 @@ public class CommandModularMSMF extends AbstractCommand {
 					}
 				} else if (args.length >= 2) {
 					sender.sendMessage(errorPrefix+language.getString("general.toomanyarguments"));
-					/**
-					 * TODO missing args length if 0 or wrong arg, have to added.
-					 */
 				} else {
 					sender.sendMessage(noPermPrefix+language.getString("general.nopermission"));
 				}
