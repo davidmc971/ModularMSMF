@@ -22,7 +22,6 @@ public class CommandLoader {
 	}
 	
 	public ArrayList<AbstractCommand> loadCommands(ClassLoader classLoader){
-		plugin.getLogger().info("===========\nloadCommands()\n===========");
 		ArrayList<AbstractCommand> commandList = new ArrayList<AbstractCommand>();
 		
 		String packageName = "commands";

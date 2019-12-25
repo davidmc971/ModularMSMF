@@ -47,6 +47,7 @@ public class DataManager implements Listener {
 
 		@Override
 		public void run() {
+			dtm.logger.info("Autosaving userdata...");
 			dtm.saveAllUserdata();
 			dtm.logger.info("Autosaved userdata.");
 		}
