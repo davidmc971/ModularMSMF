@@ -2,7 +2,8 @@ language:
   id: de_DE
   name: Deutsch
 general: #Haupts�chliche Strings f�r den Allgemeingebrauch
-    missingname: Du musst einen Spieler angeben. #Fehlender Spielername eines Befehles
+    missing_playername: Du musst einen Spieler angeben. #Fehlender Spielername eines Befehles
+    playerunknown: Dieser Spieler existiert nicht. #Nicht existenter Spieler.
     playernotfound: Dieser Spieler wurde nicht gefunden. #Falsch geschriebener Name
     nopermission: Du hast nicht die Berechtigung dies zu tun. #Keine Rechte
     toomanyarguments: Zu viele Argumente. #Mehr als angegebene Argumente
@@ -28,6 +29,7 @@ commands: #Befehle
     seekickedall: _player wurde vom Server gekickt! #Anzeigen, dass ein Spieler gekickt wurde
     seekickedallreason: '_player wurde aus folgendem Grund gekickt: _reason' #Anzeigen, dass ein Spieler mit einem Grund gekickt wurde
   language: #�bersetzungsbefehl
+    commandnotforconsole: Dieser Befehl ist nicht gueltig fuer die Konsole. #Console darf keine ausgewählten Befehle verwenden.
     activelanguage: 'Deine akt�lle Sprache: _language' #Welche �bersetzung eingestellt wurde
     availablelanguages: 'Verf�gbare Sprachen: _var' #Welche �bersetzungen existieren
     setsuccessplayer: Deine Sprache wurde erfolgreich ge�ndert. #Anzeige, dass die �bersetzung erfolgreich �bernommen wurde
@@ -70,3 +72,22 @@ commands: #Befehle
     discordmissing: Es gibt keinen Einladungslink fuer einen Discordserver. #Gibt dann aus, wenn in config.yml "false" angegeben.
     teamspeak: 'Deine IP zum joinen:' #Gibt die IP-adresse aus.
     teamspeakmissing: Es gibt keine IP-Adresse fuer einen Teamspeakserver. #Gibt dann aus, wenn in config.yml "false" angegeben.
+  eco:
+    ecobalance:
+    ecobalanceother:
+    ecosetself:
+    ecosetothers:
+    ecosetfromother:
+    ecosetbefore:
+    ecosetafter:
+    ecoreset:
+    ecoaddself:
+    ecoforbiddenminus:
+    ecoaddothers:
+    ecoaddfromother:
+    ecotakeself:
+    ecotakeother:
+    ecotakefromothers:
+    ecopaytoothers:
+    ecopayfromothers:
+    econodebt:

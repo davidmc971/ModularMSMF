@@ -72,3 +72,22 @@ commands:
     discordmissing: There is no existing link for a Discord server.
     teamspeak: 'Your IP adress to join:'
     teamspeakmissing: There is no existing IP for a Teamspeak server.
+  eco:
+    ecobalance:
+    ecobalanceother:
+    ecosetself:
+    ecosetothers:
+    ecosetfromother:
+    ecosetbefore:
+    ecosetafter:
+    ecoreset:
+    ecoaddself:
+    ecoforbiddenminus:
+    ecoaddothers:
+    ecoaddfromother:
+    ecotakeself:
+    ecotakeother:
+    ecotakefromothers:
+    ecopaytoothers:
+    ecopayfromothers:
+    econodebt:
