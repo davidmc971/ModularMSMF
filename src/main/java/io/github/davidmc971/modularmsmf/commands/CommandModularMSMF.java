@@ -83,7 +83,7 @@ public class CommandModularMSMF extends AbstractCommand {
 							boolean ts = false;
 							if (file.exists()) {
 								YamlConfiguration cfg = YamlConfiguration.loadConfiguration(file);
-								if (cfg.contains("teamspeakIP")) {
+								if (cfg.contains("teamspeakIP") && cfg.getString("teamspeakIP") != "") {
 									ts = true;
 									String teamspeakIP = cfg.getString("teamspeakIP");
 									sender.sendMessage(infoPrefix + language.getString("commands.mmsmf.teamspeak" + " " + teamspeakIP));
