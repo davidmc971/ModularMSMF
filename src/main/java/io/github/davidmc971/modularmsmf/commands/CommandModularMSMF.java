@@ -13,7 +13,6 @@ import net.md_5.bungee.api.ChatColor;
 import io.github.davidmc971.modularmsmf.util.ChatUtils;
 import io.github.davidmc971.modularmsmf.util.Utils;
 
-
 /**
  * 
  * @author Lightkeks
@@ -28,7 +27,7 @@ public class CommandModularMSMF extends AbstractCommand {
 
 	@Override
 	public String[] getCommandLabels() {
-		return new String[]{ "mmsmf" };
+		return new String[] { "mmsmf" };
 	}
 
 	@Override
@@ -39,72 +38,80 @@ public class CommandModularMSMF extends AbstractCommand {
 		String infoPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.INFO);
 		String errorPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.ERROR);
 		String noPermPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.NOPERM);
-		
+
 		switch (toLowerCase) {
 		case "mmsmf":
 			if (PermissionManager.checkPermission(sender, "mmsmf")) {
 				if (args.length == 0) {
 					/**
-					* @TODO changing server name as its own by new command, needs to be implemented.
-					*/
-					sender.sendMessage(infoPrefix+"Plugin enabled on: " + Bukkit.getName()); 
-					sender.sendMessage(infoPrefix+"More help:");
-					sender.sendMessage(infoPrefix+"info || report || teamspeak || discord"); // missing report, not implemented yet
+					 * @TODO changing server name as its own by new command, needs to be
+					 *       implemented.
+					 */
+					sender.sendMessage(infoPrefix + "Plugin enabled on: " + Bukkit.getName());
+					sender.sendMessage(infoPrefix + "More help:");
+					sender.sendMessage(infoPrefix + "info || report || teamspeak || discord"); // missing report, not
+																								// implemented yet
 					/**
-					 * TODO: adding ability to check for config.yml like if teamspeak is enabled or discord, and if both are enabled it will show both
+					 * TODO: adding ability to check for config.yml like if teamspeak is enabled or
+					 * discord, and if both are enabled it will show both
 					 * 
 					 */
 				} else if (args.length == 1) {
 					switch (args[0].toLowerCase()) {
 					case "info":
 						if (args.length == 1) {
-							sender.sendMessage(infoPrefix+"Plugin Version: " + ChatColor.GREEN + plugin.pluginver);
-							sender.sendMessage(infoPrefix+"Server's running at: " + ChatColor.YELLOW + Bukkit.getVersion());
-							sender.sendMessage(infoPrefix+"Developer: " + ChatColor.LIGHT_PURPLE + plugin.authors);
-							sender.sendMessage(errorPrefix+"Debug: Build [" + plugin.getDebugTimestamp() + "]");
+							sender.sendMessage(infoPrefix + "Plugin Version: " + ChatColor.GREEN + plugin.pluginver);
+							sender.sendMessage(
+									infoPrefix + "Server's running at: " + ChatColor.YELLOW + Bukkit.getVersion());
+							sender.sendMessage(infoPrefix + "Developer: " + ChatColor.LIGHT_PURPLE + plugin.authors);
+							sender.sendMessage(errorPrefix + "Debug: Build [" + plugin.getDebugTimestamp() + "]");
 						}
 						break;
 					case "report":
-					/**
-					 * TODO will be implemented. otherwise discord/github for reporting bugs.
-					 */
+						/**
+						 * TODO will be implemented. otherwise discord/github for reporting bugs.
+						 */
 						sender.sendMessage("Not implemented yet.");
 						break;
 					case "teamspeak":
-						if (args.length == 1){
+						if (args.length == 1) {
 							/**
-							 * stuff adding to question if something is enabled in config or disabled.
-							 * if enabled, teamspeak ip should be shown
+							 * stuff adding to question if something is enabled in config or disabled. if
+							 * enabled, teamspeak ip should be shown
 							 */
 							File file = new File("plugins/ModularMSMF/config.yml");
-							if(!file.exists()){
+							if (file.exists()) {
 								YamlConfiguration cfg = YamlConfiguration.loadConfiguration(file);
-								String teamspeakIP = cfg.getString("teamspeakID");
-								sender.sendMessage(infoPrefix+language.getString("commands.mmsmf.teamspeak"+" "+teamspeakIP));
-							} else {
-							sender.sendMessage(errorPrefix+language.getString("commands.mmsmf.teamspeakmissing"));
+								if (cfg.contains("teamspeakID")) {
+									String teamspeakIP = cfg.getString("teamspeakID");
+									sender.sendMessage(infoPrefix
+											+ language.getString("commands.mmsmf.teamspeak" + " " + teamspeakIP));
+								} else {
+									sender.sendMessage(
+											errorPrefix + language.getString("commands.mmsmf.teamspeakmissing"));
+								}
 							}
 						}
 						break;
-						case "discord":
-						if (args.length == 1){
+					case "discord":
+						if (args.length == 1) {
 							/**
-							 * stuff adding to question if something is enabled in config or disabled.
-							 * if enabled, discord link should be shown
+							 * stuff adding to question if something is enabled in config or disabled. if
+							 * enabled, discord link should be shown
 							 */
-							sender.sendMessage(errorPrefix+language.getString("commands.mmsmf.discordmissing"));
+							sender.sendMessage(errorPrefix + language.getString("commands.mmsmf.discordmissing"));
 						}
 						break;
 					default:
-						sender.sendMessage(errorPrefix+language.getString("general.invalidarguments"));
+						sender.sendMessage(errorPrefix + language.getString("general.invalidarguments"));
 					}
 				} else if (args.length >= 2) {
-					sender.sendMessage(errorPrefix+language.getString("general.toomanyarguments"));
+					sender.sendMessage(errorPrefix + language.getString("general.toomanyarguments"));
 				} else {
-					sender.sendMessage(noPermPrefix+language.getString("general.nopermission"));
+					sender.sendMessage(noPermPrefix + language.getString("general.nopermission"));
 				}
 			} else {
-				sender.sendMessage(noPermPrefix+language.getString("general.nopermission"));
+				sender.sendMessage(noPermPrefix + language.getString("general.nopermission"));
 			}
 		}
 		return true;
