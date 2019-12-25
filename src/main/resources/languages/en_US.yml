@@ -65,3 +65,10 @@ commands:
     notdeleted: Your home has not been removed!
     notfoundhome: _homename has not been found!
     allhomes: 
+  mmsmf:
+    reportsuccessful:
+    reportfailure:
+    discord:
+    discordmissing: There is no existing link for a Discord server.
+    teamspeak:
+    teamspeakmissing: There is no existing IP for a Teamspeak server.
