@@ -1,5 +1,7 @@
 package io.github.davidmc971.modularmsmf.commands;
 
+import java.io.File;
+
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -74,7 +76,14 @@ public class CommandModularMSMF extends AbstractCommand {
 							 * stuff adding to question if something is enabled in config or disabled.
 							 * if enabled, teamspeak ip should be shown
 							 */
+							File file = new File("plugins/ModularMSMF/config.yml");
+							if(!file.exists()){
+								YamlConfiguration cfg = YamlConfiguration.loadConfiguration(file);
+								String teamspeakIP = cfg.getString("teamspeakID");
+								sender.sendMessage(infoPrefix+language.getString("commands.mmsmf.teamspeak"+" "+teamspeakIP));
+							} else {
 							sender.sendMessage(errorPrefix+language.getString("commands.mmsmf.teamspeakmissing"));
+							}
 						}
 						break;
 						case "discord":
