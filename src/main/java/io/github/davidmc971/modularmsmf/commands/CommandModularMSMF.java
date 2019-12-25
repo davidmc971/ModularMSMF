@@ -74,7 +74,6 @@ public class CommandModularMSMF extends AbstractCommand {
 							 * stuff adding to question if something is enabled in config or disabled.
 							 * if enabled, teamspeak ip should be shown
 							 */
-						} else {
 							sender.sendMessage(errorPrefix+language.getString("commands.mmsmf.teamspeakmissing"));
 						}
 						break;
@@ -84,7 +83,6 @@ public class CommandModularMSMF extends AbstractCommand {
 							 * stuff adding to question if something is enabled in config or disabled.
 							 * if enabled, discord link should be shown
 							 */
-						} else {
 							sender.sendMessage(errorPrefix+language.getString("commands.mmsmf.discordmissing"));
 						}
 						break;
