@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 
 import io.github.davidmc971.modularmsmf.core.PermissionManager;
 import io.github.davidmc971.modularmsmf.ModularMSMF;
+import io.github.davidmc971.modularmsmf.commands.AbstractCommand;
 import io.github.davidmc971.modularmsmf.util.Utils;
 
 /**
@@ -18,15 +19,22 @@ import io.github.davidmc971.modularmsmf.util.Utils;
  * with help from @author davidmc971
  */
 
-public class EconomySystemAlex {
+public class EconomySystemAlex extends AbstractCommand {
 	private ModularMSMF plugin;
 	public static double defaultMoney = 500.0;
 	
 	public EconomySystemAlex(ModularMSMF plugin) {
+		super(plugin);
 		this.plugin = plugin;
 	}
 
-	public boolean cmd(CommandSender sender, Command cmd, String commandLabel, String[] args) {
+	@Override
+	public String[] getCommandLabels() {
+		return new String[]{"eco"};
+	}
+
+	@Override
+	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 
 		YamlConfiguration language = Utils.configureCommandLanguage(sender, plugin);
 

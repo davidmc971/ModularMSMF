@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import com.google.common.reflect.ClassPath;
 
 import io.github.davidmc971.modularmsmf.commands.*;
+import io.github.davidmc971.modularmsmf.eco.EconomySystemAlex;
 import io.github.davidmc971.modularmsmf.ModularMSMF;
 
 /**
@@ -96,6 +97,7 @@ public class CommandLoader {
 				new CommandLanguage(plugin),
 				new CommandModularMSMF(plugin),
 				new CommandMoney(plugin),
+				new EconomySystemAlex(plugin),
 				new CommandMotd(plugin),
 				new CommandMute(plugin),
 				new CommandPlayershell(plugin),

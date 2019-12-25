@@ -29,6 +29,9 @@ commands:
   money:
     description: Geldstand anzeigen oder anderes.
     usage: /<command> <args>
+  eco:
+    description: Geldstand anzeigen oder anderes.
+    usage: /<command> <args>
   feed:
     description: Saettigt den Spieler.
     usage: /<command> <player>
