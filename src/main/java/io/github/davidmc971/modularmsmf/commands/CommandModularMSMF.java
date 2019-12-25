@@ -83,7 +83,7 @@ public class CommandModularMSMF extends AbstractCommand {
 							boolean ts = false;
 							if (file.exists()) {
 								YamlConfiguration cfg = YamlConfiguration.loadConfiguration(file);
-								if (cfg.contains("teamspeakIP") && cfg.getString("teamspeakIP") != "") {
+								if (cfg.contains("teamspeakIP") && !cfg.getString("teamspeakIP").equals("")) {
 									ts = true;
 									String teamspeakIP = cfg.getString("teamspeakIP");
 									sender.sendMessage(infoPrefix + language.getString("commands.mmsmf.teamspeak") + " " + teamspeakIP);
@@ -102,7 +102,7 @@ public class CommandModularMSMF extends AbstractCommand {
 							boolean dc = false;
 							if (file.exists()) {
 								YamlConfiguration cfg = YamlConfiguration.loadConfiguration(file);
-								if (cfg.contains("discordID") && cfg.getString("discordID") != "") {
+								if (cfg.contains("discordID") && !cfg.getString("discordID").equals("")) {
 									dc = true;
 									String discordID = cfg.getString("discordID");
 									sender.sendMessage(infoPrefix + language.getString("commands.mmsmf.discord") + " " + discordID);
