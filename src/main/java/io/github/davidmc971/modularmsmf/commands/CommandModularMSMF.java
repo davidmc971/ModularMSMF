@@ -86,7 +86,7 @@ public class CommandModularMSMF extends AbstractCommand {
 								if (cfg.contains("teamspeakIP") && cfg.getString("teamspeakIP") != "") {
 									ts = true;
 									String teamspeakIP = cfg.getString("teamspeakIP");
-									sender.sendMessage(infoPrefix + language.getString("commands.mmsmf.teamspeak" + " " + teamspeakIP));
+									sender.sendMessage(infoPrefix + language.getString("commands.mmsmf.teamspeak") + " " + teamspeakIP);
 								}
 							}
 							if(!ts) sender.sendMessage(errorPrefix + language.getString("commands.mmsmf.teamspeakmissing"));
@@ -98,7 +98,17 @@ public class CommandModularMSMF extends AbstractCommand {
 							 * stuff adding to question if something is enabled in config or disabled. if
 							 * enabled, discord link should be shown
 							 */
-							sender.sendMessage(errorPrefix + language.getString("commands.mmsmf.discordmissing"));
+							File file = new File("plugins/ModularMSMF/settings.yml");
+							boolean dc = false;
+							if (file.exists()) {
+								YamlConfiguration cfg = YamlConfiguration.loadConfiguration(file);
+								if (cfg.contains("discordID") && cfg.getString("discordID") != "") {
+									dc = true;
+									String discordID = cfg.getString("discordID");
+									sender.sendMessage(infoPrefix + language.getString("commands.mmsmf.discord") + " " + discordID);
+								}
+							}
+							if(!dc) sender.sendMessage(errorPrefix + language.getString("commands.mmsmf.discordmissing"));
 						}
 						break;
 					default:

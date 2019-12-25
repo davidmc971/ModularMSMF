@@ -68,7 +68,7 @@ commands:
   mmsmf:
     reportsuccessful:
     reportfailure:
-    discord:
+    discord: Your invite to discord: 
     discordmissing: There is no existing link for a Discord server.
-    teamspeak:
+    teamspeak: Your IP adress to join: 
     teamspeakmissing: There is no existing IP for a Teamspeak server.

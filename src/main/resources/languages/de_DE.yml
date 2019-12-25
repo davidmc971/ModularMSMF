@@ -66,7 +66,7 @@ commands: #Befehle
   mmsmf:
     reportsuccessful:
     reportfailure:
-    discord:
+    discord: Dein Invitelink: #Gibt den Invitelink aus.
     discordmissing: Es gibt keinen Einladungslink fuer einen Discordserver. #Gibt dann aus, wenn in config.yml "false" angegeben.
-    teamspeak:
+    teamspeak: Deine IP zum joinen: #Gibt die IP-adresse aus.
     teamspeakmissing: Es gibt keine IP-Adresse fuer einen Teamspeakserver. #Gibt dann aus, wenn in config.yml "false" angegeben.
