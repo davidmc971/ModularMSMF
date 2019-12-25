@@ -186,7 +186,7 @@ public class Events implements Listener {
 	public void onRespawn(PlayerRespawnEvent e){
 		Player p = e.getPlayer();
 
-		File file = new File("plugins/ModularMSMF/config.yml");
+		File file = new File("plugins/ModularMSMF/settings.yml");
 		if(!file.exists()){
 			p.sendMessage("Es wurde kein Spawn gesetzt");
 		}

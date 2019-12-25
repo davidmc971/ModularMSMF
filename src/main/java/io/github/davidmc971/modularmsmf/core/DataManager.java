@@ -175,6 +175,8 @@ public class DataManager implements Listener {
 		defaultSettings.clear();
 		defaultSettings.put("economy.money", 500.0d);
 		//defaultSettings.put("kickcounter", 0);
+		defaultSettings.put("teamspeakIP", "");
+		defaultSettings.put("discordID", "");
 		defaultSettings.put("language.standard", "en_US");
 		for(Entry<String, Object> e : defaultSettings.entrySet()){
 			if(settingsyaml.get(e.getKey()) == null){

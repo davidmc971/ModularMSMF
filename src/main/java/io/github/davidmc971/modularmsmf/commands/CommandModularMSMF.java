@@ -79,13 +79,13 @@ public class CommandModularMSMF extends AbstractCommand {
 							 * stuff adding to question if something is enabled in config or disabled. if
 							 * enabled, teamspeak ip should be shown
 							 */
-							File file = new File("plugins/ModularMSMF/config.yml");
+							File file = new File("plugins/ModularMSMF/settings.yml");
 							boolean ts = false;
 							if (file.exists()) {
 								YamlConfiguration cfg = YamlConfiguration.loadConfiguration(file);
-								if (cfg.contains("teamspeakID")) {
+								if (cfg.contains("teamspeakIP")) {
 									ts = true;
-									String teamspeakIP = cfg.getString("teamspeakID");
+									String teamspeakIP = cfg.getString("teamspeakIP");
 									sender.sendMessage(infoPrefix + language.getString("commands.mmsmf.teamspeak" + " " + teamspeakIP));
 								}
 							}
