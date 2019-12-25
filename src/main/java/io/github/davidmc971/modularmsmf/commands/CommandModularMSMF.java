@@ -3,10 +3,13 @@ package io.github.davidmc971.modularmsmf.commands;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.YamlConfiguration;
 
 import io.github.davidmc971.modularmsmf.ModularMSMF;
 import net.md_5.bungee.api.ChatColor;
 import io.github.davidmc971.modularmsmf.util.ChatUtils;
+import io.github.davidmc971.modularmsmf.util.Utils;
+
 
 /**
  * 
@@ -22,6 +25,7 @@ public class CommandModularMSMF extends AbstractCommand {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+		YamlConfiguration language = Utils.configureCommandLanguage(sender, plugin);
 
 		String toLowerCase = label.toLowerCase();
 		String infoPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.INFO);
@@ -37,7 +41,7 @@ public class CommandModularMSMF extends AbstractCommand {
 					*/
 					sender.sendMessage(infoPrefix+"Plugin enabled on: " + Bukkit.getName()); 
 					sender.sendMessage(infoPrefix+"More help:");
-					sender.sendMessage(infoPrefix+"info || discord || report"); // missing report, not implemented yet
+					sender.sendMessage(infoPrefix+"info || "+/*discord ||*/ "report"); // missing report, not implemented yet
 				} else if (args.length == 1) {
 					switch (args[0].toLowerCase()) {
 					case "info":
@@ -48,17 +52,29 @@ public class CommandModularMSMF extends AbstractCommand {
 							sender.sendMessage(errorPrefix+"Debug: Build [" + plugin.getDebugTimestamp() + "]");
 						}
 						break;
-					case "discord":
+						/**
+						* TODO config as changeable, IF teamspeak or/and discord as reference to config.yml - if there is an existing server. so case might be "ts" or "discord", or both
+						*/
+					/*case "discord": 
 						if (args.length == 1) {
 							sender.sendMessage(infoPrefix+"Discord-URL: " + ChatColor.BLUE + "https://discord.gg/"); //hovering over url + no link shown + clickable text in one section
 						}
 						break;
+					*/
 					case "report":
+					/**
+					 * TODO will be implemented. otherwise discord/github for reporting bugs.
+					 */
 						sender.sendMessage("Not implemented yet.");
 						break;
+					default:
+						sender.sendMessage(language.getString("general.invalidarguments"));
 					}
 				} else if (args.length >= 2) {
 					sender.sendMessage(errorPrefix+"Too many arguments!");
+					/**
+					 * TODO missing args length if 0 or wrong arg, have to added.
+					 */
 				} else {
 					sender.sendMessage(noPermPrefix+"You don't have Permission to use this!!");
 				}
