@@ -47,7 +47,7 @@ public class CommandModularMSMF extends AbstractCommand {
 					*/
 					sender.sendMessage(infoPrefix+"Plugin enabled on: " + Bukkit.getName()); 
 					sender.sendMessage(infoPrefix+"More help:");
-					sender.sendMessage(infoPrefix+"info || report"); // missing report, not implemented yet
+					sender.sendMessage(infoPrefix+"info || report || teamspeak || discord"); // missing report, not implemented yet
 					/**
 					 * TODO: adding ability to check for config.yml like if teamspeak is enabled or discord, and if both are enabled it will show both
 					 * 
@@ -68,19 +68,39 @@ public class CommandModularMSMF extends AbstractCommand {
 					 */
 						sender.sendMessage("Not implemented yet.");
 						break;
+					case "teamspeak":
+						if (args.length == 1){
+							/**
+							 * stuff adding to question if something is enabled in config or disabled.
+							 * if enabled, teamspeak ip should be shown
+							 */
+						} else {
+							sender.sendMessage(errorPrefix+language.getString("commands.mmsmf.teamspeakmissing"));
+						}
+						break;
+						case "discord":
+						if (args.length == 1){
+							/**
+							 * stuff adding to question if something is enabled in config or disabled.
+							 * if enabled, discord link should be shown
+							 */
+						} else {
+							sender.sendMessage(errorPrefix+language.getString("commands.mmsmf.discordmissing"));
+						}
+						break;
 					default:
-						sender.sendMessage(language.getString("general.invalidarguments"));
+						sender.sendMessage(errorPrefix+language.getString("general.invalidarguments"));
 					}
 				} else if (args.length >= 2) {
-					sender.sendMessage(errorPrefix+"Too many arguments!");
+					sender.sendMessage(errorPrefix+language.getString("general.toomanyarguments"));
 					/**
 					 * TODO missing args length if 0 or wrong arg, have to added.
 					 */
 				} else {
-					sender.sendMessage(noPermPrefix+"You don't have Permission to use this!!");
+					sender.sendMessage(noPermPrefix+language.getString("general.nopermission"));
 				}
 			} else {
-				sender.sendMessage(noPermPrefix+"You don't have Permission to use this!");
+				sender.sendMessage(noPermPrefix+language.getString("general.nopermission"));
 			}
 		}
 		return true;
