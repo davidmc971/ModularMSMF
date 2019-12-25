@@ -110,3 +110,6 @@ davidmc971:
 		
 	General utilities:
 		Utils
+	Lightkeks:
+		Interface für Einteilung zw. Spigot, Bukkit und Forge und dass wir die Daten auf gleiche Art und Weise bekommen können
+		Feature: Annotation wie Forge only/Spigot only/Bukkit only
