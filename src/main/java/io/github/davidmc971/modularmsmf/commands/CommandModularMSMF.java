@@ -80,17 +80,16 @@ public class CommandModularMSMF extends AbstractCommand {
 							 * enabled, teamspeak ip should be shown
 							 */
 							File file = new File("plugins/ModularMSMF/config.yml");
+							boolean ts = false;
 							if (file.exists()) {
 								YamlConfiguration cfg = YamlConfiguration.loadConfiguration(file);
 								if (cfg.contains("teamspeakID")) {
+									ts = true;
 									String teamspeakIP = cfg.getString("teamspeakID");
-									sender.sendMessage(infoPrefix
-											+ language.getString("commands.mmsmf.teamspeak" + " " + teamspeakIP));
-								} else {
-									sender.sendMessage(
-											errorPrefix + language.getString("commands.mmsmf.teamspeakmissing"));
+									sender.sendMessage(infoPrefix + language.getString("commands.mmsmf.teamspeak" + " " + teamspeakIP));
 								}
 							}
+							if(!ts) sender.sendMessage(errorPrefix + language.getString("commands.mmsmf.teamspeakmissing"));
 						}
 						break;
 					case "discord":
