@@ -110,6 +110,7 @@ public class EconomySystemAlex extends AbstractCommand {
 								return true;
 							}
 							sender.sendMessage("[Eco] Du hast von " + args[1] + " das Geldkonto neu gesetzt.");
+							plugin.getLogger().info(infoPrefix +" "+ target);
 							setMoney(target, amount);
 							sender.sendMessage("[Eco] Neuer Kontostand: " + getMoney(target) + "$");
 							Bukkit.getPlayer(target).sendMessage(
