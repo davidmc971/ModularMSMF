@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 import io.github.davidmc971.modularmsmf.core.PermissionManager;
 import io.github.davidmc971.modularmsmf.ModularMSMF;
 import io.github.davidmc971.modularmsmf.commands.AbstractCommand;
+import io.github.davidmc971.modularmsmf.util.ChatUtils;
 import io.github.davidmc971.modularmsmf.util.Utils;
 
 /**
@@ -35,8 +36,11 @@ public class EconomySystemAlex extends AbstractCommand {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
-
 		YamlConfiguration language = Utils.configureCommandLanguage(sender, plugin);
+
+		String infoPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.INFO);
+		String errorPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.ERROR);
+		String noPermPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.NOPERM);
 
 		UUID uuid = null;
 		UUID target = null;
@@ -48,14 +52,14 @@ public class EconomySystemAlex extends AbstractCommand {
 		case "eco":
 			if (args.length == 0) {
 				if((sender instanceof Player)) {
-				sender.sendMessage("[Eco] Dein derzeitiger Kontostand: " + getMoney(uuid) + "$");
+				sender.sendMessage(language.getString("commands.eco.ecobalance") + getMoney(uuid) + "$");
 				} else {
-					sender.sendMessage("Die Konsole besitzt kein Geld");
+					sender.sendMessage(language.getString("commands.eco.ecoconsole"));
 				}
 			} else if (args.length > 0) {
 				switch (args[0].toLowerCase()) {
 				case "help":
-					if (args.length > 2) {
+					if (args.length > 1) {
 						sender.sendMessage("[Eco] Bitte nur '/eco help'!");
 					} else {
 						sender.sendMessage("[Eco] Alle Befehle:");
@@ -100,12 +104,12 @@ public class EconomySystemAlex extends AbstractCommand {
 							break;
 						case 3:
 							try {
-								amount = Integer.parseInt(args[1]);
+								amount = Integer.parseInt(args[2]);
 							} catch (NumberFormatException e) {
 								sender.sendMessage(language.getString("commands.money.missingamount"));
 								return true;
 							}
-							sender.sendMessage("[Eco] Du hast von " + args[2] + " das Geldkonto neu gesetzt.");
+							sender.sendMessage("[Eco] Du hast von " + args[1] + " das Geldkonto neu gesetzt.");
 							setMoney(target, amount);
 							sender.sendMessage("[Eco] Neuer Kontostand: " + getMoney(target) + "$");
 							Bukkit.getPlayer(target).sendMessage(
