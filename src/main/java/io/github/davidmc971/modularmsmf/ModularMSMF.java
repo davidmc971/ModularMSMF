@@ -1,6 +1,5 @@
 package io.github.davidmc971.modularmsmf;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -36,6 +35,7 @@ public class ModularMSMF extends JavaPlugin implements CommandExecutor {
 	private DataManager dataManager;
 	private LanguageManager languageManager;
 	private PlayerManager playerManager;
+	
 
 	private CommandMotd motd;
 
@@ -133,7 +133,7 @@ public class ModularMSMF extends JavaPlugin implements CommandExecutor {
 		
 		/// COMMAND LOADING END ///
 		
-		
+		//TODO: load build time from maven (?)
 		if (debug) {
 			InputStream in = this.getResource("build_timestamp.properties");
 			Properties buildprop = new Properties();
@@ -141,7 +141,7 @@ public class ModularMSMF extends JavaPlugin implements CommandExecutor {
 				buildprop.load(in);
 				debugTimestamp = buildprop.getProperty("timestamp").replaceAll("_", " ");
 				this.getLogger().info("Debug: Build [" + debugTimestamp + "]");
-			} catch (IOException e) {
+			} catch (Exception e) {
 				Bukkit.getLogger().warning("Loading buildprop failed.");
 			}
 		}

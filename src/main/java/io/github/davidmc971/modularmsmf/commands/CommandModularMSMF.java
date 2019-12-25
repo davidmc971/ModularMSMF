@@ -40,7 +40,7 @@ public class CommandModularMSMF extends AbstractCommand {
 		
 		switch (toLowerCase) {
 		case "mmsmf":
-			if (sender.hasPermission("mmsmf")) {
+			if (PermissionManager.checkPermission(sender, "mmsmf")) {
 				if (args.length == 0) {
 					/**
 					* @TODO changing server name as its own by new command, needs to be implemented.

@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.UUID;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
@@ -159,7 +160,8 @@ public class DataManager implements Listener {
 		File file = new File(path);
 		try {
 			cfg.save(file);
-		} catch (IOException e) {
+		} catch (Exception e) {
+			plugin.getLogger().log(Level.SEVERE, "Error during saving userdata:");
 			e.printStackTrace();
 		}
 	}
