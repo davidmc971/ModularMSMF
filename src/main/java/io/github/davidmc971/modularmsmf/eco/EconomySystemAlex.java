@@ -62,6 +62,9 @@ public class EconomySystemAlex extends AbstractCommand {
 					if (args.length > 1) {
 						sender.sendMessage("[Eco] Bitte nur '/eco help'!");
 					} else {
+						/**
+						 * TODO Rewrite into changeable language without using lang-yml
+						 */
 						sender.sendMessage("[Eco] Alle Befehle:");
 						sender.sendMessage("[Eco] /eco help <- Diese Hilfe");
 						sender.sendMessage("[Eco] /eco set [Name] [Amount] <- Geld setzen");
