@@ -147,7 +147,22 @@ public class PlayerManager {
 
 	private boolean saveJson(PlayerData json, File file) {
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		
 		String prettyJson = gson.toJson(json, PlayerData.class);
+		/* FIXME: server throws big reflection error:
+		[02:44:15] [Server thread/WARN]: [ModularMSMF] Task #5 for ModularMSMF v0.2-develop generated an exception
+		java.lang.StackOverflowError: null
+		at com.google.gson.internal.$Gson$Types.resolve($Gson$Types.java:378) ~[spigot-1.15.1.jar:git-Spigot-05bb8bc-8073dbe]
+		at com.google.gson.internal.$Gson$Types.resolve($Gson$Types.java:383) ~[spigot-1.15.1.jar:git-Spigot-05bb8bc-8073dbe]
+		...
+		at com.google.gson.internal.bind.ReflectiveTypeAdapterFactory.getBoundFields(ReflectiveTypeAdapterFactory.java:158) ~[spigot-1.15.1.jar:git-Spigot-05bb8bc-8073dbe]
+        at com.google.gson.internal.bind.ReflectiveTypeAdapterFactory.create(ReflectiveTypeAdapterFactory.java:100) ~[spigot-1.15.1.jar:git-Spigot-05bb8bc-8073dbe]
+        at com.google.gson.Gson.getAdapter(Gson.java:423) ~[spigot-1.15.1.jar:git-Spigot-05bb8bc-8073dbe]
+        at com.google.gson.internal.bind.ReflectiveTypeAdapterFactory.createBoundField(ReflectiveTypeAdapterFactory.java:115) ~[spigot-1.15.1.jar:git-Spigot-05bb8bc-8073dbe]
+		at com.google.gson.internal.bind.ReflectiveTypeAdapterFactory.getBoundFields(ReflectiveTypeAdapterFactory.java:164) ~[spigot-1.15.1.jar:git-Spigot-05bb8bc-8073dbe]
+		...
+		*/
+
 		try {
 			FileWriter fw = new FileWriter(file);
 			fw.write(prettyJson.toString());
