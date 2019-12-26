@@ -258,6 +258,7 @@ public class EconomySystemAlex extends AbstractCommand {
 								return true;
 							} else {
 							sender.sendMessage(infoPrefix+language.getString("commands.eco.ecobalanceother")+args[0]+": "+getMoney(target)+"$"); //testing
+							sender.sendMessage(infoPrefix+language.getString("commands.eco.ecobalanceother")+": "+getMoney(target)+"$"); //testing
 							}
 							break;
 						} else {
