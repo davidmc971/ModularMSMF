@@ -54,7 +54,7 @@ public class EconomySystemAlex extends AbstractCommand {
 		case "eco":
 			if (args.length == 0) {
 				if((sender instanceof Player)) {
-				sender.sendMessage(infoPrefix+language.getString("commands.eco.ecobalance") + getMoney(uuid) + "$");
+				sender.sendMessage(infoPrefix+language.getString("commands.eco.ecobalance") + getMoney(uuid) + currencyFormat);
 				} else {
 					sender.sendMessage(errorPrefix+language.getString("commands.eco.ecoconsole"));
 				}
@@ -65,7 +65,7 @@ public class EconomySystemAlex extends AbstractCommand {
 						//sender.sendMessage("[Eco] Bitte nur '/eco help'!");
 					} else {
 						/**
-						 * TODO Rewrite into changeable language without using lang-yml
+						 * TODO: Rewrite into changeable language without using lang-yml
 						 */
 						//sender.sendMessage("[Eco] Alle Befehle:");
 						//sender.sendMessage("[Eco] /eco help <- Diese Hilfe");
