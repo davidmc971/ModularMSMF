@@ -110,7 +110,7 @@ public class EconomySystemAlex extends AbstractCommand {
 							break;
 						case 3:
 							try {
-								amount = Integer.parseInt(args[2]);
+								amount = Double.parseDouble(args[2]);
 							} catch (NumberFormatException e) {
 								sender.sendMessage(errorPrefix+language.getString("commands.money.missingamount")); //need to change language string
 								return true;
