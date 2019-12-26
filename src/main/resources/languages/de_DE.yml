@@ -74,7 +74,7 @@ commands: #Befehle
     teamspeakmissing: Es gibt keine IP-Adresse fuer einen Teamspeakserver. #Gibt dann aus, wenn in config.yml "false" angegeben.
   eco:
     ecobalance: 'Geldstand: ' #Zeigt den Geldstand an.
-    ecobalanceother: #Zeigt den Geldstand anderer an.
+    ecobalanceother: 'Geldstand von ' #Zeigt den Geldstand anderer an.
     ecoconsole: Die Konsole hat kein Geld. #Console darf kein Geld besitzen.
     ecosetself: #Geldstand von sich selbst neu setzen.
     ecosetothers: #Geldstand des anderen neu setzen.
