@@ -48,6 +48,8 @@ public class EconomySystemAlex extends AbstractCommand {
 		if (sender instanceof Player) {
 			uuid = ((Player) sender).getUniqueId();
 		}
+		String currencyFormat = "$";
+		//TODO: something like language.getCurrencyFormat() which loads from settings.yml
 		switch (commandLabel.toLowerCase()) {
 		case "eco":
 			if (args.length == 0) {
