@@ -73,21 +73,23 @@ commands:
     teamspeak: 'Your IP adress to join:'
     teamspeakmissing: There is no existing IP for a Teamspeak server.
   eco:
-    ecobalance:
-    ecobalanceother:
-    ecosetself:
-    ecosetothers:
-    ecosetfromother:
-    ecosetbefore:
-    ecosetafter:
-    ecoreset:
-    ecoaddself:
-    ecoforbiddenminus:
-    ecoaddothers:
-    ecoaddfromother:
-    ecotakeself:
-    ecotakeother:
-    ecotakefromothers:
-    ecopaytoothers:
-    ecopayfromothers:
-    econodebt:
+    balance:
+      sender: Your balance is _value.
+      target: _target's balance is _value.
+    set:
+      self: Your new balance is _value.
+      other: _target's new balance is _value.
+    setfromother:
+    setbefore:
+    setafter:
+    reset:
+    addself:
+    forbiddenminus:
+    addothers:
+    addfromother:
+    takeself:
+    takeother:
+    takefromothers:
+    paytoothers:
+    payfromothers:
+    nodebt:

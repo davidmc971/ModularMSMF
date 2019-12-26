@@ -2,6 +2,7 @@ package io.github.davidmc971.modularmsmf.eco;
 
 import java.util.UUID;
 
+import org.apache.commons.lang.exception.ExceptionUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -98,14 +99,14 @@ public class EconomySystemAlex extends AbstractCommand {
 							}
 						case 2:
 							try {
-								amount = Integer.parseInt(args[1]);
-							} catch (NumberFormatException e) {
+								amount = Double.parseDouble(args[1]);
+							} catch (Exception e) {
 								sender.sendMessage(errorPrefix+language.getString("commands.money.missingamount")); //need to change language string
 								return true;
 							}
-							//sender.sendMessage("[Eco] Dein Kontostand vorher: " + getMoney(uuid) + "$"); //need to change language string
+							sender.sendMessage("[Eco] Dein Kontostand vorher: " + getMoney(uuid) + "$"); //need to change language string
 							setMoney(uuid, amount);
-							//sender.sendMessage("[Eco] Dein Kontostand danach: " + getMoney(uuid) + "$"); //need to change language string
+							sender.sendMessage("[Eco] Dein Kontostand danach: " + getMoney(uuid) + "$"); //need to change language string
 							break;
 						case 3:
 							try {
