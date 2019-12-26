@@ -33,7 +33,12 @@ public class LanguageManager {
 		standards = new ArrayList<String>();
 		standards.add("en_US");
 		standards.add("de_DE");
-		init();
+		try {
+			init();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
 		
 		standardLanguageEntry = null;
 		for(Entry<LanguageInformation, YamlConfiguration> e : allLanguages.entrySet()){

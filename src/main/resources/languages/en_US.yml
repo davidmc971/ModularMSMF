@@ -73,14 +73,17 @@ commands:
     teamspeak: 'Your IP adress to join:'
     teamspeakmissing: There is no existing IP for a Teamspeak server.
   eco:
+    console: "Console has no money :P"
     balance:
       self: Your balance is _value.
       other: _target's balance is _value.
     set:
-      self: Your balance has been changed from _value_old to _value_new.
+      self:
+        full: Your balance has been changed from _value_old to _value_new.
         new: Your new balance is _value.
         old: Your old balance was _value.
-      other: _target's balance has been changed from _value_old to _value_new.
+      other:
+        full: _target's balance has been changed from _value_old to _value_new.
         new: _target's new balance is _value.
         old: _target's old balance was _value.
       changed: _sender has changed your balance from _value_old to _value_new.

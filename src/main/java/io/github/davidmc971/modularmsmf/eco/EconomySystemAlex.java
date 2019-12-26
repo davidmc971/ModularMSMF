@@ -55,9 +55,9 @@ public class EconomySystemAlex extends AbstractCommand {
 		case "eco":
 			if (args.length == 0) {
 				if((sender instanceof Player)) {
-				sender.sendMessage(infoPrefix+language.getString("commands.eco.ecobalance") + getMoney(uuid) + currencyFormat);
+				sender.sendMessage(infoPrefix+language.getString("commands.eco.balance.self").replace("_value", (String)(getMoney(uuid) + currencyFormat)));
 				} else {
-					sender.sendMessage(errorPrefix+language.getString("commands.eco.ecoconsole"));
+					sender.sendMessage(errorPrefix+language.getString("commands.console"));
 				}
 			} else if (args.length > 0) {
 				switch (args[0].toLowerCase()) {
