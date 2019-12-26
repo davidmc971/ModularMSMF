@@ -74,15 +74,17 @@ commands:
     teamspeakmissing: There is no existing IP for a Teamspeak server.
   eco:
     balance:
-      sender: Your balance is _value.
-      target: _target's balance is _value.
+      self: Your balance is _value.
+      other: _target's balance is _value.
     set:
-      self: Your new balance is _value.
-      other: _target's new balance is _value.
-    setfromother:
-    setbefore:
-    setafter:
-    reset:
+      self: Your balance has been changed from _value_old to _value_new.
+        new: Your new balance is _value.
+        old: Your old balance was _value.
+      other: _target's balance has been changed from _value_old to _value_new.
+        new: _target's new balance is _value.
+        old: _target's old balance was _value.
+      changed: _sender has changed your balance from _value_old to _value_new.
+    reset: Your balance has been reset.
     addself:
     forbiddenminus:
     addothers:
