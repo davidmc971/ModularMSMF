@@ -1,6 +1,6 @@
 COMMANDS:
 	REPORT:
-		DESCRIPTION:
+		DESCRIPTION: (TODO: 0%)
 			/report <category> <args>
 			categories: player, bug, other
 			/report player <playername> <reason>
@@ -9,9 +9,10 @@ COMMANDS:
 		PROGRESS:
 			structure updated, needs work
 	BAN:
-		PROGRESS: 
+		PROGRESS: (65%)
 			- console can ban (w/o permission)
 			- can ban player on+offline (with permission)
+			- TODO: banip not implemented yet
 	FEED:
 		PROGRESS: (100%)
 			- can feed yourself (with permission)
@@ -19,46 +20,49 @@ COMMANDS:
 			- cannot feed console (only player can be feeded)
 			- console can feed everyone but not itself (w/o permissions)
 	HEAL:
-		PROGRESS:
-			
+		PROGRESS: (100%)
+			- can heal a player
+			- healing yourself
 	KICK:
-		PROGRESS:
-			
+		PROGRESS: (100%)
+			- can kick a player
+			- even with or without reason
+			- broadcasting it worldwide on server
 	LAND:
 		PROGRESS:
-			 
+
 	MMSMF:
-		PROGRESS:
-			
+		PROGRESS: (5%)
+			- TODO: missing many functions, have to be added			
 	TELEPORT:
-		PROGRESS:
-			
+		PROGRESS: (15%)
+			- can teleport players
 	UNBAN:
-		PROGRESS:
-			
+		PROGRESS: (65%)
+			- same as BAN
 	ECO:
 		PROGRESS:
-		- nothing really happened earlier, so fixing commands
+			- nothing really happened earlier, so fixing commands
 			
 	MONEY:
-		PROGRESS:
+		PROGRESS: (same as ECO)
 			
 	HOME: 
-		PROGRESS:
+		PROGRESS: (?%)
 			- only displaying messages and permissions has been set
 			- no playerdata atm
 			
-	MUTE / UNMUTE:
-		PROGRESS:
+	MUTE / UNMUTE: 
+		PROGRESS: (?%)
 			
-	WORTH:
-		PROGRESS:
+	WORTH: 
+		PROGRESS: (?%)
 			 
 	GETSERVER:
-		PROGRESS:
+		PROGRESS: (?%)
 			
 	MOTD:
-		PROGRESS:
+		PROGRESS: (?%)
 		
 		
     
