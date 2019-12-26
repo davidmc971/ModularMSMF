@@ -5,6 +5,7 @@ general:
     missing_playername: You have to specify a player.
     playerunknown: This player has never been online before.
     playernotfound: This player was not found.
+    playernotonline: This player is not online.
     nopermission: You don't have permissions to do this.
     toomanyarguments: Too many arguments.
     invalidcustomlanguage: Invalid custom language ('_language') for player _player. Standard language will be used instead.
@@ -73,7 +74,6 @@ commands:
     teamspeak: 'Your IP adress to join:'
     teamspeakmissing: There is no existing IP for a Teamspeak server.
   eco:
-    console: "Console has no money :P"
     balance:
       self: Your balance is _value.
       other: _target's balance is _value.
@@ -86,7 +86,10 @@ commands:
         full: _target's balance has been changed from _value_old to _value_new.
         new: _target's new balance is _value.
         old: _target's old balance was _value.
-      changed: _sender has changed your balance from _value_old to _value_new.
+      notify: _sender has changed your balance from _value_old to _value_new.
+    error: 
+      syntax: wrong syntax #TODO: missing amount and player, etc.
+      console: "Console has no money :P"
     reset: Your balance has been reset.
     addself:
     forbiddenminus:
