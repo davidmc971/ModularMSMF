@@ -9,6 +9,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import io.github.davidmc971.modularmsmf.core.PermissionManager;
 import io.github.davidmc971.modularmsmf.ModularMSMF;
+import io.github.davidmc971.modularmsmf.util.ChatUtils;
 import io.github.davidmc971.modularmsmf.util.Utils;
 
 /**
@@ -28,37 +29,41 @@ public class CommandKick extends AbstractCommand {
 
 		YamlConfiguration language = Utils.configureCommandLanguage(sender, plugin);
 
+		String infoPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.INFO);
+		String errorPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.ERROR);
+		String noPermPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.NOPERM);
+
 		UUID target = null;
 		String reason = language.getString("commands.kick.defaultkickreason");
 
 		switch(args.length){
 		case 0: //missing prefix as text
 			if(sender.hasPermission(PermissionManager.getPermission("kickplayer"))){
-				sender.sendMessage(language.getString("general.missing_playername"));
+				sender.sendMessage(errorPrefix+language.getString("general.missing_playername"));
 			} else {
-				sender.sendMessage(language.getString("general.nopermissions"));
+				sender.sendMessage(noPermPrefix+language.getString("general.nopermissions"));
 			}
 			break;
 		default:
 			if(sender.hasPermission(PermissionManager.getPermission("kickplayer"))){
 				target = Utils.getPlayerUUIDByName(args[0]);
 				if(target == null){
-					sender.sendMessage(language.getString("general.playernotfound"));
+					sender.sendMessage(errorPrefix+language.getString("general.playernotfound"));
 				} else {
 					if(args.length == 1){
 						Bukkit.getPlayer(target).kickPlayer(reason);
-						Bukkit.broadcastMessage(language.getString("commands.kick.seekickedall").replaceAll("_player", args[0]));
+						Bukkit.broadcastMessage(noPermPrefix+language.getString("commands.kick.seekickedall").replaceAll("_player", args[0]));
 					} else {
 						reason = "";
 						for (int i = 1; i < args.length; i++) {
 							reason += args[i] + " ";
 						}
 						Bukkit.getPlayer(target).kickPlayer(reason);
-						Bukkit.broadcastMessage(language.getString("commands.kick.seekickedallreason").replaceAll("_reason", reason).replaceAll("_player", args[0]));
+						Bukkit.broadcastMessage(noPermPrefix+language.getString("commands.kick.seekickedallreason").replaceAll("_reason", reason).replaceAll("_player", args[0]));
 					}
 				}
 			} else {
-				sender.sendMessage(language.getString("general.nopermissions"));
+				sender.sendMessage(noPermPrefix+language.getString("general.nopermissions"));
 			}
 		}
 		return true;
