@@ -8,6 +8,7 @@ import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
 
 import io.github.davidmc971.modularmsmf.ModularMSMF;
+import io.github.davidmc971.modularmsmf.util.ChatUtils;
 
 /**
  * 
@@ -20,6 +21,11 @@ public class CommandSlaughter extends AbstractCommand {
 	public CommandSlaughter(ModularMSMF plugin) {
 		super(plugin);
 	}
+
+	private String infoPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.INFO);
+	private String errorPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.ERROR);
+	private String noPermPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.NOPERM);
+	private String successfulPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.SUCCESS);
 		/**
 		 * @TODO finishing this because does not work properly, only message works
 		 */

@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 
 import io.github.davidmc971.modularmsmf.core.LanguageManager;
 import io.github.davidmc971.modularmsmf.ModularMSMF;
+import io.github.davidmc971.modularmsmf.util.ChatUtils;
 import io.github.davidmc971.modularmsmf.util.Utils;
 
 /**
@@ -21,6 +22,11 @@ public class CommandLanguage extends AbstractCommand {
 	public CommandLanguage(ModularMSMF plugin) {
 		super(plugin);
 	}
+
+	private String infoPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.INFO);
+	private String errorPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.ERROR);
+	private String noPermPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.NOPERM);
+	private String successfulPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.SUCCESS);
 	
 	/**
 	 * @TODO need prefix as text

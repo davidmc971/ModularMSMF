@@ -26,6 +26,11 @@ public class CommandModularMSMF extends AbstractCommand {
 		super(plugin);
 	}
 
+	private String infoPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.INFO);
+	private String errorPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.ERROR);
+	private String noPermPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.NOPERM);
+	private String successfulPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.SUCCESS);
+
 	@Override
 	public String[] getCommandLabels() {
 		return new String[] { "mmsmf" };
@@ -36,9 +41,6 @@ public class CommandModularMSMF extends AbstractCommand {
 		FileConfiguration language = Utils.configureCommandLanguage(sender, plugin);
 
 		String toLowerCase = label.toLowerCase();
-		String infoPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.INFO);
-		String errorPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.ERROR);
-		String noPermPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.NOPERM);
 
 		switch (toLowerCase) {
 		case "mmsmf":

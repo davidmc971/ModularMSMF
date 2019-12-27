@@ -29,14 +29,15 @@ public class CommandHeal extends AbstractCommand {
 		super(plugin);
 	}
 
+	private String infoPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.INFO);
+	private String errorPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.ERROR);
+	private String noPermPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.NOPERM);
+	private String successfulPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.SUCCESS);
+
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
 		FileConfiguration language = Utils.configureCommandLanguage(sender, plugin);
-
-		String errorPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.ERROR);
-		String noPermPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.NOPERM);
-		String successfulPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.SUCCESS);
 
 		UUID target = null;
 		switch (args.length) {

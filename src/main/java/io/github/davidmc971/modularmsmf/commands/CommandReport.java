@@ -15,6 +15,11 @@ public class CommandReport extends AbstractCommand {
 		super(plugin);
 	}
 
+	private String infoPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.INFO);
+	private String errorPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.ERROR);
+	private String noPermPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.NOPERM);
+	private String successfulPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.SUCCESS);
+
 	/**
 	 * The "/report" command.
 	 * There are different categories of reports:
@@ -48,8 +53,6 @@ public class CommandReport extends AbstractCommand {
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-		String infoPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.INFO);
-		String errorPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.ERROR);
 		FileConfiguration language = Utils.configureCommandLanguage(sender, plugin);
 
 		if(args.length == 0)

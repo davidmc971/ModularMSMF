@@ -26,6 +26,11 @@ public class CommandSetSpawn extends AbstractCommand {
 		super(plugin);
 	}
 
+	private String infoPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.INFO);
+	private String errorPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.ERROR);
+	private String noPermPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.NOPERM);
+	private String successfulPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.SUCCESS);
+
 	/**
 	 * @TODO Complete rewrite
 	 */
@@ -34,10 +39,6 @@ public class CommandSetSpawn extends AbstractCommand {
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
 		FileConfiguration language = Utils.configureCommandLanguage(sender, plugin);
-		
-		String noPermPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.NOPERM);
-		String successfulPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.SUCCESS);
-
 
 		if(sender instanceof ConsoleCommandSender) {
 			sender.sendMessage(noPermPrefix+language.getString("general.noconsole"));
