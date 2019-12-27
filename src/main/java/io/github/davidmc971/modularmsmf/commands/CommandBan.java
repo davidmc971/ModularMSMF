@@ -12,6 +12,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import io.github.davidmc971.modularmsmf.core.PermissionManager;
@@ -58,7 +59,7 @@ public class CommandBan extends AbstractCommand {
 	
 	
 	public boolean banCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
-		YamlConfiguration language = Utils.configureCommandLanguage(sender, plugin);
+		FileConfiguration language = Utils.configureCommandLanguage(sender, plugin);
 
 		if (sender.hasPermission(PermissionManager.getPermission("banplayer"))) {
 			if (args.length == 0) {
@@ -105,12 +106,12 @@ public class CommandBan extends AbstractCommand {
 		return true;
 	}
 	
-	public void banPlayerIp(UUID uuid, String name, YamlConfiguration language) {
+	public void banPlayerIp(UUID uuid, String name, FileConfiguration language) {
 
 	}
 
-	public void banPlayer(UUID uuid, String reason, YamlConfiguration language) {
-		YamlConfiguration cfg = plugin.getDataManager().getPlayerCfg(uuid);
+	public void banPlayer(UUID uuid, String reason, FileConfiguration language) {
+		FileConfiguration cfg = plugin.getDataManager().getPlayerCfg(uuid);
 		cfg.set("banned", true);
 		cfg.set("reason", reason);
 		for (Player player : Bukkit.getServer().getOnlinePlayers()) {
@@ -135,7 +136,7 @@ public class CommandBan extends AbstractCommand {
 	}
 
 	public boolean unbanCommand(CommandSender sender, Command command, String label, String[] args) {
-		YamlConfiguration language = Utils.configureCommandLanguage(sender, plugin);
+		FileConfiguration language = Utils.configureCommandLanguage(sender, plugin);
 
 		if (!sender.hasPermission("modularmsmf.unban")) {
 			sender.sendMessage(noPermPrefix+language.getString("general.nopermission"));
@@ -149,7 +150,7 @@ public class CommandBan extends AbstractCommand {
 		case 1:
 			for(OfflinePlayer p : Bukkit.getOfflinePlayers()){
 				if(p.getName().equalsIgnoreCase(args[0])){
-					YamlConfiguration cfg = plugin.getDataManager().getPlayerCfg(p.getUniqueId());
+					FileConfiguration cfg = plugin.getDataManager().getPlayerCfg(p.getUniqueId());
 					if(cfg.getBoolean("banned")){
 						cfg.set("banned", false);
 						cfg.set("reason", "none");
@@ -166,7 +167,7 @@ public class CommandBan extends AbstractCommand {
 			if(args[0].toLowerCase().equals("uuid")){
 				for(OfflinePlayer p : Bukkit.getOfflinePlayers()){
 					if(p.getUniqueId().toString().equals(args[1])){
-						YamlConfiguration cfg = plugin.getDataManager().getPlayerCfg(p.getUniqueId());
+						FileConfiguration cfg = plugin.getDataManager().getPlayerCfg(p.getUniqueId());
 						if(cfg.getBoolean("banned")){
 							cfg.set("banned", false);
 							cfg.set("reason", "none");

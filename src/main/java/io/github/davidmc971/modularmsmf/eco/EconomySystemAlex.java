@@ -5,7 +5,7 @@ import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import io.github.davidmc971.modularmsmf.core.PermissionManager;
@@ -36,7 +36,7 @@ public class EconomySystemAlex extends AbstractCommand {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
-		YamlConfiguration language = Utils.configureCommandLanguage(sender, plugin);
+		FileConfiguration language = Utils.configureCommandLanguage(sender, plugin);
 
 		String infoPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.INFO);
 		String errorPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.ERROR);
@@ -99,7 +99,7 @@ public class EconomySystemAlex extends AbstractCommand {
 
 				if(!toSelf) {
 					target = Utils.getPlayerUUIDByName(args[1]);
-					if(target == uuid && !(sender instanceof Player)) toSelf = true;
+					if(target == uuid && (sender instanceof Player)) toSelf = true;
 				}
 
 				String action = args[0];
@@ -119,10 +119,13 @@ public class EconomySystemAlex extends AbstractCommand {
 					if (target == null) {
 						sender.sendMessage(errorPrefix+language.getString("general.playerunknown"));
 						return true;
-					} else if (!Bukkit.getPlayer(target).isOnline()) {
-						//Do we want an online check here?
-						sender.sendMessage(errorPrefix+language.getString("general.playernotonline"));
-						return true;
+					} else {
+						Player p = Bukkit.getPlayer(target);
+						if (p == null || !p.isOnline()) {
+							//Do we want an online check here?
+							sender.sendMessage(errorPrefix+language.getString("general.playernotonline"));
+							return true;
+						}
 					}
 				}
 
@@ -315,15 +318,15 @@ public class EconomySystemAlex extends AbstractCommand {
 	private String moneykey = "economyalex.money";
 
 	private void setMoney(UUID uuid, double amount) {
-		YamlConfiguration cfg = plugin.getDataManager().getPlayerCfg(uuid);
-		if (cfg.isDouble(moneykey)) {
+		FileConfiguration cfg = plugin.getDataManager().getPlayerCfg(uuid);
+		if (cfg != null && cfg.isDouble(moneykey)) {
 			cfg.set(moneykey, amount);
 		}
 	}
 
 	private void takeMoney(UUID uuid, double amount) {
-		YamlConfiguration cfg = plugin.getDataManager().getPlayerCfg(uuid);
-		if (cfg.isDouble(moneykey)) {
+		FileConfiguration cfg = plugin.getDataManager().getPlayerCfg(uuid);
+		if (cfg != null && cfg.isDouble(moneykey)) {
 			double money = cfg.getDouble(moneykey);
 			money -= amount;
 			cfg.set(moneykey, money);
@@ -331,8 +334,8 @@ public class EconomySystemAlex extends AbstractCommand {
 	}
 
 	private void addMoney(UUID uuid, double amount) {
-		YamlConfiguration cfg = plugin.getDataManager().getPlayerCfg(uuid);
-		if (cfg.isDouble(moneykey)) {
+		FileConfiguration cfg = plugin.getDataManager().getPlayerCfg(uuid);
+		if (cfg != null && cfg.isDouble(moneykey)) {
 			double money = cfg.getDouble(moneykey);
 			money += amount;
 			cfg.set(moneykey, money);
@@ -340,8 +343,8 @@ public class EconomySystemAlex extends AbstractCommand {
 	}
 
 	private double getMoney(UUID uuid) {
-		YamlConfiguration cfg = plugin.getDataManager().getPlayerCfg(uuid);
-		if (cfg.isDouble(moneykey)) {
+		FileConfiguration cfg = plugin.getDataManager().getPlayerCfg(uuid);
+		if (cfg != null && cfg.isDouble(moneykey)) {
 			return cfg.getDouble(moneykey);
 		}
 		return -1;

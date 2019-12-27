@@ -68,13 +68,14 @@ public class HomeHandler {
 		homeMap = new HashMap<UUID, ArrayList<Home>>();
 		
 		plrm.getPlayerStorage().forEach((uuid, data) -> {
-			if (data != null && data.homes != null) {
-				ArrayList<Home> homeList = new ArrayList<Home>();
-				for (Home h : data.homes) {
-					homeList.add(h);
-				}
-				homeMap.put(uuid, homeList);
-			}
+			//TODO: 
+			// if (data != null && data.homes != null) {
+			// 	ArrayList<Home> homeList = new ArrayList<Home>();
+			// 	for (Home h : data.homes) {
+			// 		homeList.add(h);
+			// 	}
+			// 	homeMap.put(uuid, homeList);
+			// }
 		});
 	}
 	
@@ -82,14 +83,14 @@ public class HomeHandler {
 		homeMap.forEach((uuid, homes) -> {
 			PlayerData data = plrm.getPlayerData(uuid);
 			if (data == null) {
-				data = new PlayerData(uuid);
+				//TODO: data = new PlayerData(uuid);
 			}
 			
 			Home[] temp = new Home[homes.size()];
 			for (int i = 0; i < temp.length; i++) {
 				temp[i] = homes.get(i);
 			}
-			data.homes = temp;
+			//TODO: data.homes = temp;
 		});
 	}
 

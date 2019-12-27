@@ -1,34 +1,26 @@
 package io.github.davidmc971.modularmsmf.data;
 
-import org.json.simple.JSONArray;
+import org.bukkit.configuration.file.FileConfiguration;
 
-/*	This should be an object to contain a certain language.
+/**	@author davidmc971
+ * 	@since v0.2
+ *	This should be an object to contain a certain language.
  * 	Every player should have a Language attached.
  * 	Should provide easy localization.
  * 	To avoid unnecessary usage of space, there will be one object per Language
- * 	and every PlayerConfiguration points to the configured Language object. 
- */
-
-/**
- * 
- * @author davidmc971
- *
+ * 	and every PlayerConfiguration points to the configured Language object.
  */
 
 public class Language {
-	private String name;
-	private JSONArray root;
+	private FileConfiguration languageConfiguration;
+	public FileConfiguration getLanguageConfiguration() { return languageConfiguration; }
+	public void setFileConfiguration(FileConfiguration cfg) { this.languageConfiguration = cfg; }
 
-	public Language(String name, JSONArray root) {
-		this.name = name;
-		this.root = root;
-	}
+	public Language(FileConfiguration cfg) { this.languageConfiguration = cfg; }
 
-	public String getName() {
-		return name;
-	}
-	
-	public JSONArray getRoot() {
-		return root;
-	}
+	public String getID() { return languageConfiguration.getString("language.id"); }
+	public void setID(String id) { languageConfiguration.set("language.id", id); }
+
+	public String getName() { return languageConfiguration.getString("language.name"); }
+	public void setName(String name) { languageConfiguration.set("language.name", name); }
 }

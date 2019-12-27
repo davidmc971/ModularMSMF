@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -56,7 +57,7 @@ public class Events implements Listener {
 	 */
 	public void onLogin(PlayerLoginEvent event) {
 		Player player = event.getPlayer();
-		YamlConfiguration cfg = plugin.getDataManager().getPlayerCfg(player.getUniqueId());
+		FileConfiguration cfg = plugin.getDataManager().getPlayerCfg(player.getUniqueId());
 		if (cfg.isBoolean("banned") && cfg.getBoolean("banned")) {
 			if (cfg.isString("reason")) {
 				event.disallow(Result.KICK_BANNED, cfg.getString("reason"));
@@ -159,7 +160,7 @@ public class Events implements Listener {
 
 	@EventHandler
 	public void onChat(AsyncPlayerChatEvent event) {
-		YamlConfiguration playercfg = plugin.getDataManager().getPlayerCfg(event.getPlayer().getUniqueId());
+		FileConfiguration playercfg = plugin.getDataManager().getPlayerCfg(event.getPlayer().getUniqueId());
 		if (playercfg.isBoolean("muted") && playercfg.getBoolean("muted") && !event.getMessage().startsWith("/")) {
 			event.setCancelled(true);
 			event.getPlayer().sendMessage("[Muter] Du bist gemuted!");

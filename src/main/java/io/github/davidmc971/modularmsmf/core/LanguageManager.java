@@ -30,6 +30,7 @@ public class LanguageManager {
 	
 	public LanguageManager(ModularMSMF plugin){
 		this.plugin = plugin;
+
 		standards = new ArrayList<String>();
 		standards.add("en_US");
 		standards.add("de_DE");

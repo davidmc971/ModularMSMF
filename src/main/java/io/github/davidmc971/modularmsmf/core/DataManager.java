@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -20,6 +20,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import io.github.davidmc971.modularmsmf.ModularMSMF;
+import io.github.davidmc971.modularmsmf.configuration.AbstractConfigurationLoader;
 
 /**
  * 
@@ -58,8 +59,8 @@ public class DataManager implements Listener {
 	public String pathMain = "plugins/ModularMSMF/";
 	public String pathUserdata = pathMain + "userdata/";
 	//public String pathBankdata = pathMain + "bankdata/";
-	public YamlConfiguration settingsyaml = loadCfg(pathMain + "settings.yml");
-	public YamlConfiguration defaultUserdatayaml = loadCfg(pathUserdata + "default.yml");
+	public FileConfiguration settingsyaml = null; 
+	public FileConfiguration defaultUserdatayaml = null;
 
 	private Logger logger;
 	private ModularMSMF plugin;
@@ -67,11 +68,13 @@ public class DataManager implements Listener {
 	private Map<String, Object> defaultSettings = new HashMap<String, Object>();
 	private Map<String, Object> defaultUserdata = new HashMap<String, Object>();
 
-	private Map<UUID, YamlConfiguration> allUsers = new HashMap<UUID, YamlConfiguration>();
+	private Map<UUID, FileConfiguration> allUsers = new HashMap<UUID, FileConfiguration>();
 
 	public DataManager(ModularMSMF plugin){
 		this.plugin = plugin;
 		this.logger = this.plugin.getLogger();
+		this.settingsyaml = loadCfg(pathMain + "settings.yml");
+		this.defaultUserdatayaml = loadCfg(pathUserdata + "default.yml");
 		autosaveTask = new AutosaveTask(this);
 		/*	Autosave every 10 minutes
 		 * 	-> 10(min) * 60(sec) * 20(tps)
@@ -91,11 +94,11 @@ public class DataManager implements Listener {
 
 		allUsers.clear();
 		for(OfflinePlayer p : Bukkit.getOfflinePlayers()){
-			YamlConfiguration cfg = loadPlayerCfg(p.getUniqueId());
+			FileConfiguration cfg = loadPlayerCfg(p.getUniqueId());
 			allUsers.put(p.getUniqueId(), cfg);
 		}
 		for(Player p : Bukkit.getOnlinePlayers()){
-			YamlConfiguration cfg = loadPlayerCfg(p.getUniqueId());
+			FileConfiguration cfg = loadPlayerCfg(p.getUniqueId());
 			allUsers.put(p.getUniqueId(), cfg);
 		}
 		allUsers.forEach((uuid, cfg) -> initUserDefaults(cfg, uuid));
@@ -110,14 +113,14 @@ public class DataManager implements Listener {
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		UUID uuid = event.getPlayer().getUniqueId();
-		for(Entry<UUID, YamlConfiguration> e : allUsers.entrySet()){
+		for(Entry<UUID, FileConfiguration> e : allUsers.entrySet()){
 			if(e.getKey().toString().equalsIgnoreCase(uuid.toString())){
 				initUserDefaults(e.getValue(), uuid);
 				e.getValue().set("online", true);
 				return;
 			}
 		}
-		YamlConfiguration newcfg = loadPlayerCfg(uuid);
+		FileConfiguration newcfg = loadPlayerCfg(uuid);
 		initUserDefaults(newcfg, uuid);
 		newcfg.set("online", true);
 		allUsers.put(uuid, newcfg);
@@ -125,22 +128,23 @@ public class DataManager implements Listener {
 
 	@EventHandler
 	public void onQuit(PlayerQuitEvent event) {
-		for(Entry<UUID, YamlConfiguration> e : allUsers.entrySet()){
+		for(Entry<UUID, FileConfiguration> e : allUsers.entrySet()){
 			if(e.getKey().toString().equalsIgnoreCase(event.getPlayer().getUniqueId().toString())){
 				e.getValue().set("online", false);
 			}
 		}
 	}
 
-	public YamlConfiguration getPlayerCfg(UUID uuid){
-		for(Entry<UUID, YamlConfiguration> e : allUsers.entrySet()){
+	public FileConfiguration getPlayerCfg(UUID uuid){
+		if (uuid == null) return null;
+		for(Entry<UUID, FileConfiguration> e : allUsers.entrySet()){
 			if(e.getKey().toString().equalsIgnoreCase(uuid.toString()))
 				return e.getValue();
 		}
 		return null;
 	}
 
-	public YamlConfiguration loadCfg(String path) {
+	public FileConfiguration loadCfg(String path) {
 		File file = new File(path);
 		if (!file.exists()) {
 			try {
@@ -150,14 +154,23 @@ public class DataManager implements Listener {
 				e.printStackTrace();
 			}
 		}
-		return YamlConfiguration.loadConfiguration(file);
+		String extension = "";
+
+		int i = path.lastIndexOf('.');
+		if (i > 0) {
+			extension = path.substring(i+1);
+		}
+		plugin.getLogger().info("." + extension);
+		AbstractConfigurationLoader loader = plugin.configLoaders().get("." + extension);
+		return loader.loadFromFile(file);
+		//return plugin.yamlLoader().loadFromFile(file);
 	}
 
-	public YamlConfiguration loadPlayerCfg(UUID uuid){
+	public FileConfiguration loadPlayerCfg(UUID uuid){
 		return loadCfg(pathUserdata + uuid.toString() + ".yml");
 	}
 
-	public void saveCfg(YamlConfiguration cfg, String path) {
+	public void saveCfg(FileConfiguration cfg, String path) {
 		File file = new File(path);
 		try {
 			cfg.save(file);
@@ -167,7 +180,7 @@ public class DataManager implements Listener {
 		}
 	}
 
-	public void savePlayerCfg(YamlConfiguration playercfg, UUID uuid) {
+	public void savePlayerCfg(FileConfiguration playercfg, UUID uuid) {
 		saveCfg(playercfg, pathUserdata + uuid.toString() + ".yml");
 	}
 
@@ -200,7 +213,7 @@ public class DataManager implements Listener {
 		saveCfg(defaultUserdatayaml, pathUserdata + "default.yml");
 	}
 
-	private void initUserDefaults(YamlConfiguration cfg, UUID uuid){
+	private void initUserDefaults(FileConfiguration cfg, UUID uuid){
 		for(String s : defaultUserdatayaml.getKeys(true)){
 			if(cfg.get(s) == null || !cfg.get(s).getClass().equals(defaultUserdatayaml.get(s).getClass())){
 				cfg.set(s, defaultUserdatayaml.get(s));

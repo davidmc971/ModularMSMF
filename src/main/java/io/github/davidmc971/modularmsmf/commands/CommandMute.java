@@ -3,7 +3,7 @@ package io.github.davidmc971.modularmsmf.commands;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import io.github.davidmc971.modularmsmf.ModularMSMF;
@@ -41,14 +41,14 @@ public class CommandMute extends AbstractCommand {
 	 */
 
 	public void mute(Player player) { // TODO UUID Support
-		YamlConfiguration playercfg = plugin.getDataManager().getPlayerCfg(player.getUniqueId());
+		FileConfiguration playercfg = plugin.getDataManager().getPlayerCfg(player.getUniqueId());
 		playercfg.set("muted", true);
 	}
 
 	public void setTempMute(Player player, int time) { // TODO
-																			// UUID
-																			// Support
-		YamlConfiguration playercfg = plugin.getDataManager().getPlayerCfg(player.getUniqueId());
+		// UUID
+		// Support
+		FileConfiguration playercfg = plugin.getDataManager().getPlayerCfg(player.getUniqueId());
 		playercfg.set("muted", true);
 		Bukkit.getScheduler().runTaskLater(plugin, new Runnable() {
 			public void run() {
@@ -58,7 +58,7 @@ public class CommandMute extends AbstractCommand {
 	}
 
 	public boolean alreadyMute(Player player) { // TODO UUID Support
-		YamlConfiguration playercfg = plugin.getDataManager().getPlayerCfg(player.getUniqueId());
+		FileConfiguration playercfg = plugin.getDataManager().getPlayerCfg(player.getUniqueId());
 		if (playercfg.isBoolean("muted")) {
 			return playercfg.getBoolean("muted");
 		}
@@ -66,7 +66,7 @@ public class CommandMute extends AbstractCommand {
 	}
 
 	public void unmute(Player player) { // TODO UUID Support
-		YamlConfiguration playercfg = plugin.getDataManager().getPlayerCfg(player.getUniqueId());
+		FileConfiguration playercfg = plugin.getDataManager().getPlayerCfg(player.getUniqueId());
 		playercfg.set("muted", false);
 	}
 

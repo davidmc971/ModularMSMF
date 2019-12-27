@@ -2,18 +2,17 @@ package io.github.davidmc971.modularmsmf.data;
 
 import java.util.UUID;
 
-import io.github.davidmc971.modularmsmf.handlers.HomeHandler.Home;
+import org.bukkit.configuration.file.FileConfiguration;
 
 public class PlayerData {
 	private UUID uuid;
-	public Home[] homes = null;
-	public long money = -1;
+	private FileConfiguration cfg;
 	
-	public PlayerData(UUID uuid) {
+	public PlayerData(UUID uuid, FileConfiguration cfg) {
 		this.uuid = uuid;
+		this.cfg = cfg;
 	}
 	
-	public UUID getUUID() {
-		return uuid;
-	}
+	public UUID getUUID() { return uuid; }
+	public FileConfiguration gConfiguration() { return cfg; }
 }

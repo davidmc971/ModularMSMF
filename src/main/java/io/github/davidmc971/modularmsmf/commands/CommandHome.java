@@ -4,7 +4,7 @@ import java.util.UUID;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import io.github.davidmc971.modularmsmf.core.PermissionManager;
@@ -34,7 +34,7 @@ public class CommandHome extends AbstractCommand {
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-		YamlConfiguration language = Utils.configureCommandLanguage(sender, plugin);
+		FileConfiguration language = Utils.configureCommandLanguage(sender, plugin);
 
 		/**home <help>
 		 * home <default OR name>
@@ -217,7 +217,7 @@ public class CommandHome extends AbstractCommand {
 		return false;
 	}
 
-	private boolean displayHelp(CommandSender sender, String[] args, YamlConfiguration language) {
+	private boolean displayHelp(CommandSender sender, String[] args, FileConfiguration language) {
 		if(args.length == 1) {
 			sender.sendMessage(infoPrefix+"List of your aviable commands:");
 			sender.sendMessage(infoPrefix+"For more details just do /home help <command>");

@@ -2,6 +2,7 @@ package io.github.davidmc971.modularmsmf.commands;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
@@ -28,7 +29,7 @@ public class CommandLanguage extends AbstractCommand {
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		LanguageManager languageManager = plugin.getLanguageManager();
-		YamlConfiguration language = Utils.configureCommandLanguage(sender, plugin);
+		FileConfiguration language = Utils.configureCommandLanguage(sender, plugin);
 		
 		//sender.sendMessage(language.getString("commands.language.commandnotforconsole"));
 		

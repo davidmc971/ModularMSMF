@@ -3,7 +3,7 @@ package io.github.davidmc971.modularmsmf.commands;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.configuration.file.FileConfiguration;
 
 import io.github.davidmc971.modularmsmf.ModularMSMF;
 import io.github.davidmc971.modularmsmf.util.ChatUtils;
@@ -50,7 +50,7 @@ public class CommandReport extends AbstractCommand {
 
 		String infoPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.INFO);
 		String errorPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.ERROR);
-		YamlConfiguration language = Utils.configureCommandLanguage(sender, plugin);
+		FileConfiguration language = Utils.configureCommandLanguage(sender, plugin);
 
 		if(args.length == 0)
 		//no arguments, plain /report command
@@ -109,16 +109,16 @@ public class CommandReport extends AbstractCommand {
 		return true;
 	}
 
-	private static void reportPlayer(CommandSender sender, String[] args, ModularMSMF plugin, YamlConfiguration language) {
+	private static void reportPlayer(CommandSender sender, String[] args, ModularMSMF plugin, FileConfiguration language) {
 		//TODO: incomplete
 		
 	}
 
-	private static void reportBug(CommandSender sender, String[] args, ModularMSMF plugin, YamlConfiguration language) {
+	private static void reportBug(CommandSender sender, String[] args, ModularMSMF plugin, FileConfiguration language) {
 		//TODO: incomplete
 	}
 
-	private static void reportOther(CommandSender sender, String[] args, ModularMSMF plugin, YamlConfiguration language) {
+	private static void reportOther(CommandSender sender, String[] args, ModularMSMF plugin, FileConfiguration language) {
 		//TODO: incomplete
 	}
 

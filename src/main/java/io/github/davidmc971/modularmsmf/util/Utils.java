@@ -5,6 +5,7 @@ import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
@@ -44,13 +45,13 @@ public class Utils {
 		return null;
 	}
 
-	public static YamlConfiguration configureCommandLanguage(CommandSender sender, ModularMSMF plugin){
+	public static FileConfiguration configureCommandLanguage(CommandSender sender, ModularMSMF plugin){
 		LanguageManager languageManager = plugin.getLanguageManager();
-		YamlConfiguration language = languageManager.getStandardLanguage();
+		FileConfiguration language = languageManager.getStandardLanguage();
 		if(sender instanceof Player){
 			String lang = plugin.getDataManager().getPlayerCfg(((Player) sender).getUniqueId()).getString("language");
 			if(lang != null){
-				YamlConfiguration temp = languageManager.getLanguage(lang);
+				FileConfiguration temp = languageManager.getLanguage(lang);
 				if(temp != null && temp.contains("language.id")){
 					language = temp;
 				} else {

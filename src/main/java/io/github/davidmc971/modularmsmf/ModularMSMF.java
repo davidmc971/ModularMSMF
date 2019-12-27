@@ -1,9 +1,11 @@
 package io.github.davidmc971.modularmsmf;
 
+import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,10 +17,15 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import io.github.davidmc971.modularmsmf.commands.*;
+import io.github.davidmc971.modularmsmf.configuration.AbstractConfigurationLoader;
+import io.github.davidmc971.modularmsmf.configuration.JSONConfiguration;
+import io.github.davidmc971.modularmsmf.configuration.JSONConfigurationLoader;
+import io.github.davidmc971.modularmsmf.configuration.YamlConfigurationLoader;
 import io.github.davidmc971.modularmsmf.core.DataManager;
 import io.github.davidmc971.modularmsmf.core.LanguageManager;
 import io.github.davidmc971.modularmsmf.core.PlayerManager;
@@ -32,6 +39,29 @@ import io.github.davidmc971.modularmsmf.main.CommandLoader;
  */
 
 public class ModularMSMF extends JavaPlugin implements CommandExecutor {
+	private YamlConfigurationLoader yamlLoader;
+	public YamlConfigurationLoader yamlLoader() {
+		if (yamlLoader == null) yamlLoader = new YamlConfigurationLoader();
+		return yamlLoader;
+	}
+	private JSONConfigurationLoader jsonLoader;
+	public JSONConfigurationLoader jsonLoader() {
+		if (jsonLoader == null) jsonLoader = new JSONConfigurationLoader();
+		return jsonLoader;
+	}
+	private Map<String, AbstractConfigurationLoader> configLoaders;
+	public Map<String, AbstractConfigurationLoader> configLoaders() {
+		if (configLoaders == null) configLoaders =
+			new LinkedHashMap<String,AbstractConfigurationLoader>(){
+				private static final long serialVersionUID = 1L;
+				{
+					put(yamlLoader().getFileExtension(), yamlLoader());
+					put(jsonLoader().getFileExtension(), jsonLoader());
+				}
+			};
+		return configLoaders;
+	}
+
 	private DataManager dataManager;
 	private LanguageManager languageManager;
 	private PlayerManager playerManager;
@@ -61,6 +91,7 @@ public class ModularMSMF extends JavaPlugin implements CommandExecutor {
 	//here our plugin is loaded and will be enabled
 	@Override
 	public void onEnable() {
+		if (debug) getLogger().info("--- onEnable() ---");
 		dataManager = new DataManager(this);
 		this.getServer().getPluginManager().registerEvents(dataManager, this);
 
@@ -147,15 +178,37 @@ public class ModularMSMF extends JavaPlugin implements CommandExecutor {
 		}
 		
 		getLogger().info("We are finished with enabling ModularMSMF, hooray!");
+
+		// if (debug) {
+		// 	getLogger().info("Testing from main class starting.");
+		// 	JSONConfiguration testcfg = new JSONConfiguration();
+		// 	Map<Object, Object> nestedMap = new HashMap<Object, Object>();
+		// 	nestedMap.put("String1", "Hello ");
+		// 	nestedMap.put("String1", "World!");
+		// 	//nestedMap.put("String1", "\":#^^}{");
+		// 	Map<Object, Object> map = new HashMap<Object, Object>();
+		// 	map.put("String", "abcdefg");
+		// 	map.put("Integer", 420);
+		// 	map.put("Double", 566.23d);
+		// 	map.put("Map", nestedMap);
+		// 	testcfg.createSection("root", map);
+		// 	try {
+		// 		testcfg.save(new File("plugins/ModularMSMF/jsonTest/mainTest.json"));
+		// 	} catch (Exception e) {
+		// 		e.printStackTrace();
+		// 	}
+		// }
 	}
 
 	@Override
 	public void onLoad() {
+		if (debug) getLogger().info("--- onLoad() ---");
 		this.getLogger().info("ModularMSMF is loading up.");
 	}
 
 	@Override
 	public void onDisable() {
+		if (debug) getLogger().info("--- onDisable() ---");
 		dataManager.saveAllUserdata();
 		playerManager.saveAll();
 		this.getLogger().info("ModularMSMF has been disabled.");
@@ -163,6 +216,7 @@ public class ModularMSMF extends JavaPlugin implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
+		if (debug) getLogger().info("--- onCommand() ---");
 		sender.sendMessage(ChatUtils.getFormattedPrefix(ChatFormat.ERROR) + "I guess that command is not correctly implemented yet :o");
 		sender.sendMessage(ChatUtils.getFormattedPrefix(ChatFormat.INFO) + "You can report this using /report bug <description> if you wish!");
 		return true;

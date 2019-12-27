@@ -3,7 +3,7 @@ package io.github.davidmc971.modularmsmf.commands;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import io.github.davidmc971.modularmsmf.core.PermissionManager;
@@ -39,7 +39,7 @@ public class CommandKill extends AbstractCommand {
 		String errorPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.ERROR);
 		String noPermPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.NOPERM);
 		//String successfulPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.SUCCESS);
-		YamlConfiguration language = Utils.configureCommandLanguage(sender, plugin);		
+		FileConfiguration language = Utils.configureCommandLanguage(sender, plugin);		
 		
 		if (args.length == 0) {
 			sender.sendMessage(errorPrefix+language.getString("general.missingarguments"));
