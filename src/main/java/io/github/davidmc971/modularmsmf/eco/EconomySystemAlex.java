@@ -15,7 +15,7 @@ import io.github.davidmc971.modularmsmf.util.ChatUtils;
 import io.github.davidmc971.modularmsmf.util.Utils;
 
 /**
- * 
+ * TODO: Mainclass for economysystem <3
  * @author Lightkeks
  * with help from @author davidmc971
  */

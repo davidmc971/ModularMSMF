@@ -7,7 +7,7 @@ import io.github.davidmc971.modularmsmf.ModularMSMF;
 /**
  * 
  * @author Lightkeks
- *
+ * TODO: Changes for currency changing and tax/rent maybe?
  */
 
 public class BankSystem {

@@ -74,6 +74,7 @@ Ideas:
 			might convert "languages.*" into seperate files to create which can be accessed outside which the user can edit to its own?
 			like we dont need this anymore, creating a basic file which the user can edit at it's own will? option should be switchable
 			in the console or as player in it's OP-state. like "/changelang"?
+			TODO: Changing language for each player?
 			
 		Debugging-Info:
 			like "/debug" which only the real dev's can see? all information should be displayed for console and for ingame real dev's.
