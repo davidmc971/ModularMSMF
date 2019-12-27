@@ -1,5 +1,6 @@
 package io.github.davidmc971.modularmsmf.eco;
 
+import java.util.Arrays;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
@@ -20,11 +21,11 @@ import io.github.davidmc971.modularmsmf.util.Utils;
  * with help from @author davidmc971
  */
 
-public class EconomySystemAlex extends AbstractCommand {
+public class EconomySystem extends AbstractCommand {
 	private ModularMSMF plugin;
 	public static double defaultMoney = 500.0;
 	
-	public EconomySystemAlex(ModularMSMF plugin) {
+	public EconomySystem(ModularMSMF plugin) {
 		super(plugin);
 		this.plugin = plugin;
 	}
@@ -33,6 +34,7 @@ public class EconomySystemAlex extends AbstractCommand {
 	public String[] getCommandLabels() {
 		return new String[]{"eco","money"};
 	}
+
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
@@ -51,7 +53,8 @@ public class EconomySystemAlex extends AbstractCommand {
 		String currencyFormat = "$";
 		//TODO: something like language.getCurrencyFormat() which loads from settings.yml
 
-		if(!commandLabel.toLowerCase().equals("eco")) return false;
+		//checks contained string above in getCommandLabels()
+		if(!Arrays.asList(getCommandLabels()).contains(commandLabel.toLowerCase())) return false;
 
 		if (args.length == 0) {
 			if((sender instanceof Player)) {
