@@ -33,6 +33,8 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>13</maven.compiler.source>
     <maven.compiler.target>13</maven.compiler.target>
+    <timestamp>${maven.build.timestamp}</timestamp>
+    <maven.build.timestamp.format>yyyy-MM-dd'T'HH:mm:ss'Z'</maven.build.timestamp.format>
   </properties>
 
   <repositories>
@@ -73,6 +75,7 @@
         <filtering>true</filtering>
         <includes>
           <include>plugin.yml</include>
+          <include>props.yml</include>
         </includes>
       </resource>
       <resource>
@@ -82,6 +85,7 @@
         <excludes>
           <exclude>**/*.java</exclude>
           <exclude>plugin.yml</exclude>
+          <exclude>props.yml</exclude>
         </excludes>
       </resource>
     </resources>

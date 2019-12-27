@@ -1,11 +1,9 @@
 package io.github.davidmc971.modularmsmf;
 
-import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,13 +15,11 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import io.github.davidmc971.modularmsmf.commands.*;
 import io.github.davidmc971.modularmsmf.configuration.AbstractConfigurationLoader;
-import io.github.davidmc971.modularmsmf.configuration.JSONConfiguration;
 import io.github.davidmc971.modularmsmf.configuration.JSONConfigurationLoader;
 import io.github.davidmc971.modularmsmf.configuration.YamlConfigurationLoader;
 import io.github.davidmc971.modularmsmf.core.DataManager;
@@ -166,14 +162,13 @@ public class ModularMSMF extends JavaPlugin implements CommandExecutor {
 		
 		//TODO: load build time from maven (?)
 		if (debug) {
-			InputStream in = this.getResource("build_timestamp.properties");
-			Properties buildprop = new Properties();
 			try {
-				buildprop.load(in);
-				debugTimestamp = buildprop.getProperty("timestamp").replaceAll("_", " ");
+				YamlConfiguration buildprop = YamlConfiguration
+				.loadConfiguration(new InputStreamReader(this.getResource("props.yml")));
+				debugTimestamp = buildprop.getString("build_timestamp").replaceAll("_", " ");
 				this.getLogger().info("Debug: Build [" + debugTimestamp + "]");
 			} catch (Exception e) {
-				Bukkit.getLogger().warning("Loading buildprop failed.");
+				Bukkit.getLogger().warning("Loading props.yml failed.");
 			}
 		}
 		
