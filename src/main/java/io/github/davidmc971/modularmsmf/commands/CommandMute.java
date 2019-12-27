@@ -7,6 +7,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import io.github.davidmc971.modularmsmf.ModularMSMF;
+import io.github.davidmc971.modularmsmf.util.ChatUtils;
 
 /**
  * 
@@ -19,6 +20,11 @@ public class CommandMute extends AbstractCommand {
 	public CommandMute(ModularMSMF plugin) {
 		super(plugin);
 	}
+
+	private String infoPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.INFO);
+	private String errorPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.ERROR);
+	private String noPermPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.NOPERM);
+	private String successfulPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.SUCCESS);
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {

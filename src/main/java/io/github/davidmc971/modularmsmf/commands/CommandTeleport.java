@@ -6,6 +6,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import io.github.davidmc971.modularmsmf.ModularMSMF;
+import io.github.davidmc971.modularmsmf.util.ChatUtils;
 import net.md_5.bungee.api.ChatColor;
 
 /**
@@ -19,8 +20,14 @@ public class CommandTeleport extends AbstractCommand {
 	public CommandTeleport(ModularMSMF plugin) {
 		super(plugin);
 	}
+
+	private String infoPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.INFO);
+	private String errorPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.ERROR);
+	private String noPermPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.NOPERM);
+	private String successfulPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.SUCCESS);
 	/**
-	 * @TODO implement and finishing this
+	 * TODO: implement and finishing this
+	 * TODO: changing text to prefix
 	 */
 
 	@Override

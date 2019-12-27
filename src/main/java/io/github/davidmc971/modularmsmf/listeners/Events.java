@@ -24,15 +24,21 @@ import org.bukkit.event.player.PlayerRespawnEvent;
 
 import io.github.davidmc971.modularmsmf.ModularMSMF;
 import net.md_5.bungee.api.ChatColor;
+import io.github.davidmc971.modularmsmf.util.ChatUtils;
 import io.github.davidmc971.modularmsmf.util.KillType;
 
 /**
  * 
  * @author Lightkeks, davidmc971
- *
+ * TODO: changing text with prefix
  */
 
 public class Events implements Listener {
+
+	private String infoPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.INFO);
+	private String errorPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.ERROR);
+	private String noPermPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.NOPERM);
+	private String successfulPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.SUCCESS);
 
 	public ModularMSMF plugin;
 	private ArrayList<PlayerKillConfig> killedPlayers = new ArrayList<PlayerKillConfig>();
