@@ -320,15 +320,20 @@ public class EconomySystem extends AbstractCommand {
 
 	private String moneykey = "economyalex.money";
 
+	private FileConfiguration getPlayerCfg(UUID uuid) {
+		//return plugin.getDataManager().getPlayerCfg(uuid);
+		return plugin.getPlayerManager().getPlayerData(uuid).getConfiguration(); 
+	}
+
 	private void setMoney(UUID uuid, double amount) {
-		FileConfiguration cfg = plugin.getDataManager().getPlayerCfg(uuid);
+		FileConfiguration cfg = getPlayerCfg(uuid);
 		if (cfg != null && cfg.isDouble(moneykey)) {
 			cfg.set(moneykey, amount);
 		}
 	}
 
 	private void takeMoney(UUID uuid, double amount) {
-		FileConfiguration cfg = plugin.getDataManager().getPlayerCfg(uuid);
+		FileConfiguration cfg = getPlayerCfg(uuid);
 		if (cfg != null && cfg.isDouble(moneykey)) {
 			double money = cfg.getDouble(moneykey);
 			money -= amount;
@@ -337,7 +342,7 @@ public class EconomySystem extends AbstractCommand {
 	}
 
 	private void addMoney(UUID uuid, double amount) {
-		FileConfiguration cfg = plugin.getDataManager().getPlayerCfg(uuid);
+		FileConfiguration cfg = getPlayerCfg(uuid);
 		if (cfg != null && cfg.isDouble(moneykey)) {
 			double money = cfg.getDouble(moneykey);
 			money += amount;
@@ -346,7 +351,7 @@ public class EconomySystem extends AbstractCommand {
 	}
 
 	private double getMoney(UUID uuid) {
-		FileConfiguration cfg = plugin.getDataManager().getPlayerCfg(uuid);
+		FileConfiguration cfg = getPlayerCfg(uuid);
 		if (cfg != null && cfg.isDouble(moneykey)) {
 			return cfg.getDouble(moneykey);
 		}

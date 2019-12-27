@@ -55,11 +55,18 @@ public class JSONConfiguration extends FileConfiguration {
     public void loadFromString(String contents) throws InvalidConfigurationException {
         Validate.notNull(contents, "Contents cannot be null");
 
-        Map<?, ?> input;
-        try {
-            input = objectMapper.readValue(contents, Map.class);
-        } catch (Exception e) {
-            throw new InvalidConfigurationException(e);
+        System.out.println("CONTENT:\n" + contents);
+
+        Map<?, ?> input = null;
+
+        if (!contents.equals("")) {
+            try {
+                input = objectMapper.readValue(contents, Map.class);
+            } catch (Exception e) {
+                throw new InvalidConfigurationException(e);
+            }
+        } else {
+            createSection("root");
         }
 
         // String header = parseHeader(contents);

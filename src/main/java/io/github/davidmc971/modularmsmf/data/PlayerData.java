@@ -14,5 +14,5 @@ public class PlayerData {
 	}
 	
 	public UUID getUUID() { return uuid; }
-	public FileConfiguration gConfiguration() { return cfg; }
+	public FileConfiguration getConfiguration() { return cfg; }
 }
