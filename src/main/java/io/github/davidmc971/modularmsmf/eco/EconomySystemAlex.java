@@ -31,7 +31,7 @@ public class EconomySystemAlex extends AbstractCommand {
 
 	@Override
 	public String[] getCommandLabels() {
-		return new String[]{"eco"};
+		return new String[]{"eco","money"};
 	}
 
 	@Override
@@ -50,7 +50,7 @@ public class EconomySystemAlex extends AbstractCommand {
 		}
 		String currencyFormat = "$";
 		//TODO: something like language.getCurrencyFormat() which loads from settings.yml
-		
+
 		if(!commandLabel.toLowerCase().equals("eco")) return false;
 
 		if (args.length == 0) {
