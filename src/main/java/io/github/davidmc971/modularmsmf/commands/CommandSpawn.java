@@ -13,6 +13,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 import io.github.davidmc971.modularmsmf.ModularMSMF;
+import io.github.davidmc971.modularmsmf.core.PermissionManager;
 import io.github.davidmc971.modularmsmf.util.ChatUtils;
 import io.github.davidmc971.modularmsmf.util.Utils;
 
@@ -34,7 +35,7 @@ public class CommandSpawn extends AbstractCommand {
 	private String successfulPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.SUCCESS);
 
 	/**
-	 * @TODO Complete rewrite
+	 * @TODO: Complete rewrite
 	 */
 
 	@Override
@@ -43,17 +44,17 @@ public class CommandSpawn extends AbstractCommand {
 		FileConfiguration language = Utils.configureCommandLanguage(sender, plugin);
 
 		if(sender instanceof ConsoleCommandSender) {
-			sender.sendMessage(noPermPrefix+language.getString("general.noconsole"));
+			sender.sendMessage(errorPrefix+language.getString("general.noconsole"));
 		} else {
 			Player p = (Player)sender;
 
-			if(!p.hasPermission("spawn.spawn")){
-				p.sendMessage("Du hast keine Rechte!");
+			if(!p.hasPermission(PermissionManager.getPermission("spawn"))){
+				p.sendMessage(noPermPrefix+language.getString("general.nopermission"));
 			}
 
 			File file = new File("plugins/ModularMSMF/spawnconfig.yml");
 			if(!file.exists()){
-				p.sendMessage("Es wurde kein Spawn gesetzt");
+				p.sendMessage(language.getString("commands.spawn.nospawnset"));
 			}
 
 			YamlConfiguration cfg = YamlConfiguration.loadConfiguration(file);

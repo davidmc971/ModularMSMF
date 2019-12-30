@@ -32,7 +32,7 @@ public class CommandSetSpawn extends AbstractCommand {
 	private String successfulPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.SUCCESS);
 
 	/**
-	 * @TODO Complete rewrite
+	 * @TODO: Complete rewrite
 	 */
 
 	@Override
@@ -45,7 +45,7 @@ public class CommandSetSpawn extends AbstractCommand {
 		} else {
 			Player p = (Player)sender;
 
-			File file = new File("plugins/ModularMSMF/spawnconfig.yml");
+			File file = new File("plugins/ModularMSMF/settings.yml");
 
 			if(!file.exists()){
 				try{
@@ -75,7 +75,6 @@ public class CommandSetSpawn extends AbstractCommand {
 			try {
 				cfg.save(file);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			p.sendMessage(successfulPrefix+language.getString("commands.spawn.spawnset"));

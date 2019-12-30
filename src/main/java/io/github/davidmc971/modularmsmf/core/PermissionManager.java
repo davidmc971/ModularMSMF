@@ -33,9 +33,10 @@ public class PermissionManager {
 		{ "kill_me", "modularmsmf.kill.me" },
 		{ "kill_all", "modularmsmf.kill.all" },
 		{ "kill", "modularmsmf.kill" },
-		{ "mmsmfhelp", "modularmsmf.help"},
-		{ "mmsmf", "modularmsmf.mmsmf"},
-		{ "slaughter", "modularmsmf.slaughter"}
+		{ "mmsmfhelp", "modularmsmf.help" },
+		{ "mmsmf", "modularmsmf.mmsmf" },
+		{ "slaughter", "modularmsmf.slaughter" },
+		{ "spawn", "modularmsmf.spawn" }
 	};
 
 	public static boolean checkPermission(CommandSender sender, String permission) {
