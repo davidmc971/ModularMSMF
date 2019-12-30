@@ -45,14 +45,14 @@ public class CommandSpawn extends AbstractCommand {
 
 		if(sender instanceof ConsoleCommandSender) {
 			sender.sendMessage(errorPrefix+language.getString("general.noconsole"));
-		} else {
+		/**} else {
 			Player p = (Player)sender;
 
 			if(!p.hasPermission(PermissionManager.getPermission("spawn"))){
 				p.sendMessage(noPermPrefix+language.getString("general.nopermission"));
 			}
 
-			File file = new File("plugins/ModularMSMF/spawnconfig.yml");
+			File file = new File("plugins/ModularMSMF/settings.yml");
 			if(!file.exists()){
 				p.sendMessage(language.getString("commands.spawn.nospawnset"));
 			}
@@ -73,12 +73,13 @@ public class CommandSpawn extends AbstractCommand {
 			loc.setYaw((float)yaw);
 			loc.setPitch((float)pitch);
 
-			World welt = Bukkit.getWorld(worldname);
+			World welt = Bukkit.getWorld(worldname); //TODO: not working line, need to check
 			loc.setWorld(welt);
 
 			p.teleport(loc);
 			p.sendMessage(successfulPrefix+language.getString("commands.spawn.spawned"));
 		}
+		*/
 		return true;
 	}
 

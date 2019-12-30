@@ -26,6 +26,7 @@ import io.github.davidmc971.modularmsmf.ModularMSMF;
 import net.md_5.bungee.api.ChatColor;
 import io.github.davidmc971.modularmsmf.util.ChatUtils;
 import io.github.davidmc971.modularmsmf.util.KillType;
+import io.github.davidmc971.modularmsmf.util.Utils;
 
 /**
  * 
@@ -46,6 +47,7 @@ public class Events implements Listener {
 	public Events(ModularMSMF plugin) {
 		this.plugin = plugin;
 	}
+	//FileConfiguration language = Utils.configureCommandLanguage(sender, plugin);
 
 	@EventHandler
 	/**
@@ -53,8 +55,8 @@ public class Events implements Listener {
 	 */
 	public void onPlayerJoin(PlayerJoinEvent event) throws IOException {
 		Player player = event.getPlayer();
-		event.setJoinMessage(ChatColor.GRAY + player.getDisplayName() + " hat den Server " + ChatColor.GREEN + "betreten" + ChatColor.GRAY + "!");
-
+		//event.setJoinMessage(ChatColor.GRAY + player.getDisplayName() + " hat den Server " + ChatColor.GREEN + "betreten" + ChatColor.GRAY + "!");
+		//sender.sendMessage(successfulPrefix+language.getString("commands.feed.feededperson").replaceAll("_player", p.getName()));
 	}
 
 	@EventHandler
