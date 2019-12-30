@@ -353,7 +353,13 @@ public class EconomySystem extends AbstractCommand {
 	private double getMoney(UUID uuid) {
 		FileConfiguration cfg = getPlayerCfg(uuid);
 		if (cfg != null && cfg.isDouble(moneykey)) {
-			return cfg.getDouble(moneykey);
+			/**int index = moneykey.indexOf(".");
+			if (index == -1){
+				index = moneykey.length();
+			}else if(moneykey.length() - index >= 2){
+				index +=2;
+			}*/ //kam von Kevin :*
+			return cfg.getDouble(moneykey/** .substring(0, index)*/);
 		}
 		return -1;
 	}

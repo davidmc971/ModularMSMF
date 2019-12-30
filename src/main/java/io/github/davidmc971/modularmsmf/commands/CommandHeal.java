@@ -82,6 +82,8 @@ public class CommandHeal extends AbstractCommand {
 						}
 					}
 				break;
+			} else {
+				sender.sendMessage(noPermPrefix+language.getString("general.nopermission"));
 			}
 		default:
 			sender.sendMessage(errorPrefix+language.getString("general.toomanyarguments"));
