@@ -15,6 +15,8 @@ general:
     missingarguments: Please specify an argument!
     couldnotcreatefile: File couldn't be created!
 commands:
+  slaughter:
+    success: All mobs have been killed around your sight.
   ban:
     defaultbanreason: You have been banned!
     alreadybanned: This player is already banned.
