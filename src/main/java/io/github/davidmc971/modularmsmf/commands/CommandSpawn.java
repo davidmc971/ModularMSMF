@@ -80,6 +80,7 @@ public class CommandSpawn extends AbstractCommand {
 			p.sendMessage(successfulPrefix+language.getString("commands.spawn.spawned"));
 		}
 		*/
+	}
 		return true;
 	}
 
