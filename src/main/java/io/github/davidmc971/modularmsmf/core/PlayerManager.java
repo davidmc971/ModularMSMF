@@ -82,7 +82,8 @@ public class PlayerManager {
 		return playerStorage.get(uuid);
 	}
 
-	private String playerDataPath = dataroot + folderPlayers + "_UUID.json";
+	//TODO: other location for configuring if .yml or .json is used
+	private String playerDataPath = dataroot + folderPlayers + "_UUID.yml";
 
 	private void init(MemoryConfiguration defaultConfig) {
 		plugin.getLogger().info("PlayerManager init start.");
