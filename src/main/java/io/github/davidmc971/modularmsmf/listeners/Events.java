@@ -23,6 +23,8 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 
 import io.github.davidmc971.modularmsmf.ModularMSMF;
+import io.github.davidmc971.modularmsmf.core.LanguageManager;
+import io.github.davidmc971.modularmsmf.data.Language;
 import net.md_5.bungee.api.ChatColor;
 import io.github.davidmc971.modularmsmf.util.ChatUtils;
 import io.github.davidmc971.modularmsmf.util.KillType;
@@ -30,8 +32,7 @@ import io.github.davidmc971.modularmsmf.util.Utils;
 
 /**
  * 
- * @author Lightkeks, davidmc971
- * TODO: changing text with prefix
+ * @author Lightkeks, davidmc971 TODO: changing text with prefix
  */
 
 public class Events implements Listener {
@@ -47,7 +48,7 @@ public class Events implements Listener {
 	public Events(ModularMSMF plugin) {
 		this.plugin = plugin;
 	}
-	//FileConfiguration language = Utils.configureCommandLanguage(sender, plugin);
+	FileConfiguration language = Utils.configureCommandLanguage(sender, plugin);
 
 	@EventHandler
 	/**
@@ -55,8 +56,10 @@ public class Events implements Listener {
 	 */
 	public void onPlayerJoin(PlayerJoinEvent event) throws IOException {
 		Player player = event.getPlayer();
-		//event.setJoinMessage(ChatColor.GRAY + player.getDisplayName() + " hat den Server " + ChatColor.GREEN + "betreten" + ChatColor.GRAY + "!");
-		//sender.sendMessage(successfulPrefix+language.getString("commands.feed.feededperson").replaceAll("_player", p.getName()));
+		// event.setJoinMessage(ChatColor.GRAY + player.getDisplayName() + " hat den
+		// Server " + ChatColor.GREEN + "betreten" + ChatColor.GRAY + "!");
+		// sender.sendMessage(successfulPrefix+language.getString("commands.feed.feededperson").replaceAll("_player",
+		// p.getName()));
 	}
 
 	@EventHandler
@@ -95,10 +98,9 @@ public class Events implements Listener {
 				String msg = "";
 				switch(pkf.getKt()){
 				case KILL:
-					//msg = "Der arme Mitspieler namens " + event.getEntity().getName() + " wurde getötet!\n";
-					/**
-					 * @TODO
-					 */
+					msg = "Der arme Mitspieler namens " + event.getEntity().getName() + " wurde getötet!\n";
+					Bukkit.broadcastMessage(language.getString("").replaceAll(_var, event.getEntity().getDisplayName());
+					//@TODO: replacing with _var
 					break;
 				case SUICIDE:
 					//msg = "Der arme Mitspieler namens " + event.getEntity().getName() + " hat Suizid begangen!\n";
