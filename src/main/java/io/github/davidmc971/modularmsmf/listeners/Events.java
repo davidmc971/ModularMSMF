@@ -51,7 +51,7 @@ public class Events implements Listener {
 
 	@EventHandler
 	/**
-	 * @TODO needs some rewrite
+	 * @TODO: needs some rewrite
 	 */
 	public void onPlayerJoin(PlayerJoinEvent event) throws IOException {
 		Player player = event.getPlayer();
@@ -61,7 +61,7 @@ public class Events implements Listener {
 
 	@EventHandler
 	/**
-	 * @TODO needs some rewrite
+	 * @TODO: needs some rewrite
 	 */
 	public void onLogin(PlayerLoginEvent event) {
 		Player player = event.getPlayer();
@@ -77,7 +77,7 @@ public class Events implements Listener {
 
 	@EventHandler
 	/**
-	 * @TODO needs some rewrite
+	 * @TODO: needs some rewrite
 	 */
 	public void onQuit(PlayerQuitEvent event) throws IOException {
 		Player player = event.getPlayer();
@@ -86,7 +86,7 @@ public class Events implements Listener {
 
 	@EventHandler
 	/**
-	 * @TODO needs some rewrite
+	 * @TODO: needs some rewrite
 	 */
 	public void onDeath(PlayerDeathEvent event) {
 		boolean temp = false;
