@@ -41,8 +41,7 @@ public class CommandLanguage extends AbstractCommand {
 		
 		switch(args.length){
 			case 0:
-				sender.sendMessage(language.getString("commands.language.activelanguage")
-						.replaceAll("_language", (language.getString("language.id") + " (" + language.getString("language.name") + ")")));
+				sender.sendMessage(infoPrefix+language.getString("commands.language.activelanguage").replaceAll("_language", (language.getString("language.id") + " (" + language.getString("language.name") + ")")));
 				break;
 			case 1:
 				if(args[0].equalsIgnoreCase("list")){
@@ -52,9 +51,9 @@ public class CommandLanguage extends AbstractCommand {
 						out += languageCfg.getString("language.id");
 					}
 					out += "]";
-					sender.sendMessage(language.getString("commands.language.availablelanguages").replaceAll("_var", out));
+					sender.sendMessage(infoPrefix+language.getString("commands.language.availablelanguages").replaceAll("_var", out));
 				} else {
-					sender.sendMessage(language.getString("general.invalidarguments"));
+					sender.sendMessage(errorPrefix+language.getString("general.invalidarguments"));
 				}
 				break;
 			case 2:
@@ -69,15 +68,15 @@ public class CommandLanguage extends AbstractCommand {
 						}
 						if(success){
 							plugin.getDataManager().getPlayerCfg(((Player)sender).getUniqueId()).set("language", args[1]);
-							sender.sendMessage(language.getString("commands.language.setsuccessplayer"));
+							sender.sendMessage(successfulPrefix+language.getString("commands.language.setsuccessplayer"));
 						} else {
-							sender.sendMessage(language.getString("commands.language.notvalid"));
+							sender.sendMessage(errorPrefix+language.getString("commands.language.notvalid"));
 						}
 					} else {
 						if(plugin.getLanguageManager().setStandardLanguage(args[1])){
-							sender.sendMessage(language.getString("commands.language.setsuccessconsole"));
+							sender.sendMessage(successfulPrefix+language.getString("commands.language.setsuccessconsole"));
 						} else {
-							sender.sendMessage(language.getString("commands.language.notvalid"));
+							sender.sendMessage(errorPrefix+language.getString("commands.language.notvalid"));
 						}
 					}
 				} else if(args[0].equalsIgnoreCase("get")){
@@ -85,7 +84,7 @@ public class CommandLanguage extends AbstractCommand {
 				}
 				break;
 			default:
-				sender.sendMessage(language.getString("general.invalidarguments"));
+				sender.sendMessage(errorPrefix+language.getString("general.invalidarguments"));
 				break;
 		}
 		return true;

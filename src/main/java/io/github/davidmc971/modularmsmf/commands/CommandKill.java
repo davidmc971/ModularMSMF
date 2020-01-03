@@ -56,7 +56,7 @@ public class CommandKill extends AbstractCommand {
 					player.setHealth(0);
 				}
 			} else {
-				sender.sendMessage(errorPrefix+language.getString("general.noconsole"));
+				sender.sendMessage(noPermPrefix+language.getString("general.noconsole"));
 			}
 			break;
 		case "all":

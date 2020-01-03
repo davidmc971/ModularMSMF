@@ -45,7 +45,7 @@ public class CommandTeleport extends AbstractCommand {
 
 		if (!(sender instanceof Player)) {
 			//TODO: console should be able to tp players to other players or waypoints
-			sender.sendMessage(errorPrefix+language.getString("general.noconsole"));
+			sender.sendMessage(noPermPrefix+language.getString("general.noconsole"));
 		}
 
 		if (sender.hasPermission(PermissionManager.getPermission("teleport"))) {

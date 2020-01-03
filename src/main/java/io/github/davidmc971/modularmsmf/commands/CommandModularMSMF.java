@@ -64,8 +64,7 @@ public class CommandModularMSMF extends AbstractCommand {
 					case "info":
 						if (args.length == 1) {
 							sender.sendMessage(infoPrefix + "Plugin Version: " + ChatColor.GREEN + plugin.pluginver);
-							sender.sendMessage(
-									infoPrefix + "Server's running at: " + ChatColor.YELLOW + Bukkit.getVersion());
+							sender.sendMessage(infoPrefix + "Server's running at: " + ChatColor.YELLOW + Bukkit.getVersion());
 							sender.sendMessage(infoPrefix + "Developer: " + ChatColor.LIGHT_PURPLE + plugin.authors);
 							sender.sendMessage(errorPrefix + "Debug: Build [" + plugin.getDebugTimestamp() + "]");
 						}

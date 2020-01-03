@@ -48,7 +48,7 @@ public class CommandSlaughter extends AbstractCommand {
 						if (!(e instanceof Player) && (e instanceof Monster))
 							e.remove();
 					}
-					sender.sendMessage(infoPrefix+language.getString("commands.slaughter.success"));
+					sender.sendMessage(successfulPrefix+language.getString("commands.slaughter.success"));
 				}
 			}
 		} else if(args.length >= 1){

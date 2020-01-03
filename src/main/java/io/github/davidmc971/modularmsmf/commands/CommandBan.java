@@ -101,7 +101,7 @@ public class CommandBan extends AbstractCommand {
 			}
 			sender.sendMessage(infoPrefix+language.getString("commands.ban.playerbanned").replaceAll("_player", args[0]).replaceAll("_reason", reason));
 		} else {
-			sender.sendMessage(PermissionManager.getPermission(noPermPrefix+language.getString("general.nopermission")));
+			sender.sendMessage(noPermPrefix+language.getString("general.nopermission"));
 		}
 		
 		return true;

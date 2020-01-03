@@ -104,7 +104,7 @@ public class CommandReport extends AbstractCommand {
 			default:
 				//non valid category
 				//DONE: send error and prompt user to use /report for description
-				sender.sendMessage(errorPrefix + "This command '" + ChatColor.YELLOW + args[0] + ChatColor.RED + "' doesn't exist!");
+				sender.sendMessage(errorPrefix + "This command '" + ChatColor.YELLOW + args[0] + ChatColor.RED + "' doesn't exist!"); //TODO: rewrite
 				sender.sendMessage(errorPrefix + "Use /report for more information.");
 				break;
 			}
