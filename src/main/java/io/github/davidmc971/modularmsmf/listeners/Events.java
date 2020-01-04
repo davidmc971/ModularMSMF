@@ -35,7 +35,7 @@ public class Events implements Listener {
 	private String welcomePrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.WELCOME);
 	private String quitPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.QUIT);
 	private String deathPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.DEATH);
-	private String coloredPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.COLORED);
+	private String paintedPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.PAINTED);
 
 	public ModularMSMF plugin;
 	private ArrayList<PlayerKillConfig> killedPlayers = new ArrayList<PlayerKillConfig>();
@@ -58,9 +58,6 @@ public class Events implements Listener {
 	}
 
 	@EventHandler
-	/**
-	 * @TODO: needs some rewrite
-	 */
 	public void onLogin(PlayerLoginEvent event) {
 		Player player = event.getPlayer();
 		FileConfiguration language = Utils.configureCommandLanguage(player, plugin);
@@ -76,10 +73,6 @@ public class Events implements Listener {
 	}
 
 	@EventHandler
-	/**
-	 * @TODO: needs some rewrite
-	 */
-
 	public void onDeath(PlayerDeathEvent event) {
 		Player player = event.getEntity();
 		FileConfiguration language = Utils.configureCommandLanguage(player, plugin);
@@ -87,33 +80,24 @@ public class Events implements Listener {
 		boolean temp = false;
 		for(PlayerKillConfig pkf : killedPlayers){
 			if(pkf.getP().getName().equals(event.getEntity().getName())){
-				//String msg = "";
 				switch(pkf.getKt()){
 				case KILL:
-					//event.setDeathMessage(deathPrefix+language.getString("event.killed_player").replaceAll("_var", event.getEntity().getDisplayName()));
-					//Bukkit.broadcastMessage(deathPrefix+language.getString("event.killed_player").replaceAll("_var", event.getEntity().getDisplayName()));
 					event.setDeathMessage(null);
 					break;
 				case SUICIDE:
-					//event.setDeathMessage(deathPrefix+language.getString("event.suicide").replaceAll("_var", event.getEntity().getDisplayName()));
-					//Bukkit.broadcastMessage(deathPrefix+language.getString("event.suicide").replaceAll("_var", event.getEntity().getDisplayName()));
 					event.setDeathMessage(null);
 					break;
 				case HOMOCIDE:
-					//event.setDeathMessage(deathPrefix+language.getString("event.homocide"));
-					//Bukkit.broadcastMessage(deathPrefix + language.getString("event.homocide"));
 					event.setDeathMessage(null);
 					break;
 				}
-				//event.setDeathMessage(msg);
 				killedPlayers.remove(pkf);
 				temp = true;
 				break;
 			}
 		}
 		if(!temp){
-			//event.setDeathMessage(deathPrefix+language.getString("event.just_died").replaceAll("_var", event.getEntity().getDisplayName()));
-			
+			event.setDeathMessage(deathPrefix+language.getString("event.just_died").replaceAll("_var", event.getEntity().getDisplayName()));
 		}
 	}
 
@@ -138,45 +122,7 @@ public class Events implements Listener {
 			event.setCancelled(true);
 			event.getPlayer().sendMessage(noPermPrefix+language.getString("event.muted"));
 		} else {
-			event.getPlayer().sendMessage(coloredPrefix+language.getString("event.muted"));
+
 		}
 	}
-
-	/*
-	 * public HandlerList getHandlers() { return getHandlers(); }
-	 */
-
-	/**
-	@EventHandler
-	public void onRespawn(PlayerRespawnEvent e){
-		Player p = e.getPlayer();
-
-		File file = new File("plugins/ModularMSMF/settings.yml");
-		if(!file.exists()){
-			p.sendMessage("Es wurde kein Spawn gesetzt");
-		}
-
-		YamlConfiguration cfg = YamlConfiguration.loadConfiguration(file);
-		double x = cfg.getDouble("X");
-		double y = cfg.getDouble("Y");
-		double z = cfg.getDouble("Z");
-		double yaw = cfg.getDouble("Yaw");
-		double pitch = cfg.getDouble("Pitch");
-		String worldname = cfg.getString("Worldname");
-
-		Location loc = p.getLocation();
-
-		loc.setX(x);
-		loc.setY(y);
-		loc.setZ(z);
-		loc.setYaw((float)yaw);
-		loc.setPitch((float)pitch);
-
-		World welt = Bukkit.getWorld(worldname);
-		loc.setWorld(welt);
-
-		e.setRespawnLocation(loc);;
-		p.sendMessage("Du wurdest gespawnt!");
-	}
-	*/
 }
