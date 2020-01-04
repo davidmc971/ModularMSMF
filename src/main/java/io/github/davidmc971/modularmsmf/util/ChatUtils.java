@@ -21,7 +21,7 @@ public class ChatUtils {
 	FileConfiguration language = Utils.configureCommandLanguage(sender, plugin);
 	*/ //TODO: maybe need this.
 	public enum ChatFormat {
-		SUCCESS, INFO, ERROR, MSG, BROADCAST, STANDART, RAINBOW, NOPERM, WELCOME, QUIT, DEATH
+		SUCCESS, INFO, ERROR, MSG, BROADCAST, STANDART, RAINBOW, NOPERM, WELCOME, QUIT, DEATH, COLORED
 	}
 	
 	public static String getFormattedPrefix(ChatFormat format) {
@@ -40,6 +40,8 @@ public class ChatUtils {
 			return (ChatColor.GOLD + "[" + ChatColor.WHITE + "Quit" + ChatColor.GOLD + "]" + ChatColor.GRAY + " ");
 		case DEATH:
 			return (ChatColor.GOLD + "[" + ChatColor.WHITE + "Death" + ChatColor.GOLD + "]" + ChatColor.DARK_GRAY + " ");
+		case COLORED:
+			return (ChatColor.GRAY + " ");
 		/**case SPAWN:
 		for (Player p : Bukkit.getOnlinePlayers())
 			return (ChatColor.GREEN + language.getString("").replaceAll("_player", p.getName()));

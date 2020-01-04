@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
@@ -40,6 +41,7 @@ public class Events implements Listener {
 	private String welcomePrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.WELCOME);
 	private String quitPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.QUIT);
 	private String deathPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.DEATH);
+	private String coloredPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.COLORED);
 
 	public ModularMSMF plugin;
 	private ArrayList<PlayerKillConfig> killedPlayers = new ArrayList<PlayerKillConfig>();
@@ -113,7 +115,7 @@ public class Events implements Listener {
 			}
 		}
 		if(!temp){
-			event.setDeathMessage(deathPrefix+language.getString("event.just_died").replaceAll("_var", event.getEntity().getDisplayName()));
+			//event.setDeathMessage(deathPrefix+language.getString("event.just_died").replaceAll("_var", event.getEntity().getDisplayName()));
 			
 		}
 	}
@@ -129,20 +131,19 @@ public class Events implements Listener {
 		public Player getP() { return p; }
 		public KillType getKt() { return kt; }
 	}
-	/**
-	 * @TODO: onKick event
-	 */
 
-	/**
 	@EventHandler
-	public void onChat(AsyncPlayerChatEvent event) {
+	public <Sender> void onChat(AsyncPlayerChatEvent event) {
 		FileConfiguration playercfg = plugin.getDataManager().getPlayerCfg(event.getPlayer().getUniqueId());
+		Player player = event.getPlayer();
+		FileConfiguration language = Utils.configureCommandLanguage(player, plugin);
 		if (playercfg.isBoolean("muted") && playercfg.getBoolean("muted") && !event.getMessage().startsWith("/")) {
 			event.setCancelled(true);
-			event.getPlayer().sendMessage("[Muter] Du bist gemuted!");
+			event.getPlayer().sendMessage(noPermPrefix+language.getString("event.muted"));
+		} else {
+			event.getPlayer().sendMessage(coloredPrefix+language.getString("event.muted"));
 		}
 	}
-	*/
 
 	/*
 	 * public HandlerList getHandlers() { return getHandlers(); }
