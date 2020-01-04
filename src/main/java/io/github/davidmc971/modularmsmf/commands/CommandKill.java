@@ -37,14 +37,6 @@ public class CommandKill extends AbstractCommand {
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-		/**
-		 * @author Lightkeks "/kill me" killt den sender "/kill <target>" killt
-		 *         das target "/kill all" killt alle
-		 * 
-		 *         > groesserr als < kleiner als
-		 * 
-		 *         Sollte schon klappen
-		 */
 		FileConfiguration language = Utils.configureCommandLanguage(sender, plugin);		
 		
 		if (args.length == 0) {
@@ -52,19 +44,19 @@ public class CommandKill extends AbstractCommand {
 			return true;
 		}
 		
-		switch (args[0].toLowerCase()) { // missing prefix as text
+		switch (args[0].toLowerCase()) {
 		case "me":
 			if (sender instanceof Player) {
 				if (sender.hasPermission(PermissionManager.getPermission("kill_me"))) {
 					Player player = ((Player) sender);
 					plugin.getMainEvents().registerKilledPlayer(player, KillType.SUICIDE);
+					Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.DEATH, "event.suicide", "_var", player.getDisplayName());
 					player.setHealth(0);
 				}
 			} else {
 				sender.sendMessage(noPermPrefix+language.getString("general.noconsole"));
 			}
 			break;
-			//TODO: change so one message will be created instead of every player
 		case "all":
 			if (sender.hasPermission(PermissionManager.getPermission("kill_all"))) {
 				for (Player player : Bukkit.getOnlinePlayers()) {
@@ -81,7 +73,6 @@ public class CommandKill extends AbstractCommand {
 					for (Player player : Bukkit.getOnlinePlayers()) {
 						if (args[0].toLowerCase().equals(player.getName().toLowerCase())) {
 							plugin.getMainEvents().registerKilledPlayer(player, KillType.KILL);
-							//sender.sendMessage(deathPrefix+language.getString("event.killed_player").replaceAll("_var", player.getDisplayName()));
 							Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.DEATH, "event.killed_player", "_var", player.getDisplayName());
 							player.setHealth(0);
 							temp = true;
