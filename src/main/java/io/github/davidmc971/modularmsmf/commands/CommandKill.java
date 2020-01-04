@@ -59,6 +59,7 @@ public class CommandKill extends AbstractCommand {
 				sender.sendMessage(noPermPrefix+language.getString("general.noconsole"));
 			}
 			break;
+			//TODO: change so one message will be created instead of every player
 		case "all":
 			if (sender.hasPermission(PermissionManager.getPermission("kill_all"))) {
 				for (Player player : Bukkit.getOnlinePlayers()) {

@@ -79,10 +79,11 @@ public class Events implements Listener {
 		}
 	}
 
-	//@EventHandler
+	@EventHandler
 	/**
 	 * @TODO: needs some rewrite
 	 */
+
 	public void onDeath(PlayerDeathEvent event) {
 		Player player = event.getEntity();
 		FileConfiguration language = Utils.configureCommandLanguage(player, plugin);
@@ -90,22 +91,22 @@ public class Events implements Listener {
 		boolean temp = false;
 		for(PlayerKillConfig pkf : killedPlayers){
 			if(pkf.getP().getName().equals(event.getEntity().getName())){
-				String msg = "";
+				//String msg = "";
 				switch(pkf.getKt()){
 				case KILL:
 					event.setDeathMessage(deathPrefix+language.getString("event.killed_player").replaceAll("_var", event.getEntity().getDisplayName()));
-					Bukkit.broadcastMessage(deathPrefix+language.getString("event.killed_player").replaceAll("_var", event.getEntity().getDisplayName()));
+					//Bukkit.broadcastMessage(deathPrefix+language.getString("event.killed_player").replaceAll("_var", event.getEntity().getDisplayName()));
 					break;
 				case SUICIDE:
 					event.setDeathMessage(deathPrefix+language.getString("event.suicide").replaceAll("_var", event.getEntity().getDisplayName()));
-					Bukkit.broadcastMessage(deathPrefix+language.getString("event.suicide").replaceAll("_var", event.getEntity().getDisplayName()));
+					//Bukkit.broadcastMessage(deathPrefix+language.getString("event.suicide").replaceAll("_var", event.getEntity().getDisplayName()));
 					break;
 				case HOMOCIDE:
 					event.setDeathMessage(deathPrefix+language.getString("event.homocide"));
-					Bukkit.broadcastMessage(deathPrefix+language.getString("event.homocide"));
+					//Bukkit.broadcastMessage(deathPrefix + language.getString("event.homocide"));
 					break;
 				}
-				event.setDeathMessage(msg);
+				//event.setDeathMessage(msg);
 				killedPlayers.remove(pkf);
 				temp = true;
 				break;
@@ -117,6 +118,17 @@ public class Events implements Listener {
 		}
 	}
 
+	public void registerKilledPlayer(Player p, KillType kt){
+		killedPlayers.add(new PlayerKillConfig(p, kt));
+	}
+ 
+	private class PlayerKillConfig {
+		private Player p;
+		private KillType kt;
+		public PlayerKillConfig(Player p, KillType kt){ this.p = p; this.kt = kt; }
+		public Player getP() { return p; }
+		public KillType getKt() { return kt; }
+	}
 	/**
 	 * @TODO: onKick event
 	 */
@@ -131,19 +143,6 @@ public class Events implements Listener {
 		}
 	}
 	*/
-
-	
-	public void registerKilledPlayer(Player p, KillType kt){
-		killedPlayers.add(new PlayerKillConfig(p, kt));
-	}
- 
-	private class PlayerKillConfig {
-		private Player p;
-		private KillType kt;
-		public PlayerKillConfig(Player p, KillType kt){ this.p = p; this.kt = kt; }
-		public Player getP() { return p; }
-		public KillType getKt() { return kt; }
-	}
 
 	/*
 	 * public HandlerList getHandlers() { return getHandlers(); }
