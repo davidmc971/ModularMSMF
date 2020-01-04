@@ -2,11 +2,7 @@ package io.github.davidmc971.modularmsmf.configuration;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.io.File;
-import java.io.IOException;
-
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.configuration.InvalidConfigurationException;
 import org.junit.jupiter.api.Test;
 
 public class TestJSONConfiguration {
@@ -22,20 +18,16 @@ public class TestJSONConfiguration {
         testConfig.createSection("testsection.bloopsection");
         testConfig.set("testsection.bloopsection.foo", "bar");
 
-        
         String before = testConfig.saveToString();
         System.out.println("[Before Save] \t" + before);
 
-        File f = new File("testconfig.json");
-
+        testConfig = null;
+        testConfig = new JSONConfiguration();
         try {
-            testConfig.save(f);
-        } catch (IOException e) {
+            testConfig.loadFromString(before);
+        } catch (InvalidConfigurationException e) {
             e.printStackTrace();
         }
-        
-        testConfig = null;
-        testConfig = JSONConfiguration.loadConfiguration(f);
 
         String after = testConfig.saveToString();
         System.out.println("[After Load] \t" + after);

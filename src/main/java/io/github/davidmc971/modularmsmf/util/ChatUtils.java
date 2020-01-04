@@ -1,10 +1,5 @@
 package io.github.davidmc971.modularmsmf.util;
 
-import org.bukkit.Bukkit;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.Player;
-
-import io.github.davidmc971.modularmsmf.ModularMSMF;
 import net.md_5.bungee.api.ChatColor;
 
 /**
