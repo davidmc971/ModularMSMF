@@ -107,7 +107,8 @@ public class Events implements Listener {
 				case HOMOCIDE:
 					//event.setDeathMessage(deathPrefix+language.getString("event.homocide"));
 					//Bukkit.broadcastMessage(deathPrefix + language.getString("event.homocide"));
-					player.sendMessage("You got killed in a homocide.");
+					event.setDeathMessage(null);
+					//player.sendMessage("You got killed in a homocide.");
 					break;
 				}
 				//event.setDeathMessage(msg);

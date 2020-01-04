@@ -65,6 +65,7 @@ public class CommandKill extends AbstractCommand {
 		case "all":
 			if (sender.hasPermission(PermissionManager.getPermission("kill_all"))) {
 				for (Player player : Bukkit.getOnlinePlayers()) {
+					plugin.getMainEvents().registerKilledPlayer(player, KillType.HOMOCIDE);
 					player.setHealth(0);
 				}
 				Utils.broadcastWithConfiguredLanguageEach(plugin, ChatUtils.ChatFormat.DEATH, "event.homocide");
