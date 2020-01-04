@@ -68,6 +68,16 @@ public class Utils {
 		return language;
 	}
 
+	/**
+	 * Broadcasts to every player in their respective language (including console).
+	 * 
+	 * @param plugin the plugin to access different instances
+	 * @param format the <code>ChatFormat</code> which sets the prefix of the sent messages
+	 * @param languageKey the key for the localized string from a language's <code>FileConfiguration</code>
+	 * @param toReplace	optional pairs of strings to use in
+	 *  <code>replaceAll()</code> of the output string.
+	 *  Can be empty.
+	 */
 	public static void broadcastWithConfiguredLanguageEach(ModularMSMF plugin, ChatUtils.ChatFormat format, String languageKey, String... toReplace) {
 		String prefix = ChatUtils.getFormattedPrefix(format);
 		List<CommandSender> broadcastList = new ArrayList<CommandSender>();
@@ -86,5 +96,31 @@ public class Utils {
 			}
 			subject.sendMessage(configuredMessage);
 		});
+	}
+
+	/**
+	 * Sends a message to <code>CommandSender</code> in their respective language.
+	 * 
+	 * @param plugin the plugin to access different instances
+	 * @param subject the <code>CommandSender</code> to send the message to
+	 * @param format the <code>ChatFormat</code> which sets the prefix of the sent message
+	 * @param languageKey the key for the localized string from a language's <code>FileConfiguration</code>
+	 * @param toReplace	optional pairs of strings to use in
+	 *  <code>replaceAll()</code> of the output string.
+	 *  Can be empty.
+	 */
+	public static void sendMessageWithConfiguredLanguage(ModularMSMF plugin, CommandSender subject, ChatUtils.ChatFormat format, String languageKey, String... toReplace) {
+		String prefix = ChatUtils.getFormattedPrefix(format);
+		FileConfiguration language = configureCommandLanguage(subject, plugin);
+		String configuredMessage = prefix + language.getString(languageKey);
+		if(toReplace.length % 2 == 0) {
+			for(int i = 0; i < toReplace.length; i += 2) {
+				configuredMessage.replaceAll(toReplace[i], toReplace[i + 1]);
+			}
+		} else {
+			plugin.getLogger().severe("Missing argument inside toReplace for method sendMessageWithConfiguredLanguage:");
+			plugin.getLogger().severe("Every pattern String needs a value for replacing");
+		}
+		subject.sendMessage(configuredMessage);
 	}
 }
