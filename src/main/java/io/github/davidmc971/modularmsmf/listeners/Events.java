@@ -2,6 +2,7 @@ package io.github.davidmc971.modularmsmf.listeners;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -104,8 +105,9 @@ public class Events implements Listener {
 					//Bukkit.broadcastMessage(deathPrefix+language.getString("event.suicide").replaceAll("_var", event.getEntity().getDisplayName()));
 					break;
 				case HOMOCIDE:
-					event.setDeathMessage(deathPrefix+language.getString("event.homocide"));
+					//event.setDeathMessage(deathPrefix+language.getString("event.homocide"));
 					//Bukkit.broadcastMessage(deathPrefix + language.getString("event.homocide"));
+					player.sendMessage("You got killed in a homocide.");
 					break;
 				}
 				//event.setDeathMessage(msg);
@@ -130,6 +132,21 @@ public class Events implements Listener {
 		public PlayerKillConfig(Player p, KillType kt){ this.p = p; this.kt = kt; }
 		public Player getP() { return p; }
 		public KillType getKt() { return kt; }
+	}
+
+	public void broadcastKilledPlayers(KillType kt) {
+		if(kt == KillType.HOMOCIDE) {
+			FileConfiguration language = plugin.getLanguageManager().getStandardLanguage();
+			String tempOut = "[";
+			for (PlayerKillConfig playerKillConfig : killedPlayers) {
+				if (playerKillConfig.getKt() == kt) {
+					tempOut += (playerKillConfig.getP().getName() + " ");
+					killedPlayers.remove(playerKillConfig);
+				}
+			}
+			tempOut = tempOut.substring(0, tempOut.length()) + "]";
+			Bukkit.broadcastMessage(deathPrefix + language.getString("event.homocide").replaceAll("_playerlist", tempOut));
+		}
 	}
 
 	@EventHandler

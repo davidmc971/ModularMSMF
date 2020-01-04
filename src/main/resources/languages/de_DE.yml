@@ -19,7 +19,7 @@ event:
   quit: _var hat den Server verlassen! #Kommt auf, sobald ein Spieler den Server verlaesst
   killed_player: _var's Leben wurde genommen. #Jemand hat jemandes Leben genommen
   suicide: _var hat Suizid begangen. #Selbsterklärend
-  homocide: Es wurden alle User niedergemetzelt! #Alle spieler wurden getoetet
+  homocide: _playerlist wurden niedergemetzelt! #Alle spieler wurden getoetet
   banned: Du wurdest gebannt. #Gebannter Spieler, bekommt diese Nachricht, sobald dieser versucht zu joinen
 commands: #Befehle
   slaughter:

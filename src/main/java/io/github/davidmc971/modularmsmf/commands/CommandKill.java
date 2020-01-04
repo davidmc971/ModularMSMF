@@ -66,6 +66,7 @@ public class CommandKill extends AbstractCommand {
 					plugin.getMainEvents().registerKilledPlayer(player, KillType.HOMOCIDE);
 					player.setHealth(0);
 				}
+				plugin.getMainEvents().broadcastKilledPlayers(KillType.HOMOCIDE);
 			}
 			break;
 		default:
