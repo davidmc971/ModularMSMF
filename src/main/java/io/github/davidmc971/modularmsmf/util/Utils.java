@@ -1,5 +1,8 @@
 package io.github.davidmc971.modularmsmf.util;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.MissingFormatArgumentException;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
@@ -63,5 +66,25 @@ public class Utils {
 			
 		}
 		return language;
+	}
+
+	public static void broadcastWithConfiguredLanguageEach(ModularMSMF plugin, ChatUtils.ChatFormat format, String languageKey, String... toReplace) {
+		String prefix = ChatUtils.getFormattedPrefix(format);
+		List<CommandSender> broadcastList = new ArrayList<CommandSender>();
+		broadcastList.add(Bukkit.getConsoleSender());
+		broadcastList.addAll(Bukkit.getOnlinePlayers());
+		broadcastList.forEach((subject) -> {
+			FileConfiguration language = configureCommandLanguage(subject, plugin);
+			String configuredMessage = prefix + language.getString(languageKey);
+			if(toReplace.length % 2 == 0) {
+				for(int i = 0; i < toReplace.length; i += 2) {
+					configuredMessage.replaceAll(toReplace[i], toReplace[i + 1]);
+				}
+			} else {
+				plugin.getLogger().severe("Missing argument inside toReplace for method broadcastWithConfiguredLanguageEach:");
+				plugin.getLogger().severe("Every pattern String needs a value for replacing");
+			}
+			subject.sendMessage(configuredMessage);
+		});
 	}
 }

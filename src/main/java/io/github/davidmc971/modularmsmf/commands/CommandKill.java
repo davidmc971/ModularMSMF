@@ -1,5 +1,7 @@
 package io.github.davidmc971.modularmsmf.commands;
 
+import com.google.common.eventbus.DeadEvent;
+
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -63,10 +65,9 @@ public class CommandKill extends AbstractCommand {
 		case "all":
 			if (sender.hasPermission(PermissionManager.getPermission("kill_all"))) {
 				for (Player player : Bukkit.getOnlinePlayers()) {
-					plugin.getMainEvents().registerKilledPlayer(player, KillType.HOMOCIDE);
 					player.setHealth(0);
 				}
-				plugin.getMainEvents().broadcastKilledPlayers(KillType.HOMOCIDE);
+				Utils.broadcastWithConfiguredLanguageEach(plugin, ChatUtils.ChatFormat.DEATH, "event.homocide");
 			}
 			break;
 		default:

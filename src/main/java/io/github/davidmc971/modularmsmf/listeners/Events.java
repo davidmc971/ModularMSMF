@@ -134,21 +134,6 @@ public class Events implements Listener {
 		public KillType getKt() { return kt; }
 	}
 
-	public void broadcastKilledPlayers(KillType kt) {
-		if(kt == KillType.HOMOCIDE) {
-			FileConfiguration language = plugin.getLanguageManager().getStandardLanguage();
-			String tempOut = "[";
-			for (PlayerKillConfig playerKillConfig : killedPlayers) {
-				if (playerKillConfig.getKt() == kt) {
-					tempOut += (playerKillConfig.getP().getName() + " ");
-					killedPlayers.remove(playerKillConfig);
-				}
-			}
-			tempOut = tempOut.substring(0, tempOut.length()) + "]";
-			Bukkit.broadcastMessage(deathPrefix + language.getString("event.homocide").replaceAll("_playerlist", tempOut));
-		}
-	}
-
 	@EventHandler
 	public <Sender> void onChat(AsyncPlayerChatEvent event) {
 		FileConfiguration playercfg = plugin.getDataManager().getPlayerCfg(event.getPlayer().getUniqueId());
