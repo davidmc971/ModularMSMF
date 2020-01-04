@@ -2,6 +2,7 @@ package io.github.davidmc971.modularmsmf.listeners;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -20,6 +21,8 @@ import io.github.davidmc971.modularmsmf.ModularMSMF;
 import io.github.davidmc971.modularmsmf.util.ChatUtils;
 import io.github.davidmc971.modularmsmf.util.KillType;
 import io.github.davidmc971.modularmsmf.util.Utils;
+import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
+import net.md_5.bungee.api.ChatColor;
 
 /**
  * 
@@ -114,15 +117,20 @@ public class Events implements Listener {
 	}
 
 	@EventHandler
-	public <Sender> void onChat(AsyncPlayerChatEvent event) {
+	public void onChat(AsyncPlayerChatEvent event) {
+		plugin.getLogger().info("Async Chat Event");
 		FileConfiguration playercfg = plugin.getDataManager().getPlayerCfg(event.getPlayer().getUniqueId());
 		Player player = event.getPlayer();
 		FileConfiguration language = Utils.configureCommandLanguage(player, plugin);
 		if (playercfg.isBoolean("muted") && playercfg.getBoolean("muted") && !event.getMessage().startsWith("/")) {
 			event.setCancelled(true);
-			event.getPlayer().sendMessage(noPermPrefix+language.getString("event.muted"));
+			Utils.sendMessageWithConfiguredLanguage(plugin, event.getPlayer(), ChatFormat.NOPERM, "event.muted");
+			// old: event.getPlayer().sendMessage(noPermPrefix+language.getString("event.muted"));
 		} else {
-
+			if(playercfg.isString("chat.color")) {
+				event.setMessage(ChatColor.GREEN + event.getMessage());
+				//event.setMessage(ChatColor.getByChar((playercfg.get("chat.color"))) + event.getMessage());
+			}
 		}
 	}
 }

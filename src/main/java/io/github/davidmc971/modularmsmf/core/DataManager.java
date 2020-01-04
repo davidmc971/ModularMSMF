@@ -58,6 +58,7 @@ public class DataManager implements Listener {
 
 	public String pathMain = "plugins/ModularMSMF/";
 	public String pathUserdata = pathMain + "userdata/";
+	public String pathPlayers = pathMain + "players/";
 	//public String pathBankdata = pathMain + "bankdata/";
 	public FileConfiguration settingsyaml = null; 
 	public FileConfiguration defaultUserdatayaml = null;
@@ -167,7 +168,8 @@ public class DataManager implements Listener {
 	}
 
 	public FileConfiguration loadPlayerCfg(UUID uuid){
-		return loadCfg(pathUserdata + uuid.toString() + ".yml");
+		return loadCfg(pathPlayers + uuid.toString() + ".json");
+		//return loadCfg(pathUserdata + uuid.toString() + ".yml");
 	}
 
 	public void saveCfg(FileConfiguration cfg, String path) {
