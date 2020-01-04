@@ -48,7 +48,6 @@ public class Events implements Listener {
 	public Events(ModularMSMF plugin) {
 		this.plugin = plugin;
 	}
-	FileConfiguration language = Utils.configureCommandLanguage(sender, plugin);
 
 	@EventHandler
 	/**
@@ -56,6 +55,7 @@ public class Events implements Listener {
 	 */
 	public void onPlayerJoin(PlayerJoinEvent event) throws IOException {
 		Player player = event.getPlayer();
+		FileConfiguration language = Utils.configureCommandLanguage(player, plugin);
 		// event.setJoinMessage(ChatColor.GRAY + player.getDisplayName() + " hat den
 		// Server " + ChatColor.GREEN + "betreten" + ChatColor.GRAY + "!");
 		// sender.sendMessage(successfulPrefix+language.getString("commands.feed.feededperson").replaceAll("_player",
@@ -92,6 +92,9 @@ public class Events implements Listener {
 	 * @TODO: needs some rewrite
 	 */
 	public void onDeath(PlayerDeathEvent event) {
+		Player player = event.getEntity();
+		FileConfiguration language = Utils.configureCommandLanguage(player, plugin);
+		
 		boolean temp = false;
 		for(PlayerKillConfig pkf : killedPlayers){
 			if(pkf.getP().getName().equals(event.getEntity().getName())){
@@ -99,7 +102,7 @@ public class Events implements Listener {
 				switch(pkf.getKt()){
 				case KILL:
 					msg = "Der arme Mitspieler namens " + event.getEntity().getName() + " wurde getötet!\n";
-					Bukkit.broadcastMessage(language.getString("").replaceAll(_var, event.getEntity().getDisplayName());
+					Bukkit.broadcastMessage(language.getString("").replaceAll("_var", event.getEntity().getDisplayName()));
 					//@TODO: replacing with _var
 					break;
 				case SUICIDE:
