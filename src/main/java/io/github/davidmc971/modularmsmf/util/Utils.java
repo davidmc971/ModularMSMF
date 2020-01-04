@@ -87,7 +87,7 @@ public class Utils {
 			String configuredMessage = prefix + language.getString(languageKey);
 			if(toReplace.length % 2 == 0) {
 				for(int i = 0; i < toReplace.length; i += 2) {
-					configuredMessage.replaceAll(toReplace[i], toReplace[i + 1]);
+					configuredMessage = configuredMessage.replaceAll(toReplace[i], toReplace[i + 1]);
 				}
 			} else {
 				plugin.getLogger().severe("Missing argument inside toReplace for method broadcastWithConfiguredLanguageEach:");
@@ -114,7 +114,7 @@ public class Utils {
 		String configuredMessage = prefix + language.getString(languageKey);
 		if(toReplace.length % 2 == 0) {
 			for(int i = 0; i < toReplace.length; i += 2) {
-				configuredMessage.replaceAll(toReplace[i], toReplace[i + 1]);
+				configuredMessage = configuredMessage.replaceAll(toReplace[i], toReplace[i + 1]);
 			}
 		} else {
 			plugin.getLogger().severe("Missing argument inside toReplace for method sendMessageWithConfiguredLanguage:");
