@@ -26,9 +26,7 @@ public class JSONConfiguration extends FileConfiguration {
         String header = buildHeader();
         String dump = "";
 
-        if(!this.map.containsKey("root")) return "";
-        MemorySection mSection = (MemorySection)this.map.get("root");
-        Map<?, ?> mSectionMap = convertToNonReflectiveMapping(mSection);
+        Map<String, Object> mSectionMap = convertMemorySections(getValues(false));
 
         try {
             dump = objectMapper.writeValueAsString(mSectionMap);
@@ -39,23 +37,22 @@ public class JSONConfiguration extends FileConfiguration {
         return header + dump;
     }
 
-    private Map<String, Object> convertToNonReflectiveMapping(MemorySection mSection) {
-        Map<String, Object> mSectionMap = mSection.getValues(true);
-        for (Entry<String, Object> entry : mSectionMap.entrySet()) {
+    private Map<String, Object> convertMemorySections(Map<String, Object> map) {
+        for (Entry<String, Object> entry : map.entrySet()) {
             if (entry.getValue() instanceof MemorySection)
-                mSectionMap.put(
+                map.put(
                     entry.getKey(),
-                    convertToNonReflectiveMapping((MemorySection) entry.getValue())
+                    convertMemorySections((Map<String, Object>)(((MemorySection)entry.getValue()).getValues(false)))
                 );
         }
-        return mSectionMap;
+        return map;
     }
 
     @Override
     public void loadFromString(String contents) throws InvalidConfigurationException {
         Validate.notNull(contents, "Contents cannot be null");
 
-        System.out.println("CONTENT:\n" + contents);
+        // System.out.println("CONTENT:\n" + contents);
 
         Map<?, ?> input = null;
 
