@@ -16,7 +16,7 @@ public class ChatUtils {
 	FileConfiguration language = Utils.configureCommandLanguage(sender, plugin);
 	*/ //TODO: maybe need this.
 	public enum ChatFormat {
-		SUCCESS, INFO, ERROR, MSG, BROADCAST, STANDART, RAINBOW, NOPERM, WELCOME, QUIT, DEATH, COLORED
+		SUCCESS, INFO, ERROR, MSG, BROADCAST, STANDARD, RAINBOW, NOPERM, WELCOME, QUIT, DEATH, COLORED, MONEY, ECO
 	}
 	
 	public static String getFormattedPrefix(ChatFormat format) {
