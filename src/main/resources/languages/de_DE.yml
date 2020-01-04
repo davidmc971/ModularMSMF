@@ -13,6 +13,9 @@ general: #Hauptsaechliche Strings fuer den Allgemeingebrauch
     noconsole: Die Konsole darf diesen Befehl nicht nutzen. #Konsole darf nicht alles
     missingarguments: Bitte gib passende Argumente an! #Falsche Reihenfolge von Argumenten? Statt Zahlen Text eingegeben zb.
     couldnotcreatefile: Die Datei konnte nicht erstellt werden! #Erstellen von Userfiles oder settings als .yml oder .json
+event:
+  welcome: _var hat den Server betreten! #Kommt auf, sobald ein Spieler den Server betritt
+  quit: _var hat den Server verlassen! #Kommt auf, sobald ein Spieler den Server verlaesst
 commands: #Befehle
   slaughter:
     success: Alle Mobs in deiner Naehe wurden getoetet. #Signal fuer 

@@ -14,6 +14,12 @@ general:
     noconsole: Console is not permitted to use this command.
     missingarguments: Please specify an argument!
     couldnotcreatefile: File couldn't be created!
+event:
+  welcome: _var has joned the Server!
+  quit: _var has left the Server!
+  killed_player: _var's life has been taken away.
+  suicide: _var drowned in his own life.
+  homocide: _var got killed by a homocide!
 commands:
   slaughter:
     success: All mobs have been killed around your sight.

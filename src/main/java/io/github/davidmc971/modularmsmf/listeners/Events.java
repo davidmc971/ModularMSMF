@@ -1,15 +1,12 @@
 package io.github.davidmc971.modularmsmf.listeners;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
@@ -23,9 +20,6 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 
 import io.github.davidmc971.modularmsmf.ModularMSMF;
-import io.github.davidmc971.modularmsmf.core.LanguageManager;
-import io.github.davidmc971.modularmsmf.data.Language;
-import net.md_5.bungee.api.ChatColor;
 import io.github.davidmc971.modularmsmf.util.ChatUtils;
 import io.github.davidmc971.modularmsmf.util.KillType;
 import io.github.davidmc971.modularmsmf.util.Utils;
@@ -41,6 +35,9 @@ public class Events implements Listener {
 	private String errorPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.ERROR);
 	private String noPermPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.NOPERM);
 	private String successfulPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.SUCCESS);
+	private String welcomePrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.WELCOME);
+	private String quitPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.QUIT);
+	private String deathPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.DEATH);
 
 	public ModularMSMF plugin;
 	private ArrayList<PlayerKillConfig> killedPlayers = new ArrayList<PlayerKillConfig>();
@@ -50,16 +47,16 @@ public class Events implements Listener {
 	}
 
 	@EventHandler
-	/**
-	 * @TODO: needs some rewrite
-	 */
 	public void onPlayerJoin(PlayerJoinEvent event) throws IOException {
 		Player player = event.getPlayer();
 		FileConfiguration language = Utils.configureCommandLanguage(player, plugin);
-		// event.setJoinMessage(ChatColor.GRAY + player.getDisplayName() + " hat den
-		// Server " + ChatColor.GREEN + "betreten" + ChatColor.GRAY + "!");
-		// sender.sendMessage(successfulPrefix+language.getString("commands.feed.feededperson").replaceAll("_player",
-		// p.getName()));
+		event.setJoinMessage(welcomePrefix+language.getString("event.welcome").replaceAll("_var", player.getDisplayName()));
+	}
+	@EventHandler
+	public void onQuit(PlayerQuitEvent event) throws IOException {
+		Player player = event.getPlayer();
+		FileConfiguration language = Utils.configureCommandLanguage(player, plugin);
+		event.setQuitMessage(quitPrefix+language.getString("event.quit").replaceAll("_var", player.getDisplayName()));
 	}
 
 	@EventHandler
@@ -78,16 +75,7 @@ public class Events implements Listener {
 		}
 	}
 
-	@EventHandler
-	/**
-	 * @TODO: needs some rewrite
-	 */
-	public void onQuit(PlayerQuitEvent event) throws IOException {
-		Player player = event.getPlayer();
-		event.setQuitMessage(ChatColor.GRAY + player.getName() + " hat den Server " + ChatColor.RED + "verlassen.");
-	}
-
-	@EventHandler
+	//@EventHandler
 	/**
 	 * @TODO: needs some rewrite
 	 */
@@ -101,21 +89,16 @@ public class Events implements Listener {
 				String msg = "";
 				switch(pkf.getKt()){
 				case KILL:
-					msg = "Der arme Mitspieler namens " + event.getEntity().getName() + " wurde getötet!\n";
-					Bukkit.broadcastMessage(language.getString("").replaceAll("_var", event.getEntity().getDisplayName()));
-					//@TODO: replacing with _var
+					event.setDeathMessage(deathPrefix+language.getString("event.killed_player").replaceAll("_var", event.getEntity().getDisplayName()));
+					Bukkit.broadcastMessage(deathPrefix+language.getString("event.killed_player").replaceAll("_var", event.getEntity().getDisplayName()));
 					break;
 				case SUICIDE:
-					//msg = "Der arme Mitspieler namens " + event.getEntity().getName() + " hat Suizid begangen!\n";
-					/**
-					 * @TODO
-					 */
+					event.setDeathMessage(deathPrefix+language.getString("event.suicide").replaceAll("_var", event.getEntity().getDisplayName()));
+					Bukkit.broadcastMessage(deathPrefix+language.getString("event.suicide").replaceAll("_var", event.getEntity().getDisplayName()));
 					break;
 				case HOMOCIDE:
-					//msg = "Der arme Mitspieler namens " + event.getEntity().getName() + " wurde in einem Homozid brutal ermordet!\n";
-					/**
-					 * @TODO
-					 */
+					event.setDeathMessage(deathPrefix+language.getString("event.homocide"));
+					Bukkit.broadcastMessage(deathPrefix+language.getString("event.homocide"));
 					break;
 				}
 				event.setDeathMessage(msg);
@@ -125,52 +108,16 @@ public class Events implements Listener {
 			}
 		}
 		if(!temp){
-			//event.setDeathMessage("Der arme Mitspieler namens " + event.getEntity().getName() + " ist gestorben!\n");
+			event.setDeathMessage(deathPrefix+language.getString("event.just_died").replaceAll("_var", event.getEntity().getDisplayName()));
 			
 		}
 	}
 
 	/**
-	 * @TODO onKick needs to rewrote
+	 * @TODO: onKick event
 	 */
-	//@EventHandler // TODO Muss auch geändert werden!
-	//public void onKick(PlayerKickEvent event) {
-	//Statistics.getKickCounter(event.getPlayer().getUniqueId()); //TODO man siehe stats.Statistics.java
-	//}
 
-	/*CommandSender[] activeConsole = new CommandSender[2];
-	ForwardLogHandler myHandler = new ForwardLogHandler(){
-		@Override
-		public void publish(LogRecord record) {
-			for(CommandSender c : activeConsole){
-				c.sendMessage("["+record.getLevel().getName()+"] "+record.getMessage());
-			}
-			super.publish(record);
-		}
-	};*/
-
-	/*@EventHandler
-	public void onRemoteServerCommand(RemoteServerCommandEvent event){
-		//CommandSender sender = event.getSender();
-
-		switch(event.getCommand().toLowerCase()){
-		case "getconsoleoutput":
-			activeConsole[0] = Bukkit.getPlayer(Utils.getPlayerUUIDByName("ernikillerxd64"));
-			activeConsole[1] = Bukkit.getPlayer(Utils.getPlayerUUIDByName("Lightkeks"));
-			//System.setOut(myOutStream);
-			plugin.getLogger().getParent().getParent().addHandler(myHandler);
-
-			event.setCancelled(true);
-			break;
-		case "gethandlers":
-			plugin.getServer().getLogger().addHandler(myHandler);
-
-			event.setCancelled(true);
-			break;
-		}
-
-	}*/
-
+	/**
 	@EventHandler
 	public void onChat(AsyncPlayerChatEvent event) {
 		FileConfiguration playercfg = plugin.getDataManager().getPlayerCfg(event.getPlayer().getUniqueId());
@@ -179,11 +126,13 @@ public class Events implements Listener {
 			event.getPlayer().sendMessage("[Muter] Du bist gemuted!");
 		}
 	}
+	*/
 
+	
 	public void registerKilledPlayer(Player p, KillType kt){
 		killedPlayers.add(new PlayerKillConfig(p, kt));
 	}
-
+ 
 	private class PlayerKillConfig {
 		private Player p;
 		private KillType kt;
@@ -196,6 +145,7 @@ public class Events implements Listener {
 	 * public HandlerList getHandlers() { return getHandlers(); }
 	 */
 
+	/**
 	@EventHandler
 	public void onRespawn(PlayerRespawnEvent e){
 		Player p = e.getPlayer();
@@ -227,4 +177,5 @@ public class Events implements Listener {
 		e.setRespawnLocation(loc);;
 		p.sendMessage("Du wurdest gespawnt!");
 	}
+	*/
 }
