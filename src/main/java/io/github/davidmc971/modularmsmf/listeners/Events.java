@@ -2,13 +2,9 @@ package io.github.davidmc971.modularmsmf.listeners;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
-import org.bukkit.Bukkit;
-import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
@@ -19,11 +15,8 @@ import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerLoginEvent.Result;
 
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.event.player.PlayerRespawnEvent;
 
 import io.github.davidmc971.modularmsmf.ModularMSMF;
-import io.github.davidmc971.modularmsmf.core.LanguageManager;
-import io.github.davidmc971.modularmsmf.data.Language;
 import io.github.davidmc971.modularmsmf.util.ChatUtils;
 import io.github.davidmc971.modularmsmf.util.KillType;
 import io.github.davidmc971.modularmsmf.util.Utils;
