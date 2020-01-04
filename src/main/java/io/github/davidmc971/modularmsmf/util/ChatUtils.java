@@ -34,7 +34,7 @@ public class ChatUtils {
 		case QUIT:
 			return (ChatColor.GOLD + "[" + ChatColor.WHITE + "Quit" + ChatColor.GOLD + "]" + ChatColor.GRAY + " ");
 		case DEATH:
-			return (ChatColor.GOLD + "[" + ChatColor.WHITE + "Death" + ChatColor.GOLD + "]" + ChatColor.DARK_GRAY + " ");
+			return (ChatColor.GOLD + "[" + ChatColor.RED + "Death" + ChatColor.GOLD + "]" + ChatColor.DARK_GRAY + " ");
 		case COLORED:
 			return (ChatColor.GRAY + " ");
 		/**case SPAWN:
