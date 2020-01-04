@@ -1,5 +1,3 @@
-//TODO: language reference for every player
-
 COMMANDS:
 	REPORT:
 		DESCRIPTION: (TODO: 0%)

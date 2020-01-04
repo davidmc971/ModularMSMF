@@ -48,6 +48,7 @@ public class Events implements Listener {
 	public Events(ModularMSMF plugin) {
 		this.plugin = plugin;
 	}
+	FileConfiguration language = Utils.configureCommandLanguage(sender, plugin);
 
 	@EventHandler
 	/**
@@ -55,7 +56,6 @@ public class Events implements Listener {
 	 */
 	public void onPlayerJoin(PlayerJoinEvent event) throws IOException {
 		Player player = event.getPlayer();
-		FileConfiguration language = Utils.configureCommandLanguage(player, plugin);
 		// event.setJoinMessage(ChatColor.GRAY + player.getDisplayName() + " hat den
 		// Server " + ChatColor.GREEN + "betreten" + ChatColor.GRAY + "!");
 		// sender.sendMessage(successfulPrefix+language.getString("commands.feed.feededperson").replaceAll("_player",
