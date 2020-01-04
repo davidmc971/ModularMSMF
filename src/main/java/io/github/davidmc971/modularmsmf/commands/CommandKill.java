@@ -6,6 +6,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 import io.github.davidmc971.modularmsmf.core.PermissionManager;
@@ -13,6 +14,7 @@ import io.github.davidmc971.modularmsmf.ModularMSMF;
 import io.github.davidmc971.modularmsmf.util.ChatUtils;
 import io.github.davidmc971.modularmsmf.util.KillType;
 import io.github.davidmc971.modularmsmf.util.Utils;
+import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
 
 /**
  * 
@@ -30,6 +32,7 @@ public class CommandKill extends AbstractCommand {
 	private String errorPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.ERROR);
 	private String noPermPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.NOPERM);
 	private String successfulPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.SUCCESS);
+	private String deathPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.DEATH);
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -78,6 +81,8 @@ public class CommandKill extends AbstractCommand {
 					for (Player player : Bukkit.getOnlinePlayers()) {
 						if (args[0].toLowerCase().equals(player.getName().toLowerCase())) {
 							plugin.getMainEvents().registerKilledPlayer(player, KillType.KILL);
+							//sender.sendMessage(deathPrefix+language.getString("event.killed_player").replaceAll("_var", player.getDisplayName()));
+							Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.DEATH, "event.killed_player", "_var", player.getDisplayName());
 							player.setHealth(0);
 							temp = true;
 							break;

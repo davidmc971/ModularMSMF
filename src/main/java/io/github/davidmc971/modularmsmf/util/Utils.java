@@ -77,6 +77,7 @@ public class Utils {
 	 * @param toReplace	optional pairs of strings to use in
 	 *  <code>replaceAll()</code> of the output string.
 	 *  Can be empty.
+	 * @return 
 	 */
 	public static void broadcastWithConfiguredLanguageEach(ModularMSMF plugin, ChatUtils.ChatFormat format, String languageKey, String... toReplace) {
 		String prefix = ChatUtils.getFormattedPrefix(format);

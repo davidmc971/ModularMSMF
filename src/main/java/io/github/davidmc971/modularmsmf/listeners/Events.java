@@ -97,18 +97,19 @@ public class Events implements Listener {
 				//String msg = "";
 				switch(pkf.getKt()){
 				case KILL:
-					event.setDeathMessage(deathPrefix+language.getString("event.killed_player").replaceAll("_var", event.getEntity().getDisplayName()));
+					//event.setDeathMessage(deathPrefix+language.getString("event.killed_player").replaceAll("_var", event.getEntity().getDisplayName()));
 					//Bukkit.broadcastMessage(deathPrefix+language.getString("event.killed_player").replaceAll("_var", event.getEntity().getDisplayName()));
+					event.setDeathMessage(null);
 					break;
 				case SUICIDE:
-					event.setDeathMessage(deathPrefix+language.getString("event.suicide").replaceAll("_var", event.getEntity().getDisplayName()));
+					//event.setDeathMessage(deathPrefix+language.getString("event.suicide").replaceAll("_var", event.getEntity().getDisplayName()));
 					//Bukkit.broadcastMessage(deathPrefix+language.getString("event.suicide").replaceAll("_var", event.getEntity().getDisplayName()));
+					event.setDeathMessage(null);
 					break;
 				case HOMOCIDE:
 					//event.setDeathMessage(deathPrefix+language.getString("event.homocide"));
 					//Bukkit.broadcastMessage(deathPrefix + language.getString("event.homocide"));
 					event.setDeathMessage(null);
-					//player.sendMessage("You got killed in a homocide.");
 					break;
 				}
 				//event.setDeathMessage(msg);
