@@ -14,6 +14,7 @@ public class PermissionManager {
 	private static final String[][] permissions = {
 		{ "banplayer", "modularmsmf.ban.banplayer" },
 		{ "banip", "modularmsmf.ban.banip" },
+		{ "unban", "modularmsmf.unban"},
 		{ "kickplayer", "modularmsmf.kick.kickplayer" },
 		{ "healself", "modularmsmf.heal.healself" },
 		{ "healother", "modularmsmf.heal.healother" },

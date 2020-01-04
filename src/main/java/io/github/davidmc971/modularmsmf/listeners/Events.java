@@ -20,6 +20,8 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 
 import io.github.davidmc971.modularmsmf.ModularMSMF;
+import io.github.davidmc971.modularmsmf.core.LanguageManager;
+import io.github.davidmc971.modularmsmf.data.Language;
 import io.github.davidmc971.modularmsmf.util.ChatUtils;
 import io.github.davidmc971.modularmsmf.util.KillType;
 import io.github.davidmc971.modularmsmf.util.Utils;
@@ -65,12 +67,14 @@ public class Events implements Listener {
 	 */
 	public void onLogin(PlayerLoginEvent event) {
 		Player player = event.getPlayer();
+		FileConfiguration language = Utils.configureCommandLanguage(player, plugin);
+		String reason = language.getString("event.banned");
 		FileConfiguration cfg = plugin.getDataManager().getPlayerCfg(player.getUniqueId());
 		if (cfg.isBoolean("banned") && cfg.getBoolean("banned")) {
 			if (cfg.isString("reason")) {
 				event.disallow(Result.KICK_BANNED, cfg.getString("reason"));
 			} else {
-				event.disallow(Result.KICK_BANNED, "Du wurdest gebannt.");
+				event.disallow(Result.KICK_BANNED, reason);
 			}
 		}
 	}

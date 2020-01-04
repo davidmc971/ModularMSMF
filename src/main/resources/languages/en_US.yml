@@ -19,7 +19,8 @@ event:
   quit: _var has left the Server!
   killed_player: _var's life has been taken away.
   suicide: _var drowned in his own life.
-  homocide: _var got killed by a homocide!
+  homocide: Everone got killed by a homocide!
+  banned: You got banned.
 commands:
   slaughter:
     success: All mobs have been killed around your sight.

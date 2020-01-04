@@ -68,7 +68,7 @@ public class CommandBan extends AbstractCommand {
 				return true;
 			}
 
-			String reason = language.getString("commands.ban.defaultbanreason");
+			String reason = language.getString("event.banned");
 			UUID uuid = getPlayerUUIDByNameForBan(args[0]);
 			if (uuid == null) {
 				sender.sendMessage(errorPrefix+language.getString("general.playerunknown"));
@@ -117,7 +117,7 @@ public class CommandBan extends AbstractCommand {
 		cfg.set("reason", reason);
 		for (Player player : Bukkit.getServer().getOnlinePlayers()) {
 			if (player.getUniqueId().toString().equals(uuid.toString())) {
-				player.kickPlayer(language.getString("commands.ban.youwerebanned").replaceAll("_reason", reason));
+				player.kickPlayer(language.getString("event.banned").replaceAll("_reason", reason));
 			}
 		}
 	}
@@ -139,7 +139,8 @@ public class CommandBan extends AbstractCommand {
 	public boolean unbanCommand(CommandSender sender, Command command, String label, String[] args) {
 		FileConfiguration language = Utils.configureCommandLanguage(sender, plugin);
 
-		if (!sender.hasPermission("modularmsmf.unban")) {
+		//TODO: changing perms to PermissionHandler
+		if (!sender.hasPermission(PermissionManager.getPermission("unban"))) {
 			sender.sendMessage(noPermPrefix+language.getString("general.nopermission"));
 			return true;
 		}

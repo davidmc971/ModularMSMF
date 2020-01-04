@@ -5,6 +5,7 @@ general: #Hauptsaechliche Strings fuer den Allgemeingebrauch
     missing_playername: Du musst einen Spieler angeben. #Fehlender Spielername eines Befehles
     playerunknown: Dieser Spieler existiert nicht. #Nicht existenter Spieler.
     playernotfound: Dieser Spieler wurde nicht gefunden. #Falsch geschriebener Name
+    playernotonline: Dieser Spieler ist nicht online. #Wenn der angegebene Spieler nicht online ist
     nopermission: Du hast nicht die Berechtigung dies zu tun. #Keine Rechte
     toomanyarguments: Zu viele Argumente. #Mehr als angegebene Argumente
     invalidcustomlanguage: Ungueltige Standardsprache ('_language') fuer den Spieler _player. Standardsprache wird stattdessen verwendet. #Spracheinstellung zum Umstellen von der Sprachdateien
@@ -16,6 +17,10 @@ general: #Hauptsaechliche Strings fuer den Allgemeingebrauch
 event:
   welcome: _var hat den Server betreten! #Kommt auf, sobald ein Spieler den Server betritt
   quit: _var hat den Server verlassen! #Kommt auf, sobald ein Spieler den Server verlaesst
+  killed_player: _var's Leben wurde genommen. #Jemand hat jemandes Leben genommen
+  suicide: _var hat Suizid begangen. #Selbsterklärend
+  homocide: Es wurden alle User niedergemetzelt! #Alle spieler wurden getoetet
+  banned: Du wurdest gebannt. #Gebannter Spieler, bekommt diese Nachricht, sobald dieser versucht zu joinen
 commands: #Befehle
   slaughter:
     success: Alle Mobs in deiner Naehe wurden getoetet. #Signal fuer 
