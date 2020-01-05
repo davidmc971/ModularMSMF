@@ -13,11 +13,9 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import io.github.davidmc971.modularmsmf.core.PermissionManager;
 import io.github.davidmc971.modularmsmf.ModularMSMF;
-import io.github.davidmc971.modularmsmf.util.ChatUtils;
 import io.github.davidmc971.modularmsmf.util.Utils;
 import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
 
@@ -32,11 +30,6 @@ import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
  */
 
 public class CommandBan extends AbstractCommand {
-	
-	private String infoPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.INFO);
-	private String errorPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.ERROR);
-	private String noPermPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.NOPERM);
-	private String succesPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.SUCCESS);
 	
 	@Override
 	public String[] getCommandLabels() {
@@ -94,24 +87,23 @@ public class CommandBan extends AbstractCommand {
 			if(args[0].equalsIgnoreCase("banip")){
 				if(sender.hasPermission(PermissionManager.getPermission("commands.ban.banip"))) {
 					/**
-					 * @TODO adding fnctn to ban ip from a player, if not already banned as normal name, otherwise ip can get banned too
+					 * @TODO: adding fnctn to ban ip from a player, if not already banned as normal name, otherwise ip can get banned too
 					 * @Lightkeks
 					 */
 					
+				} else {
+					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermissioin");
 				}
 			}
-			//Player player = Bukkit.getPlayer(args[1]);
-			//Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.INFO, "commands.ban.playerbanned", "_player", args[0], "_reason", reason);
-			//sender.sendMessage(infoPrefix+language.getString("commands.ban.playerbanned").replaceAll("_player", args[0]).replaceAll("_reason", reason));
 		} else {
-			sender.sendMessage(noPermPrefix+language.getString("general.nopermission"));
+			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.nopermission");
 		}
 		
 		return true;
 	}
 	
 	public void banPlayerIp(UUID uuid, String name, FileConfiguration language) {
-
+		//TODO: need work on it
 	}
 
 	public void banPlayer(UUID uuid, String reason, FileConfiguration language) {
@@ -140,17 +132,16 @@ public class CommandBan extends AbstractCommand {
 	}
 
 	public boolean unbanCommand(CommandSender sender, Command command, String label, String[] args) {
-		FileConfiguration language = Utils.configureCommandLanguage(sender, plugin);
 
 		//TODO: changing perms to PermissionHandler
 		if (!sender.hasPermission(PermissionManager.getPermission("unban"))) {
-			sender.sendMessage(noPermPrefix+language.getString("general.nopermission"));
+			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
 			return true;
 		}
 		
 		switch(args.length){
 		case 0:
-			sender.sendMessage(errorPrefix+language.getString("general.missing_playername"));
+			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.missing_playername");
 			break;
 		case 1:
 			for(OfflinePlayer p : Bukkit.getOfflinePlayers()){
@@ -159,14 +150,14 @@ public class CommandBan extends AbstractCommand {
 					if(cfg.getBoolean("banned")){
 						cfg.set("banned", false);
 						cfg.set("reason", "none");
-						sender.sendMessage(infoPrefix+language.getString("commands.unban.playerunbanned").replaceAll("_player", args[0]));
+						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO, "commands.unban.playerunbanned", "_player", p.getName());
 					} else {
-						sender.sendMessage(errorPrefix+language.getString("commands.unban.notbanned"));
+						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO, "commands.unban.notbanned");
 					}
 					return true;
 				}
 			}
-			sender.sendMessage(errorPrefix+language.getString("general.playernotfound"));
+			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.playernotfound");
 			break;
 		case 2:
 			if(args[0].toLowerCase().equals("uuid")){
@@ -176,20 +167,20 @@ public class CommandBan extends AbstractCommand {
 						if(cfg.getBoolean("banned")){
 							cfg.set("banned", false);
 							cfg.set("reason", "none");
-							sender.sendMessage(infoPrefix+language.getString("commands.unban.unbanuuid").replaceAll("_player", p.getName()));
+							Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO, "commands.unban.unbanuuid", "_player", p.getName());
 						} else {
-							sender.sendMessage(errorPrefix+language.getString("commands.unban.notbanned"));
+							Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO, "commands.unban.notbanned");
 						}
 						return true;
 					}
 				}
-				sender.sendMessage(errorPrefix+language.getString("commands.unban.playernotfounduuid"));
+				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "commands.unban.playernotfounduuid");
 			} else {
-				sender.sendMessage(errorPrefix+language.getString("commands.unban.invalidcommand"));
+				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "commands.unban.invalidcommand");
 			}
 			break;
 		default:
-			sender.sendMessage(errorPrefix+language.getString("general.toomanyarguments"));
+			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.toomanyarguments");
 			break;
 		}
 		return true;
