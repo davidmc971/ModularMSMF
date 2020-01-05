@@ -192,8 +192,10 @@ public class DataManager implements Listener {
 		defaultSettings.put("teamspeakIP", "");
 		defaultSettings.put("discordID", "");
 		defaultSettings.put("language.standard", "en_US");
-		defaultSettings.put("chat.color", 'f');
-		defaultSettings.put("chat.format", "[_name] _message");
+		defaultSettings.put("chat.colors.prefix", "5");
+		defaultSettings.put("chat.colors.displayname", "9");
+		defaultSettings.put("chat.colors.message", "f");
+		defaultSettings.put("chat.format", "_clpre<_clname_name_clpre> _clmessage_message");
 		for(Entry<String, Object> e : defaultSettings.entrySet()){
 			if(settingsyaml.get(e.getKey()) == null){
 				settingsyaml.set(e.getKey(), e.getValue());

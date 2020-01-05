@@ -3,6 +3,8 @@ package io.github.davidmc971.modularmsmf.listeners;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.regex.Pattern;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -141,13 +143,31 @@ public class Events implements Listener {
 			// old:
 			// event.getPlayer().sendMessage(noPermPrefix+language.getString("event.muted"));
 		}
-		ChatColor cc = ChatColor.getByChar((char)(plugin.getDataManager().settingsyaml.getString("chat.color").charAt(0)));
 
+		Logger l = plugin.getLogger();
 
+		FileConfiguration settings = plugin.getDataManager().settingsyaml; //TODO: change to getter
+		ChatColor cl_prefix = toColor(settings, "chat.colors.prefix");
+		ChatColor cl_name = toColor(settings, "chat.colors.displayname");
+		ChatColor cl_msg = toColor(settings, "chat.colors.message");
 
-		event.setMessage(cc + event.getMessage());
-		plugin.getLogger().info(event.getFormat());
-		event.setFormat(event.getFormat().replaceAll("<", ""/**TODO: DataManager und settingsyaml */).replaceAll(">",ChatColor.RED + "]" + ChatColor.GRAY));
+		l.info("cl_prefix: " + cl_prefix);
+		l.info("cl_name: " + cl_name);
+		l.info("cl_msg: " + cl_msg);
 
+		String format = settings.getString("chat.format");
+		l.info("format #1: " + format);
+		format = format.replaceAll("_name", "%1\\$s")
+			.replaceAll("_message", "%2\\$s")
+			.replaceAll("_clpre", cl_prefix.toString())
+			.replaceAll("_clname", cl_name.toString())
+			.replaceAll("_clmessage", cl_msg.toString());
+		l.info("format #2: " + format);
+
+		event.setFormat(format);
+	}
+
+	private ChatColor toColor(FileConfiguration settings, String colorKey) {
+		return ChatColor.getByChar(settings.getString(colorKey).charAt(0));
 	}
 }
