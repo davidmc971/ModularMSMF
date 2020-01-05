@@ -51,13 +51,15 @@ public class Events implements Listener {
 	public void onPlayerJoin(PlayerJoinEvent event) throws IOException {
 		Player player = event.getPlayer();
 		FileConfiguration language = Utils.configureCommandLanguage(player, plugin);
-		event.setJoinMessage(welcomePrefix+language.getString("event.welcome").replaceAll("_var", player.getDisplayName()));
+		event.setJoinMessage(
+				welcomePrefix + language.getString("event.welcome").replaceAll("_var", player.getDisplayName()));
 	}
+
 	@EventHandler
 	public void onQuit(PlayerQuitEvent event) throws IOException {
 		Player player = event.getPlayer();
 		FileConfiguration language = Utils.configureCommandLanguage(player, plugin);
-		event.setQuitMessage(quitPrefix+language.getString("event.quit").replaceAll("_var", player.getDisplayName()));
+		event.setQuitMessage(quitPrefix + language.getString("event.quit").replaceAll("_var", player.getDisplayName()));
 	}
 
 	@EventHandler
@@ -79,11 +81,11 @@ public class Events implements Listener {
 	public void onDeath(PlayerDeathEvent event) {
 		Player player = event.getEntity();
 		FileConfiguration language = Utils.configureCommandLanguage(player, plugin);
-		
+
 		boolean temp = false;
-		for(PlayerKillConfig pkf : killedPlayers){
-			if(pkf.getP().getName().equals(event.getEntity().getName())){
-				switch(pkf.getKt()){
+		for (PlayerKillConfig pkf : killedPlayers) {
+			if (pkf.getP().getName().equals(event.getEntity().getName())) {
+				switch (pkf.getKt()) {
 				case KILL:
 					event.setDeathMessage(null);
 					break;
@@ -99,21 +101,32 @@ public class Events implements Listener {
 				break;
 			}
 		}
-		if(!temp){
-			event.setDeathMessage(deathPrefix+language.getString("event.just_died").replaceAll("_var", event.getEntity().getDisplayName()));
+		if (!temp) {
+			event.setDeathMessage(deathPrefix
+					+ language.getString("event.just_died").replaceAll("_var", event.getEntity().getDisplayName()));
 		}
 	}
 
-	public void registerKilledPlayer(Player p, KillType kt){
+	public void registerKilledPlayer(Player p, KillType kt) {
 		killedPlayers.add(new PlayerKillConfig(p, kt));
 	}
- 
+
 	private class PlayerKillConfig {
 		private Player p;
 		private KillType kt;
-		public PlayerKillConfig(Player p, KillType kt){ this.p = p; this.kt = kt; }
-		public Player getP() { return p; }
-		public KillType getKt() { return kt; }
+
+		public PlayerKillConfig(Player p, KillType kt) {
+			this.p = p;
+			this.kt = kt;
+		}
+
+		public Player getP() {
+			return p;
+		}
+
+		public KillType getKt() {
+			return kt;
+		}
 	}
 
 	@EventHandler
@@ -125,12 +138,14 @@ public class Events implements Listener {
 		if (playercfg.isBoolean("muted") && playercfg.getBoolean("muted") && !event.getMessage().startsWith("/")) {
 			event.setCancelled(true);
 			Utils.sendMessageWithConfiguredLanguage(plugin, event.getPlayer(), ChatFormat.NOPERM, "event.muted");
-			// old: event.getPlayer().sendMessage(noPermPrefix+language.getString("event.muted"));
-		} else {
-			if(playercfg.isString("chat.color")) {
-				event.setMessage(ChatColor.GREEN + event.getMessage());
-				//event.setMessage(ChatColor.getByChar((playercfg.get("chat.color"))) + event.getMessage());
-			}
+			// old:
+			// event.getPlayer().sendMessage(noPermPrefix+language.getString("event.muted"));
 		}
+		ChatColor cc = ChatColor.getByChar((char)(plugin.getDataManager().settingsyaml.getString("chat.color").charAt(0)));
+		event.setMessage(cc + event.getMessage());
+		plugin.getLogger().info(event.getFormat());
+		event.setFormat(event.getFormat().replaceAll("<", ChatColor.RED + "[" + ChatColor.AQUA).replaceAll(">",
+				ChatColor.RED + "]" + ChatColor.GRAY));
+
 	}
 }
