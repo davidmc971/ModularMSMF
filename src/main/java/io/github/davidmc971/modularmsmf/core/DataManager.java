@@ -188,12 +188,12 @@ public class DataManager implements Listener {
 
 	private void initDefaultSettings(){
 		defaultSettings.clear();
-		defaultSettings.put("economy.money", 500.0d);
-		//defaultSettings.put("kickcounter", 0);
+		defaultSettings.put("economy.money", 0.0d);
 		defaultSettings.put("teamspeakIP", "");
 		defaultSettings.put("discordID", "");
 		defaultSettings.put("language.standard", "en_US");
 		defaultSettings.put("chat.color", 'f');
+		defaultSettings.put("chat.format", "[_name] _message");
 		for(Entry<String, Object> e : defaultSettings.entrySet()){
 			if(settingsyaml.get(e.getKey()) == null){
 				settingsyaml.set(e.getKey(), e.getValue());
@@ -205,8 +205,7 @@ public class DataManager implements Listener {
 	private void initDefaultUserdata(){
 		defaultUserdata.clear();
 		defaultUserdata.put("economy.money", settingsyaml.get("economy.money"));
-		defaultUserdata.put("economyalex.money", settingsyaml.get("economy.money"));
-		//defaultUserdata.put("kickcounter", settingsyaml.get("kickcounter"));
+		//defaultUserdata.put("economyalex.money", settingsyaml.get("economy.money"));
 		defaultUserdata.put("language", null);
 		for(Entry<String, Object> e : defaultUserdata.entrySet()){
 			if(defaultUserdatayaml.get(e.getKey()) == null){

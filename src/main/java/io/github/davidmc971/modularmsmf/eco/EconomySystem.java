@@ -318,7 +318,7 @@ public class EconomySystem extends AbstractCommand {
 		return true;
 	}
 
-	private String moneykey = "economyalex.money";
+	private String moneykey = "economy.money";
 
 	private FileConfiguration getPlayerCfg(UUID uuid) {
 		//return plugin.getDataManager().getPlayerCfg(uuid);

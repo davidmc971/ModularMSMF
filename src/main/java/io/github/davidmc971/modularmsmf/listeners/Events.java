@@ -142,10 +142,12 @@ public class Events implements Listener {
 			// event.getPlayer().sendMessage(noPermPrefix+language.getString("event.muted"));
 		}
 		ChatColor cc = ChatColor.getByChar((char)(plugin.getDataManager().settingsyaml.getString("chat.color").charAt(0)));
+
+
+
 		event.setMessage(cc + event.getMessage());
 		plugin.getLogger().info(event.getFormat());
-		event.setFormat(event.getFormat().replaceAll("<", ChatColor.RED + "[" + ChatColor.AQUA).replaceAll(">",
-				ChatColor.RED + "]" + ChatColor.GRAY));
+		event.setFormat(event.getFormat().replaceAll("<", ""/**TODO: DataManager und settingsyaml */).replaceAll(">",ChatColor.RED + "]" + ChatColor.GRAY));
 
 	}
 }
