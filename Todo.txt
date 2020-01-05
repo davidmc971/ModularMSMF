@@ -120,3 +120,5 @@ davidmc971:
 	Lightkeks:
 		settings.yml mit Währungseinstellung
 		loading currency while set in settings.yml like $ or €
+	Lightkeks:
+		Filtering bad words? Wäre eine sehr gute Idee für alle die, die nicht unbedingt beleidigungen oder böse wörter im chat haben wollen.
