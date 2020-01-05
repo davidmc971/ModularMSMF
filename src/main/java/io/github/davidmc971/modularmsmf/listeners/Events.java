@@ -2,9 +2,7 @@ package io.github.davidmc971.modularmsmf.listeners;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.regex.Pattern;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -12,6 +10,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 //import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
@@ -20,7 +19,6 @@ import org.bukkit.event.player.PlayerLoginEvent.Result;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import io.github.davidmc971.modularmsmf.ModularMSMF;
-import io.github.davidmc971.modularmsmf.util.ChatUtils;
 import io.github.davidmc971.modularmsmf.util.KillType;
 import io.github.davidmc971.modularmsmf.util.Utils;
 import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
@@ -33,15 +31,6 @@ import net.md_5.bungee.api.ChatColor;
 
 public class Events implements Listener {
 
-	private String infoPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.INFO);
-	private String errorPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.ERROR);
-	private String noPermPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.NOPERM);
-	private String successfulPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.SUCCESS);
-	private String welcomePrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.WELCOME);
-	private String quitPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.QUIT);
-	private String deathPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.DEATH);
-	private String paintedPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.PAINTED);
-
 	public ModularMSMF plugin;
 	private ArrayList<PlayerKillConfig> killedPlayers = new ArrayList<PlayerKillConfig>();
 
@@ -50,18 +39,29 @@ public class Events implements Listener {
 	}
 
 	@EventHandler
-	public void onPlayerJoin(PlayerJoinEvent event) throws IOException {
-		Player player = event.getPlayer();
-		FileConfiguration language = Utils.configureCommandLanguage(player, plugin);
-		event.setJoinMessage(
-				welcomePrefix + language.getString("event.welcome").replaceAll("_var", player.getDisplayName()));
+	public void onPlayerJoinAsync(AsyncPlayerPreLoginEvent event){
+		//TODO: cancel yellow join-message
 	}
 
 	@EventHandler
-	public void onQuit(PlayerQuitEvent event) throws IOException {
+	public void onPlayerJoin(PlayerJoinEvent event) throws IOException { 
 		Player player = event.getPlayer();
-		FileConfiguration language = Utils.configureCommandLanguage(player, plugin);
-		event.setQuitMessage(quitPrefix + language.getString("event.quit").replaceAll("_var", player.getDisplayName()));
+		event.setJoinMessage(null);
+		Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.WELCOME, "event.welcome", "_var", player.getDisplayName());
+	}
+
+	@EventHandler
+	public void onQuit(PlayerQuitEvent event) throws IOException { //TODO: cancel yellow quit-message
+		Player player = event.getPlayer();
+		FileConfiguration cfg = plugin.getDataManager().getPlayerCfg(player.getUniqueId());
+		String reason = cfg.getString("reason");
+		if(cfg.isBoolean("banned") == true){
+			Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.INFO, "commands.ban.playerbanned", "_player", player.getDisplayName(), "_reason", reason);
+			event.setQuitMessage(null);
+		} else {
+			Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.QUIT, "event.quit", "_var", player.getDisplayName());
+			event.setQuitMessage(null);
+		}
 	}
 
 	@EventHandler
@@ -81,9 +81,6 @@ public class Events implements Listener {
 
 	@EventHandler
 	public void onDeath(PlayerDeathEvent event) {
-		Player player = event.getEntity();
-		FileConfiguration language = Utils.configureCommandLanguage(player, plugin);
-
 		boolean temp = false;
 		for (PlayerKillConfig pkf : killedPlayers) {
 			if (pkf.getP().getName().equals(event.getEntity().getName())) {
@@ -104,8 +101,7 @@ public class Events implements Listener {
 			}
 		}
 		if (!temp) {
-			event.setDeathMessage(deathPrefix
-					+ language.getString("event.just_died").replaceAll("_var", event.getEntity().getDisplayName()));
+			Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.DEATH, "event.just_died", "_var", event.getEntity().getDisplayName());
 		}
 	}
 
@@ -135,13 +131,9 @@ public class Events implements Listener {
 	public void onChat(AsyncPlayerChatEvent event) {
 		plugin.getLogger().info("Async Chat Event");
 		FileConfiguration playercfg = plugin.getDataManager().getPlayerCfg(event.getPlayer().getUniqueId());
-		Player player = event.getPlayer();
-		FileConfiguration language = Utils.configureCommandLanguage(player, plugin);
 		if (playercfg.isBoolean("muted") && playercfg.getBoolean("muted") && !event.getMessage().startsWith("/")) {
 			event.setCancelled(true);
 			Utils.sendMessageWithConfiguredLanguage(plugin, event.getPlayer(), ChatFormat.NOPERM, "event.muted");
-			// old:
-			// event.getPlayer().sendMessage(noPermPrefix+language.getString("event.muted"));
 		}
 
 		Logger l = plugin.getLogger();

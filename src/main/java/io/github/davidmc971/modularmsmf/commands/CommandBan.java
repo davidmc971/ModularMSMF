@@ -19,6 +19,7 @@ import io.github.davidmc971.modularmsmf.core.PermissionManager;
 import io.github.davidmc971.modularmsmf.ModularMSMF;
 import io.github.davidmc971.modularmsmf.util.ChatUtils;
 import io.github.davidmc971.modularmsmf.util.Utils;
+import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
 
 /**	This command handles requests for player 'ban's, 'unban's and 'ban-ip's.
  * 	It uses util. Banutils for interfacing with DataManager.
@@ -64,17 +65,17 @@ public class CommandBan extends AbstractCommand {
 
 		if (sender.hasPermission(PermissionManager.getPermission("banplayer"))) {
 			if (args.length == 0) {
-				sender.sendMessage(errorPrefix+language.getString("general.missing_playername"));
+				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.missing_playername");
 				return true;
 			}
 
 			String reason = language.getString("event.banned");
 			UUID uuid = getPlayerUUIDByNameForBan(args[0]);
 			if (uuid == null) {
-				sender.sendMessage(errorPrefix+language.getString("general.playerunknown"));
+				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.playerunknow");
 				return true;
 			} else if (plugin.getDataManager().getPlayerCfg(uuid).getBoolean("banned")) {
-				sender.sendMessage(errorPrefix+language.getString("commands.ban.alreadybanned"));
+				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "commands.ban.alreadybanned");
 				return true;
 			}
 
@@ -99,7 +100,9 @@ public class CommandBan extends AbstractCommand {
 					
 				}
 			}
-			sender.sendMessage(infoPrefix+language.getString("commands.ban.playerbanned").replaceAll("_player", args[0]).replaceAll("_reason", reason));
+			//Player player = Bukkit.getPlayer(args[1]);
+			//Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.INFO, "commands.ban.playerbanned", "_player", args[0], "_reason", reason);
+			//sender.sendMessage(infoPrefix+language.getString("commands.ban.playerbanned").replaceAll("_player", args[0]).replaceAll("_reason", reason));
 		} else {
 			sender.sendMessage(noPermPrefix+language.getString("general.nopermission"));
 		}
