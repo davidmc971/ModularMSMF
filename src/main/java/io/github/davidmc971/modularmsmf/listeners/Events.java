@@ -12,16 +12,15 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
-//import org.bukkit.event.player.PlayerKickEvent;
+import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerLoginEvent.Result;
-
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import io.github.davidmc971.modularmsmf.ModularMSMF;
+import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
 import io.github.davidmc971.modularmsmf.util.KillType;
 import io.github.davidmc971.modularmsmf.util.Utils;
-import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
 import net.md_5.bungee.api.ChatColor;
 
 /**
@@ -50,7 +49,7 @@ public class Events implements Listener {
 		Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.WELCOME, "event.welcome", "_var", player.getDisplayName());
 	}
 
-	@EventHandler
+	@EventHandler //TODO: cancel quit-message event if kicked?
 	public void onQuit(PlayerQuitEvent event) throws IOException { //TODO: cancel yellow quit-message
 		Player player = event.getPlayer();
 		FileConfiguration cfg = plugin.getDataManager().getPlayerCfg(player.getUniqueId());
@@ -62,6 +61,13 @@ public class Events implements Listener {
 			Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.QUIT, "event.quit", "_var", player.getDisplayName());
 			event.setQuitMessage(null);
 		}
+	}
+	
+	@EventHandler //TODO: need to cancel quit-message event
+	public void onKick(PlayerKickEvent event){
+		//event.setCancelled(true);
+		event.setLeaveMessage("");
+		event.isCancelled();
 	}
 
 	@EventHandler

@@ -10,6 +10,7 @@ import io.github.davidmc971.modularmsmf.core.LanguageManager;
 import io.github.davidmc971.modularmsmf.ModularMSMF;
 import io.github.davidmc971.modularmsmf.util.ChatUtils;
 import io.github.davidmc971.modularmsmf.util.Utils;
+import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
 
 /**
  * 
@@ -24,24 +25,16 @@ public class CommandLanguage extends AbstractCommand {
 	}
 
 	private String infoPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.INFO);
-	private String errorPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.ERROR);
-	private String noPermPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.NOPERM);
-	private String successfulPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.SUCCESS);
-	
-	/**
-	 * @TODO need prefix as text
-	 */
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		LanguageManager languageManager = plugin.getLanguageManager();
 		FileConfiguration language = Utils.configureCommandLanguage(sender, plugin);
 		
-		//sender.sendMessage(language.getString("commands.language.commandnotforconsole"));
-		
 		switch(args.length){
 			case 0:
 				sender.sendMessage(infoPrefix+language.getString("commands.language.activelanguage").replaceAll("_language", (language.getString("language.id") + " (" + language.getString("language.name") + ")")));
+				//Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO, "commands.language.activelanguage", "_language", language.getString("language.id")+" ("+language.getString("language.name"+") ")); TODO: bit broken, needs to look down for string, please
 				break;
 			case 1:
 				if(args[0].equalsIgnoreCase("list")){
@@ -51,9 +44,9 @@ public class CommandLanguage extends AbstractCommand {
 						out += languageCfg.getString("language.id");
 					}
 					out += "]";
-					sender.sendMessage(infoPrefix+language.getString("commands.language.availablelanguages").replaceAll("_var", out));
+					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO, "commands.language.availablelanguages", "_var", out);
 				} else {
-					sender.sendMessage(errorPrefix+language.getString("general.invalidarguments"));
+					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.invalidarguments");
 				}
 				break;
 			case 2:
@@ -68,15 +61,15 @@ public class CommandLanguage extends AbstractCommand {
 						}
 						if(success){
 							plugin.getDataManager().getPlayerCfg(((Player)sender).getUniqueId()).set("language", args[1]);
-							sender.sendMessage(successfulPrefix+language.getString("commands.language.setsuccessplayer"));
+							Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS, "commands.language.setsuccessplayer");
 						} else {
-							sender.sendMessage(errorPrefix+language.getString("commands.language.notvalid"));
+							Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "commands.language.notvalid");
 						}
 					} else {
 						if(plugin.getLanguageManager().setStandardLanguage(args[1])){
-							sender.sendMessage(successfulPrefix+language.getString("commands.language.setsuccessconsole"));
+							Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS, "commands.language.setsuccessconsole");
 						} else {
-							sender.sendMessage(errorPrefix+language.getString("commands.language.notvalid"));
+							Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "commands.language.notvalid");
 						}
 					}
 				} else if(args[0].equalsIgnoreCase("get")){
@@ -84,7 +77,7 @@ public class CommandLanguage extends AbstractCommand {
 				}
 				break;
 			default:
-				sender.sendMessage(errorPrefix+language.getString("general.invalidarguments"));
+				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.invalidarguments");
 				break;
 		}
 		return true;

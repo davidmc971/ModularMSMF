@@ -1,12 +1,8 @@
 package io.github.davidmc971.modularmsmf.commands;
 
-import com.google.common.eventbus.DeadEvent;
-
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 import io.github.davidmc971.modularmsmf.core.PermissionManager;
@@ -28,19 +24,11 @@ public class CommandKill extends AbstractCommand {
 		super(plugin);
 	}
 
-	private String infoPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.INFO);
-	private String errorPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.ERROR);
-	private String noPermPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.NOPERM);
-	private String successfulPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.SUCCESS);
-	private String deathPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.DEATH);
-
 	@Override
-	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-
-		FileConfiguration language = Utils.configureCommandLanguage(sender, plugin);		
+	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {	
 		
 		if (args.length == 0) {
-			sender.sendMessage(errorPrefix+language.getString("general.missingarguments"));
+			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.missingarguments");
 			return true;
 		}
 		
@@ -54,7 +42,7 @@ public class CommandKill extends AbstractCommand {
 					player.setHealth(0);
 				}
 			} else {
-				sender.sendMessage(noPermPrefix+language.getString("general.noconsole"));
+				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "general.noconsole");
 			}
 			break;
 		case "all":
@@ -80,12 +68,12 @@ public class CommandKill extends AbstractCommand {
 						}
 					}
 					if (!temp)
-						sender.sendMessage(errorPrefix+language.getString("general.playernotfound"));
+						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.playernotfound");
 				} else {
-					sender.sendMessage(noPermPrefix+language.getString("general.noconsole"));
+					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "general.noconsole");
 				}
 			} else {
-				sender.sendMessage(noPermPrefix+language.getString("general.nopermission"));
+				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
 			}
 		}
 		return true;

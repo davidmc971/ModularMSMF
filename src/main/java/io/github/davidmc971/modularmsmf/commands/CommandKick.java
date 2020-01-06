@@ -7,9 +7,9 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 
-import io.github.davidmc971.modularmsmf.core.PermissionManager;
 import io.github.davidmc971.modularmsmf.ModularMSMF;
-import io.github.davidmc971.modularmsmf.util.ChatUtils;
+import io.github.davidmc971.modularmsmf.core.PermissionManager;
+import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
 import io.github.davidmc971.modularmsmf.util.Utils;
 
 /**
@@ -24,11 +24,6 @@ public class CommandKick extends AbstractCommand {
 		super(plugin);
 	}
 
-	private String infoPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.INFO);
-	private String errorPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.ERROR);
-	private String noPermPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.NOPERM);
-	private String successfulPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.SUCCESS);
-
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
@@ -38,33 +33,33 @@ public class CommandKick extends AbstractCommand {
 		String reason = language.getString("commands.kick.defaultkickreason");
 
 		switch(args.length){
-		case 0: //missing prefix as text
+		case 0:
 			if(sender.hasPermission(PermissionManager.getPermission("kickplayer"))){
-				sender.sendMessage(errorPrefix+language.getString("general.missing_playername"));
+				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.missing_playername");
 			} else {
-				sender.sendMessage(noPermPrefix+language.getString("general.nopermissions"));
+				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
 			}
 			break;
 		default:
 			if(sender.hasPermission(PermissionManager.getPermission("kickplayer"))){
 				target = Utils.getPlayerUUIDByName(args[0]);
 				if(target == null){
-					sender.sendMessage(errorPrefix+language.getString("general.playernotfound"));
+					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.playernotfound");
 				} else {
 					if(args.length == 1){
 						Bukkit.getPlayer(target).kickPlayer(reason);
-						Bukkit.broadcastMessage(noPermPrefix+language.getString("commands.kick.seekickedall").replaceAll("_player", args[0]));
+						Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.KICK, "commands.kick.seekickedall", "_player", args[0]);
 					} else {
 						reason = "";
 						for (int i = 1; i < args.length; i++) {
 							reason += args[i] + " ";
 						}
 						Bukkit.getPlayer(target).kickPlayer(reason);
-						Bukkit.broadcastMessage(noPermPrefix+language.getString("commands.kick.seekickedallreason").replaceAll("_reason", reason).replaceAll("_player", args[0]));
+						Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.KICK, "commands.kick.seekickedallreason", "_reason", reason, "_player", args[0]);
 					}
 				}
 			} else {
-				sender.sendMessage(noPermPrefix+language.getString("general.nopermissions"));
+				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
 			}
 		}
 		return true;

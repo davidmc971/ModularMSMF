@@ -14,6 +14,8 @@ general: #Hauptsaechliche Strings fuer den Allgemeingebrauch
     noconsole: Die Konsole darf diesen Befehl nicht nutzen. #Konsole darf nicht alles
     missingarguments: Bitte gib passende Argumente an! #Falsche Reihenfolge von Argumenten? Statt Zahlen Text eingegeben zb.
     couldnotcreatefile: Die Datei konnte nicht erstellt werden! #Erstellen von Userfiles oder settings als .yml oder .json
+    notimplementedyet: Dieser Befehl existiert noch nicht. #Falls es Befehle gibt die noch nicht geschrieben wurden sind.
+    bukkitversion: 'Die aktuelle Bukkitversion: _bukkitver.' #Zeigt aktuelle Version vom Server an
 event:
   welcome: _var hat den Server betreten! #Kommt auf, sobald ein Spieler den Server betritt
   quit: _var hat den Server verlassen! #Kommt auf, sobald ein Spieler den Server verlaesst
@@ -78,9 +80,9 @@ commands: #Befehle
   mmsmf:
     reportsuccessful:
     reportfailure:
-    discord: 'Dein Invitelink:' #Gibt den Invitelink aus.
+    discord: 'Dein Invitelink: _link' #Gibt den Invitelink aus.
     discordmissing: Es gibt keinen Einladungslink fuer einen Discordserver. #Gibt dann aus, wenn in config.yml "false" angegeben.
-    teamspeak: 'Deine IP zum joinen:' #Gibt die IP-adresse aus.
+    teamspeak: 'Deine IP zum joinen: _ip' #Gibt die IP-adresse aus.
     teamspeakmissing: Es gibt keine IP-Adresse fuer einen Teamspeakserver. #Gibt dann aus, wenn in config.yml "false" angegeben.
   eco:
     ecobalance: 'Geldstand: ' #Zeigt den Geldstand an.

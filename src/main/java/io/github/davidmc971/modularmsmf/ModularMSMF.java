@@ -26,7 +26,6 @@ import io.github.davidmc971.modularmsmf.core.PlayerManager;
 import io.github.davidmc971.modularmsmf.listeners.Events;
 import io.github.davidmc971.modularmsmf.util.ChatUtils;
 import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
-import net.md_5.bungee.api.ChatColor;
 import io.github.davidmc971.modularmsmf.main.CommandLoader;
 
 /**

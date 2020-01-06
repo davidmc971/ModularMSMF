@@ -14,6 +14,8 @@ general:
     noconsole: Console is not permitted to use this command.
     missingarguments: Please specify an argument!
     couldnotcreatefile: File couldn't be created!
+    notimplementedyet: This command has not been implemented yet.
+    bukkitversion: 'The actual Bukkit version: _bukkitver'
 event:
   welcome: _var has joned the Server!
   quit: _var has left the Server!
@@ -78,9 +80,9 @@ commands:
   mmsmf:
     reportsuccessful:
     reportfailure:
-    discord: 'Your invite to discord:'
+    discord: 'Your invite to discord: _link'
     discordmissing: There is no existing link for a Discord server.
-    teamspeak: 'Your IP adress to join:'
+    teamspeak: 'Your IP adress to join: _ip'
     teamspeakmissing: There is no existing IP for a Teamspeak server.
   eco:
     balance:

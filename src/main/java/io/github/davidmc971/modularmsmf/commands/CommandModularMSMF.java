@@ -5,7 +5,6 @@ import java.io.File;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import io.github.davidmc971.modularmsmf.ModularMSMF;
@@ -13,6 +12,7 @@ import io.github.davidmc971.modularmsmf.core.PermissionManager;
 import net.md_5.bungee.api.ChatColor;
 import io.github.davidmc971.modularmsmf.util.ChatUtils;
 import io.github.davidmc971.modularmsmf.util.Utils;
+import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
 
 /**
  * 
@@ -28,8 +28,6 @@ public class CommandModularMSMF extends AbstractCommand {
 
 	private String infoPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.INFO);
 	private String errorPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.ERROR);
-	private String noPermPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.NOPERM);
-	private String successfulPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.SUCCESS);
 
 	@Override
 	public String[] getCommandLabels() {
@@ -38,7 +36,6 @@ public class CommandModularMSMF extends AbstractCommand {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-		FileConfiguration language = Utils.configureCommandLanguage(sender, plugin);
 
 		String toLowerCase = label.toLowerCase();
 
@@ -47,18 +44,13 @@ public class CommandModularMSMF extends AbstractCommand {
 			if (PermissionManager.checkPermission(sender, "mmsmf")) {
 				if (args.length == 0) {
 					/**
-					 * @TODO changing server name as its own by new command, needs to be
+					 * @TODO: changing server name as its own by new command, needs to be
 					 *       implemented.
 					 */
 					sender.sendMessage(infoPrefix + "Plugin enabled on: " + Bukkit.getName());
 					sender.sendMessage(infoPrefix + "More help:");
-					sender.sendMessage(infoPrefix + "info || report || teamspeak || discord"); // missing report, not
-																								// implemented yet
-					/**
-					 * TODO: adding ability to check for config.yml like if teamspeak is enabled or
-					 * discord, and if both are enabled it will show both
-					 * 
-					 */
+					sender.sendMessage(infoPrefix + "info || "/**report ||*/+"teamspeak || discord"); // missing report, not implemented yet
+
 				} else if (args.length == 1) {
 					switch (args[0].toLowerCase()) {
 					case "info":
@@ -71,16 +63,12 @@ public class CommandModularMSMF extends AbstractCommand {
 						break;
 					case "report":
 						/**
-						 * TODO will be implemented. otherwise discord/github for reporting bugs.
+						 * TODO: will be implemented. otherwise discord/github for reporting bugs.
 						 */
-						sender.sendMessage("Not implemented yet.");
+						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.notimplementedyet");
 						break;
 					case "teamspeak":
 						if (args.length == 1) {
-							/**
-							 * stuff adding to question if something is enabled in config or disabled. if
-							 * enabled, teamspeak ip should be shown
-							 */
 							File file = new File("plugins/ModularMSMF/settings.yml");
 							boolean ts = false;
 							if (file.exists()) {
@@ -88,18 +76,14 @@ public class CommandModularMSMF extends AbstractCommand {
 								if (cfg.contains("teamspeakIP") && !cfg.getString("teamspeakIP").equals("")) {
 									ts = true;
 									String teamspeakIP = cfg.getString("teamspeakIP");
-									sender.sendMessage(infoPrefix + language.getString("commands.mmsmf.teamspeak") + " " + teamspeakIP);
+									Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO, "commands.mmsmf.teamspeak", "_ip", teamspeakIP);
 								}
 							}
-							if(!ts) sender.sendMessage(errorPrefix + language.getString("commands.mmsmf.teamspeakmissing"));
+							if(!ts) Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "commands.mmsmf.teamspeakmissing");
 						}
 						break;
 					case "discord":
 						if (args.length == 1) {
-							/**
-							 * stuff adding to question if something is enabled in config or disabled. if
-							 * enabled, discord link should be shown
-							 */
 							File file = new File("plugins/ModularMSMF/settings.yml");
 							boolean dc = false;
 							if (file.exists()) {
@@ -107,22 +91,22 @@ public class CommandModularMSMF extends AbstractCommand {
 								if (cfg.contains("discordID") && !cfg.getString("discordID").equals("")) {
 									dc = true;
 									String discordID = cfg.getString("discordID");
-									sender.sendMessage(infoPrefix + language.getString("commands.mmsmf.discord") + " " + discordID);
+									Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO, "commands.mmsmf.discord", "_link", discordID);
 								}
 							}
-							if(!dc) sender.sendMessage(errorPrefix + language.getString("commands.mmsmf.discordmissing"));
+							if(!dc) Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "commands.mmsmf.discordmissing");
 						}
 						break;
 					default:
-						sender.sendMessage(errorPrefix + language.getString("general.invalidarguments"));
+						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.invalidarguments");
 					}
 				} else if (args.length >= 2) {
-					sender.sendMessage(errorPrefix + language.getString("general.toomanyarguments"));
+					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.toomanyarguments");
 				} else {
-					sender.sendMessage(noPermPrefix + language.getString("general.nopermission"));
+					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
 				}
 			} else {
-				sender.sendMessage(noPermPrefix + language.getString("general.nopermission"));
+				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
 			}
 		}
 		return true;

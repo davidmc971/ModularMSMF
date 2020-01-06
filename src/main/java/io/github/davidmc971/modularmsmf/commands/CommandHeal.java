@@ -2,20 +2,15 @@ package io.github.davidmc971.modularmsmf.commands;
 
 import java.util.UUID;
 
-/**
- * @author Lightkeks
- */
-
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import io.github.davidmc971.modularmsmf.core.PermissionManager;
 import io.github.davidmc971.modularmsmf.ModularMSMF;
-import io.github.davidmc971.modularmsmf.util.ChatUtils;
 import io.github.davidmc971.modularmsmf.util.Utils;
+import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
 
 /**
  * 
@@ -29,15 +24,8 @@ public class CommandHeal extends AbstractCommand {
 		super(plugin);
 	}
 
-	private String infoPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.INFO);
-	private String errorPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.ERROR);
-	private String noPermPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.NOPERM);
-	private String successfulPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.SUCCESS);
-
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-
-		FileConfiguration language = Utils.configureCommandLanguage(sender, plugin);
 
 		UUID target = null;
 		switch (args.length) {
@@ -47,15 +35,14 @@ public class CommandHeal extends AbstractCommand {
 				if (sender.hasPermission(PermissionManager.getPermission("healself"))) {
 					//checking, if user has permission to use /heal
 					((Player) sender).setHealth(20); //full heal for sender
-					sender.sendMessage(successfulPrefix+language.getString("commands.heal.healself"));
-					//using ChatUtils and YamlConfiguration for easier messages
+					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS, "commands.heal.healself");
 				} else {
 					//if no permission was given, it will negate the if phrase
-					sender.sendMessage(noPermPrefix+language.getString("general.nopermission"));
+					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
 				}
 			} else {
 				//if console should not be permitted to use a command, this comes out
-				sender.sendMessage(noPermPrefix+language.getString("general.noconsole"));
+				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "general.noconsole");
 			}
 			break;
 		case 1: // missing args length
@@ -65,28 +52,28 @@ public class CommandHeal extends AbstractCommand {
 				//check if user has permission to heal others
 				if (target == null) {
 					//check if user exists
-					sender.sendMessage(errorPrefix+language.getString("general.playernotfound"));
+					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.playernotfound");
 					return true; //return's true if target's not online
 				} else //return's true otherwise if target's online
 					for (Player p : Bukkit.getOnlinePlayers()) {
 						if (p.getUniqueId().toString().equalsIgnoreCase(target.toString())) {
 							//questioning it, if sender is the target
 							if(sender == p) {
-								sender.sendMessage(successfulPrefix+language.getString("commands.heal.healself"));
+								Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS, "commands.heal.healself");
 								((Player)sender).setHealth(20);
 							} else { //if sender is not target, then the target will be healed then
-								sender.sendMessage(successfulPrefix+language.getString("commands.heal.healother").replaceAll("_player", p.getName()));
-								p.sendMessage(successfulPrefix+language.getString("commands.heal.gothealed").replaceAll("_sender", sender.getName()));
+								Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS, "commands.heal.healother", "_player", p.getDisplayName());
+								Utils.sendMessageWithConfiguredLanguage(plugin, p, ChatFormat.SUCCESS, "commands.heal.gothealed", "_sender", sender.getName());
 								p.setHealth(20);
 							}
 						}
 					}
 				break;
 			} else {
-				sender.sendMessage(noPermPrefix+language.getString("general.nopermission"));
+				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
 			}
 		default:
-			sender.sendMessage(errorPrefix+language.getString("general.toomanyarguments"));
+			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.toomanyarguments");
 			break;
 		}
 		return true;

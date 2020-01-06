@@ -16,15 +16,21 @@ public class ChatUtils {
 	FileConfiguration language = Utils.configureCommandLanguage(sender, plugin);
 	*/ //TODO: maybe need this.
 	public enum ChatFormat {
-		SUCCESS, INFO, ERROR, MSG, BROADCAST, STANDARD, RAINBOW, NOPERM, WELCOME, QUIT, DEATH, PAINTED, MONEY
+		SUCCESS, INFO, ERROR, MSG, BROADCAST, STANDARD, RAINBOW, NOPERM, WELCOME, QUIT, DEATH, PAINTED, MONEY, CONSOLE, KICK, BAN
 	}
 	
 	public static String getFormattedPrefix(ChatFormat format) {
 		switch(format) {
+		case CONSOLE:
+			return (ChatColor.GOLD + "[" + ChatColor.WHITE + "ModularMSMF" + ChatColor.GOLD + "]" + ChatColor.DARK_RED + " ");
 		case INFO:
 			return (ChatColor.GOLD + "[" + ChatColor.WHITE + "ModularMSMF" + ChatColor.GOLD + "]" + ChatColor.GRAY + " ");
 		case ERROR:
 			return (ChatColor.GOLD + "[" + ChatColor.WHITE + "ModularMSMF" + ChatColor.GOLD + "]" + ChatColor.RED + " ");
+		case KICK:
+			return (ChatColor.GOLD + "[" + ChatColor.WHITE + "Kicked" + ChatColor.GOLD + "]" + ChatColor.DARK_RED + " ");
+		case BAN:
+			return (ChatColor.GOLD + "[" + ChatColor.WHITE + "Banned" + ChatColor.GOLD + "]" + ChatColor.DARK_RED + " ");
 		case NOPERM:
 			return (ChatColor.GOLD + "[" + ChatColor.WHITE + "ModularMSMF" + ChatColor.GOLD + "]" + ChatColor.DARK_RED + " ");
 		case SUCCESS:

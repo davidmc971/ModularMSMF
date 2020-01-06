@@ -5,7 +5,8 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
 import io.github.davidmc971.modularmsmf.ModularMSMF;
-import io.github.davidmc971.modularmsmf.util.ChatUtils;
+import io.github.davidmc971.modularmsmf.util.Utils;
+import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
 
 /**
  * 
@@ -20,16 +21,11 @@ public class CommandServerInfo extends AbstractCommand {
 		super(plugin);
 	}
 
-	private String infoPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.INFO);
-	private String errorPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.ERROR);
-	private String noPermPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.NOPERM);
-	private String successfulPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.SUCCESS);
-
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		
 		if (sender.hasPermission("modularmsmf.command.serverinfo")) {
-			sender.sendMessage(infoPrefix+"Aktuelle Server-Version: " + Bukkit.getVersion());
+			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO, "general.bukkitversion", "_bukkitver", Bukkit.getBukkitVersion());
 		}
 		return true;
 	}

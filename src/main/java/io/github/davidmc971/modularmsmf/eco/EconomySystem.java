@@ -19,6 +19,7 @@ import io.github.davidmc971.modularmsmf.util.Utils;
  * TODO: Mainclass for economysystem <3
  * @author Lightkeks
  * with help from @author davidmc971
+ * TODO: changing all sendMessage with Utils.sendMessage...
  */
 
 public class EconomySystem extends AbstractCommand {
