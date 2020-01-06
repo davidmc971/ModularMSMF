@@ -4,7 +4,6 @@ import java.util.UUID;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import io.github.davidmc971.modularmsmf.core.PermissionManager;
@@ -12,8 +11,8 @@ import io.github.davidmc971.modularmsmf.handlers.HomeHandler;
 import io.github.davidmc971.modularmsmf.handlers.HomeHandler.Home;
 import io.github.davidmc971.modularmsmf.ModularMSMF;
 import net.md_5.bungee.api.ChatColor;
-import io.github.davidmc971.modularmsmf.util.ChatUtils;
 import io.github.davidmc971.modularmsmf.util.Utils;
+import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
 
 /**
  * @author Lightkeks
@@ -21,11 +20,6 @@ import io.github.davidmc971.modularmsmf.util.Utils;
 
 public class CommandHome extends AbstractCommand {
 	private HomeHandler homeHandler;
-
-	private String infoPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.INFO);
-	private String errorPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.ERROR);
-	private String noPermPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.NOPERM);
-	private String successfulPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.SUCCESS);
 	
 	public CommandHome(ModularMSMF plugin) {
 		super(plugin);
@@ -34,8 +28,6 @@ public class CommandHome extends AbstractCommand {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-
-		FileConfiguration language = Utils.configureCommandLanguage(sender, plugin);
 
 		/**home <help>
 		 * home <default OR name>
@@ -80,10 +72,6 @@ public class CommandHome extends AbstractCommand {
 			}
 		}
 
-		//String infoPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.INFO);
-		//String errorPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.ERROR);
-		String noPermPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.NOPERM);
-
 		switch (args[0].toLowerCase()) {
 		//HELP COMMANDS
 		case "help":
@@ -127,7 +115,7 @@ public class CommandHome extends AbstractCommand {
 
 			} else {
 				//well done, you don't have permission
-				sender.sendMessage(noPermPrefix+language.getString("general.nopermission"));
+				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
 			}
 			break;
 		case "remove":
@@ -135,7 +123,7 @@ public class CommandHome extends AbstractCommand {
 			if(sender.hasPermission(PermissionManager.getPermission("home_remove"))) {
 				//src for removing home(s) which has been set
 			} else {
-				sender.sendMessage(noPermPrefix+language.getString("general.nopermission"));
+				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
 			}
 			break;
 		case "list":
@@ -147,7 +135,7 @@ public class CommandHome extends AbstractCommand {
 				}
 			} else {
 				//checks if user has permission for "list"
-				sender.sendMessage(noPermPrefix+language.getString("general.nopermission"));
+				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
 			}
 			break;
 		case "rtp":
@@ -168,7 +156,7 @@ public class CommandHome extends AbstractCommand {
 					}
 				}
 			} else {
-				sender.sendMessage(noPermPrefix+language.getString("general.nopermission"));
+				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
 			}
 			break;
 		case "admin":
@@ -183,7 +171,6 @@ public class CommandHome extends AbstractCommand {
 				 */
 
 				if(args.length == 1) { //gives list of commands ingame
-					sender.sendMessage(infoPrefix+" As admin,");
 				}
 				if(args.length == 2) { //checks if target exists
 
@@ -191,16 +178,17 @@ public class CommandHome extends AbstractCommand {
 				if(args.length == 3) { //checks if default or named home exists to tp, remove or set
 
 				} else if(args.length > 3) {
-					sender.sendMessage(errorPrefix+language.getString("general.toomanyarguments"));
+					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.toomanyarguments");
 				}
 			} else {
-				sender.sendMessage(noPermPrefix+language.getString("general.nopermission"));
+				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
 			}
 			break;
 		default:
 			boolean success = teleportToHome((Player)sender, args[0].toLowerCase());
 			if (!success) {
-				sender.sendMessage(infoPrefix + "Home \"" + args[0] + "\" has not been set.");
+				sender.sendMessage(infoPrefix + "Home \"" + args[0] + "\" has not been set."); //TODO: adding to lang files
+				
 			}
 			break;
 		}
@@ -218,89 +206,108 @@ public class CommandHome extends AbstractCommand {
 		return false;
 	}
 
-	private boolean displayHelp(CommandSender sender, String[] args, FileConfiguration language) {
+	private boolean displayHelp(CommandSender sender, String[] args) {
 		if(args.length == 1) {
-			sender.sendMessage(infoPrefix+"List of your aviable commands:");
-			sender.sendMessage(infoPrefix+"For more details just do /home help <command>");
+			/**
+			 * if you only use the command without any arg, this will show if perms are given
+			 * /home
+			 */
+			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.HOME, "commands.home.help"); //TODO: adding to lang files
 			//shows help if permissions were given
 			if(sender.hasPermission(PermissionManager.getPermission("home_list"))) {
-				sender.sendMessage(ChatColor.GRAY+" /home list -> List all your homes");
+				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.HOME, "commands.home.help.list"); //TODO: adding to lang files
 			}
 			if(sender.hasPermission(PermissionManager.getPermission("home_set"))) {
-				sender.sendMessage(ChatColor.GRAY+" /home set -> Set's your individual home");
+				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.HOME, "commands.home.help.set"); //TODO: adding to lang files
 			}
 			if(sender.hasPermission(PermissionManager.getPermission("home_remove"))) {
-				sender.sendMessage(ChatColor.GRAY+" /home remove -> Remove's your individual home");
+				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.HOME, "commands.home.help.remove"); //TODO: adding to lang files
 			}
 			if(sender.hasPermission(PermissionManager.getPermission("home_rtp"))) {
-				sender.sendMessage(ChatColor.GRAY+" /home rtp -> Teleport request to any chosen default's home from a user");
+				//sender.sendMessage(ChatColor.GRAY+" /home rtp -> Teleport request to any chosen default's home from a user"); // DONT REMOVE THIS LINE YET
+				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.HOME, "commands.home.help.rtp"); //TODO: adding to lang files
 			}
 			if(sender.hasPermission(PermissionManager.getPermission("home_admin"))) {
-				sender.sendMessage(ChatColor.RED+" /home admin -> any admin-relevant commands for home");
+				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.HOME, "commands.home.help.admin"); //TODO: adding to lang files
 			}
 			//otherwise if no perms (no admin) have been given the statement under this will show up
 			if(!sender.hasPermission(PermissionManager.getPermission("home_list")) && !sender.hasPermission(PermissionManager.getPermission("home_set")) && !sender.hasPermission(PermissionManager.getPermission("home_remove")) && !sender.hasPermission(PermissionManager.getPermission("home_rtp"))){
-				sender.sendMessage(noPermPrefix+"It seem's like you don't have any relevant permissions to use any commands! Sorry, "+sender.getName());
+				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission"); //TODO: adding to lang files
 				return true;
 			}
 		} else if(args.length == 2){
 			switch (args[1].toLowerCase()){ //shows permission like above which perm is given and it's message
+
+			/**
+			 * Help for each command, given by this switch...
+			 * /home <case>
+			 */
+
 			case "list":
 				if(args.length == 2) {
 					if(sender.hasPermission(PermissionManager.getPermission("home_list"))) {
-						sender.sendMessage(ChatColor.GRAY+" Listing all your own home's like the default non-named first and all other named homes, if you ever forget one home.");
+						/**
+						 * if sender has homes set, they should be shown instead of an explanation... TODO: need work on it
+						 */
+						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.PAINTED, "commands.home.help.list1"); //TODO: adding to lang files
 					} else {
-						sender.sendMessage(noPermPrefix+language.getString("general.nopermission"));
+						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
 					}
 				}
 				break;
 			case "set":
 				if(args.length == 2) {
 					if(sender.hasPermission(PermissionManager.getPermission("home_set"))) {
-						sender.sendMessage(ChatColor.GRAY+" Setting your individual home means you can set a home without giving it a name by doing /home set < > or you can set a name by doing /home set <name>. Your choice, "+sender.getName());
+						//sender.sendMessage(ChatColor.GRAY+" Setting your individual home means you can set a home without giving it a name by doing /home set < > or you can set a name by doing /home set <name>. Your choice, "+sender.getName());
+						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.PAINTED, "commands.home.help.set1");
 					} else {
-						sender.sendMessage(noPermPrefix+language.getString("general.nopermission"));
+						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
 					}
 				}
 				break;
 			case "remove":
 				if(args.length == 2) {
 					if(sender.hasPermission(PermissionManager.getPermission("home_remove"))) {
-						sender.sendMessage(ChatColor.GRAY+" Remove's your default or individual home which you can find under /home list. Remove it like this: /home remove < > or if a name is given with /home remove <NAME>");
+						//sender.sendMessage(ChatColor.GRAY+" Remove's your default or individual home which you can find under /home list. Remove it like this: /home remove < > or if a name is given with /home remove <NAME>");
+						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.PAINTED, "commands.home.help.remove1"); //TODO: adding to lang files
 					} else {
-						sender.sendMessage(noPermPrefix+language.getString("general.nopermission"));
+						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
 					}
 				}
 				break;
 			case "rtp":
 				if(args.length == 2) {
 					if(sender.hasPermission(PermissionManager.getPermission("home_rtp"))) {
-						sender.sendMessage(ChatColor.GRAY+" Requests an teleport to any user's home set. Mostly only default home is chosen, if not otherwise known.");
+						//sender.sendMessage(ChatColor.GRAY+" Requests an teleport to any user's home set. Mostly only default home is chosen, if not otherwise known.");
+						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.PAINTED, "commands.home.help.rtp1"); //TODO: adding to lang files
 					} else {
-						sender.sendMessage(noPermPrefix+language.getString("general.nopermission"));
+						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
 					}
 				}
 				break;
 			case "admin":
 				if(sender.hasPermission(PermissionManager.getPermission("home_admin"))) {
 					if(args.length == 2) {
-						sender.sendMessage(ChatColor.GRAY+" These are all relevant administrative tools to control all user's homes. There's nothing which could miss. Otherwise ask the dev's of this plugin under /mmsmf info ");
+						//sender.sendMessage(ChatColor.GRAY+" These are all relevant administrative tools to control all user's homes. There's nothing which could miss. Otherwise ask the dev's of this plugin under /mmsmf info ");
+						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.PAINTED, "commands.home.help.admin1"); //TODO: adding to lang files
 					}
 					if(sender.isOp()) {
-						sender.sendMessage(ChatColor.RED+" OP: There is nothing you can't do. Just use it wisely.");
+						//sender.sendMessage(ChatColor.RED+" OP: There is nothing you can't do. Just use it wisely.");
+						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO, "commands.home.help.opinfo"); //TODO: adding to lang files
 					} else {
-						sender.sendMessage(noPermPrefix+language.getString("general.nopermission"));
+						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
 					}
 				} else {
-					sender.sendMessage(noPermPrefix+language.getString("general.nopermission"));
+					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
 				}
 				break;
 			default:
-				sender.sendMessage(errorPrefix+"This argument "+ChatColor.GRAY+args[1]+ChatColor.RED+" does not exist!");
+				//sender.sendMessage(errorPrefix+"This argument "+ChatColor.GRAY+args[1]+ChatColor.RED+" does not exist!");
+				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.invalidarguments");
 				break;
 			}
 		} else {
-			sender.sendMessage(errorPrefix+language.getString("general.toomanyarguments"));
+			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.toomanyarguments");
 		}
 
 		return true;

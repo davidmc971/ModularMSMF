@@ -16,7 +16,7 @@ public class ChatUtils {
 	FileConfiguration language = Utils.configureCommandLanguage(sender, plugin);
 	*/ //TODO: maybe need this.
 	public enum ChatFormat {
-		SUCCESS, INFO, ERROR, MSG, BROADCAST, STANDARD, RAINBOW, NOPERM, WELCOME, QUIT, DEATH, PAINTED, MONEY, CONSOLE, KICK, BAN
+		SUCCESS, INFO, ERROR, MSG, BROADCAST, STANDARD, RAINBOW, NOPERM, WELCOME, QUIT, DEATH, PAINTED, MONEY, CONSOLE, KICK, BAN, HOME_LIST, HOME
 	}
 	
 	public static String getFormattedPrefix(ChatFormat format) {
@@ -35,10 +35,14 @@ public class ChatUtils {
 			return (ChatColor.GOLD + "[" + ChatColor.WHITE + "ModularMSMF" + ChatColor.GOLD + "]" + ChatColor.DARK_RED + " ");
 		case SUCCESS:
 			return (ChatColor.GOLD + "[" + ChatColor.WHITE + "ModularMSMF" + ChatColor.GOLD + "]" + ChatColor.GREEN + " ");
+		case HOME:
+			return (ChatColor.GOLD + "[" + ChatColor.WHITE + "Home" + ChatColor.GOLD + "]" + ChatColor.GRAY + " ");
+		case HOME_LIST:
+			return (ChatColor.GOLD + "[" + ChatColor.WHITE + "Home list" + ChatColor.GOLD + "]" + ChatColor.GRAY + " ");
 		case WELCOME:
 			return (ChatColor.GOLD + "[" + ChatColor.WHITE + "Join" + ChatColor.GOLD + "]" + ChatColor.WHITE + " ");
 		case QUIT:
-			return (ChatColor.GOLD + "[" + ChatColor.WHITE + "Quit" + ChatColor.GOLD + "]" + ChatColor.GRAY + " ");
+			return (ChatColor.GOLD + "[" + ChatColor.WHITE + "Quit" + ChatColor.GOLD + "]" + ChatColor.WHITE + " ");
 		case DEATH:
 			return (ChatColor.GOLD + "[" + ChatColor.RED + "Death" + ChatColor.GOLD + "]" + ChatColor.DARK_GRAY + " ");
 		case PAINTED:
@@ -46,7 +50,7 @@ public class ChatUtils {
 		/**case SPAWN:
 		for (Player p : Bukkit.getOnlinePlayers())
 			return (ChatColor.GREEN + language.getString("").replaceAll("_player", p.getName()));
-		*/ //TODO: Rewrite for working language support
+			*/
 		default:
 			return "[ModularMSMF] ";
 
