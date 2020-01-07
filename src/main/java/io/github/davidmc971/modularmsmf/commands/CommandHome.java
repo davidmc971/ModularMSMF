@@ -63,7 +63,7 @@ public class CommandHome extends AbstractCommand {
 				//teleport player to default home if set
 				boolean success = teleportToHome((Player)sender, null);
 				if (!success) {
-					sender.sendMessage(infoPrefix + "Default home has not been set.");
+					sender.sendMessage(infoPrefix + "Default home has not been set."); //TODO: adding to language file
 				}
 				return true;
 			} else {
@@ -79,9 +79,9 @@ public class CommandHome extends AbstractCommand {
 				//display player help
 				return displayHelp(sender, args, language);
 			} else {
-				//display console help
+				//display console help //TODO: adding to language file
 				if(args.length == 1) {
-					sender.sendMessage(infoPrefix+"Console-helping Commands for Home");
+					sender.sendMessage(infoPrefix+"Console-helping Commands for Home"); 
 					sender.sendMessage(" /home list <user> - Listing Homes of <user>");
 					sender.sendMessage(" /home set <user> <default OR name> - Set's an home given to it's player's location with notification");
 					sender.sendMessage(" /home remove <user> <default OR name> - Remove's an home given by it's player with notification");
@@ -131,7 +131,7 @@ public class CommandHome extends AbstractCommand {
 				//src for listing all homes set by it's own.
 				if(args.length == 1) {
 					//should list all homes of it's own
-					//sender.sendMessage(infoPrefix+language.getString("commands.home.Utils.getPlayerHome(sender);
+					//sender.sendMessage(infoPrefix+language.getString("commands.home.Utils.getPlayerHome(sender); //TODO: adding to language file
 				}
 			} else {
 				//checks if user has permission for "list"
@@ -160,7 +160,7 @@ public class CommandHome extends AbstractCommand {
 			}
 			break;
 		case "admin":
-			if(sender.hasPermission(PermissionManager.getPermission("home_admin"))) {
+			if(sender.hasPermission(PermissionManager.getPermission("home_admin"))) { //TODO: adding to language file
 				//all commands which an admin should use wisely. every child command has its own permission too to select.
 				/**
 				 * home admin list <target>

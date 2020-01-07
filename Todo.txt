@@ -122,3 +122,5 @@ davidmc971:
 		loading currency while set in settings.yml like $ or €
 	Lightkeks:
 		Filtering bad words? Wäre eine sehr gute Idee für alle die, die nicht unbedingt beleidigungen oder böse wörter im chat haben wollen.
+	Lightkeks:
+		Verwarnsystem? Textchat-farbe des jenigen ändert sich auf gelb wenn einmal verwarnt, beim zweiten mal rot und beim dritten mal fliegt die person?

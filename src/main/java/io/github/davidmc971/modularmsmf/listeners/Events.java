@@ -36,12 +36,7 @@ public class Events implements Listener {
 	public Events(ModularMSMF plugin) {
 		this.plugin = plugin;
 	}
-
-	@EventHandler
-	public void onPlayerJoinAsync(AsyncPlayerPreLoginEvent event){
-		//TODO: cancel yellow join-message
-	}
-
+	
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event) throws IOException { 
 		Player player = event.getPlayer();
