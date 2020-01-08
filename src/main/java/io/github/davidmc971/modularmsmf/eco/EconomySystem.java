@@ -58,15 +58,9 @@ public class EconomySystem extends AbstractCommand {
 
 		if (args.length == 0) {
 			if ((sender instanceof Player)) {
-				// TODO: working line, still want to change to
-				// Utils.sendMessageWithConfiguredLanguage()
-				//sender.sendMessage(infoPrefix + language.getString("commands.eco.balance.self").replace("_value",
-				//		(String) (getMoney(uuid) + currencyFormat)));
-				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO, "commands.eco.balance.self",
-						"_value", (String)(getMoney(uuid) + currencyFormat)); // TODO: possible to do?
+				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO, "commands.eco.balance.self", "_value", (String)(getMoney(uuid) + currencyFormat)); // TODO: possible to do?
 			} else {
-				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE,
-						"commands.eco.error.console");
+				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "commands.eco.error.console");
 			}
 		} else if (args.length > 0) {
 			switch (args[0].toLowerCase()) {
@@ -124,8 +118,7 @@ public class EconomySystem extends AbstractCommand {
 				String permissionStringInternal = "eco_" + action;
 				if (plugin.debug)
 					plugin.getLogger().info("Checking permStrInt [" + permissionStringInternal + "]");
-				String permissionStringExternal = PermissionManager.getPermission(permissionStringInternal)
-						+ (toSelf ? "" : ".other");
+				String permissionStringExternal = PermissionManager.getPermission(permissionStringInternal)	+ (toSelf ? "" : ".other");
 				if (plugin.debug)
 					plugin.getLogger().info("Checking permStrExt [" + permissionStringExternal + "]");
 				if (!sender.hasPermission(permissionStringExternal)) {
@@ -177,8 +170,7 @@ public class EconomySystem extends AbstractCommand {
 								.replace("_value_new", getMoney(temp) + currencyFormat));
 				// notify other player if !toSelf
 				if (!toSelf)
-					Bukkit.getPlayer(target)
-							.sendMessage(language.getString("commands.eco.set.notify")
+					Bukkit.getPlayer(target).sendMessage(language.getString("commands.eco.set.notify")
 									.replace("_sender", sender.getName()).replace("_value_old", before + currencyFormat)
 									.replace("_value_new", getMoney(temp) + currencyFormat));
 				break;
@@ -319,9 +311,11 @@ public class EconomySystem extends AbstractCommand {
 							addMoney(target, amount);
 							// sender.sendMessage("[Eco] Du hast " + args[1] + " " + amount + "$
 							// überwiesen!"); //TODO: need to change language string
+							Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS, "commands.eco.paytoothers", "_target", args[1], "_amount", addMoney(target, amount));
 							// Bukkit.getPlayer(target).sendMessage("[Eco] Dir wurden " + amount + "$ von "
 							// + ((Player) sender).getName() + " überwiesen. Neuer Stand: " +
 							// getMoney(target) + "$"); //TODO: need to change language string
+							Utils.sendMessageWithConfiguredLanguage(plugin, target, ChatFormat.SUCCESS, "commands.eco.payfromothers", "_sender", sender, "_amount", addMoney(target, amount));
 						}
 					} else if (args.length >= 3) {
 						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
