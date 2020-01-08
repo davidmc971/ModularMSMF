@@ -17,15 +17,15 @@ import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
 
 /**
  * TODO: Mainclass for economysystem <3
- * @author Lightkeks
- * with help from @author davidmc971
- * TODO: changing all sendMessage with Utils.sendMessage...
+ * 
+ * @author Lightkeks with help from @author davidmc971 TODO: changing all
+ *         sendMessage with Utils.sendMessage...
  */
 
 public class EconomySystem extends AbstractCommand {
 	private ModularMSMF plugin;
 	public static double defaultMoney = 500.0;
-	
+
 	public EconomySystem(ModularMSMF plugin) {
 		super(plugin);
 		this.plugin = plugin;
@@ -33,11 +33,14 @@ public class EconomySystem extends AbstractCommand {
 
 	@Override
 	public String[] getCommandLabels() {
-		return new String[]{"eco","money"};
+		return new String[] { "eco", "money" };
 	}
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
+
+		String infoPrefix = "";
+		FileConfiguration language = plugin.getLanguageManager().getStandardLanguage();
 
 		UUID uuid = null;
 		UUID target = null;
@@ -45,246 +48,284 @@ public class EconomySystem extends AbstractCommand {
 		if (sender instanceof Player) {
 			uuid = ((Player) sender).getUniqueId();
 		}
-		String currencyFormat = "$";
-		//TODO: something like language.getCurrencyFormat() which loads from settings.yml
+		String currencyFormat = "\\$";
+		// TODO: something like language.getCurrencyFormat() which loads from
+		// settings.yml
 
-		//checks contained string above in getCommandLabels()
-		if(!Arrays.asList(getCommandLabels()).contains(commandLabel.toLowerCase())) return false;
+		// checks contained string above in getCommandLabels()
+		if (!Arrays.asList(getCommandLabels()).contains(commandLabel.toLowerCase()))
+			return false;
 
 		if (args.length == 0) {
-			if((sender instanceof Player)) {
-			//TODO: working line, still want to change to Utils.sendMessageWithConfiguredLanguage()
-			sender.sendMessage(infoPrefix+language.getString("commands.eco.balance.self").replace("_value", (String)(getMoney(uuid) + currencyFormat)));
-			 //Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO, "commands.eco.balance.self", "_value", getMoney(uuid) + currencyFormat); //TODO: possible to do?
+			if ((sender instanceof Player)) {
+				// TODO: working line, still want to change to
+				// Utils.sendMessageWithConfiguredLanguage()
+				//sender.sendMessage(infoPrefix + language.getString("commands.eco.balance.self").replace("_value",
+				//		(String) (getMoney(uuid) + currencyFormat)));
+				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO, "commands.eco.balance.self",
+						"_value", (String)(getMoney(uuid) + currencyFormat)); // TODO: possible to do?
 			} else {
-				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "commands.eco.error.console");
+				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE,
+						"commands.eco.error.console");
 			}
 		} else if (args.length > 0) {
 			switch (args[0].toLowerCase()) {
 			case "help":
 				if (args.length > 1) {
-					//sender.sendMessage("[Eco] Bitte nur '/eco help'!");
+					// sender.sendMessage("[Eco] Bitte nur '/eco help'!");
 				} else {
 					/**
 					 * TODO: Rewrite into changeable language without using lang-yml
 					 */
-					//sender.sendMessage("[Eco] Alle Befehle:");
-					//sender.sendMessage("[Eco] /eco help <- Diese Hilfe");
-					//sender.sendMessage("[Eco] /eco set [Name] [Amount] <- Geld setzen");
-					//sender.sendMessage("[Eco] /eco [Name] <- Anzeigen des Geldes vom Spieler");
-					//sender.sendMessage("[Eco] /eco add [Name] [Amount] <- Geld hinzufügen");
-					//sender.sendMessage("[Eco] /eco take [Name] [Amount] <- Geld von Spieler nehmen");
-					//sender.sendMessage("[Eco] /eco pay [Name] [Amount] <- Geld an Spieler überweisen");
+					// sender.sendMessage("[Eco] Alle Befehle:");
+					// sender.sendMessage("[Eco] /eco help <- Diese Hilfe");
+					// sender.sendMessage("[Eco] /eco set [Name] [Amount] <- Geld setzen");
+					// sender.sendMessage("[Eco] /eco [Name] <- Anzeigen des Geldes vom Spieler");
+					// sender.sendMessage("[Eco] /eco add [Name] [Amount] <- Geld hinzufügen");
+					// sender.sendMessage("[Eco] /eco take [Name] [Amount] <- Geld von Spieler
+					// nehmen");
+					// sender.sendMessage("[Eco] /eco pay [Name] [Amount] <- Geld an Spieler
+					// überweisen");
 					return true;
 				}
 				break;
 			case "set":
 			case "add":
 			case "take":
-				//Argument checking
+				// Argument checking
 				if (args.length < 2) {
-					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "commands.eco.error.syntax");
+					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+							"commands.eco.error.syntax");
 					return true;
 				} else if (args.length > 3) {
-					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.toomanyarguments");
+					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+							"general.toomanyarguments");
 					return true;
 				}
-				
+
 				boolean toSelf = (args.length == 2);
 
 				if (!(sender instanceof Player) && toSelf) {
-					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "commands.eco.error.console");
+					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE,
+							"commands.eco.error.console");
 					break;
 				}
 
-				if(!toSelf) {
+				if (!toSelf) {
 					target = Utils.getPlayerUUIDByName(args[1]);
-					if(target == uuid && (sender instanceof Player)) toSelf = true;
+					if (target == uuid && (sender instanceof Player))
+						toSelf = true;
 				}
 
 				String action = args[0];
-				
-				//Permission checking
-				//TODO: handle ".other" differently
+
+				// Permission checking
+				// TODO: handle ".other" differently
 				String permissionStringInternal = "eco_" + action;
-				if (plugin.debug) plugin.getLogger().info("Checking permStrInt [" + permissionStringInternal + "]");
-				String permissionStringExternal = PermissionManager.getPermission(permissionStringInternal) + (toSelf ? "" : ".other");
-				if (plugin.debug) plugin.getLogger().info("Checking permStrExt [" + permissionStringExternal + "]");
+				if (plugin.debug)
+					plugin.getLogger().info("Checking permStrInt [" + permissionStringInternal + "]");
+				String permissionStringExternal = PermissionManager.getPermission(permissionStringInternal)
+						+ (toSelf ? "" : ".other");
+				if (plugin.debug)
+					plugin.getLogger().info("Checking permStrExt [" + permissionStringExternal + "]");
 				if (!sender.hasPermission(permissionStringExternal)) {
 					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
 					break;
 				}
 
-				if(!toSelf) {
+				if (!toSelf) {
 					if (target == null) {
-						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.playerunknown");
+						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+								"general.playerunknown");
 						return true;
 					} else {
 						Player p = Bukkit.getPlayer(target);
 						if (p == null || !p.isOnline()) {
-							//Do we want an online check here?
-							Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.playernotonline");
+							// Do we want an online check here?
+							Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+									"general.playernotonline");
 							return true;
 						}
 					}
 				}
 
-				//value is always last arg, we can save a few lines of code here
-				//TODO: discuss whether we want to check if it's a negative number or not
+				// value is always last arg, we can save a few lines of code here
+				// TODO: discuss whether we want to check if it's a negative number or not
 				try {
 					amount = Double.parseDouble(args[args.length - 1]);
 				} catch (Exception e) {
-					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "commands.eco.error.syntax");
+					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+							"commands.eco.error.syntax");
 					return true;
 				}
-				
+
 				UUID temp = (toSelf ? uuid : target);
 				double before = getMoney(temp);
 
-				//perform action
-				if (action.equals("set")) setMoney(temp, amount);
-				else if (action.equals("add")) addMoney(temp, amount);
-				else if (action.equals("take")) takeMoney(temp, amount);
+				// perform action
+				if (action.equals("set"))
+					setMoney(temp, amount);
+				else if (action.equals("add"))
+					addMoney(temp, amount);
+				else if (action.equals("take"))
+					takeMoney(temp, amount);
 
-				
-				//TODO: working, still want to use Utils.sendMessageWithConfiguredLanguage()
-				sender.sendMessage(
-					(toSelf ?
-					language.getString("commands.eco.set.self.full")
-					:
-					language.getString("commands.eco.set.other.full")
-					.replace("_target", args[1]))
-					.replace("_value_old", before + currencyFormat)
-					.replace("_value_new", getMoney(temp) + currencyFormat)
-				);
-				//notify other player if !toSelf
-				if(!toSelf) Bukkit.getPlayer(target).sendMessage(
-					language.getString("commands.eco.set.notify")
-					.replace("_sender", sender.getName())
-					.replace("_value_old", before + currencyFormat)
-					.replace("_value_new", getMoney(temp) + currencyFormat)
-				);
+				// TODO: working, still want to use Utils.sendMessageWithConfiguredLanguage()
+				sender.sendMessage((toSelf ? language.getString("commands.eco.set.self.full")
+						: language.getString("commands.eco.set.other.full").replace("_target", args[1]))
+								.replace("_value_old", before + currencyFormat)
+								.replace("_value_new", getMoney(temp) + currencyFormat));
+				// notify other player if !toSelf
+				if (!toSelf)
+					Bukkit.getPlayer(target)
+							.sendMessage(language.getString("commands.eco.set.notify")
+									.replace("_sender", sender.getName()).replace("_value_old", before + currencyFormat)
+									.replace("_value_new", getMoney(temp) + currencyFormat));
 				break;
 			// case "add":
-			// 	if (sender.hasPermission(PermissionManager.getPermission("eco_add"))) {
-			// 		switch (args.length) {
-			// 		default:
-			// 			if (args.length < 2) {
-			// 				//sender.sendMessage("[Eco] Bitte gib einen Spielernamen sowie Betrag an!");
-			// 				return true;
-			// 			} else if (args.length > 3) {
-			// 				sender.sendMessage(errorPrefix+language.getString("general.toomanyarguments"));
-			// 				return true;
-			// 			}
-			// 			target = Utils.getPlayerUUIDByName(args[1]);
-			// 			if (target == null) {
-			// 				sender.sendMessage(errorPrefix+language.getString("general.playerunknown"));
-			// 				return true;
-			// 			} else if (!Bukkit.getPlayer(target).isOnline()) {
-			// 				sender.sendMessage(errorPrefix+language.getString("general.playernotfound"));
-			// 				return true;
-			// 			}
-			// 		case 2:
-			// 			try {
-			// 				amount = Integer.parseInt(args[1]);
-			// 			} catch (NumberFormatException e) {
-			// 				sender.sendMessage(errorPrefix+language.getString("commands.money.missingamount")); //need to change language string
-			// 				return true;
-			// 			}
-			// 			if (amount <= 0) {
-			// 				sender.sendMessage(errorPrefix+language.getString("commands.eco.ecoforbiddenminus"));
-			// 			} else {
-			// 				//sender.sendMessage("[Eco] Du hast nun " + amount + "$ zu deinem Konto hinzugefügt!"); //need to change language string
-			// 				addMoney(uuid, amount);
-			// 			}
-			// 			break;
-			// 		case 3:
-			// 			try {
-			// 				amount = Integer.parseInt(args[1]);
-			// 			} catch (NumberFormatException e) {
-			// 				sender.sendMessage(errorPrefix+language.getString("commands.money.missingamount")); //need to change language string
-			// 				return true;
-			// 			}
-			// 			addMoney(target, amount);
-			// 			//sender.sendMessage("[Eco] Du hast " + target + " " + amount + "$ hinzugefügt!"); //need to change language string
-			// 			//Bukkit.getPlayer(target).sendMessage("[Eco] Dir wurden " + amount + "$ gutgeschrieben. Neuer Stand: " + getMoney(target) + "$"); //need to change language string
-			// 			break;
-			// 		}
-			// 	} else {
-			// 		sender.sendMessage(noPermPrefix+language.getString("general.nopermission"));
-			// 	}
-			// 	break;
+			// if (sender.hasPermission(PermissionManager.getPermission("eco_add"))) {
+			// switch (args.length) {
+			// default:
+			// if (args.length < 2) {
+			// //sender.sendMessage("[Eco] Bitte gib einen Spielernamen sowie Betrag an!");
+			// return true;
+			// } else if (args.length > 3) {
+			// sender.sendMessage(errorPrefix+language.getString("general.toomanyarguments"));
+			// return true;
+			// }
+			// target = Utils.getPlayerUUIDByName(args[1]);
+			// if (target == null) {
+			// sender.sendMessage(errorPrefix+language.getString("general.playerunknown"));
+			// return true;
+			// } else if (!Bukkit.getPlayer(target).isOnline()) {
+			// sender.sendMessage(errorPrefix+language.getString("general.playernotfound"));
+			// return true;
+			// }
+			// case 2:
+			// try {
+			// amount = Integer.parseInt(args[1]);
+			// } catch (NumberFormatException e) {
+			// sender.sendMessage(errorPrefix+language.getString("commands.money.missingamount"));
+			// //need to change language string
+			// return true;
+			// }
+			// if (amount <= 0) {
+			// sender.sendMessage(errorPrefix+language.getString("commands.eco.ecoforbiddenminus"));
+			// } else {
+			// //sender.sendMessage("[Eco] Du hast nun " + amount + "$ zu deinem Konto
+			// hinzugefügt!"); //need to change language string
+			// addMoney(uuid, amount);
+			// }
+			// break;
+			// case 3:
+			// try {
+			// amount = Integer.parseInt(args[1]);
+			// } catch (NumberFormatException e) {
+			// sender.sendMessage(errorPrefix+language.getString("commands.money.missingamount"));
+			// //need to change language string
+			// return true;
+			// }
+			// addMoney(target, amount);
+			// //sender.sendMessage("[Eco] Du hast " + target + " " + amount + "$
+			// hinzugefügt!"); //need to change language string
+			// //Bukkit.getPlayer(target).sendMessage("[Eco] Dir wurden " + amount + "$
+			// gutgeschrieben. Neuer Stand: " + getMoney(target) + "$"); //need to change
+			// language string
+			// break;
+			// }
+			// } else {
+			// sender.sendMessage(noPermPrefix+language.getString("general.nopermission"));
+			// }
+			// break;
 			// case "take":
-			// 	if (sender.hasPermission(PermissionManager.getPermission("eco_take"))) {
-			// 		if (args.length < 2) {
-			// 			//sender.sendMessage("[Eco] Bitte gib einen Spielernamen sowie Betrag an!"); //need to change language string
-			// 		} else if (args.length == 2) {
-			// 			try {
-			// 				amount = Integer.parseInt(args[1]);
-			// 			} catch (NumberFormatException e) {
-			// 				sender.sendMessage(errorPrefix+language.getString("commands.money.missingamount")); //need to change language string
-			// 				return true;
-			// 			}
-			// 			if (amount <= 0) {
-			// 				sender.sendMessage(errorPrefix+language.getString("commands.money.invalidpayment")); //need to change language string
-			// 			} else {
-			// 				//sender.sendMessage("[Eco] Du hast nun " + amount + "$ von deinem Konto weggenommen!"); //need to change language string
-			// 				takeMoney(uuid, amount);
-			// 			}
-			// 		} else if (args.length == 3) {
-			// 			target = Utils.getPlayerUUIDByName(args[1]);
-			// 			if (target == null) {
-			// 				sender.sendMessage(errorPrefix+language.getString("general.playerunknown"));
-			// 				return true;
-			// 			} else if (!Bukkit.getPlayer(target).isOnline()) {
-			// 				sender.sendMessage(errorPrefix+language.getString("general.playernotfound"));
-			// 				return true;
-			// 			}
-			// 			//sender.sendMessage("[Eco] Du hast " + args[1] + " " + amount + "$ weggenommen!"); //need to change language string
-			// 			takeMoney(target, amount);
-			// 			//Bukkit.getPlayer(target).sendMessage("[Eco] Dir wurden " + amount + "$ weggenommen. Neuer Stand: " + getMoney(target) + "$"); //need to change language string
-			// 		} else {
-			// 			sender.sendMessage(errorPrefix+language.getString("general.toomanyarguments"));
-			// 		}
-			// 	} else {
-			// 		sender.sendMessage(noPermPrefix+language.getString("general.nopermission"));
-			// 	}
-			// 	break;
+			// if (sender.hasPermission(PermissionManager.getPermission("eco_take"))) {
+			// if (args.length < 2) {
+			// //sender.sendMessage("[Eco] Bitte gib einen Spielernamen sowie Betrag an!");
+			// //need to change language string
+			// } else if (args.length == 2) {
+			// try {
+			// amount = Integer.parseInt(args[1]);
+			// } catch (NumberFormatException e) {
+			// sender.sendMessage(errorPrefix+language.getString("commands.money.missingamount"));
+			// //need to change language string
+			// return true;
+			// }
+			// if (amount <= 0) {
+			// sender.sendMessage(errorPrefix+language.getString("commands.money.invalidpayment"));
+			// //need to change language string
+			// } else {
+			// //sender.sendMessage("[Eco] Du hast nun " + amount + "$ von deinem Konto
+			// weggenommen!"); //need to change language string
+			// takeMoney(uuid, amount);
+			// }
+			// } else if (args.length == 3) {
+			// target = Utils.getPlayerUUIDByName(args[1]);
+			// if (target == null) {
+			// sender.sendMessage(errorPrefix+language.getString("general.playerunknown"));
+			// return true;
+			// } else if (!Bukkit.getPlayer(target).isOnline()) {
+			// sender.sendMessage(errorPrefix+language.getString("general.playernotfound"));
+			// return true;
+			// }
+			// //sender.sendMessage("[Eco] Du hast " + args[1] + " " + amount + "$
+			// weggenommen!"); //need to change language string
+			// takeMoney(target, amount);
+			// //Bukkit.getPlayer(target).sendMessage("[Eco] Dir wurden " + amount + "$
+			// weggenommen. Neuer Stand: " + getMoney(target) + "$"); //need to change
+			// language string
+			// } else {
+			// sender.sendMessage(errorPrefix+language.getString("general.toomanyarguments"));
+			// }
+			// } else {
+			// sender.sendMessage(noPermPrefix+language.getString("general.nopermission"));
+			// }
+			// break;
 			case "pay":
 				if (sender.hasPermission(PermissionManager.getPermission("eco_pay"))) {
 					if (args.length < 2) {
-						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "commands.money.missingamountandplayer");
+						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+								"commands.money.missingamountandplayer");
 					}
 					if (args.length == 2) {
-						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "commands.money.missingamount");
+						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+								"commands.money.missingamount");
 					}
 					if (args.length == 3) {
 						target = Utils.getPlayerUUIDByName(args[1]);
 						if (target == null) {
-							Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.playerunknown");
+							Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+									"general.playerunknown");
 							return true;
 						} else if (!Bukkit.getPlayer(target).isOnline()) {
-							Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.playernotfound");
+							Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+									"general.playernotfound");
 							return true;
 						}
 						try {
 							amount = Integer.parseInt(args[2]);
 						} catch (NumberFormatException e) {
-							Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "commands.money.amountonly");
+							Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+									"commands.money.amountonly");
 							return true;
 						}
 						if (amount <= 0) {
-							Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "commands.money.invalidpayment");
+							Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+									"commands.money.invalidpayment");
 						} else if (getMoney(uuid) - amount < 0) {
-							Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "commands.money.nomoneyleft");
+							Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+									"commands.money.nomoneyleft");
 						} else {
 							takeMoney(uuid, amount);
 							addMoney(target, amount);
-							//sender.sendMessage("[Eco] Du hast " + args[1] + " " + amount + "$ überwiesen!"); //TODO: need to change language string
-							//Bukkit.getPlayer(target).sendMessage("[Eco] Dir wurden " + amount + "$ von " + ((Player) sender).getName() + " überwiesen. Neuer Stand: " + getMoney(target) + "$"); //TODO: need to change language string
+							// sender.sendMessage("[Eco] Du hast " + args[1] + " " + amount + "$
+							// überwiesen!"); //TODO: need to change language string
+							// Bukkit.getPlayer(target).sendMessage("[Eco] Dir wurden " + amount + "$ von "
+							// + ((Player) sender).getName() + " überwiesen. Neuer Stand: " +
+							// getMoney(target) + "$"); //TODO: need to change language string
 						}
 					} else if (args.length >= 3) {
-						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.toomanyarguments");
+						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+								"general.toomanyarguments");
 					}
 				} else {
 					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
@@ -296,19 +337,25 @@ public class EconomySystem extends AbstractCommand {
 					if (sender.hasPermission(PermissionManager.getPermission("eco_lookup"))) {
 						target = Utils.getPlayerUUIDByName(args[0]);
 						if (target == null) {
-							Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.playerunkown");
+							Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+									"general.playerunkown");
 							return true;
 						} else {
-						sender.sendMessage(infoPrefix+language.getString("commands.eco.balance.other") //TODO: change sendMessage() to Utils
-							.replace("_target", args[0])
-							.replace("_value", getMoney(target) + currencyFormat));
+							sender.sendMessage(infoPrefix + language.getString("commands.eco.balance.other") // TODO:
+																												// change
+																												// sendMessage()
+																												// to
+																												// Utils
+									.replace("_target", args[0]).replace("_value", getMoney(target) + currencyFormat));
 						}
 						break;
 					} else {
-						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
+						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM,
+								"general.nopermission");
 					}
 				default:
-					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.invalidarguments");
+					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+							"general.invalidarguments");
 					break;
 				}
 
@@ -320,8 +367,8 @@ public class EconomySystem extends AbstractCommand {
 	private String moneykey = "economy.money";
 
 	private FileConfiguration getPlayerCfg(UUID uuid) {
-		//return plugin.getDataManager().getPlayerCfg(uuid);
-		return plugin.getPlayerManager().getPlayerData(uuid).getConfiguration(); 
+		// return plugin.getDataManager().getPlayerCfg(uuid);
+		return plugin.getPlayerManager().getPlayerData(uuid).getConfiguration();
 	}
 
 	private void setMoney(UUID uuid, double amount) {
@@ -352,13 +399,12 @@ public class EconomySystem extends AbstractCommand {
 	private double getMoney(UUID uuid) {
 		FileConfiguration cfg = getPlayerCfg(uuid);
 		if (cfg != null && cfg.isDouble(moneykey)) {
-			/**int index = moneykey.indexOf(".");
-			if (index == -1){
-				index = moneykey.length();
-			}else if(moneykey.length() - index >= 2){
-				index +=2;
-			}*/ //kam von Kevin :*
-			return cfg.getDouble(moneykey/** .substring(0, index)*/);
+			/**
+			 * int index = moneykey.indexOf("."); if (index == -1){ index =
+			 * moneykey.length(); }else if(moneykey.length() - index >= 2){ index +=2; }
+			 */ // kam von Kevin :*
+			return cfg.getDouble(moneykey/** .substring(0, index) */
+			);
 		}
 		return -1;
 	}

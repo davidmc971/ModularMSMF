@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import io.github.davidmc971.modularmsmf.core.PermissionManager;
@@ -55,6 +56,9 @@ public class CommandHome extends AbstractCommand {
 		// TODO: Implementieren
 		// Playerdata plrdat =
 
+		String infoPrefix = "";
+		FileConfiguration language = plugin.getLanguageManager().getStandardLanguage();
+
 		boolean isPlayer = sender instanceof Player;
 
 		if (args.length == 0) {
@@ -77,7 +81,7 @@ public class CommandHome extends AbstractCommand {
 		case "help":
 			if(isPlayer) {
 				//display player help
-				return displayHelp(sender, args, language);
+				return displayHelp(sender, args);
 			} else {
 				//display console help //TODO: adding to language file
 				if(args.length == 1) {
