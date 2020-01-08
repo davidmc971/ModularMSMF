@@ -16,6 +16,7 @@ import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerLoginEvent.Result;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.Event;
 
 import io.github.davidmc971.modularmsmf.ModularMSMF;
 import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
@@ -126,6 +127,11 @@ public class Events implements Listener {
 		public KillType getKt() {
 			return kt;
 		}
+	}
+
+	@EventHandler
+	public void onEvent(Event e) {
+		plugin.getLogger().info("Event: " + e.getEventName());
 	}
 
 	@EventHandler

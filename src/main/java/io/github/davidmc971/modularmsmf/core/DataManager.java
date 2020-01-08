@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -183,7 +184,9 @@ public class DataManager implements Listener {
 	}
 
 	public void savePlayerCfg(FileConfiguration playercfg, UUID uuid) {
-		saveCfg(playercfg, pathUserdata + uuid.toString() + ".yml");
+		String fileExtension = (playercfg instanceof YamlConfiguration) ? ".yml" : ".json";
+
+		saveCfg(playercfg, pathPlayers + uuid.toString() + fileExtension);
 	}
 
 	private void initDefaultSettings(){
