@@ -9,11 +9,11 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
-import io.github.davidmc971.modularmsmf.core.PermissionManager;
 import io.github.davidmc971.modularmsmf.ModularMSMF;
 import io.github.davidmc971.modularmsmf.commands.AbstractCommand;
-import io.github.davidmc971.modularmsmf.util.Utils;
+import io.github.davidmc971.modularmsmf.core.PermissionManager;
 import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
+import io.github.davidmc971.modularmsmf.util.Utils;
 
 /**
  * TODO: Mainclass for economysystem <3
@@ -39,7 +39,6 @@ public class EconomySystem extends AbstractCommand {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 
-		String infoPrefix = "";
 		FileConfiguration language = plugin.getLanguageManager().getStandardLanguage();
 
 		UUID uuid = null;
@@ -58,17 +57,15 @@ public class EconomySystem extends AbstractCommand {
 
 		if (args.length == 0) {
 			if ((sender instanceof Player)) {
-				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO, "commands.eco.balance.self",
-						"_value", (String) (getMoney(uuid) + currencyFormat)); // TODO: possible to do?
+				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO, "commands.eco.balance.self", "_value", (String) (getMoney(uuid) + currencyFormat));
 			} else {
-				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE,
-						"commands.eco.error.console");
+				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "commands.eco.error.console");
 			}
 		} else if (args.length > 0) {
 			switch (args[0].toLowerCase()) {
 			case "help":
 				if (args.length > 1) {
-					// sender.sendMessage("[Eco] Bitte nur '/eco help'!");
+					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO, "commands.eco.helponly");
 				} else {
 					/**
 					 * TODO: Rewrite into changeable language without using lang-yml
@@ -90,27 +87,23 @@ public class EconomySystem extends AbstractCommand {
 			case "take":
 				// Argument checking
 				if (args.length < 2) {
-					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
-							"commands.eco.error.syntax");
+					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "commands.eco.error.syntax");
 					return true;
 				} else if (args.length > 3) {
-					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
-							"general.toomanyarguments");
+					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.toomanyarguments");
 					return true;
 				}
 
 				boolean toSelf = (args.length == 2);
 
 				if (!(sender instanceof Player) && toSelf) {
-					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE,
-							"commands.eco.error.console");
+					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "commands.eco.error.console");
 					break;
 				}
 
 				if (!toSelf) {
 					target = Utils.getPlayerUUIDByName(args[1]);
-					if (target == uuid && (sender instanceof Player))
-						toSelf = true;
+					if (target == uuid && (sender instanceof Player)) toSelf = true;
 				}
 
 				String action = args[0];
@@ -118,12 +111,13 @@ public class EconomySystem extends AbstractCommand {
 				// Permission checking
 				// TODO: handle ".other" differently
 				String permissionStringInternal = "eco_" + action;
-				if (plugin.debug)
-					plugin.getLogger().info("Checking permStrInt [" + permissionStringInternal + "]");
-				String permissionStringExternal = PermissionManager.getPermission(permissionStringInternal)
-						+ (toSelf ? "" : ".other");
-				if (plugin.debug)
-					plugin.getLogger().info("Checking permStrExt [" + permissionStringExternal + "]");
+
+				if (plugin.debug) plugin.getLogger().info("Checking permStrInt [" + permissionStringInternal + "]");
+
+				String permissionStringExternal = PermissionManager.getPermission(permissionStringInternal) + (toSelf ? "" : ".other");
+
+				if (plugin.debug) plugin.getLogger().info("Checking permStrExt [" + permissionStringExternal + "]");
+
 				if (!sender.hasPermission(permissionStringExternal)) {
 					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
 					break;
@@ -131,15 +125,13 @@ public class EconomySystem extends AbstractCommand {
 
 				if (!toSelf) {
 					if (target == null) {
-						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
-								"general.playerunknown");
+						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.playerunknown");
 						return true;
 					} else {
 						Player p = Bukkit.getPlayer(target);
 						if (p == null || !p.isOnline()) {
 							// Do we want an online check here?
-							Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
-									"general.playernotonline");
+							Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.playernotonline");
 							return true;
 						}
 					}
@@ -150,8 +142,7 @@ public class EconomySystem extends AbstractCommand {
 				try {
 					amount = Double.parseDouble(args[args.length - 1]);
 				} catch (Exception e) {
-					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
-							"commands.eco.error.syntax");
+					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "commands.eco.error.syntax");
 					return true;
 				}
 
@@ -159,24 +150,15 @@ public class EconomySystem extends AbstractCommand {
 				double before = getMoney(temp);
 
 				// perform action
-				if (action.equals("set"))
-					setMoney(temp, amount);
-				else if (action.equals("add"))
-					addMoney(temp, amount);
-				else if (action.equals("take"))
-					takeMoney(temp, amount);
+				if (action.equals("set")) setMoney(temp, amount);
+				else if (action.equals("add")) addMoney(temp, amount);
+				else if (action.equals("take")) takeMoney(temp, amount);
 
 				// TODO: working, still want to use Utils.sendMessageWithConfiguredLanguage()
-				sender.sendMessage((toSelf ? language.getString("commands.eco.set.self.full")
-						: language.getString("commands.eco.set.other.full").replace("_target", args[1]))
-								.replace("_value_old", before + currencyFormat)
-								.replace("_value_new", getMoney(temp) + currencyFormat));
+				sender.sendMessage((toSelf ? language.getString("commands.eco.set.self.full") : language.getString("commands.eco.set.other.full").replace("_target", args[1])) .replace("_value_old", before + currencyFormat) .replace("_value_new", getMoney(temp) + currencyFormat));
 				// notify other player if !toSelf
 				if (!toSelf)
-					Bukkit.getPlayer(target)
-							.sendMessage(language.getString("commands.eco.set.notify")
-									.replace("_sender", sender.getName()).replace("_value_old", before + currencyFormat)
-									.replace("_value_new", getMoney(temp) + currencyFormat));
+					Bukkit.getPlayer(target) .sendMessage(language.getString("commands.eco.set.notify") .replace("_sender", sender.getName()).replace("_value_old", before + currencyFormat) .replace("_value_new", getMoney(temp) + currencyFormat));
 				break;
 			// case "add":
 			// if (sender.hasPermission(PermissionManager.getPermission("eco_add"))) {
@@ -276,54 +258,45 @@ public class EconomySystem extends AbstractCommand {
 			// sender.sendMessage(noPermPrefix+language.getString("general.nopermission"));
 			// }
 			// break;
-			case "pay":
+			case "pay": //TODO: Wichtig - Output = null, please fix
 				if (sender.hasPermission(PermissionManager.getPermission("eco_pay"))) {
 					if (args.length < 2) {
-						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
-								"commands.money.missingamountandplayer");
+						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "commands.money.missingamountandplayer");
 					}
 					if (args.length == 2) {
-						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
-								"commands.money.missingamount");
+						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "commands.money.missingamount");
 					}
 					if (args.length == 3) {
 						target = Utils.getPlayerUUIDByName(args[1]);
 						if (target == null) {
-							Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
-									"general.playerunknown");
+							Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.playerunknown");
 							return true;
 						} else if (!Bukkit.getPlayer(target).isOnline()) {
-							Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
-									"general.playernotfound");
+							Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.playernotfound");
 							return true;
 						}
 						try {
 							amount = Integer.parseInt(args[2]);
 						} catch (NumberFormatException e) {
-							Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
-									"commands.money.amountonly");
+							Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "commands.money.amountonly");
 							return true;
 						}
 						if (amount <= 0) {
-							Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
-									"commands.money.invalidpayment");
+							Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "commands.money.invalidpayment");
 						} else if (getMoney(uuid) - amount < 0) {
-							Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
-									"commands.money.nomoneyleft");
+							Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "commands.money.nomoneyleft");
 						} else {
 							takeMoney(uuid, amount);
 							addMoney(target, amount);
 							// sender.sendMessage("[Eco] Du hast " + args[1] + " " + amount + "$
 							// überwiesen!"); //TODO: need to change language string
-							Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
-									"commands.eco.paytoothers", "_target", args[1], "_amount",
-									Double.toString(getMoney(target)));
+							Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS, "commands.eco.paytoothers", "_target", args[1], "_amount", Double.toString(getMoney(target)));
+							//plugin.getLogger().info(sender.getName()+"sender"+Double.toString(getMoney(target)));;
 							// Bukkit.getPlayer(target).sendMessage("[Eco] Dir wurden " + amount + "$ von "
 							// + ((Player) sender).getName() + " überwiesen. Neuer Stand: " +
 							// getMoney(target) + "$"); //TODO: need to change language string
-							Utils.sendMessageWithConfiguredLanguage(plugin, Bukkit.getPlayer(target), ChatFormat.SUCCESS,
-									"commands.eco.payfromothers", "_sender", sender.getName(), "_amount",
-									Double.toString(getMoney(target)));
+							Utils.sendMessageWithConfiguredLanguage(plugin, Bukkit.getPlayer(target), ChatFormat.SUCCESS, "commands.eco.payfromothers", "_sender", sender.getName(), "_amount", Double.toString(getMoney(target)));
+							//plugin.getLogger().info(args[1]+"target"+Double.toString(getMoney(target)));;
 						}
 					} else if (args.length >= 3) {
 						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
@@ -343,21 +316,14 @@ public class EconomySystem extends AbstractCommand {
 									"general.playerunkown");
 							return true;
 						} else {
-							sender.sendMessage(infoPrefix + language.getString("commands.eco.balance.other") // TODO:
-																												// change
-																												// sendMessage()
-																												// to
-																												// Utils
-									.replace("_target", args[0]).replace("_value", getMoney(target) + currencyFormat));
+							Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO, "commands.eco.balance.other", "_target", args[0], "_value", (String) (getMoney(uuid) + currencyFormat));
 						}
 						break;
 					} else {
-						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM,
-								"general.nopermission");
+						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
 					}
 				default:
-					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
-							"general.invalidarguments");
+					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.invalidarguments");
 					break;
 				}
 
