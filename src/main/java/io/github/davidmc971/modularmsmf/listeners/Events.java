@@ -129,10 +129,10 @@ public class Events implements Listener {
 		}
 	}
 
-	@EventHandler
-	public void onEvent(Event e) {
-		plugin.getLogger().info("Event: " + e.getEventName());
-	}
+	// @EventHandler
+	// public void onEvent(Event e) {
+	// 	plugin.getLogger().info("Event: " + e.getEventName());
+	// }
 
 	@EventHandler
 	public void onChat(AsyncPlayerChatEvent event) {
