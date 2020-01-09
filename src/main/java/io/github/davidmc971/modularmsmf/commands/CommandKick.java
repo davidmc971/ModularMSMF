@@ -66,8 +66,8 @@ public class CommandKick extends AbstractCommand {
 	}
 
 	private void kickPlayer(UUID target, String reason) {
-		Bukkit.getPlayer(target).kickPlayer(reason);
 		plugin.getMainEvents().registerKickedPlayer(target);
+		Bukkit.getPlayer(target).kickPlayer(reason);
 	}
 
 	@Override
