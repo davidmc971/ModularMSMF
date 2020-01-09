@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
@@ -43,7 +44,14 @@ public class Events implements Listener {
 		Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.WELCOME, "event.welcome", "_var", player.getDisplayName());
 	}
 
-	@EventHandler //TODO: cancel quit-message event if kicked?
+	@EventHandler(priority = EventPriority.HIGHEST) //TODO: need to cancel quit-message event
+	public void onKick(PlayerKickEvent event){
+		//event.setCancelled(false);
+		event.setLeaveMessage("failure to kick?");
+		//event.isCancelled();
+	}
+
+	@EventHandler(priority = EventPriority.LOW, ignoreCancelled = false)//TODO: cancel quit-message event if kicked?
 	public void onQuit(PlayerQuitEvent event) throws IOException { //TODO: cancel yellow quit-message
 		Player player = event.getPlayer();
 		FileConfiguration cfg = plugin.getDataManager().getPlayerCfg(player.getUniqueId());
@@ -55,13 +63,6 @@ public class Events implements Listener {
 			Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.QUIT, "event.quit", "_var", player.getDisplayName());
 			event.setQuitMessage(null);
 		}
-	}
-	
-	@EventHandler //TODO: need to cancel quit-message event
-	public void onKick(PlayerKickEvent event){
-		event.setCancelled(true);
-		event.setLeaveMessage("failure to kick?");
-		event.isCancelled();
 	}
 
 	@EventHandler
