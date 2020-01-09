@@ -46,7 +46,7 @@ public class Events implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGHEST) //TODO: need to cancel quit-message event
 	public void onKick(PlayerKickEvent event){
-		//event.setCancelled(false);
+		//event.setCancelled(false); 
 		event.setLeaveMessage("failure to kick?");
 		//event.isCancelled();
 	}
