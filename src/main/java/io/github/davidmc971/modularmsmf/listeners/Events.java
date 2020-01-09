@@ -2,6 +2,7 @@ package io.github.davidmc971.modularmsmf.listeners;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.UUID;
 import java.util.logging.Logger;
 
 import org.bukkit.configuration.file.FileConfiguration;
@@ -32,6 +33,7 @@ public class Events implements Listener {
 
 	public ModularMSMF plugin;
 	private ArrayList<PlayerKillConfig> killedPlayers = new ArrayList<PlayerKillConfig>();
+	private ArrayList<UUID> kickedPlayers = new ArrayList<UUID>();
 
 	public Events(ModularMSMF plugin) {
 		this.plugin = plugin;
@@ -44,15 +46,18 @@ public class Events implements Listener {
 		Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.WELCOME, "event.welcome", "_var", player.getDisplayName());
 	}
 
-	@EventHandler(priority = EventPriority.HIGHEST) //TODO: need to cancel quit-message event
-	public void onKick(PlayerKickEvent event){
-		//event.setCancelled(false); 
-		event.setLeaveMessage("failure to kick?");
-		//event.isCancelled();
-	}
+	@EventHandler
+	public void onQuit(PlayerQuitEvent event) throws IOException {
+		//check if kicked players are still to be processed
+		if(!kickedPlayers.isEmpty()) {
+			if(kickedPlayers.contains(event.getPlayer().getUniqueId())) {
+				event.setQuitMessage(null);
+				kickedPlayers.remove(event.getPlayer().getUniqueId());
+				return;
+			}
+		}
+		//if check if uuid is same and if yes cancel event and remove from list
 
-	@EventHandler(priority = EventPriority.LOW, ignoreCancelled = false)//TODO: cancel quit-message event if kicked?
-	public void onQuit(PlayerQuitEvent event) throws IOException { //TODO: cancel yellow quit-message
 		Player player = event.getPlayer();
 		FileConfiguration cfg = plugin.getDataManager().getPlayerCfg(player.getUniqueId());
 		String reason = cfg.getString("reason");
@@ -108,6 +113,10 @@ public class Events implements Listener {
 
 	public void registerKilledPlayer(Player p, KillType kt) {
 		killedPlayers.add(new PlayerKillConfig(p, kt));
+	}
+
+	public void registerKickedPlayer(UUID uuid) {
+		kickedPlayers.add(uuid);
 	}
 
 	private class PlayerKillConfig {

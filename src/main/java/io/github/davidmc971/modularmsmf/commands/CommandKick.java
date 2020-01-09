@@ -47,14 +47,14 @@ public class CommandKick extends AbstractCommand {
 					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.playernotfound");
 				} else {
 					if(args.length == 1){
-						Bukkit.getPlayer(target).kickPlayer(reason);
+						kickPlayer(target, reason);
 						Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.KICK, "commands.kick.seekickedall", "_player", args[0]);
 					} else {
 						reason = "";
 						for (int i = 1; i < args.length; i++) {
 							reason += args[i] + " ";
 						}
-						Bukkit.getPlayer(target).kickPlayer(reason);
+						kickPlayer(target, reason);
 						Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.KICK, "commands.kick.seekickedallreason", "_reason", reason, "_player", args[0]);
 					}
 				}
@@ -63,6 +63,11 @@ public class CommandKick extends AbstractCommand {
 			}
 		}
 		return true;
+	}
+
+	private void kickPlayer(UUID target, String reason) {
+		Bukkit.getPlayer(target).kickPlayer(reason);
+		plugin.getMainEvents().registerKickedPlayer(target);
 	}
 
 	@Override
