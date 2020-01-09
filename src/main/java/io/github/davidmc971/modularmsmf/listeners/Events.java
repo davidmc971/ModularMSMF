@@ -10,13 +10,11 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
-import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerLoginEvent.Result;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.event.Event;
 
 import io.github.davidmc971.modularmsmf.ModularMSMF;
 import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
@@ -61,8 +59,8 @@ public class Events implements Listener {
 	
 	@EventHandler //TODO: need to cancel quit-message event
 	public void onKick(PlayerKickEvent event){
-		//event.setCancelled(true);
-		event.setLeaveMessage("");
+		event.setCancelled(true);
+		event.setLeaveMessage("failure to kick?");
 		event.isCancelled();
 	}
 
