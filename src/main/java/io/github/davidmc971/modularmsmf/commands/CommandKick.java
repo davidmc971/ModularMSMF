@@ -28,10 +28,9 @@ public class CommandKick extends AbstractCommand {
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
 		FileConfiguration language = Utils.configureCommandLanguage(sender, plugin);
-
-		UUID target = null;
 		String reason = language.getString("commands.kick.defaultkickreason");
-
+		UUID target = null;
+		
 		switch(args.length){
 		case 0:
 			if(sender.hasPermission(PermissionManager.getPermission("kickplayer"))){
