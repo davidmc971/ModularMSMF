@@ -2,16 +2,16 @@ package io.github.davidmc971.modularmsmf.commands;
 
 import java.io.File;
 import java.io.IOException;
+
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 import io.github.davidmc971.modularmsmf.ModularMSMF;
-import io.github.davidmc971.modularmsmf.util.ChatUtils;
+import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
 import io.github.davidmc971.modularmsmf.util.Utils;
 
 /**
@@ -26,11 +26,6 @@ public class CommandSetSpawn extends AbstractCommand {
 		super(plugin);
 	}
 
-	private String infoPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.INFO);
-	private String errorPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.ERROR);
-	private String noPermPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.NOPERM);
-	private String successfulPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.SUCCESS);
-
 	/**
 	 * @TODO: Complete rewrite
 	 */
@@ -38,10 +33,8 @@ public class CommandSetSpawn extends AbstractCommand {
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-		FileConfiguration language = Utils.configureCommandLanguage(sender, plugin);
-
 		if(sender instanceof ConsoleCommandSender) {
-			sender.sendMessage(noPermPrefix+language.getString("general.noconsole"));
+			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "general.noconsole");
 		} else {
 			Player p = (Player)sender;
 
@@ -77,7 +70,7 @@ public class CommandSetSpawn extends AbstractCommand {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			p.sendMessage(successfulPrefix+language.getString("commands.spawn.spawnset"));
+			Utils.sendMessageWithConfiguredLanguage(plugin, p, ChatFormat.SUCCESS, "commands.spawn.spawnset");
 			return true;
 		}
 		return true;

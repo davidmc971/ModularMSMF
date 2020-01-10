@@ -4,16 +4,14 @@ import java.util.UUID;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
+import io.github.davidmc971.modularmsmf.ModularMSMF;
 import io.github.davidmc971.modularmsmf.core.PermissionManager;
 import io.github.davidmc971.modularmsmf.handlers.HomeHandler;
 import io.github.davidmc971.modularmsmf.handlers.HomeHandler.Home;
-import io.github.davidmc971.modularmsmf.ModularMSMF;
-import net.md_5.bungee.api.ChatColor;
-import io.github.davidmc971.modularmsmf.util.Utils;
 import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
+import io.github.davidmc971.modularmsmf.util.Utils;
 
 /**
  * @author Lightkeks
@@ -57,7 +55,6 @@ public class CommandHome extends AbstractCommand {
 		// Playerdata plrdat =
 
 		String infoPrefix = "";
-		FileConfiguration language = plugin.getLanguageManager().getStandardLanguage();
 
 		boolean isPlayer = sender instanceof Player;
 

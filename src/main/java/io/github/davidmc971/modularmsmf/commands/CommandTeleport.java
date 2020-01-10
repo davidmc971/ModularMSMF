@@ -3,15 +3,12 @@ package io.github.davidmc971.modularmsmf.commands;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import io.github.davidmc971.modularmsmf.ModularMSMF;
 import io.github.davidmc971.modularmsmf.core.PermissionManager;
-import io.github.davidmc971.modularmsmf.data.Language;
-import io.github.davidmc971.modularmsmf.util.ChatUtils;
+import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
 import io.github.davidmc971.modularmsmf.util.Utils;
-import net.md_5.bungee.api.ChatColor;
 
 /**
  * 
@@ -25,11 +22,6 @@ public class CommandTeleport extends AbstractCommand {
 		super(plugin);
 	}
 
-	private String infoPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.INFO);
-	private String errorPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.ERROR);
-	private String noPermPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.NOPERM);
-	private String successfulPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.SUCCESS);
-
 	
 	/**
 	 * TODO: implement and finishing this
@@ -41,16 +33,14 @@ public class CommandTeleport extends AbstractCommand {
 
 		//Player player = null;
 
-		FileConfiguration language = Utils.configureCommandLanguage(sender, plugin);
-
 		if (!(sender instanceof Player)) {
 			//TODO: console should be able to tp players to other players or waypoints
-			sender.sendMessage(noPermPrefix+language.getString("general.noconsole"));
+			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "general.noconsole");
 		}
 
 		if (sender.hasPermission(PermissionManager.getPermission("teleport"))) {
 			if (args.length == 0) {
-				sender.sendMessage(errorPrefix+language.getString("general.missing_playername"));
+				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.missing_playername");
 			}
 			if (args.length == 1) {
 				String Name = args[0];
