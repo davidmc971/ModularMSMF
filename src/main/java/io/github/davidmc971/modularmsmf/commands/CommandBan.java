@@ -58,17 +58,17 @@ public class CommandBan extends AbstractCommand {
 
 		if (sender.hasPermission(PermissionManager.getPermission("banplayer"))) {
 			if (args.length == 0) {
-				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.missing_playername");
+				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.BAN, "general.missing_playername");
 				return true;
 			}
 
 			String reason = language.getString("event.banned");
 			UUID uuid = getPlayerUUIDByNameForBan(args[0]);
 			if (uuid == null) {
-				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.playerunknow");
+				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.BAN, "general.playerunknow");
 				return true;
 			} else if (plugin.getDataManager().getPlayerCfg(uuid).getBoolean("banned")) {
-				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "commands.ban.alreadybanned");
+				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.BAN, "commands.ban.alreadybanned");
 				return true;
 			}
 
@@ -92,11 +92,11 @@ public class CommandBan extends AbstractCommand {
 					 */
 					
 				} else {
-					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermissioin");
+					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.BAN, "general.nopermissioin");
 				}
 			}
 		} else {
-			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.nopermission");
+			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.BAN, "general.nopermission");
 		}
 		
 		return true;
@@ -135,13 +135,13 @@ public class CommandBan extends AbstractCommand {
 
 		//TODO: changing perms to PermissionHandler
 		if (!sender.hasPermission(PermissionManager.getPermission("unban"))) {
-			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
+			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.UNBAN, "general.nopermission");
 			return true;
 		}
 		
 		switch(args.length){
 		case 0:
-			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.missing_playername");
+			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.UNBAN, "general.missing_playername");
 			break;
 		case 1:
 			for(OfflinePlayer p : Bukkit.getOfflinePlayers()){
@@ -150,14 +150,14 @@ public class CommandBan extends AbstractCommand {
 					if(cfg.getBoolean("banned")){
 						cfg.set("banned", false);
 						cfg.set("reason", "none");
-						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO, "commands.unban.playerunbanned", "_player", p.getName());
+						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.UNBAN, "commands.unban.playerunbanned", "_player", p.getName());
 					} else {
-						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO, "commands.unban.notbanned");
+						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.UNBAN, "commands.unban.notbanned");
 					}
 					return true;
 				}
 			}
-			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.playernotfound");
+			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.UNBAN, "general.playernotfound");
 			break;
 		case 2:
 			if(args[0].toLowerCase().equals("uuid")){
@@ -167,20 +167,20 @@ public class CommandBan extends AbstractCommand {
 						if(cfg.getBoolean("banned")){
 							cfg.set("banned", false);
 							cfg.set("reason", "none");
-							Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO, "commands.unban.unbanuuid", "_player", p.getName());
+							Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.UNBAN, "commands.unban.unbanuuid", "_player", p.getName());
 						} else {
-							Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO, "commands.unban.notbanned");
+							Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.UNBAN, "commands.unban.notbanned");
 						}
 						return true;
 					}
 				}
-				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "commands.unban.playernotfounduuid");
+				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.UNBAN, "commands.unban.playernotfounduuid");
 			} else {
-				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "commands.unban.invalidcommand");
+				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.UNBAN, "commands.unban.invalidcommand");
 			}
 			break;
 		default:
-			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.toomanyarguments");
+			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.UNBAN, "general.toomanyarguments");
 			break;
 		}
 		return true;

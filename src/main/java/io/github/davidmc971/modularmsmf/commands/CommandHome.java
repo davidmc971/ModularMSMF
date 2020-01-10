@@ -250,7 +250,7 @@ public class CommandHome extends AbstractCommand {
 						/**
 						 * if sender has homes set, they should be shown instead of an explanation... TODO: need work on it
 						 */
-						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.PAINTED, "commands.home.help.list1"); //TODO: adding to lang files
+						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.HOME, "commands.home.help.list1"); //TODO: adding to lang files
 					} else {
 						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
 					}
@@ -260,7 +260,7 @@ public class CommandHome extends AbstractCommand {
 				if(args.length == 2) {
 					if(sender.hasPermission(PermissionManager.getPermission("home_set"))) {
 						//sender.sendMessage(ChatColor.GRAY+" Setting your individual home means you can set a home without giving it a name by doing /home set < > or you can set a name by doing /home set <name>. Your choice, "+sender.getName());
-						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.PAINTED, "commands.home.help.set1");
+						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.HOME, "commands.home.help.set1");
 					} else {
 						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
 					}
@@ -270,7 +270,7 @@ public class CommandHome extends AbstractCommand {
 				if(args.length == 2) {
 					if(sender.hasPermission(PermissionManager.getPermission("home_remove"))) {
 						//sender.sendMessage(ChatColor.GRAY+" Remove's your default or individual home which you can find under /home list. Remove it like this: /home remove < > or if a name is given with /home remove <NAME>");
-						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.PAINTED, "commands.home.help.remove1"); //TODO: adding to lang files
+						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.HOME, "commands.home.help.remove1"); //TODO: adding to lang files
 					} else {
 						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
 					}
@@ -280,7 +280,7 @@ public class CommandHome extends AbstractCommand {
 				if(args.length == 2) {
 					if(sender.hasPermission(PermissionManager.getPermission("home_rtp"))) {
 						//sender.sendMessage(ChatColor.GRAY+" Requests an teleport to any user's home set. Mostly only default home is chosen, if not otherwise known.");
-						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.PAINTED, "commands.home.help.rtp1"); //TODO: adding to lang files
+						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.HOME, "commands.home.help.rtp1"); //TODO: adding to lang files
 					} else {
 						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
 					}
@@ -290,7 +290,7 @@ public class CommandHome extends AbstractCommand {
 				if(sender.hasPermission(PermissionManager.getPermission("home_admin"))) {
 					if(args.length == 2) {
 						//sender.sendMessage(ChatColor.GRAY+" These are all relevant administrative tools to control all user's homes. There's nothing which could miss. Otherwise ask the dev's of this plugin under /mmsmf info ");
-						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.PAINTED, "commands.home.help.admin1"); //TODO: adding to lang files
+						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.HOME, "commands.home.help.admin1"); //TODO: adding to lang files
 					}
 					if(sender.isOp()) {
 						//sender.sendMessage(ChatColor.RED+" OP: There is nothing you can't do. Just use it wisely.");

@@ -34,31 +34,31 @@ public class CommandKick extends AbstractCommand {
 		switch(args.length){
 		case 0:
 			if(sender.hasPermission(PermissionManager.getPermission("kickplayer"))){
-				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.missing_playername");
+				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.KICK, "general.missing_playername");
 			} else {
-				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
+				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.KICK, "general.nopermission");
 			}
 			break;
 		default:
 			if(sender.hasPermission(PermissionManager.getPermission("kickplayer"))){
 				target = Utils.getPlayerUUIDByName(args[0]);
 				if(target == null){
-					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.playernotfound");
+					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.KICK, "general.playernotfound");
 				} else {
 					if(args.length == 1){
 						kickPlayer(target, reason);
-						Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.KICK, "commands.kick.seekickedall", "_player", args[0]);
+						Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.KICKED, "commands.kick.seekickedall", "_player", args[0]);
 					} else {
 						reason = "";
 						for (int i = 1; i < args.length; i++) {
 							reason += args[i] + " ";
 						}
 						kickPlayer(target, reason);
-						Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.KICK, "commands.kick.seekickedallreason", "_reason", reason, "_player", args[0]);
+						Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.KICKED, "commands.kick.seekickedallreason", "_reason", reason, "_player", args[0]);
 					}
 				}
 			} else {
-				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
+				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.KICK, "general.nopermission");
 			}
 		}
 		return true;

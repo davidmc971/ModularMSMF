@@ -8,6 +8,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import io.github.davidmc971.modularmsmf.ModularMSMF;
 import io.github.davidmc971.modularmsmf.util.ChatUtils;
 import io.github.davidmc971.modularmsmf.util.Utils;
+import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
 
 public class CommandReport extends AbstractCommand {
 	
@@ -50,9 +51,8 @@ public class CommandReport extends AbstractCommand {
 
 		FileConfiguration language = Utils.configureCommandLanguage(sender, plugin);
 
-		if(args.length == 0)
+		if(args.length == 0){
 		//no arguments, plain /report command
-		{
 			//TODO: send description of command, in player's language
 			sender.sendMessage(infoPrefix + "Report system for reporting players, bugs and other stuff.");
 			sender.sendMessage(infoPrefix + "Level's you are allowed to use:");
@@ -65,19 +65,16 @@ public class CommandReport extends AbstractCommand {
 			if(sender.hasPermission("modularmmsmf.command.report.other")) {
 				sender.sendMessage(infoPrefix + "/report other <describe your idea>");
 			}
-		}
-		else
+		} else {
 		//at least one argument
-		{
-			switch(args[0].toLowerCase())
+			switch(args[0].toLowerCase()){
 			//let's check for the category and if it's valid, as well as permission for use
-			{
 			case "player":
 				if(sender.hasPermission("modularmmsmf.command.report.player"))
 				{
 					reportPlayer(sender, args, plugin, language);
 				} else {
-					sender.sendMessage(errorPrefix + "no permission!");
+					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.REPORT, "general.nopermission");
 				}
 				break;
 			case "bug":
@@ -85,7 +82,7 @@ public class CommandReport extends AbstractCommand {
 				{
 					reportBug(sender, args, plugin, language);
 				} else {
-					sender.sendMessage(errorPrefix + "no permission!");
+					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.REPORT, "general.nopermission");
 				}
 				break;
 			case "other":
@@ -93,14 +90,13 @@ public class CommandReport extends AbstractCommand {
 				{
 					reportOther(sender, args, plugin, language);
 				} else {
-					sender.sendMessage(errorPrefix + "no permission!");
+					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.REPORT, "general.nopermission");
 				}
 				break;
 			default:
 				//non valid category
 				//DONE: send error and prompt user to use /report for description
-				sender.sendMessage(errorPrefix + "This command '" + ChatColor.YELLOW + args[0] + ChatColor.RED + "' doesn't exist!"); //TODO: rewrite
-				sender.sendMessage(errorPrefix + "Use /report for more information.");
+				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.REPORT, "report.help");
 				break;
 			}
 		}

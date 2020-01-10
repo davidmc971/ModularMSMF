@@ -60,7 +60,7 @@ public class Events implements Listener {
 		FileConfiguration cfg = plugin.getDataManager().getPlayerCfg(player.getUniqueId());
 		String reason = cfg.getString("reason");
 		if(cfg.isBoolean("banned") == true){
-			Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.INFO, "commands.ban.playerbanned", "_player", player.getDisplayName(), "_reason", reason);
+			Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.BANNED, "commands.ban.playerbanned", "_player", player.getDisplayName(), "_reason", reason);
 			event.setQuitMessage(null);
 		} else {
 			Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.QUIT, "event.quit", "_var", player.getDisplayName());
