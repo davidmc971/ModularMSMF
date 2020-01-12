@@ -29,52 +29,56 @@ public class CommandSetSpawn extends AbstractCommand {
 	/**
 	 * @TODO: Complete rewrite
 	 */
+	
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-		if(sender instanceof ConsoleCommandSender) {
-			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "general.noconsole");
-		} else {
-			Player p = (Player)sender;
+		File file               = new File("plugins/ModularMSMF/settings.yml");
 
-			File file = new File("plugins/ModularMSMF/settings.yml");
+		YamlConfiguration cfg   = YamlConfiguration.loadConfiguration(file);
 
-			if(!file.exists()){
-				try{
-					file.createNewFile();
-				}catch(IOException e){
-					e.printStackTrace();
+		Player p                = (Player)sender;
 
+		Location loc            = p.getLocation();
+
+		double x                = loc.getX();
+		double y                = loc.getY();
+		double z                = loc.getZ();
+		double yaw              = loc.getYaw();
+		double pitch            = loc.getPitch();
+		String worldname        = loc.getWorld().getName();
+
+			if(sender instanceof ConsoleCommandSender) {
+				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "general.noconsole");
+			} else {
+
+				if(!file.exists()){
+					try{
+						file.createNewFile();
+					}catch(IOException e){
+						e.printStackTrace();
+
+					}
 				}
+
+				cfg.set("X", x);
+				cfg.set("Y", y);
+				cfg.set("Z", z);
+				cfg.set("Yaw", yaw);
+				cfg.set("Pitch", pitch);
+				cfg.set("Worldname", worldname);
+
+				try {
+					cfg.save(file);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				Utils.sendMessageWithConfiguredLanguage(plugin, p, ChatFormat.SPAWN, "commands.spawn.spawnset");
+				return true;
 			}
-			YamlConfiguration cfg = YamlConfiguration.loadConfiguration(file);
-			Location loc = p.getLocation();
-
-			double x = loc.getX();
-			double y = loc.getY();
-			double z = loc.getZ();
-			double yaw = loc.getYaw();
-			double pitch = loc.getPitch();
-			String worldname = loc.getWorld().getName();
-
-			cfg.set("X", x);
-			cfg.set("Y", y);
-			cfg.set("Z", z);
-			cfg.set("Yaw", yaw);
-			cfg.set("Pitch", pitch);
-			cfg.set("Worldname", worldname);
-
-			try {
-				cfg.save(file);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			Utils.sendMessageWithConfiguredLanguage(plugin, p, ChatFormat.SUCCESS, "commands.spawn.spawnset");
 			return true;
 		}
-		return true;
-	}
 
 	@Override
 	public String[] getCommandLabels() {

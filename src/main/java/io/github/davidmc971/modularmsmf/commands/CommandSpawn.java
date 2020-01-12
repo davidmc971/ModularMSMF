@@ -1,10 +1,18 @@
 package io.github.davidmc971.modularmsmf.commands;
 
+import java.io.File;
+
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 
 import io.github.davidmc971.modularmsmf.ModularMSMF;
+import io.github.davidmc971.modularmsmf.core.PermissionManager;
 import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
 import io.github.davidmc971.modularmsmf.util.Utils;
 
@@ -29,16 +37,16 @@ public class CommandSpawn extends AbstractCommand {
 
 		if(sender instanceof ConsoleCommandSender) {
 			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "general.noconsole");
-		/**} else {
+		} else {
 			Player p = (Player)sender;
 
 			if(!p.hasPermission(PermissionManager.getPermission("spawn"))){
-				p.sendMessage(noPermPrefix+language.getString("general.nopermission"));
+				Utils.sendMessageWithConfiguredLanguage(plugin, p, ChatFormat.SPAWN, "general.nopermission");
 			}
 
 			File file = new File("plugins/ModularMSMF/settings.yml");
 			if(!file.exists()){
-				p.sendMessage(language.getString("commands.spawn.nospawnset"));
+				Utils.sendMessageWithConfiguredLanguage(plugin, p, ChatFormat.SPAWN, "commands.spawn.nospawnset");
 			}
 
 			YamlConfiguration cfg = YamlConfiguration.loadConfiguration(file);
@@ -61,10 +69,8 @@ public class CommandSpawn extends AbstractCommand {
 			loc.setWorld(welt);
 
 			p.teleport(loc);
-			p.sendMessage(successfulPrefix+language.getString("commands.spawn.spawned"));
+			Utils.sendMessageWithConfiguredLanguage(plugin, p, ChatFormat.SPAWN, "commands.spawn.spawned");
 		}
-		*/
-	}
 		return true;
 	}
 

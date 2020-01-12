@@ -16,7 +16,7 @@ public class ChatUtils {
 	FileConfiguration language = Utils.configureCommandLanguage(sender, plugin);
 	*/ //TODO: maybe need this.
 	public enum ChatFormat {
-		SUCCESS, INFO, ERROR, MSG, BROADCAST, STANDARD, RAINBOW, NOPERM, WELCOME, QUIT, DEATH, MONEY, CONSOLE, KICKED, /*BAN,*/ HOME_LIST, HOME, BANNED, KICK, BAN, UNBAN, REPORT
+		SUCCESS, INFO, ERROR, MSG, BROADCAST, STANDARD, RAINBOW, NOPERM, WELCOME, QUIT, DEATH, MONEY, CONSOLE, KICKED, /*BAN,*/ HOME_LIST, HOME, BANNED, KICK, BAN, UNBAN, REPORT, SPAWN, FEED, HEAL
 	}
 	
 	public static String getFormattedPrefix(ChatFormat format) {
@@ -53,10 +53,12 @@ public class ChatUtils {
 			return (ChatColor.GOLD + "[" + ChatColor.BLUE + "Unban" + ChatColor.GOLD + "]" + ChatColor.BLUE + " ");
 		case REPORT:
 			return (ChatColor.GOLD + "[" + ChatColor.DARK_AQUA + "Report" + ChatColor.GOLD + "]" + ChatColor.DARK_AQUA + " ");
-		/**case SPAWN:
-		for (Player p : Bukkit.getOnlinePlayers())
-			return (ChatColor.GREEN + language.getString("").replaceAll("_player", p.getName()));
-			*/
+		case SPAWN:
+			return (ChatColor.GOLD + "[" + ChatColor.LIGHT_PURPLE + "Spawn" + ChatColor.GOLD + "]" + ChatColor.DARK_AQUA + " ");
+		case FEED:
+			return (ChatColor.GOLD + "[" + ChatColor.RED + "Feed" + ChatColor.GOLD + "]" + ChatColor.RED + " ");
+		case HEAL:
+			return (ChatColor.GOLD + "[" + ChatColor.GREEN + "Heal" + ChatColor.GOLD + "]" + ChatColor.GREEN + " ");
 		default:
 			return "[ModularMSMF] ";
 

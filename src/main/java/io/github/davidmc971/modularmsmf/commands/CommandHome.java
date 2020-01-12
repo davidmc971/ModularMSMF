@@ -54,8 +54,6 @@ public class CommandHome extends AbstractCommand {
 		// TODO: Implementieren
 		// Playerdata plrdat =
 
-		String infoPrefix = "";
-
 		boolean isPlayer = sender instanceof Player;
 
 		if (args.length == 0) {

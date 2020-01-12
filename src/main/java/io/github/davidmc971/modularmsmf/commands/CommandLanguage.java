@@ -8,7 +8,6 @@ import org.bukkit.entity.Player;
 
 import io.github.davidmc971.modularmsmf.core.LanguageManager;
 import io.github.davidmc971.modularmsmf.ModularMSMF;
-import io.github.davidmc971.modularmsmf.util.ChatUtils;
 import io.github.davidmc971.modularmsmf.util.Utils;
 import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
 
@@ -24,8 +23,6 @@ public class CommandLanguage extends AbstractCommand {
 		super(plugin);
 	}
 
-	private String infoPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.INFO);
-
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		LanguageManager languageManager = plugin.getLanguageManager();
@@ -33,8 +30,7 @@ public class CommandLanguage extends AbstractCommand {
 		
 		switch(args.length){
 			case 0:
-				sender.sendMessage(infoPrefix+language.getString("commands.language.activelanguage").replaceAll("_language", (language.getString("language.id") + " (" + language.getString("language.name") + ")")));
-				//Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO, "commands.language.activelanguage", "_language", language.getString("language.id")+" ("+language.getString("language.name"+") ")); TODO: bit broken, needs to look down for string, please
+				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO, "commands.language.activelanguage", "_language", (language.getString("language.id")+" ("+language.getString("language.name")+") "));
 				break;
 			case 1:
 				if(args[0].equalsIgnoreCase("list")){

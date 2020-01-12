@@ -9,19 +9,17 @@ public class CommandBack extends AbstractCommand {
 
     public CommandBack(ModularMSMF plugin) {
         super(plugin);
-        // TODO: Auto-generated constructor stub
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        // TODO: Auto-generated method stub
+        //TODO: write code in here
         return true;
     }
 
     @Override
     public String[] getCommandLabels() {
-        // TODO: Auto-generated method stub
-        return null;
+        return new String[]{ "back" };
     }
     
 }
