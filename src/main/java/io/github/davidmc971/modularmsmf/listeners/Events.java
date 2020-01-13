@@ -2,9 +2,11 @@ package io.github.davidmc971.modularmsmf.listeners;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.UUID;
 //import java.util.logging.Logger;
 
+import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -32,38 +34,42 @@ public class Events implements Listener {
 	public ModularMSMF plugin;
 	private ArrayList<PlayerKillConfig> killedPlayers = new ArrayList<PlayerKillConfig>();
 	private ArrayList<UUID> kickedPlayers = new ArrayList<UUID>();
+	public static HashMap<String, Location> lastLocation = new HashMap<>();
 
 	public Events(ModularMSMF plugin) {
 		this.plugin = plugin;
 	}
-	
+
 	@EventHandler
-	public void onPlayerJoin(PlayerJoinEvent event) throws IOException { 
+	public void onPlayerJoin(PlayerJoinEvent event) throws IOException {
 		Player player = event.getPlayer();
 		event.setJoinMessage(null);
-		Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.WELCOME, "event.welcome", "_var", player.getDisplayName());
+		Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.WELCOME, "event.welcome", "_var",
+				player.getDisplayName());
 	}
 
 	@EventHandler
 	public void onQuit(PlayerQuitEvent event) throws IOException {
-		//check if kicked players are still to be processed
-		if(!kickedPlayers.isEmpty()) {
-			if(kickedPlayers.contains(event.getPlayer().getUniqueId())) {
+		// check if kicked players are still to be processed
+		if (!kickedPlayers.isEmpty()) {
+			if (kickedPlayers.contains(event.getPlayer().getUniqueId())) {
 				event.setQuitMessage(null);
 				kickedPlayers.remove(event.getPlayer().getUniqueId());
 				return;
 			}
 		}
-		//if check if uuid is same and if yes cancel event and remove from list
+		// if check if uuid is same and if yes cancel event and remove from list
 
 		Player player = event.getPlayer();
 		FileConfiguration cfg = plugin.getDataManager().getPlayerCfg(player.getUniqueId());
 		String reason = cfg.getString("reason");
-		if(cfg.isBoolean("banned") == true){
-			Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.BANNED, "commands.ban.playerbanned", "_player", player.getDisplayName(), "_reason", reason);
+		if (cfg.isBoolean("banned") == true) {
+			Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.BANNED, "commands.ban.playerbanned", "_player",
+					player.getDisplayName(), "_reason", reason);
 			event.setQuitMessage(null);
 		} else {
-			Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.QUIT, "event.quit", "_var", player.getDisplayName());
+			Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.QUIT, "event.quit", "_var",
+					player.getDisplayName());
 			event.setQuitMessage(null);
 		}
 	}
@@ -85,6 +91,8 @@ public class Events implements Listener {
 
 	@EventHandler
 	public void onDeath(PlayerDeathEvent event) {
+		Player p = event.getEntity();
+		Events.lastLocation.put(p.getName(), p.getLocation());
 		boolean temp = false;
 		for (PlayerKillConfig pkf : killedPlayers) {
 			if (pkf.getP().getName().equals(event.getEntity().getName())) {

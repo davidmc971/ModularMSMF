@@ -116,3 +116,6 @@ commands:
     success: You teleported to _target!
   home:
     notset: Your home has not been set yet.
+  back:
+    success: You got teleported to your last place!
+    error: There is no way to get back.

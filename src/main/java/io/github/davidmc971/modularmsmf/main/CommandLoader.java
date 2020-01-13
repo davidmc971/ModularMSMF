@@ -89,6 +89,7 @@ public class CommandLoader {
 		
 		for(AbstractCommand cmd : new AbstractCommand[] {
 				new CommandBan(plugin),
+				new CommandBack(plugin),
 				new CommandFeed(plugin),
 				new CommandHeal(plugin),
 				new CommandHome(plugin),
