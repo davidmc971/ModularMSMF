@@ -19,7 +19,6 @@ public class CommandMoney extends AbstractCommand {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-		//TODO: behavior of old EconomySystems
 		return false;
 	}
 

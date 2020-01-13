@@ -40,7 +40,7 @@ public class CommandLanguage extends AbstractCommand {
 						out += languageCfg.getString("language.id");
 					}
 					out += "]";
-					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO, "commands.language.availablelanguages", "_var", out);
+					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.LANGUAGE, "commands.language.availablelanguages", "_var", out);
 				} else {
 					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.invalidarguments");
 				}

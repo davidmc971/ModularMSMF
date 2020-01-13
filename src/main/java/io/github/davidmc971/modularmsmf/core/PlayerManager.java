@@ -69,7 +69,7 @@ public class PlayerManager {
 		init(defaultPlayerConfig());
 		autosaveTask = new AutosaveTask(this);
 		/*
-		 * Autosave every 10 minutes -> 10(min) * 60(sec) * 20(tps) TODO: load tick
+		 * Autosave every 10 minutes -> 10(min) * 60(sec) * 20(tps) //TODO: load tick
 		 * delay from config
 		 */
 		long ticks = (10 * 60 * 20);

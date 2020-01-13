@@ -32,7 +32,7 @@ public class CommandKill extends AbstractCommand {
 				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.missingarguments");
 				return true;
 			}
-			
+
 			switch (args[0].toLowerCase()) {
 			case "me":
 				if (sender.hasPermission(PermissionManager.getPermission("kill_me"))) {

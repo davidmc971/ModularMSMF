@@ -138,7 +138,7 @@ public class EconomySystem extends AbstractCommand {
 				}
 
 				// value is always last arg, we can save a few lines of code here
-				// TODO: discuss whether we want to check if it's a negative number or not
+				// discuss whether we want to check if it's a negative number or not
 				try {
 					amount = Double.parseDouble(args[args.length - 1]);
 				} catch (Exception e) {
@@ -258,7 +258,7 @@ public class EconomySystem extends AbstractCommand {
 			// sender.sendMessage(noPermPrefix+language.getString("general.nopermission"));
 			// }
 			// break;
-			case "pay": //TODO: Wichtig - Output = null, please fix
+			case "pay": //FIXME: Wichtig - Output = null, please fix
 				if (sender.hasPermission(PermissionManager.getPermission("eco_pay"))) {
 					if (args.length < 2) {
 						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "commands.money.missingamountandplayer");
@@ -371,8 +371,7 @@ public class EconomySystem extends AbstractCommand {
 			 * int index = moneykey.indexOf("."); if (index == -1){ index =
 			 * moneykey.length(); }else if(moneykey.length() - index >= 2){ index +=2; }
 			 */ // kam von Kevin :*
-			return cfg.getDouble(moneykey/** .substring(0, index) */
-			);
+			return cfg.getDouble(moneykey/** .substring(0, index) */);
 		}
 		return -1;
 	}

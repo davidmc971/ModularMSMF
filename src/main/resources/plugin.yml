@@ -77,3 +77,6 @@ commands:
   spawn:
     description: Spawns the player
     usage: /<command>
+  back:
+    description: Gets back the player to the last position
+    usage: /<command>

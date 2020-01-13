@@ -65,7 +65,7 @@ public class CommandSpawn extends AbstractCommand {
 			loc.setYaw((float)yaw);
 			loc.setPitch((float)pitch);
 
-			World welt = Bukkit.getWorld(worldname); //TODO: not working line, need to check
+			World welt = Bukkit.getWorld(worldname);
 			loc.setWorld(welt);
 
 			p.teleport(loc);

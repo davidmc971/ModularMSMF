@@ -22,42 +22,31 @@ public class CommandTeleport extends AbstractCommand {
 		super(plugin);
 	}
 
-	
-	/**
-	 * TODO: implement and finishing this
-	 * TODO: whole rewrite for logical reasons
-	 */
-
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-		//Player player = null;
-
-		if (!(sender instanceof Player)) {
-			//TODO: console should be able to tp players to other players or waypoints
-			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "general.noconsole");
-		}
-
-		if (sender.hasPermission(PermissionManager.getPermission("teleport"))) {
-			if (args.length == 0) {
-				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.missing_playername");
-			}
-			if (args.length == 1) {
-				String Name = args[0];
-				if (Bukkit.getPlayerExact(Name) != null) {
-					Player target = (Player) Bukkit.getPlayerExact(Name);
-					((Player) sender).teleport(target);
-					//TODO: changing sender text to language strings
-					sender.sendMessage("[ModularMSMF] Erfolgreich zu " + target.getDisplayName() + " teleportiert!");
-					
-				} else {
-					//TODO: changing sender text to language strings
-					sender.sendMessage("[ModularMSMF] " + args[0] + " ist nicht online!");
+		if (sender instanceof Player) {
+			if (sender.hasPermission(PermissionManager.getPermission("teleport"))) {
+				if (args.length == 0) {
+					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.missing_playername");
 				}
-			} else if (args.length >= 2) {
-				//TODO: changing sender text to language strings
-				sender.sendMessage("[ModularMSMF] Zu viele Argumente!");
+				if (args.length == 1) {
+					String Name = args[0];
+					if (Bukkit.getPlayerExact(Name) != null) {
+						Player target = (Player) Bukkit.getPlayerExact(Name);
+						((Player) sender).teleport(target);
+						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS, "commands.teleport.success", "_target", target.getDisplayName());
+					} else {
+						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.playernotonline");
+					}
+				} else if (args.length >= 2) {
+					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.toomanyarguments");
+				}
+			} else {
+				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
 			}
+		} else {
+			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "general.noconsole");
 		}
 		return true;
 	}

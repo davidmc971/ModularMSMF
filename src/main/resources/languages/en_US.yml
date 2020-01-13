@@ -112,3 +112,7 @@ commands:
     paytoothers:
     payfromothers:
     nodebt:
+  teleport:
+    success: You teleported to _target!
+  home:
+    notset: Your home has not been set yet.

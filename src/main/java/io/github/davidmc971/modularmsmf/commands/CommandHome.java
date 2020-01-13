@@ -28,6 +28,10 @@ public class CommandHome extends AbstractCommand {
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
+		/**
+		 * Important notice: Home will be edited in some days. Thinking about the output of sending messages
+		 */
+
 		/**home <help>
 		 * home <default OR name>
 		 * home list <admin:user>
@@ -62,7 +66,7 @@ public class CommandHome extends AbstractCommand {
 				//teleport player to default home if set
 				boolean success = teleportToHome((Player)sender, null);
 				if (!success) {
-					sender.sendMessage(infoPrefix + "Default home has not been set."); //TODO: adding to language file
+					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "home.notset");
 				}
 				return true;
 			} else {

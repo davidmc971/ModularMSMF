@@ -37,11 +37,11 @@ public class PermissionManager {
 		{ "mmsmfhelp", "modularmsmf.help" },
 		{ "mmsmf", "modularmsmf.mmsmf" },
 		{ "slaughter", "modularmsmf.slaughter" },
-		{ "spawn", "modularmsmf.spawn" }
+		{ "spawn", "modularmsmf.spawn" },
+		{ "teleport", "modularmsmf.teleport"}
 	};
 
 	public static boolean checkPermission(CommandSender sender, String permission) {
-		//TODO: use Permission objects
 		return sender.hasPermission(getPermission(permission));
 	}
 

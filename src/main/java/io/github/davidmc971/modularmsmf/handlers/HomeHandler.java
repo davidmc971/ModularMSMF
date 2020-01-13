@@ -68,7 +68,7 @@ public class HomeHandler {
 		homeMap = new HashMap<UUID, ArrayList<Home>>();
 		
 		plrm.getPlayerStorage().forEach((uuid, data) -> {
-			//TODO: 
+			//TODO: fix home list
 			// if (data != null && data.homes != null) {
 			// 	ArrayList<Home> homeList = new ArrayList<Home>();
 			// 	for (Home h : data.homes) {

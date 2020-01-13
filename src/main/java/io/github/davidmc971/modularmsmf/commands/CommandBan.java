@@ -3,7 +3,8 @@
 	/**
 	 * 
 	 * @authors Lightkeks, davidmc971
-	 * 		Bannt Spieler. Alles fertig. :D
+	 * 		Bannt Spieler. (fast) alles fertig. :D
+	 * 		Unterstützung für ip-banning fehlt
 	 */
 
 	import java.util.UUID;
@@ -134,7 +135,6 @@
 
 		public boolean unbanCommand(CommandSender sender, Command command, String label, String[] args) {
 
-			//TODO: changing perms to PermissionHandler
 			if (sender.hasPermission(PermissionManager.getPermission("unban"))) {
 			switch(args.length){
 			case 0:
