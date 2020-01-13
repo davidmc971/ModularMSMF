@@ -15,7 +15,7 @@ import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
 
 public class CommandReport extends AbstractCommand {
 
-	public static HashMap<Player, String[]/**Ansammlung von mehreren argumenten in einem string? */> reportList = new HashMap<>(); //TODO: @david, kann man das so lassen?
+	//public static HashMap<Player, String[]/**Ansammlung von mehreren argumenten in einem string? */> reportList = new HashMap<>(); //TODO: @david, kann man das so lassen?
 	
 	public CommandReport(ModularMSMF plugin) {
 		super(plugin);
