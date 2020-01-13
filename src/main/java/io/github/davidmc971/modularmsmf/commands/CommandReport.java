@@ -1,9 +1,12 @@
 package io.github.davidmc971.modularmsmf.commands;
 
+import java.util.HashMap;
+
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
 
 import io.github.davidmc971.modularmsmf.ModularMSMF;
 import io.github.davidmc971.modularmsmf.util.ChatUtils;
@@ -11,6 +14,8 @@ import io.github.davidmc971.modularmsmf.util.Utils;
 import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
 
 public class CommandReport extends AbstractCommand {
+
+	public static HashMap<Player, String[]/**Ansammlung von mehreren argumenten in einem string? */> reportList = new HashMap<>(); //TODO: @david, kann man das so lassen?
 	
 	public CommandReport(ModularMSMF plugin) {
 		super(plugin);

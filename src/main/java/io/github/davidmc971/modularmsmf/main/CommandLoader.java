@@ -92,7 +92,7 @@ public class CommandLoader {
 				new CommandBack(plugin),
 				new CommandFeed(plugin),
 				new CommandHeal(plugin),
-				new CommandHome(plugin),
+				//new CommandHome(plugin),
 				new CommandKick(plugin),
 				new CommandKill(plugin),
 				new CommandLanguage(plugin),
