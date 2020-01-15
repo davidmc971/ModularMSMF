@@ -125,3 +125,5 @@ commands:
     error: There is no way to get back.
   clear:
     done: Successfully cleared the Chat!
+    target: Cleared _target's Chat!
+    gotcleared: Your chat got cleared!

@@ -37,7 +37,7 @@ public class CommandTeleport extends AbstractCommand {
 						((Player) sender).teleport(target);
 						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS, "commands.teleport.success", "_target", target.getDisplayName());
 					} else {
-						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.playernotonline");
+						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.playernotfound");
 					}
 				} else if (args.length >= 2) {
 					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.toomanyarguments");

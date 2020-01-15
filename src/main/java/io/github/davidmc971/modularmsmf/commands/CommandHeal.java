@@ -55,6 +55,8 @@ public class CommandHeal extends AbstractCommand {
 									Utils.sendMessageWithConfiguredLanguage(plugin, p, ChatFormat.HEAL, "commands.heal.gothealed", "_sender", sender.getName());
 									p.setHealth(20);
 								}
+							} else {
+								Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.playernotonline");
 							}
 						}
 					break;

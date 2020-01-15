@@ -63,6 +63,8 @@ public class CommandFeed extends AbstractCommand {
 							Utils.sendMessageWithConfiguredLanguage(plugin, p, ChatFormat.FEED, "commands.feed.othersfeeded", "_sender", sender.getName());
 							p.setSaturation(20);
 						}
+					} else {
+						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.playernotonline");
 					}
 					return true;
 				}
