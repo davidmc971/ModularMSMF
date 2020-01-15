@@ -4,7 +4,7 @@
 	 * 
 	 * @authors Lightkeks, davidmc971
 	 * 		Bannt Spieler. (fast) alles fertig. :D
-	 * 		Unterstützung für ip-banning fehlt
+	 * 		TODO: Unterstützung für ip-banning fehlt
 	 */
 
 	import java.util.UUID;

@@ -84,6 +84,10 @@ commands:
     discordmissing: There is no existing link for a Discord server.
     teamspeak: 'Your IP adress to join: _ip'
     teamspeakmissing: There is no existing IP for a Teamspeak server.
+    info: Click here to display info about this plugin.
+    report: Help for the reporting system.
+    teamspeak: It will show you if an IP is set up.
+    discord: It will show you if an link is set up.
   eco:
     balance:
       self: Your balance is _value.
@@ -119,3 +123,5 @@ commands:
   back:
     success: You got teleported to your last place!
     error: There is no way to get back.
+  clear:
+    done: Successfully cleared the Chat!

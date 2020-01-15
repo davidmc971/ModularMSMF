@@ -80,3 +80,6 @@ commands:
   back:
     description: Gets back the player to the last position
     usage: /<command>
+  clearchat:
+    description: Clears the chat completely
+    usage: /<command>

@@ -6,6 +6,7 @@ import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
@@ -38,8 +39,6 @@ public class EconomySystem extends AbstractCommand {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
-
-		FileConfiguration language = plugin.getLanguageManager().getStandardLanguage();
 
 		UUID uuid = null;
 		UUID target = null;
@@ -148,6 +147,7 @@ public class EconomySystem extends AbstractCommand {
 
 				UUID temp = (toSelf ? uuid : target);
 				double before = getMoney(temp);
+				//String targetSender = Bukkit.getName();
 
 				// perform action
 				if (action.equals("set")) setMoney(temp, amount);
@@ -155,10 +155,24 @@ public class EconomySystem extends AbstractCommand {
 				else if (action.equals("take")) takeMoney(temp, amount);
 
 				// TODO: working, still want to use Utils.sendMessageWithConfiguredLanguage()
-				sender.sendMessage((toSelf ? language.getString("commands.eco.set.self.full") : language.getString("commands.eco.set.other.full").replace("_target", args[1])) .replace("_value_old", before + currencyFormat) .replace("_value_new", getMoney(temp) + currencyFormat));
+				//sender.sendMessage((toSelf ? language.getString("commands.eco.set.self.full") : language.getString("commands.eco.set.other.full").replace("_target", args[1])) .replace("_value_old", before + currencyFormat) .replace("_value_new", getMoney(temp) + currencyFormat));
+				if(sender instanceof ConsoleCommandSender){
+					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "general.noconsole");
+				} else
+				if (toSelf = true){
+					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO, "commands.eco.set.self.full", "_target", args[1], "_value_old", (String) (before+currencyFormat), "_value_new", (String) (getMoney(temp)+currencyFormat));
+					//Utils.sendMessageWithConfiguredLanguage(plugin, Bukkit.getPlayer(target), ChatFormat.INFO, "commands.eco.set.notify", "_sender", sender.getName(), "_value_old", (String) (before+currencyFormat), "_value_new", (String) (getMoney(temp)+currencyFormat));
+				}else{
+					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO, "commands.eco.set.other.full", "_target", args[1], "_value_old", (String) (before+currencyFormat), "_value_new", (String) (getMoney(temp)+currencyFormat));
+					Utils.sendMessageWithConfiguredLanguage(plugin, Bukkit.getPlayer(target), ChatFormat.INFO, "commands.eco.set.notify", "_sender", sender.getName(), "_value_old", (String) (before+currencyFormat), "_value_new", (String) (getMoney(temp)+currencyFormat));
+			//}	
+				}
+
+
 				// notify other player if !toSelf
-				if (!toSelf)
-					Bukkit.getPlayer(target) .sendMessage(language.getString("commands.eco.set.notify") .replace("_sender", sender.getName()).replace("_value_old", before + currencyFormat) .replace("_value_new", getMoney(temp) + currencyFormat));
+				//if (!toSelf)
+					//Bukkit.getPlayer(target) .sendMessage(language.getString("commands.eco.set.notify") .replace("_sender", sender.getName()).replace("_value_old", before + currencyFormat) .replace("_value_new", getMoney(temp) + currencyFormat));
+					//Utils.sendMessageWithConfiguredLanguage(plugin, Bukkit.getPlayer(target), ChatFormat.INFO, "commands.eco.set.notify", "_sender", sender.getName(), "_value_old", (String) (before+currencyFormat), "_value_new", (String) (getMoney(temp)+currencyFormat));
 				break;
 			// case "add":
 			// if (sender.hasPermission(PermissionManager.getPermission("eco_add"))) {

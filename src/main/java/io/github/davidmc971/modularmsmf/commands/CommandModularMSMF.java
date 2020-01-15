@@ -2,14 +2,23 @@ package io.github.davidmc971.modularmsmf.commands;
 
 import java.io.File;
 
+import javax.swing.text.TabSet;
+
 import org.bukkit.Bukkit;
+import org.bukkit.Server.Spigot;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import io.github.davidmc971.modularmsmf.ModularMSMF;
 import io.github.davidmc971.modularmsmf.core.PermissionManager;
 import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.ComponentBuilder;
+import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 import io.github.davidmc971.modularmsmf.util.ChatUtils;
 import io.github.davidmc971.modularmsmf.util.Utils;
 import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
@@ -38,18 +47,46 @@ public class CommandModularMSMF extends AbstractCommand {
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
 		String toLowerCase = label.toLowerCase();
+		FileConfiguration language = Utils.configureCommandLanguage(sender, plugin);
 
 		switch (toLowerCase) {
 		case "mmsmf":
 			if (PermissionManager.checkPermission(sender, "mmsmf")) {
 				if (args.length == 0) {
 					/**
-					 * @TODO: changing server name as its own by new command, needs to be
+					 * TODO: changing server name as its own by new command, needs to be
 					 *       implemented.
 					 */
 					sender.sendMessage(infoPrefix + "Plugin enabled on: " + Bukkit.getName());
 					sender.sendMessage(infoPrefix + "More help:");
-					sender.sendMessage(infoPrefix + "info || "/**report ||*/+"teamspeak || discord"); // missing report, not implemented yet
+
+					TextComponent infoComponent = new TextComponent("info");
+					TextComponent reportComponent = new TextComponent("report");
+					TextComponent teamspeakComponent = new TextComponent("teamspeak");
+					TextComponent discordComponent = new TextComponent("discord");
+
+					infoComponent.setColor(net.md_5.bungee.api.ChatColor.GRAY);
+					reportComponent.setColor(net.md_5.bungee.api.ChatColor.RED);
+					teamspeakComponent.setColor(net.md_5.bungee.api.ChatColor.DARK_AQUA);
+					discordComponent.setColor(net.md_5.bungee.api.ChatColor.AQUA);
+
+					infoComponent.setClickEvent( new ClickEvent( ClickEvent.Action.RUN_COMMAND, "/mmsmf info" ) );
+					infoComponent.setHoverEvent( new HoverEvent( HoverEvent.Action.SHOW_TEXT, new ComponentBuilder( language.getString("commands.mmsmf.info") ).create() ) );
+
+					reportComponent.setClickEvent( new ClickEvent( ClickEvent.Action.RUN_COMMAND, "/mmsmf report" ) );
+					reportComponent.setHoverEvent( new HoverEvent( HoverEvent.Action.SHOW_TEXT, new ComponentBuilder( language.getString("commands.mmsmf.report") ).create() ) );
+
+					teamspeakComponent.setClickEvent( new ClickEvent( ClickEvent.Action.RUN_COMMAND, "/mmsmf teamspeak" ) );
+					teamspeakComponent.setHoverEvent( new HoverEvent( HoverEvent.Action.SHOW_TEXT, new ComponentBuilder( language.getString("commands.mmsmf.teamspeak") ).create() ) );
+
+					discordComponent.setClickEvent( new ClickEvent( ClickEvent.Action.RUN_COMMAND, "/mmsmf discord" ) );
+					discordComponent.setHoverEvent( new HoverEvent( HoverEvent.Action.SHOW_TEXT, new ComponentBuilder( language.getString("commands.mmsmf.discord") ).create() ) );
+
+					sender.spigot().sendMessage(infoComponent);
+					sender.spigot().sendMessage(reportComponent);
+					sender.spigot().sendMessage(teamspeakComponent);
+					sender.spigot().sendMessage(discordComponent);
+					
 
 				} else if (args.length == 1) {
 					switch (args[0].toLowerCase()) {

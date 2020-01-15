@@ -106,7 +106,8 @@ public class CommandLoader {
 				new CommandSetSpawn(plugin),
 				new CommandSlaughter(plugin),
 				new CommandSpawn(plugin),
-				new CommandTeleport(plugin)
+				new CommandTeleport(plugin),
+				new CommandClearChat(plugin)
 		}) {
 			commandList.add(cmd);
 		}
