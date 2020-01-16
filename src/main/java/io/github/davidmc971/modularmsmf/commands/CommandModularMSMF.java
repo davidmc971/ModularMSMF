@@ -58,7 +58,6 @@ public class CommandModularMSMF extends AbstractCommand {
 					 *       implemented.
 					 */
 					sender.sendMessage(infoPrefix + "Plugin enabled on: " + Bukkit.getName());
-					sender.sendMessage(infoPrefix + "More help:");
 
 					TextComponent infoComponent = new TextComponent("info");
 					TextComponent reportComponent = new TextComponent("report");
@@ -82,10 +81,22 @@ public class CommandModularMSMF extends AbstractCommand {
 					discordComponent.setClickEvent( new ClickEvent( ClickEvent.Action.RUN_COMMAND, "/mmsmf discord" ) );
 					discordComponent.setHoverEvent( new HoverEvent( HoverEvent.Action.SHOW_TEXT, new ComponentBuilder( language.getString("commands.mmsmf.discord") ).create() ) );
 
+					TextComponent message = new TextComponent();
+					message.addExtra(infoPrefix + "More help: ");
+					message.setBold(true);
+					message.addExtra(infoComponent);
+					message.addExtra(" ");
+					message.addExtra(teamspeakComponent);
+					message.addExtra(" ");
+					message.addExtra(discordComponent);
+
+					sender.spigot().sendMessage(message);
+					/*
 					sender.spigot().sendMessage(infoComponent);
 					sender.spigot().sendMessage(reportComponent);
 					sender.spigot().sendMessage(teamspeakComponent);
 					sender.spigot().sendMessage(discordComponent);
+					*/
 					
 
 				} else if (args.length == 1) {

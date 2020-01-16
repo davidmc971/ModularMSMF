@@ -40,8 +40,9 @@ public class PermissionManager {
 		{ "spawn", "modularmsmf.spawn" },
 		{ "teleport", "modularmsmf.teleport"},
 		{ "back", "modularmsmf.back"},
-		{ "clear", "modularmsmf.clear"},
-		{ "clear_other", "modularmsmf.clear.other"}
+		{ "clear_command", "modularmsmf.clear"},
+		{ "clear_all", "modularmsmf.clear.all"},
+		{ "clear_target", "modularmsmf.clear.target"}
 	};
 
 	public static boolean checkPermission(CommandSender sender, String permission) {
