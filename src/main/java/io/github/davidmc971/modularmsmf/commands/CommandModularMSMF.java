@@ -2,10 +2,7 @@ package io.github.davidmc971.modularmsmf.commands;
 
 import java.io.File;
 
-import javax.swing.text.TabSet;
-
 import org.bukkit.Bukkit;
-import org.bukkit.Server.Spigot;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -13,15 +10,14 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import io.github.davidmc971.modularmsmf.ModularMSMF;
 import io.github.davidmc971.modularmsmf.core.PermissionManager;
+import io.github.davidmc971.modularmsmf.util.ChatUtils;
+import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
+import io.github.davidmc971.modularmsmf.util.Utils;
 import net.md_5.bungee.api.ChatColor;
-import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
-import io.github.davidmc971.modularmsmf.util.ChatUtils;
-import io.github.davidmc971.modularmsmf.util.Utils;
-import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
 
 /**
  * 

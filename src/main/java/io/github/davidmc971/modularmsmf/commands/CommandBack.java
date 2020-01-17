@@ -20,7 +20,7 @@ public class CommandBack extends AbstractCommand {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (sender instanceof Player) {
-            if (sender.hasPermission(PermissionManager.getPermission("back"))) {
+            if (PermissionManager.checkPermission(sender, "back")) {
                 if (args.length >= 1) {
                     Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.toomanyarguments");
                 } else {

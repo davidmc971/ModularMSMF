@@ -33,14 +33,14 @@ public class CommandKick extends AbstractCommand {
 		
 		switch(args.length){
 		case 0:
-			if(sender.hasPermission(PermissionManager.getPermission("kickplayer"))){
+			if(PermissionManager.checkPermission(sender, "kickplayer")){
 				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.KICK, "general.missing_playername");
 			} else {
 				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.KICK, "general.nopermission");
 			}
 			break;
 		default:
-			if(sender.hasPermission(PermissionManager.getPermission("kickplayer"))){
+			if(PermissionManager.checkPermission(sender, "kickplayer")){
 				target = Utils.getPlayerUUIDByName(args[0]);
 				if(target == null){
 					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.KICK, "general.playernotfound");

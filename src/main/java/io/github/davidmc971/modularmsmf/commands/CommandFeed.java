@@ -35,8 +35,8 @@ public class CommandFeed extends AbstractCommand {
 
 		if(sender instanceof Player){
 			switch (args.length) {
-			case 0: 
-				if (sender.hasPermission(PermissionManager.getPermission("feedself"))) {
+			case 0:
+				if(PermissionManager.checkPermission(sender, "feedself")){
 					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.FEED, "commands.feed.feeded");
 					((Player) sender).setSaturation(20);
 				} else {
@@ -44,7 +44,7 @@ public class CommandFeed extends AbstractCommand {
 				}
 			break;
 			case 1: 
-				if(sender.hasPermission(PermissionManager.getPermission("feedothers"))){
+				if(PermissionManager.checkPermission(sender, "feedothers")){
 					target = Utils.getPlayerUUIDByName(args[0]);
 					if (target == null) {
 						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.playernotfound");

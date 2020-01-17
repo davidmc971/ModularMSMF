@@ -26,37 +26,36 @@ public class CommandKill extends AbstractCommand {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {	
-
-		if(sender instanceof Player){
-			if (args.length == 0) {
-				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.missingarguments");
-				return true;
-			}
-
-			switch (args[0].toLowerCase()) {
-			case "me":
-				if (sender.hasPermission(PermissionManager.getPermission("kill_me"))) {
-					Player player = ((Player) sender);
-					plugin.getMainEvents().registerKilledPlayer(player, KillType.SUICIDE);
-					Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.DEATH, "event.suicide", "_var", player.getDisplayName());
-					player.setHealth(0);
-				} else {
-					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
+		if(PermissionManager.checkPermission(sender, "kill")){
+			if(sender instanceof Player){
+				if (args.length == 0) {
+					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.missingarguments");
+					return true;
 				}
-				break;
-			case "all":
-				if (sender.hasPermission(PermissionManager.getPermission("kill_all"))) {
-					for (Player player : Bukkit.getOnlinePlayers()) {
-						plugin.getMainEvents().registerKilledPlayer(player, KillType.HOMOCIDE);
+
+				switch (args[0].toLowerCase()) {
+				case "me":
+					if (PermissionManager.checkPermission(sender, "kill_me")) {
+						Player player = ((Player) sender);
+						plugin.getMainEvents().registerKilledPlayer(player, KillType.SUICIDE);
+						Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.DEATH, "event.suicide", "_var", player.getDisplayName());
 						player.setHealth(0);
+					} else {
+						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
 					}
-					Utils.broadcastWithConfiguredLanguageEach(plugin, ChatUtils.ChatFormat.DEATH, "event.homocide");
-				} else {
-					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
-				}
-				break;
-			default:
-				if (sender.hasPermission(PermissionManager.getPermission("kill"))) {
+					break;
+				case "all":
+					if (PermissionManager.checkPermission(sender, "kill_all")) {
+						for (Player player : Bukkit.getOnlinePlayers()) {
+							plugin.getMainEvents().registerKilledPlayer(player, KillType.HOMOCIDE);
+							player.setHealth(0);
+						}
+						Utils.broadcastWithConfiguredLanguageEach(plugin, ChatUtils.ChatFormat.DEATH, "event.homocide");
+					} else {
+						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
+					}
+					break;
+				default:
 					boolean temp = false;
 					for (Player player : Bukkit.getOnlinePlayers()) {
 						if (args[0].toLowerCase().equals(player.getName().toLowerCase())) {
@@ -67,14 +66,13 @@ public class CommandKill extends AbstractCommand {
 							break;
 						}
 					}
-					if (!temp)
+					if (!temp){
 						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.playernotfound");
-				} else {
-					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
+					}
 				}
+			} else {
+				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "general.noconsole");
 			}
-		} else {
-			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "general.noconsole");
 		}
 		return true;
 	}

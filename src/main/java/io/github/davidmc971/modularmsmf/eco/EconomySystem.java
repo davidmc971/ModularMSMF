@@ -273,7 +273,7 @@ public class EconomySystem extends AbstractCommand {
 			// }
 			// break;
 			case "pay": //FIXME: Wichtig - Output = null, please fix
-				if (sender.hasPermission(PermissionManager.getPermission("eco_pay"))) {
+				if (PermissionManager.checkPermission(sender, "eco_pay")) {
 					if (args.length < 2) {
 						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "commands.money.missingamountandplayer");
 					}
@@ -323,7 +323,7 @@ public class EconomySystem extends AbstractCommand {
 			default:
 				switch (args.length) {
 				case 1:
-					if (sender.hasPermission(PermissionManager.getPermission("eco_lookup"))) {
+					if (PermissionManager.checkPermission(sender, "eco_lookup")) {
 						target = Utils.getPlayerUUIDByName(args[0]);
 						if (target == null) {
 							Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,

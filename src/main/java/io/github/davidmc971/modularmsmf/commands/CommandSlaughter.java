@@ -30,37 +30,30 @@ public class CommandSlaughter extends AbstractCommand {
 		 */
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-
-		if(args.length == 0){
-			if(sender.hasPermission(PermissionManager.getPermission("slaughter"))){
-				if(sender instanceof ConsoleCommandSender){
-					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "general.noconsole");
-				}
-				else if(sender instanceof Player) {
+		if(PermissionManager.checkPermission(sender, "slaughter")){
+			if(sender instanceof ConsoleCommandSender){
+				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "general.noconsole");
+			} else {
+				if(args.length == 0) {
 					Location playerloc = ((Player) sender).getLocation();
 					for (Entity e : ((Player) sender).getWorld().getNearbyEntities(playerloc, 500, 500, 500)) {
 						if (!(e instanceof Player) && (e instanceof Monster))
 							e.remove();
 					}
 					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS, "commands.slaughter.success");
-				}
-			}
-		} else if(args.length == 1 && args[0].equalsIgnoreCase("passive")){
-			if(sender.hasPermission(PermissionManager.getPermission("slaughter"))){
-				if(sender instanceof ConsoleCommandSender){
-					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "general.noconsole");
-				}
-				else if(sender instanceof Player) {
+				} else if(args.length == 1 && args[0].equalsIgnoreCase("passive")){
 					Location playerloc = ((Player) sender).getLocation();
 					for (Entity e : ((Player) sender).getWorld().getNearbyEntities(playerloc, 500, 500, 500)) {
 						if (!(e instanceof Player) && (e instanceof Animals))
 							e.remove();
 					}
 					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS, "commands.slaughter.success");
+				} else {
+					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.toomanyarguments");
 				}
 			}
 		} else {
-			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.toomanyarguments");
+			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
 		}
 		return true;
 	}

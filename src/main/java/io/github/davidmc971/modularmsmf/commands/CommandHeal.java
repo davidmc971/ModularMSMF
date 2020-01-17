@@ -31,7 +31,7 @@ public class CommandHeal extends AbstractCommand {
 		if(sender instanceof Player){
 			switch (args.length) {
 			case 0:
-				if (sender.hasPermission(PermissionManager.getPermission("healself"))) {
+				if (PermissionManager.checkPermission(sender, "healself")) {
 					((Player) sender).setHealth(20);
 					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.HEAL, "commands.heal.healself");
 				} else {
@@ -40,7 +40,7 @@ public class CommandHeal extends AbstractCommand {
 				break;
 			case 1:
 				target = Utils.getPlayerUUIDByName(args[0]);
-				if (sender.hasPermission(PermissionManager.getPermission("healother"))) {
+				if (PermissionManager.checkPermission(sender, "healother")) {
 					if (target == null) {
 						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.playernotfound");
 						return true;

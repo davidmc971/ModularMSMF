@@ -9,6 +9,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import io.github.davidmc971.modularmsmf.ModularMSMF;
+import io.github.davidmc971.modularmsmf.core.PermissionManager;
 import io.github.davidmc971.modularmsmf.util.ChatUtils;
 import io.github.davidmc971.modularmsmf.util.Utils;
 import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
@@ -59,23 +60,23 @@ public class CommandReport extends AbstractCommand {
 		if(args.length == 0){
 		//no arguments, plain /report command
 			//TODO: send description of command, in player's language
-			sender.sendMessage(infoPrefix + "Report system for reporting players, bugs and other stuff.");
-			sender.sendMessage(infoPrefix + "Level's you are allowed to use:");
-			if(sender.hasPermission("modularmmsmf.command.report.player")) {
-				sender.sendMessage(infoPrefix + "/report player <playername> <reason>");
+			//sender.sendMessage(infoPrefix + "Report system for reporting players, bugs and other stuff.");
+			//sender.sendMessage(infoPrefix + "Level's you are allowed to use:");
+			if(PermissionManager.checkPermission(sender, "report_player")) {
+			//	sender.sendMessage(infoPrefix + "/report player <playername> <reason>");
 			}
-			if(sender.hasPermission("modularmmsmf.command.report.bug")) {
-				sender.sendMessage(infoPrefix + "/report bug <description of finding>");
+			if(PermissionManager.checkPermission(sender, "report_bug")) {
+			//	sender.sendMessage(infoPrefix + "/report bug <description of finding>");
 			}
-			if(sender.hasPermission("modularmmsmf.command.report.other")) {
-				sender.sendMessage(infoPrefix + "/report other <describe your idea>");
+			if(PermissionManager.checkPermission(sender, "report_other")) {
+			//	sender.sendMessage(infoPrefix + "/report other <describe your idea>");
 			}
 		} else {
 		//at least one argument
 			switch(args[0].toLowerCase()){
 			//let's check for the category and if it's valid, as well as permission for use
 			case "player":
-				if(sender.hasPermission("modularmmsmf.command.report.player"))
+				if(PermissionManager.checkPermission(sender, "report_player"))
 				{
 					reportPlayer(sender, args, plugin, language);
 				} else {
@@ -83,7 +84,7 @@ public class CommandReport extends AbstractCommand {
 				}
 				break;
 			case "bug":
-				if(sender.hasPermission("modularmmsmf.command.report.bug"))
+				if(PermissionManager.checkPermission(sender, "report_bug"))
 				{
 					reportBug(sender, args, plugin, language);
 				} else {
@@ -91,7 +92,7 @@ public class CommandReport extends AbstractCommand {
 				}
 				break;
 			case "other":
-				if(sender.hasPermission("modularmmsmf.command.report.other"))
+				if(PermissionManager.checkPermission(sender, "report_other"))
 				{
 					reportOther(sender, args, plugin, language);
 				} else {

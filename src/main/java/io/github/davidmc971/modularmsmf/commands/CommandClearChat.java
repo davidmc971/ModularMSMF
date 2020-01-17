@@ -19,9 +19,7 @@ public class CommandClearChat extends AbstractCommand{
     }
     
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
-
-        if(sender.hasPermission(PermissionManager.getPermission("clear_command"))){
-
+        if(PermissionManager.checkPermission(sender, "clear_command")){
             UUID target = null;
 			switch (args.length){
                 default:
@@ -29,7 +27,7 @@ public class CommandClearChat extends AbstractCommand{
                 break;
 
                 case 0:
-                if(sender.hasPermission(PermissionManager.getPermission("clear_all"))){
+                if(PermissionManager.checkPermission(sender, "clear_all")){
                     int count = 0;
                     while (count!=99){
                         count++;
@@ -42,7 +40,7 @@ public class CommandClearChat extends AbstractCommand{
                 break;
 
                 case 1:
-                if(sender.hasPermission(PermissionManager.getPermission("clear_target"))){
+                if(PermissionManager.checkPermission(sender, "clear_target")){
                     int count = 0;
                     target = Utils.getPlayerUUIDByName(args[0]);
                     if (target == null) {

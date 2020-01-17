@@ -56,8 +56,7 @@
 		
 		public boolean banCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 			FileConfiguration language = Utils.configureCommandLanguage(sender, plugin);
-
-			if (sender.hasPermission(PermissionManager.getPermission("banplayer"))) {
+			if(PermissionManager.checkPermission(sender, "banplayer")){
 				if (args.length == 0) {
 					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.BAN, "general.missing_playername");
 					return true;
@@ -134,8 +133,7 @@
  */
 
 		public boolean unbanCommand(CommandSender sender, Command command, String label, String[] args) {
-
-			if (sender.hasPermission(PermissionManager.getPermission("unban"))) {
+			if(PermissionManager.checkPermission(sender, "unban")){
 			switch(args.length){
 			case 0:
 				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.missing_playername");

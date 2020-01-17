@@ -26,7 +26,7 @@ public class CommandTeleport extends AbstractCommand {
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
 		if (sender instanceof Player) {
-			if (sender.hasPermission(PermissionManager.getPermission("teleport"))) {
+			if (PermissionManager.checkPermission(sender, "teleport")) {
 				if (args.length == 0) {
 					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.missing_playername");
 				}

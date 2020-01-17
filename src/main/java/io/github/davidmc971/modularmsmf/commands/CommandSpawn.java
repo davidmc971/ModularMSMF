@@ -40,7 +40,7 @@ public class CommandSpawn extends AbstractCommand {
 		} else {
 			Player p = (Player)sender;
 
-			if(!p.hasPermission(PermissionManager.getPermission("spawn"))){
+			if(!(PermissionManager.checkPermission(sender, "spawn"))){
 				Utils.sendMessageWithConfiguredLanguage(plugin, p, ChatFormat.SPAWN, "general.nopermission");
 			}
 

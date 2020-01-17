@@ -45,7 +45,7 @@ public class CommandMotd extends AbstractCommand {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-
+/*
 		if (!(sender.hasPermission("modularmsmf.motd"))) {
 			String toLowerCase = label.toLowerCase();
 			switch (toLowerCase) {
@@ -61,6 +61,7 @@ public class CommandMotd extends AbstractCommand {
 				}
 			}
 		}
+		*/
 		return true;
 	}
 

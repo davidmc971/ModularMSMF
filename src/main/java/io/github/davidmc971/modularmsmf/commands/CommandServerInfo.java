@@ -5,6 +5,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
 import io.github.davidmc971.modularmsmf.ModularMSMF;
+import io.github.davidmc971.modularmsmf.core.PermissionManager;
 import io.github.davidmc971.modularmsmf.util.Utils;
 import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
 
@@ -24,7 +25,7 @@ public class CommandServerInfo extends AbstractCommand {
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		
-		if (sender.hasPermission("modularmsmf.command.serverinfo")) {
+		if (PermissionManager.checkPermission(sender, "serverinfo")) {
 			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO, "general.bukkitversion", "_bukkitver", Bukkit.getBukkitVersion());
 		}
 		return true;
