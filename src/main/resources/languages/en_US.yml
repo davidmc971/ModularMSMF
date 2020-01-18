@@ -16,6 +16,10 @@ general:
     couldnotcreatefile: File couldn't be created!
     notimplementedyet: This command has not been implemented yet.
     bukkitversion: 'The actual Bukkit version: _bukkitver'
+    component:
+      set: Click on me to set a default home at your location!
+      remove: Click on me to remove your default home!
+      rtp: I will show you how to write it!
 event:
   welcome: _var has joned the Server!
   quit: _var has left the Server!
@@ -119,7 +123,14 @@ commands:
   teleport:
     success: You teleported to _target!
   home:
+    help:
+      set: 'How to use the set command:'
+      remove: 'How to use the remove command:'
+      rtp: You need to specify a player to request. Like "/home rtp <player>"
     notset: Your home has not been set yet.
+    list: 'Your homes: _list'
+    rtp:
+      noargument: You should specify a player.
   back:
     success: You got teleported to your last place!
     error: There is no way to get back.

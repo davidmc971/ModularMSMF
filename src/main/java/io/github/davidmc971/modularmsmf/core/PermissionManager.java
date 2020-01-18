@@ -39,6 +39,8 @@ public class PermissionManager {
 		put("eco_lookup", "modularmsmf.eco.lookup");
 		//home permissions
 		put("home", "modularmsmf.home");
+		put("home_self", "modular.home.self");
+		put("home_help", "modularmsmf.home.help");
 		put("home_list", "modularmsmf.home.list");
 		put("home_set", "modularmsmf.home.set");
 		put("home_remove", "modularmsmf.home.remove");
