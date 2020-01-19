@@ -99,11 +99,15 @@ public class CommandHome extends AbstractCommand {
 			if(args[0].equalsIgnoreCase("set")){
 				if(PermissionManager.checkPermission(sender, "home_set")){
 
+				} else {
+					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
 				}
 			}
 			if(args[0].equalsIgnoreCase("remove")){
 				if(PermissionManager.checkPermission(sender, "home_remove")){
 
+				} else {
+					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
 				}
 			}
 			if(args[0].equalsIgnoreCase("rtp")){
@@ -116,18 +120,28 @@ public class CommandHome extends AbstractCommand {
 					} else {
 						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.toomanyarguments");
 					}
+				} else {
+					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
 				}
 			}
 			if(args[0].equalsIgnoreCase("admin")){
 				if(PermissionManager.checkPermission(sender, "home_admin")){
 
+				} else {
+					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
 				}
 			}
 
-			else {
-				if(PermissionManager.checkPermission(sender, "home_self")){
-					
+			if(PermissionManager.checkPermission(sender, "home_help")){
+				if(!(args[0].equalsIgnoreCase("help") || args[0].equalsIgnoreCase("list") || args[0].equalsIgnoreCase("help") || args[0].equalsIgnoreCase("set") || args[0].equalsIgnoreCase("remove") || args[0].equalsIgnoreCase("rtp") || args[0].equalsIgnoreCase("admin"))){
+					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "commands.home.invalidargument");
+				} else {
+					if(/** args[0] + something which matches any player home name? */){
+
+					}
 				}
+			}  else {
+				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
 			}
 			break;
 

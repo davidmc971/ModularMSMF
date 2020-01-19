@@ -20,6 +20,7 @@ general:
       set: Click on me to set a default home at your location!
       remove: Click on me to remove your default home!
       rtp: I will show you how to write it!
+      admin: It will show you administrative commands!
 event:
   welcome: _var has joned the Server!
   quit: _var has left the Server!
@@ -123,10 +124,12 @@ commands:
   teleport:
     success: You teleported to _target!
   home:
+    invalidargument: Please do "/home help" for more information!
     help:
       set: 'How to use the set command:'
       remove: 'How to use the remove command:'
-      rtp: You need to specify a player to request. Like "/home rtp <player>"
+      rtp: Requests teleport to player's home.
+      admin: 'Use for administrative home-rights:'
     notset: Your home has not been set yet.
     list: 'Your homes: _list'
     rtp:
