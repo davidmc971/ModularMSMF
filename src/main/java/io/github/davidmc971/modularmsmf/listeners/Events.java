@@ -10,6 +10,7 @@ import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
@@ -35,6 +36,7 @@ public class Events implements Listener {
 	private ArrayList<PlayerKillConfig> killedPlayers = new ArrayList<PlayerKillConfig>();
 	private ArrayList<UUID> kickedPlayers = new ArrayList<UUID>();
 	public static HashMap<String, Location> lastLocation = new HashMap<>();
+	public static ArrayList<String> hardCodedBlackList = new ArrayList<String>();
 
 	public Events(ModularMSMF plugin) {
 		this.plugin = plugin;
@@ -143,16 +145,63 @@ public class Events implements Listener {
 		}
 	}
 
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onChat(AsyncPlayerChatEvent event) {
-		//plugin.getLogger().info("Async Chat Event");
+
+		//Player p = event.getPlayer();
+		String msg = event.getMessage().toLowerCase();
+
+		hardCodedBlackList.add("test");
+		hardCodedBlackList.add("hacker");
+		for(int i = 0; i < hardCodedBlackList.size(); i++){
+			if(!hardCodedBlackList.contains(msg)) {
+			//plugin.getLogger().info("Async Chat Event");
+			FileConfiguration playercfg = plugin.getDataManager().getPlayerCfg(event.getPlayer().getUniqueId());
+			if (playercfg.isBoolean("muted") && playercfg.getBoolean("muted") && !event.getMessage().startsWith("/")) {
+				event.setCancelled(true);
+				Utils.sendMessageWithConfiguredLanguage(plugin, event.getPlayer(), ChatFormat.NOPERM, "event.muted");
+			}
+
+			FileConfiguration settings = plugin.getDataManager().settingsyaml; //TODO: change to getter
+			ChatColor cl_prefix = toColor(settings, "chat.colors.prefix");
+			ChatColor cl_name = toColor(settings, "chat.colors.displayname");
+			ChatColor cl_msg = toColor(settings, "chat.colors.message");
+
+			//l.info("cl_prefix: " + cl_prefix);
+			//l.info("cl_name: " + cl_name);
+			//l.info("cl_msg: " + cl_msg);
+
+			String format = settings.getString("chat.format");
+			//l.info("format #1: " + format);
+			format = format.replaceAll("_name", "%1\\$s")
+				.replaceAll("_message", "%2\\$s")
+				.replaceAll("_clpre", cl_prefix.toString())
+				.replaceAll("_clname", cl_name.toString())
+				.replaceAll("_clmessage", cl_msg.toString());
+			//l.info("format #2: " + format);
+
+			event.setFormat(format);
+			} else {
+
+				for(String block : hardCodedBlackList){
+					if(msg.contains(block)){
+						event.setCancelled(true);
+						//p.sendMessage("Hardcoded Text dectected. Not allowed to send :" + block);
+						msg.replaceAll(hardCodedBlackList.get(i), "#");
+					}
+				}
+				//event.setMessage(msg);
+				System.out.println("Sending text "+msg);
+			}
+			event.setMessage(msg);
+		}
+
+/*		//plugin.getLogger().info("Async Chat Event");
 		FileConfiguration playercfg = plugin.getDataManager().getPlayerCfg(event.getPlayer().getUniqueId());
 		if (playercfg.isBoolean("muted") && playercfg.getBoolean("muted") && !event.getMessage().startsWith("/")) {
 			event.setCancelled(true);
 			Utils.sendMessageWithConfiguredLanguage(plugin, event.getPlayer(), ChatFormat.NOPERM, "event.muted");
 		}
-
-		//Logger l = plugin.getLogger();
 
 		FileConfiguration settings = plugin.getDataManager().settingsyaml; //TODO: change to getter
 		ChatColor cl_prefix = toColor(settings, "chat.colors.prefix");
@@ -172,7 +221,9 @@ public class Events implements Listener {
 			.replaceAll("_clmessage", cl_msg.toString());
 		//l.info("format #2: " + format);
 
-		event.setFormat(format);
+		event.setFormat(format);*/
+
+
 	}
 
 	private ChatColor toColor(FileConfiguration settings, String colorKey) {

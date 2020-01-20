@@ -1,9 +1,11 @@
 package io.github.davidmc971.modularmsmf.core;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.Map.Entry;
 import java.util.UUID;
 import java.util.logging.Level;
@@ -22,6 +24,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import io.github.davidmc971.modularmsmf.ModularMSMF;
 import io.github.davidmc971.modularmsmf.configuration.AbstractConfigurationLoader;
+import io.github.davidmc971.modularmsmf.listeners.Events;
 
 /**
  * 
@@ -93,6 +96,7 @@ public class DataManager implements Listener {
 	public void init(){
 		initDefaultSettings();
 		initDefaultUserdata();
+		initBlackList();
 
 		allUsers.clear();
 		for(OfflinePlayer p : Bukkit.getOfflinePlayers()){
@@ -189,7 +193,21 @@ public class DataManager implements Listener {
 		saveCfg(playercfg, pathPlayers + uuid.toString() + fileExtension);
 	}
 
-	private void initDefaultSettings(){
+	private void initBlackList(){
+		File file = new File(this.pathMain, "\\blacklist.txt");
+		try {
+			Scanner s = new Scanner(file);
+
+			while(s.hasNextLine()){
+				Events.hardCodedBlackList.add(s.nextLine());
+			}
+			s.close();
+		} catch (FileNotFoundException e){
+			System.err.println("No blacklist found! Please generate a blacklist.txt manually!");			
+		}
+	}
+
+	private void initDefaultSettings() {
 		defaultSettings.clear();
 		defaultSettings.put("economy.money", 0.0d);
 		defaultSettings.put("teamspeakIP", "");
