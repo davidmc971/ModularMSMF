@@ -8,18 +8,16 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import io.github.davidmc971.modularmsmf.ModularMSMF;
-import io.github.davidmc971.modularmsmf.core.LanguageManager;
 import io.github.davidmc971.modularmsmf.core.PermissionManager;
-import io.github.davidmc971.modularmsmf.data.PlayerData;
 import io.github.davidmc971.modularmsmf.handlers.HomeHandler;
 import io.github.davidmc971.modularmsmf.handlers.HomeHandler.Home;
+import io.github.davidmc971.modularmsmf.util.ChatUtils;
 import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
+import io.github.davidmc971.modularmsmf.util.Utils;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
-import io.github.davidmc971.modularmsmf.util.ChatUtils;
-import io.github.davidmc971.modularmsmf.util.Utils;
 
 /**
  * @author Lightkeks
