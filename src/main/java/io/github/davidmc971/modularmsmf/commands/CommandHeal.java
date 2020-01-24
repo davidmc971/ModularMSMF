@@ -26,7 +26,7 @@ public class CommandHeal extends AbstractCommand {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-
+		//target is always null unless target is online
 		UUID target = null;
 		if(sender instanceof Player){
 			switch (args.length) {

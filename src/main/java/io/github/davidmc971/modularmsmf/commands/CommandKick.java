@@ -27,8 +27,11 @@ public class CommandKick extends AbstractCommand {
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
+		//getting settings from settings.yml
 		FileConfiguration language = Utils.configureCommandLanguage(sender, plugin);
+		//searching string from settings.yml
 		String reason = language.getString("commands.kick.defaultkickreason");
+		//target is always null unless target is online
 		UUID target = null;
 		
 		switch(args.length){
@@ -49,6 +52,7 @@ public class CommandKick extends AbstractCommand {
 						kickPlayer(target, reason);
 						Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.KICKED, "commands.kick.seekickedall", "_player", args[0]);
 					} else {
+						//adding custom reason for kick
 						reason = "";
 						for (int i = 1; i < args.length; i++) {
 							reason += args[i] + " ";

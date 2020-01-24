@@ -30,20 +30,23 @@ public class CommandFeed extends AbstractCommand {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-
+		//target is always null unless target is online
 		UUID target = null;
-
+		//checks if sender is player instead of console
 		if(sender instanceof Player){
 			switch (args.length) {
-			case 0:
+				case 0:
+				//feed yourself
 				if(PermissionManager.checkPermission(sender, "feedself")){
 					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.FEED, "commands.feed.feeded");
 					((Player) sender).setSaturation(20);
 				} else {
 					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
 				}
-			break;
-			case 1: 
+				break;
+
+				case 1:
+				//feed target
 				if(PermissionManager.checkPermission(sender, "feedothers")){
 					target = Utils.getPlayerUUIDByName(args[0]);
 					if (target == null) {
@@ -70,7 +73,8 @@ public class CommandFeed extends AbstractCommand {
 				}
 				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.playernotfound");
 				break;
-			default: 
+
+				default: 
 				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.toomanyarguments");
 				break;
 			}

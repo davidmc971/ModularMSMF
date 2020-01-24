@@ -26,15 +26,18 @@ public class CommandKill extends AbstractCommand {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {	
-		if(PermissionManager.checkPermission(sender, "kill")){
-			if(sender instanceof Player){
+		//checks if command sender is player instead of console
+		if(sender instanceof Player){
+			//checks permission of user
+			if(PermissionManager.checkPermission(sender, "kill")){
 				if (args.length == 0) {
 					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.missingarguments");
 					return true;
 				}
 
 				switch (args[0].toLowerCase()) {
-				case "me":
+					case "me":
+					//suicide
 					if (PermissionManager.checkPermission(sender, "kill_me")) {
 						Player player = ((Player) sender);
 						plugin.getMainEvents().registerKilledPlayer(player, KillType.SUICIDE);
@@ -44,7 +47,9 @@ public class CommandKill extends AbstractCommand {
 						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
 					}
 					break;
-				case "all":
+
+					case "all":
+					//kills all players online
 					if (PermissionManager.checkPermission(sender, "kill_all")) {
 						for (Player player : Bukkit.getOnlinePlayers()) {
 							plugin.getMainEvents().registerKilledPlayer(player, KillType.HOMOCIDE);
@@ -55,7 +60,9 @@ public class CommandKill extends AbstractCommand {
 						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
 					}
 					break;
-				default:
+
+					default:
+					//kills specified player
 					boolean temp = false;
 					for (Player player : Bukkit.getOnlinePlayers()) {
 						if (args[0].toLowerCase().equals(player.getName().toLowerCase())) {
@@ -71,8 +78,10 @@ public class CommandKill extends AbstractCommand {
 					}
 				}
 			} else {
-				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "general.noconsole");
+				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "general.nopermission");
 			}
+		} else {
+			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "general.noconsole");
 		}
 		return true;
 	}

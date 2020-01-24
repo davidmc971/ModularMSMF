@@ -19,7 +19,9 @@ public class CommandClearChat extends AbstractCommand{
     }
     
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
+        //checks if player has permission
         if(PermissionManager.checkPermission(sender, "clear_command")){
+            //default to null if player is not online
             UUID target = null;
 			switch (args.length){
                 default:
@@ -28,6 +30,7 @@ public class CommandClearChat extends AbstractCommand{
 
                 case 0:
                 if(PermissionManager.checkPermission(sender, "clear_all")){
+                    //counts to max 99, sends message "" 99 times if permission is given to clear chat from all players
                     int count = 0;
                     while (count!=99){
                         count++;
@@ -40,6 +43,7 @@ public class CommandClearChat extends AbstractCommand{
                 break;
 
                 case 1:
+                //same as case 0: but for player/target directly
                 if(PermissionManager.checkPermission(sender, "clear_target")){
                     int count = 0;
                     target = Utils.getPlayerUUIDByName(args[0]);

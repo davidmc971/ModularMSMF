@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import io.github.davidmc971.modularmsmf.ModularMSMF;
 import io.github.davidmc971.modularmsmf.core.LanguageManager;
 import io.github.davidmc971.modularmsmf.core.PermissionManager;
+import io.github.davidmc971.modularmsmf.data.PlayerData;
 import io.github.davidmc971.modularmsmf.handlers.HomeHandler;
 import io.github.davidmc971.modularmsmf.handlers.HomeHandler.Home;
 import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
@@ -83,13 +84,13 @@ public class CommandHome extends AbstractCommand {
 					if (PermissionManager.checkPermission(sender, "home_set")) { //shows the help for "home set"
 						helpHome(sender, "/home set", "commands.home.help.set", "general.component.set");
 					}
-					if(PermissionManager.checkPermission(sender, "home_remove")){
+					if(PermissionManager.checkPermission(sender, "home_remove")){ //shows the help for "home remove"
 						helpHome(sender, "/home remove", "commands.home.help.remove", "general.component.remove");
 					}
-					if(PermissionManager.checkPermission(sender, "home_rtp")){
+					if(PermissionManager.checkPermission(sender, "home_rtp")){ //shows the help for "home rtp" - rtp = request to teleport (to someone's home)
 						helpHome(sender, "/home rtp", "commands.home.help.rtp", "general.component.rtp");
 					}
-					if(PermissionManager.checkPermission(sender, "home_admin")){
+					if(PermissionManager.checkPermission(sender, "home_admin")){ //shows the help for "home admin"
 						helpHome(sender, "/home admin", "commands.home.help.admin", "general.component.admin");
 					}
 				} else {
@@ -97,6 +98,7 @@ public class CommandHome extends AbstractCommand {
 				}
 			}
 			if(args[0].equalsIgnoreCase("set")){
+				//command for "home set"
 				if(PermissionManager.checkPermission(sender, "home_set")){
 
 				} else {
@@ -104,6 +106,7 @@ public class CommandHome extends AbstractCommand {
 				}
 			}
 			if(args[0].equalsIgnoreCase("remove")){
+				//command for "home remove"
 				if(PermissionManager.checkPermission(sender, "home_remove")){
 
 				} else {
@@ -111,6 +114,7 @@ public class CommandHome extends AbstractCommand {
 				}
 			}
 			if(args[0].equalsIgnoreCase("rtp")){
+				//command for "home rtp"
 				if(PermissionManager.checkPermission(sender, "home_rtp")){
 					if(args.length == 0){
 						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO, "commands.home.rtp.noargument");
@@ -125,23 +129,25 @@ public class CommandHome extends AbstractCommand {
 				}
 			}
 			if(args[0].equalsIgnoreCase("admin")){
+				//command for "home admin"
 				if(PermissionManager.checkPermission(sender, "home_admin")){
 
 				} else {
 					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
 				}
-			}
+			} else {
+				if(PermissionManager.checkPermission(sender, "home_help")){
+					//
+					if(!(args[0].equalsIgnoreCase("help") || args[0].equalsIgnoreCase("list") || args[0].equalsIgnoreCase("help") || args[0].equalsIgnoreCase("set") || args[0].equalsIgnoreCase("remove") || args[0].equalsIgnoreCase("rtp") || args[0].equalsIgnoreCase("admin"))){
+						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "commands.home.invalidargument");
+					} else {
+						//if(/** something that should match home name from args[0] */){
 
-			if(PermissionManager.checkPermission(sender, "home_help")){
-				if(!(args[0].equalsIgnoreCase("help") || args[0].equalsIgnoreCase("list") || args[0].equalsIgnoreCase("help") || args[0].equalsIgnoreCase("set") || args[0].equalsIgnoreCase("remove") || args[0].equalsIgnoreCase("rtp") || args[0].equalsIgnoreCase("admin"))){
-					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "commands.home.invalidargument");
-				} else {
-					if(/** args[0] + something which matches any player home name? */){
-
+						//}
 					}
+				}  else {
+					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
 				}
-			}  else {
-				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
 			}
 			break;
 

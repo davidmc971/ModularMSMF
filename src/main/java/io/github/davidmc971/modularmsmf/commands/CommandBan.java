@@ -225,6 +225,7 @@ public class CommandBan extends AbstractCommand {
 			}
 			return true;
 		}
+		//gives out if no permissions are given
 		Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.UNBAN, "general.nopermission");
 		return true;
 	}
