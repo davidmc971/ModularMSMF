@@ -30,15 +30,14 @@ public class CommandClearChat extends AbstractCommand{
 
                 case 0:
                 if(PermissionManager.checkPermission(sender, "clear_all")){
-                    //counts to max 99, sends message "" 99 times if permission is given to clear chat from all players
                     int count = 0;
                     while (count!=99){
                         count++;
-                        Bukkit.broadcastMessage("");
+                        Bukkit.getOnlinePlayers().forEach((plr) -> plr.sendMessage(""));
                     }
                     Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.SUCCESS, "commands.clear.done");
                 } else {
-                        Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
+                    Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
                 }
                 break;
 
