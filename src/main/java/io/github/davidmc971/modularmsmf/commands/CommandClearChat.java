@@ -74,7 +74,7 @@ public class CommandClearChat extends AbstractCommand{
 
     @Override
     public String[] getCommandLabels() {
-        return new String[]{ "clearchat" };
+        return new String[]{ "clearchat", "cc" };
     }
 
 }
