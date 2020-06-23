@@ -232,12 +232,14 @@ public class Events implements Listener {
 		return ChatColor.getByChar(settings.getString(colorKey).charAt(0));
 	}
 
+	@EventHandler
 	public void onCommandEvent(PlayerCommandPreprocessEvent e){
+		e.getPlayer().sendMessage(e.getMessage());
 		Player p = e.getPlayer();
 		if(p.isOp()){
-			String[] args;
-			if (args[0] == "pl" || args[0] == "plugins") {
-				Utils.sendMessageWithConfiguredLanguage(plugin, p, ChatColor.DARK_RED, "general.commands_blocked", "_var", args[0]);
+			String commandName = e.getMessage().substring(1).split(" ")[0].toLowerCase();
+			if (commandName == "pl" || commandName == "plugins") {
+				Utils.sendMessageWithConfiguredLanguage(plugin, p, ChatFormat.ERROR, "general.commands_blocked", "_var", commandName);
 			}
 		}
 	}
