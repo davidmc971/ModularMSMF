@@ -10,7 +10,6 @@ import java.util.Set;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -32,7 +31,7 @@ import io.github.davidmc971.modularmsmf.main.CommandLoader;
  * @author Lightkeks, davidmc971
  */
 
-public class ModularMSMF extends JavaPlugin implements CommandExecutor {
+public class ModularMSMF extends JavaPlugin {
 	private YamlConfigurationLoader yamlLoader;
 	public YamlConfigurationLoader yamlLoader() {
 		if (yamlLoader == null) yamlLoader = new YamlConfigurationLoader();

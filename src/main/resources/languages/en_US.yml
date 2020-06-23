@@ -16,6 +16,7 @@ general:
     couldnotcreatefile: File couldn't be created!
     notimplementedyet: This command has not been implemented yet.
     bukkitversion: 'The actual Bukkit version: _bukkitver'
+    commands_blocked: 'The command _var has been blocked.'
     component:
       set: Click on me to set a default home at your location!
       remove: Click on me to remove your default home!

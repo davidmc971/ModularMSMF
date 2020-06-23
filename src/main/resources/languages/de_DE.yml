@@ -16,6 +16,7 @@ general: #Hauptsaechliche Strings fuer den Allgemeingebrauch
     couldnotcreatefile: Die Datei konnte nicht erstellt werden! #Erstellen von Userfiles oder settings als .yml oder .json
     notimplementedyet: Dieser Befehl existiert noch nicht. #Falls es Befehle gibt die noch nicht geschrieben wurden sind.
     bukkitversion: 'Die aktuelle Bukkitversion: _bukkitver.' #Zeigt aktuelle Version vom Server an
+    commands_blocked: 'Der Befehl _var wurde geblockt.'
 event:
   welcome: _var hat den Server betreten! #Kommt auf, sobald ein Spieler den Server betritt
   quit: _var hat den Server verlassen! #Kommt auf, sobald ein Spieler den Server verlaesst

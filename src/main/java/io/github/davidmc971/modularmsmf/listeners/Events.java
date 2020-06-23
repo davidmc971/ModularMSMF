@@ -14,12 +14,14 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerLoginEvent.Result;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import io.github.davidmc971.modularmsmf.ModularMSMF;
+import io.github.davidmc971.modularmsmf.core.LanguageManager;
 import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
 import io.github.davidmc971.modularmsmf.util.KillType;
 import io.github.davidmc971.modularmsmf.util.Utils;
@@ -228,5 +230,15 @@ public class Events implements Listener {
 
 	private ChatColor toColor(FileConfiguration settings, String colorKey) {
 		return ChatColor.getByChar(settings.getString(colorKey).charAt(0));
+	}
+
+	public void onCommandEvent(PlayerCommandPreprocessEvent e){
+		Player p = e.getPlayer();
+		if(p.isOp()){
+			String[] args;
+			if (args[0] == "pl" || args[0] == "plugins") {
+				Utils.sendMessageWithConfiguredLanguage(plugin, p, ChatColor.DARK_RED, "general.commands_blocked", "_var", args[0]);
+			}
+		}
 	}
 }
