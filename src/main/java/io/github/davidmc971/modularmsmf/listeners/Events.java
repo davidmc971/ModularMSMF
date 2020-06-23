@@ -237,7 +237,7 @@ public class Events implements Listener {
 		Player p = e.getPlayer();
 		if(p.isOp()){
 			String commandName = e.getMessage().substring(1).split(" ")[0].toLowerCase();
-			p.sendMessage(e.getMessage());
+			p.sendMessage(commandName);
 			if (commandName == "pl" || commandName == "plugins") {
 				Utils.sendMessageWithConfiguredLanguage(plugin, p, ChatFormat.ERROR, "general.commands_blocked", "_var", commandName);
 				e.setCancelled(true);
