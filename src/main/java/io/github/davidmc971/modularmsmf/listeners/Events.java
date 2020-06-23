@@ -184,48 +184,14 @@ public class Events implements Listener {
 
 				event.setFormat(format);
 			} else {
-
-				for(String block : hardCodedBlackList){
-					if(msg.toLowerCase().contains(block)) {
-						event.setCancelled(true);
-						p.sendMessage("Blacklisted text dectected. Not allowed to send: " + block);
-						msg.replaceAll(hardCodedBlackList.get(i), "#");
-					}
-				}
-				//event.setMessage(msg);
+				p.sendMessage("Blacklisted text dectected. Not allowed to send: " + msg.toLowerCase());
+				msg.replaceAll(hardCodedBlackList.get(i), "#");
+				event.setCancelled(true);
 				System.out.println("Sending text "+msg);
+				break;
 			}
-			event.setMessage(msg);
 		}
-
-/*		//plugin.getLogger().info("Async Chat Event");
-		FileConfiguration playercfg = plugin.getDataManager().getPlayerCfg(event.getPlayer().getUniqueId());
-		if (playercfg.isBoolean("muted") && playercfg.getBoolean("muted") && !event.getMessage().startsWith("/")) {
-			event.setCancelled(true);
-			Utils.sendMessageWithConfiguredLanguage(plugin, event.getPlayer(), ChatFormat.NOPERM, "event.muted");
-		}
-
-		FileConfiguration settings = plugin.getDataManager().settingsyaml; //TODO: change to getter
-		ChatColor cl_prefix = toColor(settings, "chat.colors.prefix");
-		ChatColor cl_name = toColor(settings, "chat.colors.displayname");
-		ChatColor cl_msg = toColor(settings, "chat.colors.message");
-
-		//l.info("cl_prefix: " + cl_prefix);
-		//l.info("cl_name: " + cl_name);
-		//l.info("cl_msg: " + cl_msg);
-
-		String format = settings.getString("chat.format");
-		//l.info("format #1: " + format);
-		format = format.replaceAll("_name", "%1\\$s")
-			.replaceAll("_message", "%2\\$s")
-			.replaceAll("_clpre", cl_prefix.toString())
-			.replaceAll("_clname", cl_name.toString())
-			.replaceAll("_clmessage", cl_msg.toString());
-		//l.info("format #2: " + format);
-
-		event.setFormat(format);*/
-
-
+		event.setMessage(msg);
 	}
 
 	private ChatColor toColor(FileConfiguration settings, String colorKey) {
