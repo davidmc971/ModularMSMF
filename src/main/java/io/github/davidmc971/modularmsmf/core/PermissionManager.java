@@ -53,6 +53,8 @@ public class PermissionManager {
 		//mmsmf permissions
 		put("mmsmfhelp", "modularmsmf.help");
 		put("mmsmf", "modularmsmf.mmsmf");
+		//mute permissions
+		put("mute", "modularmsmf.mute");
 		//slaughter permissions
 		put("slaughter", "modularmsmf.slaughter");
 		//spawn permissions
