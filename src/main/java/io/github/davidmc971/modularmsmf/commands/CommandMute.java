@@ -31,6 +31,7 @@ public class CommandMute extends AbstractCommand {
 				/* TODO: implementation of mute with every subcommand
 				*
 				*/
+				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.notimplementedyet");
 			} else {
 				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
 			}
