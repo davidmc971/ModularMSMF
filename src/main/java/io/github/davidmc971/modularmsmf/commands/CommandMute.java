@@ -7,6 +7,9 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import io.github.davidmc971.modularmsmf.ModularMSMF;
+import io.github.davidmc971.modularmsmf.core.PermissionManager;
+import io.github.davidmc971.modularmsmf.util.Utils;
+import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
 
 /**
  * 
@@ -23,16 +26,19 @@ public class CommandMute extends AbstractCommand {
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-		switch ("") {
-		case "temp":
-			if (true) {
+		if(sender instanceof Player){
+			if(sender.hasPermission(PermissionManager.getPermission("mute"))){
+				/* TODO: implementation of mute with every subcommand
+				*
+				*/
+			} else {
+				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
 			}
-			;
-			break;
-		default:
+		} else {
+			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "general.noconsole");
 		}
-
 		return true;
+		
 	}
 	
 	/**

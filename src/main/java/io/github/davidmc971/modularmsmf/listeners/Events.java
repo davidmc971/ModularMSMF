@@ -152,7 +152,7 @@ public class Events implements Listener {
 		Player p = event.getPlayer();
 		String msg = event.getMessage();
 
-		hardCodedBlackList.add("test");
+		hardCodedBlackList.add("test"); //TODO: umschreiben zu json/yml bitte <3
 		hardCodedBlackList.add("hacker");
 		for(int i = 0; i < hardCodedBlackList.size(); i++){
 			if(!hardCodedBlackList.contains(msg.toLowerCase())) {
@@ -202,7 +202,6 @@ public class Events implements Listener {
 		Player p = e.getPlayer();
 		if(p.isOp()){
 			String commandName = e.getMessage().substring(1).split(" ")[0].toLowerCase();
-			//p.sendMessage(commandName);
 			if (commandName.equals("pl") || commandName.equals("plugins")) {
 				Utils.sendMessageWithConfiguredLanguage(plugin, p, ChatFormat.ERROR, "general.commands_blocked", "_var", commandName);
 				e.setCancelled(true);
