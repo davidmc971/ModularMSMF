@@ -52,6 +52,7 @@ public class CommandMute extends AbstractCommand {
 		playercfg.set("muted", true);
 	}
 
+	/**
 	public void setTempMute(Player player, int time) { // TODO
 		// UUID
 		// Support
@@ -63,7 +64,7 @@ public class CommandMute extends AbstractCommand {
 			}
 		}, time * 20);
 	}
-
+	*/
 	public boolean alreadyMute(Player player) { // TODO UUID Support
 		FileConfiguration playercfg = plugin.getDataManager().getPlayerCfg(player.getUniqueId());
 		if (playercfg.isBoolean("muted")) {
