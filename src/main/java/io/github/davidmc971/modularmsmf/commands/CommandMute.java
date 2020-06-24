@@ -36,7 +36,7 @@ public class CommandMute extends AbstractCommand {
 	}
 	
 	/**
-	 * @TODO implement mute
+	 * TODO implement mute
 	 * @param player
 	 */
 

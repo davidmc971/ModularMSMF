@@ -21,7 +21,6 @@ import org.bukkit.event.player.PlayerLoginEvent.Result;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import io.github.davidmc971.modularmsmf.ModularMSMF;
-import io.github.davidmc971.modularmsmf.core.LanguageManager;
 import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
 import io.github.davidmc971.modularmsmf.util.KillType;
 import io.github.davidmc971.modularmsmf.util.Utils;
@@ -29,7 +28,7 @@ import net.md_5.bungee.api.ChatColor;
 
 /**
  * 
- * @author Lightkeks, davidmc971 TODO: changing text with prefix
+ * @author Lightkeks, davidmc971
  */
 
 public class Events implements Listener {
