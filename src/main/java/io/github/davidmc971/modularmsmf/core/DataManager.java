@@ -199,7 +199,7 @@ public class DataManager implements Listener {
 			Scanner s = new Scanner(file);
 
 			while(s.hasNextLine()){
-				Events.hardCodedBlackList.add(s.nextLine());
+				Events.blacklistedExpressions.add(s.nextLine());
 			}
 			s.close();
 		} catch (FileNotFoundException e){
