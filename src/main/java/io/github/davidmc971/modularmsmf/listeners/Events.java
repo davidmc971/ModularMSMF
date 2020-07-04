@@ -37,7 +37,7 @@ public class Events implements Listener {
 	private ArrayList<PlayerKillConfig> killedPlayers = new ArrayList<PlayerKillConfig>();
 	private ArrayList<UUID> kickedPlayers = new ArrayList<UUID>();
 	public static HashMap<String, Location> lastLocation = new HashMap<>();
-	public static ArrayList<String> hardCodedBlackList = new ArrayList<String>();
+	public static ArrayList<String> blacklistedExpressions = new ArrayList<String>();
 
 	public Events(ModularMSMF plugin) {
 		this.plugin = plugin;
@@ -152,44 +152,57 @@ public class Events implements Listener {
 		Player p = event.getPlayer();
 		String msg = event.getMessage();
 
-		hardCodedBlackList.add("test"); //TODO: umschreiben zu json/yml bitte <3
-		hardCodedBlackList.add("hacker");
-		for(int i = 0; i < hardCodedBlackList.size(); i++){
-			if(!hardCodedBlackList.contains(msg.toLowerCase())) {
-				//plugin.getLogger().info("Async Chat Event");
-				FileConfiguration playercfg = plugin.getDataManager().getPlayerCfg(event.getPlayer().getUniqueId());
-				if (playercfg.isBoolean("muted") && playercfg.getBoolean("muted") && !event.getMessage().startsWith("/")) {
-					event.setCancelled(true);
-					Utils.sendMessageWithConfiguredLanguage(plugin, event.getPlayer(), ChatFormat.NOPERM, "event.muted");
-				}
+        // currently an ArrayList containing words to be filtered
+        // to be loaded from a configuration file later on
+		blacklistedExpressions.add("test");
+        blacklistedExpressions.add("hacker");
+        
+        for (String expr : blacklistedExpressions) {
+            if (msg.toLowerCase().contains(expr)) {
+                String replacement = "";
+                for (int i = 0; i < expr.length(); i++) {
+                    replacement += "*";
+                }
+                msg.replaceAll("\\b"+expr+"\\b", replacement);
+            }
+        }
 
-				FileConfiguration settings = plugin.getDataManager().settingsyaml; //TODO: change to getter
-				ChatColor cl_prefix = toColor(settings, "chat.colors.prefix");
-				ChatColor cl_name = toColor(settings, "chat.colors.displayname");
-				ChatColor cl_msg = toColor(settings, "chat.colors.message");
+		// for(int i = 0; i < blacklistedExpressions.size(); i++){
+		// 	if(!blacklistedExpressions.contains(msg.toLowerCase())) {
+		// 		//plugin.getLogger().info("Async Chat Event");
+		// 		FileConfiguration playercfg = plugin.getDataManager().getPlayerCfg(event.getPlayer().getUniqueId());
+		// 		if (playercfg.isBoolean("muted") && playercfg.getBoolean("muted") && !event.getMessage().startsWith("/")) {
+		// 			event.setCancelled(true);
+		// 			Utils.sendMessageWithConfiguredLanguage(plugin, event.getPlayer(), ChatFormat.NOPERM, "event.muted");
+		// 		}
 
-				//l.info("cl_prefix: " + cl_prefix);
-				//l.info("cl_name: " + cl_name);
-				//l.info("cl_msg: " + cl_msg);
+		// 		FileConfiguration settings = plugin.getDataManager().settingsyaml; //TODO: change to getter
+		// 		ChatColor cl_prefix = toColor(settings, "chat.colors.prefix");
+		// 		ChatColor cl_name = toColor(settings, "chat.colors.displayname");
+		// 		ChatColor cl_msg = toColor(settings, "chat.colors.message");
 
-				String format = settings.getString("chat.format");
-				//l.info("format #1: " + format);
-				format = format.replaceAll("_name", "%1\\$s")
-					.replaceAll("_message", "%2\\$s")
-					.replaceAll("_clpre", cl_prefix.toString())
-					.replaceAll("_clname", cl_name.toString())
-					.replaceAll("_clmessage", cl_msg.toString());
-				//l.info("format #2: " + format);
+		// 		//l.info("cl_prefix: " + cl_prefix);
+		// 		//l.info("cl_name: " + cl_name);
+		// 		//l.info("cl_msg: " + cl_msg);
 
-				event.setFormat(format);
-			} else {
-				p.sendMessage("Blacklisted text dectected. Not allowed to send: " + msg.toLowerCase());
-				msg.replaceAll(hardCodedBlackList.get(i), "#");
-				event.setCancelled(true);
-				System.out.println("Sending text "+msg);
-				break;
-			}
-		}
+		// 		String format = settings.getString("chat.format");
+		// 		//l.info("format #1: " + format);
+		// 		format = format.replaceAll("_name", "%1\\$s")
+		// 			.replaceAll("_message", "%2\\$s")
+		// 			.replaceAll("_clpre", cl_prefix.toString())
+		// 			.replaceAll("_clname", cl_name.toString())
+		// 			.replaceAll("_clmessage", cl_msg.toString());
+		// 		//l.info("format #2: " + format);
+
+		// 		event.setFormat(format);
+		// 	} else {
+		// 		p.sendMessage("Blacklisted text dectected. Not allowed to send: " + msg.toLowerCase());
+		// 		msg.replaceAll(blacklistedExpressions.get(i), "#");
+		// 		event.setCancelled(true);
+		// 		System.out.println("Sending text "+msg);
+		// 		break;
+		// 	}
+		// }
 		event.setMessage(msg);
 	}
 
