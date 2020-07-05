@@ -3,10 +3,14 @@ package io.github.davidmc971.modularmsmf.listeners;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 //import java.util.logging.Logger;
+import java.util.regex.Pattern;
 
 import org.bukkit.Location;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -18,6 +22,7 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerLoginEvent.Result;
+import org.bukkit.event.server.ServerCommandEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import io.github.davidmc971.modularmsmf.ModularMSMF;
@@ -40,7 +45,10 @@ public class Events implements Listener {
 	public static ArrayList<String> blacklistedExpressions = new ArrayList<String>();
 
 	public Events(ModularMSMF plugin) {
-		this.plugin = plugin;
+        this.plugin = plugin;
+        // currently an ArrayList containing words to be filtered
+        // to be loaded from a configuration file later on
+        blacklistedExpressions.add("hacker");
 	}
 
 	@EventHandler
@@ -148,24 +156,14 @@ public class Events implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onChat(AsyncPlayerChatEvent event) {
-
 		Player p = event.getPlayer();
-		String msg = event.getMessage();
-
-        // currently an ArrayList containing words to be filtered
-        // to be loaded from a configuration file later on
-		blacklistedExpressions.add("test");
-        blacklistedExpressions.add("hacker");
+        String msg = event.getMessage();
         
-        for (String expr : blacklistedExpressions) {
-            if (msg.toLowerCase().contains(expr)) {
-                String replacement = "";
-                for (int i = 0; i < expr.length(); i++) {
-                    replacement += "*";
-                }
-                msg.replaceAll("\\b"+expr+"\\b", replacement);
-            }
-        }
+        // p.sendMessage(msg);
+        
+        msg = filterMessage(msg, blacklistedExpressions, p);
+
+        // p.sendMessage(msg);
 
 		// for(int i = 0; i < blacklistedExpressions.size(); i++){
 		// 	if(!blacklistedExpressions.contains(msg.toLowerCase())) {
@@ -204,7 +202,24 @@ public class Events implements Listener {
 		// 	}
 		// }
 		event.setMessage(msg);
-	}
+    }
+    
+    private String filterMessage(String msg, List<String> blacklist, CommandSender cmdsnd) {
+        for (String expr : blacklist) {
+            expr = expr.toLowerCase();
+            // cmdsnd.sendMessage("Checking for expression: " + expr);
+            if (msg.toLowerCase().contains(expr)) {
+                // cmdsnd.sendMessage("Found match for expression: " + expr);
+                String replacement = "";
+                for (int i = 0; i < expr.length(); i++) {
+                    replacement += "*";
+                }
+                // cmdsnd.sendMessage("Replacement text: " + replacement);
+                msg = msg.replaceAll("(?i)"+Pattern.quote(expr), replacement);
+            }
+        }
+        return msg;
+    }
 
 	private ChatColor toColor(FileConfiguration settings, String colorKey) {
 		return ChatColor.getByChar(settings.getString(colorKey).charAt(0));
