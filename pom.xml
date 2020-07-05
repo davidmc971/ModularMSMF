@@ -6,7 +6,7 @@
   <groupId>io.github.davidmc971</groupId>
   <artifactId>ModularMSMF</artifactId>
   <!-- Version is used in plugin.yml -->
-  <version>0.2-develop</version>
+  <version>0.2.1-develop</version>
   <packaging>jar</packaging>
 
   <!-- Plugin Information -->
@@ -48,7 +48,7 @@
     <dependency>
       <groupId>org.spigotmc</groupId>
       <artifactId>spigot-api</artifactId>
-      <version>1.15.1-R0.1-SNAPSHOT</version>
+      <version>1.15.2-R0.1-SNAPSHOT</version>
       <scope>provided</scope>
     </dependency>
     <!-- https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple -->
