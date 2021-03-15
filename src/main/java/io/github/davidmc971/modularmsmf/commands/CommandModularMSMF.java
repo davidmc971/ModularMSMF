@@ -33,6 +33,7 @@ public class CommandModularMSMF extends AbstractCommand {
 
 	private String infoPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.INFO);
 	private String errorPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.ERROR);
+	private String debugPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.DEBUG);
 
 	@Override
 	public String[] getCommandLabels() {
@@ -51,7 +52,7 @@ public class CommandModularMSMF extends AbstractCommand {
 				if (args.length == 0) {
 					/**
 					 * TODO: changing server name as its own by new command, needs to be
-					 *       implemented.
+					 * implemented.
 					 */
 					sender.sendMessage(infoPrefix + "Plugin enabled on: " + Bukkit.getName());
 
@@ -65,17 +66,21 @@ public class CommandModularMSMF extends AbstractCommand {
 					teamspeakComponent.setColor(net.md_5.bungee.api.ChatColor.DARK_AQUA);
 					discordComponent.setColor(net.md_5.bungee.api.ChatColor.AQUA);
 
-					infoComponent.setClickEvent( new ClickEvent( ClickEvent.Action.RUN_COMMAND, "/mmsmf info" ) );
-					infoComponent.setHoverEvent( new HoverEvent( HoverEvent.Action.SHOW_TEXT, new ComponentBuilder( language.getString("commands.mmsmf.info") ).create() ) );
+					infoComponent.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/mmsmf info"));
+					infoComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
+							new ComponentBuilder(language.getString("commands.mmsmf.info")).create()));
 
-					reportComponent.setClickEvent( new ClickEvent( ClickEvent.Action.RUN_COMMAND, "/mmsmf report" ) );
-					reportComponent.setHoverEvent( new HoverEvent( HoverEvent.Action.SHOW_TEXT, new ComponentBuilder( language.getString("commands.mmsmf.report") ).create() ) );
+					reportComponent.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/mmsmf report"));
+					reportComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
+							new ComponentBuilder(language.getString("commands.mmsmf.report")).create()));
 
-					teamspeakComponent.setClickEvent( new ClickEvent( ClickEvent.Action.RUN_COMMAND, "/mmsmf teamspeak" ) );
-					teamspeakComponent.setHoverEvent( new HoverEvent( HoverEvent.Action.SHOW_TEXT, new ComponentBuilder( language.getString("commands.mmsmf.teamspeak") ).create() ) );
+					teamspeakComponent.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/mmsmf teamspeak"));
+					teamspeakComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
+							new ComponentBuilder(language.getString("commands.mmsmf.teamspeak")).create()));
 
-					discordComponent.setClickEvent( new ClickEvent( ClickEvent.Action.RUN_COMMAND, "/mmsmf discord" ) );
-					discordComponent.setHoverEvent( new HoverEvent( HoverEvent.Action.SHOW_TEXT, new ComponentBuilder( language.getString("commands.mmsmf.discord") ).create() ) );
+					discordComponent.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/mmsmf discord"));
+					discordComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
+							new ComponentBuilder(language.getString("commands.mmsmf.discord")).create()));
 
 					TextComponent message = new TextComponent();
 					message.addExtra(infoPrefix + "More help: ");
@@ -88,28 +93,29 @@ public class CommandModularMSMF extends AbstractCommand {
 
 					sender.spigot().sendMessage(message);
 					/*
-					sender.spigot().sendMessage(infoComponent);
-					sender.spigot().sendMessage(reportComponent);
-					sender.spigot().sendMessage(teamspeakComponent);
-					sender.spigot().sendMessage(discordComponent);
-					*/
-					
+					 * sender.spigot().sendMessage(infoComponent);
+					 * sender.spigot().sendMessage(reportComponent);
+					 * sender.spigot().sendMessage(teamspeakComponent);
+					 * sender.spigot().sendMessage(discordComponent);
+					 */
 
 				} else if (args.length == 1) {
 					switch (args[0].toLowerCase()) {
 					case "info":
 						if (args.length == 1) {
 							sender.sendMessage(infoPrefix + "Plugin Version: " + ChatColor.GREEN + plugin.pluginver);
-							sender.sendMessage(infoPrefix + "Server's running at: " + ChatColor.YELLOW + Bukkit.getVersion());
+							sender.sendMessage(
+									infoPrefix + "Server's running at: " + ChatColor.YELLOW + Bukkit.getVersion());
 							sender.sendMessage(infoPrefix + "Developer: " + ChatColor.LIGHT_PURPLE + plugin.authors);
-							sender.sendMessage(errorPrefix + "Debug: Build [" + plugin.getDebugTimestamp() + "]");
+							sender.sendMessage(debugPrefix + "Build Timestamp: " + ChatColor.YELLOW + plugin.getDebugTimestamp());
 						}
 						break;
 					case "report":
 						/**
 						 * TODO: will be implemented. otherwise discord/github for reporting bugs.
 						 */
-						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.notimplementedyet");
+						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+								"general.notimplementedyet");
 						break;
 					case "teamspeak":
 						if (args.length == 1) {
@@ -120,10 +126,13 @@ public class CommandModularMSMF extends AbstractCommand {
 								if (cfg.contains("teamspeakIP") && !cfg.getString("teamspeakIP").equals("")) {
 									ts = true;
 									String teamspeakIP = cfg.getString("teamspeakIP");
-									Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO, "commands.mmsmf.teamspeak", "_ip", teamspeakIP);
+									Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO,
+											"commands.mmsmf.teamspeak", "_ip", teamspeakIP);
 								}
 							}
-							if(!ts) Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "commands.mmsmf.teamspeakmissing");
+							if (!ts)
+								Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+										"commands.mmsmf.teamspeakmissing");
 						}
 						break;
 					case "discord":
@@ -135,17 +144,22 @@ public class CommandModularMSMF extends AbstractCommand {
 								if (cfg.contains("discordID") && !cfg.getString("discordID").equals("")) {
 									dc = true;
 									String discordID = cfg.getString("discordID");
-									Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO, "commands.mmsmf.discord", "_link", discordID);
+									Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO,
+											"commands.mmsmf.discord", "_link", discordID);
 								}
 							}
-							if(!dc) Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "commands.mmsmf.discordmissing");
+							if (!dc)
+								Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+										"commands.mmsmf.discordmissing");
 						}
 						break;
 					default:
-						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.invalidarguments");
+						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+								"general.invalidarguments");
 					}
 				} else if (args.length >= 2) {
-					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.toomanyarguments");
+					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+							"general.toomanyarguments");
 				} else {
 					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
 				}
