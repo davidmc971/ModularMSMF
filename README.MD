@@ -1,3 +1,5 @@
+[![Java CI with Maven](https://github.com/davidmc971/ModularMSMF/actions/workflows/maven.yml/badge.svg?branch=develop)](https://github.com/davidmc971/ModularMSMF/actions/workflows/maven.yml)
+
 OUTDATED GUIDE! Since we switched to maven, this guide will be updated.
 
 You need to have the following installed (when using Windows):
