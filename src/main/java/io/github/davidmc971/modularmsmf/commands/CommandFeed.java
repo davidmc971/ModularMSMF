@@ -62,7 +62,7 @@ public class CommandFeed extends AbstractCommand {
 							Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.FEED, "commands.feed.feeded");
 							((Player) sender).setSaturation(20);
 						} else {
-							Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.FEED, "commands.feed.feededperson", "_player", p.getDisplayName());
+							Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.FEED, "commands.feed.feededperson", "_player", p.displayName().toString());
 							Utils.sendMessageWithConfiguredLanguage(plugin, p, ChatFormat.FEED, "commands.feed.othersfeeded", "_sender", sender.getName());
 							p.setSaturation(20);
 						}
