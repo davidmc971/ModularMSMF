@@ -1,0 +1,107 @@
+language:
+  id: de_DE
+  name: Deutsch
+general: #Hauptsaechliche Strings fuer den Allgemeingebrauch
+    missing_playername: Du musst einen Spieler angeben. #Fehlender Spielername eines Befehles
+    playerunknown: Dieser Spieler existiert nicht. #Nicht existenter Spieler.
+    playernotfound: Dieser Spieler wurde nicht gefunden. #Falsch geschriebener Name
+    playernotonline: Dieser Spieler ist nicht online. #Wenn der angegebene Spieler nicht online ist
+    nopermission: Du hast nicht die Berechtigung dies zu tun. #Keine Rechte
+    toomanyarguments: Zu viele Argumente. #Mehr als angegebene Argumente
+    invalidcustomlanguage: Ungueltige Standardsprache ('_language') fuer den Spieler _player. Standardsprache wird stattdessen verwendet. #Spracheinstellung zum Umstellen von der Sprachdateien
+    invalidarguments: Ungueltige Argumente. #Argument existiert nicht?
+    invalidcommand: Ungueltiger Befehl. #Befehl existiert nicht?
+    noconsole: Die Konsole darf diesen Befehl nicht nutzen. #Konsole darf nicht alles
+    missingarguments: Bitte gib passende Argumente an! #Falsche Reihenfolge von Argumenten? Statt Zahlen Text eingegeben zb.
+    couldnotcreatefile: Die Datei konnte nicht erstellt werden! #Erstellen von Userfiles oder settings als .yml oder .json
+    notimplementedyet: Dieser Befehl existiert noch nicht. #Falls es Befehle gibt die noch nicht geschrieben wurden sind.
+    bukkitversion: 'Die aktuelle Bukkitversion: _bukkitver.' #Zeigt aktuelle Version vom Server an
+    commands_blocked: 'Der Befehl "_var" wurde geblockt.'
+event:
+  welcome: _var hat den Server betreten! #Kommt auf, sobald ein Spieler den Server betritt
+  quit: _var hat den Server verlassen! #Kommt auf, sobald ein Spieler den Server verlaesst
+  killed_player: _var's Leben wurde genommen. #Jemand hat jemandes Leben genommen
+  suicide: _var hat Suizid begangen. #Selbsterklärend
+  homocide: Alle Spieler wurden in einem brutalen Homozid niedergemetzelt! #Alle spieler wurden getoetet
+  banned: Du wurdest gebannt. #Gebannter Spieler, bekommt diese Nachricht, sobald dieser versucht zu joinen
+commands: #Befehle
+  slaughter:
+    success: Alle Mobs in deiner Naehe wurden getoetet. #Signal fuer 
+  ban: #Bannbefehl
+    defaultbanreason: Du wurdest gebannt! #Spieler wurde mit einem Standartgrund gebannt
+    alreadybanned: Dieser Spieler ist schon gebannt. #Spieler wurde schon gebannt
+    playerbanned: 'Spieler _player wurde gebannt. Grund: _reason' #Spieler wurde mit einem Grund gebannt
+    youwerebanned: 'Gebannt. Grund: _reason' #Anzeige beim Betreten des Servers, wenn gebannt
+  unban: #Unbannbefehl
+    notbanned: Dieser Spieler ist nicht gebannt. #Spieler wurde nicht gebannt
+    playerunbanned: Du hast _player entbannt. #Spieler wurde entbannt
+    unbanuuid: Du hast _player per UUID entbannt! #Spieler wurde per UUID entbannt
+    playernotfounduuid: Der Spieler mit dieser UUID wurde nicht gefunden. #Anzeigename hat nicht die gleiche UUID
+  kick: #Kickbefehl
+    defaultkickreason: Du wurdest vom Server gekickt! #Spieler wurde mit einem Standartgrund gekickt
+    seekickedall: _player wurde vom Server gekickt! #Anzeigen, dass ein Spieler gekickt wurde
+    seekickedallreason: '_player wurde aus folgendem Grund gekickt: _reason' #Anzeigen, dass ein Spieler mit einem Grund gekickt wurde
+  language: #�bersetzungsbefehl
+    commandnotforconsole: Dieser Befehl ist nicht gueltig fuer die Konsole. #Console darf keine ausgewählten Befehle verwenden.
+    activelanguage: 'Deine aktuelle Sprache: _language' #Welche uebersetzung eingestellt wurde
+    availablelanguages: 'Verfuegbare Sprachen: _var' #Welche uebersetzungen existieren
+    setsuccessplayer: Deine Sprache wurde erfolgreich geaendert. #Anzeige, dass die uebersetzung erfolgreich uebernommen wurde
+    notvalid: Das ist keine gueltige Sprache. #Anzeigen, dass das Argument bzw. die uebersetzung nicht existiert
+    setsuccessconsole: Die Standardsprache wurde erfolgreich geaendert. #Zeigt an, dass die Standartuebersetzung geaendert wurde
+  money: #Geldbefehl
+    missingamountandplayer: Bitte gib einen Betrag sowie einen Spieler an! #Fehlender Betrag sowie Spieler
+    missingamount: Bitte gib noch einen Betrag an! #Fehlender Betrag
+    amountonly: Bitte gib eine Zahl an! #Falscher Argument wenn Text statt Zahl angegeben wird
+    invalidpayment: Du darfst keine Minusbetraege angeben! #Es ist im Allgemeinen nicht gestattet, Minusbetraege anzugeben
+    nomoneyleft: Du wuerdest dich verschulden! #ueber den Wert, den man tatsaechlich besitzt, kann man nicht uebersteigen
+  feed: #S�ttigungsbefehl
+    feeded: Du hast dich gesaettigt! #Du hast dich selbst gesaettigt
+    othersfeeded: _sender hat dich gesaettigt! #Jemandes hat dich gesaettigt
+    feededperson: Du hast _player gesaettigt! #Du hast jemandes gesaettigt
+  heal: #Heilungsbefehl
+    healself: Du hast dich selbst geheilt! #Du hast dich selbst geheilt
+    healother: Du hast _player geheilt! #Du hast jemandes geheilt
+    gothealed: Du wurdest von _sender geheilt! #Du wurdest von jemandes geheilt
+  spawn: #Spawnbefehl
+    nospawnset: Es wurde kein Spawn gesetzt. #Kein Spawn gesetzt? Wird's Zeit
+    spawnset: Der Spawn wurde gesetzt! #Spawn wurde gesetzt
+    spawned: DU wurdest gespawnt! #Du hast dich zum gesetzten Spawn teleportiert
+  report: #Benarichtigungsbefehl
+    repplayeradmin: Du kannst keinen Admin melden! #Meldungen gegenueber Admins ist es regulaer nicht erlaubt, da diese sich um Faelle kuemmern
+    repplayersuccess: _player wurde erfolgreich gemeldet! #Du hast jemandes gemeldet
+    repnodesc: Bitte gib eine Beschreibung an! #Fehlende Beschreibung
+    rep: Wir kuemmern uns um diese Angelegenheit! #Versicherung zum Fall
+    repmissingcmd: Bitte gib das Report-Level an! #Es gibt bestimmte Report-level, an die man sich halten sollte
+  home: #Zuhausebefehl
+    notset: Das Zuhause wurde nicht gesetzt! #Fehlendes Zuhause? Setz eins!
+    alreadyset: Das Zuhause wurde schon gesetzt! #Benanntes zuhause wurde schon gesetzt
+    notdeleted: Das Zuhause wurde nicht entfernt! #Benanntes Zuhause wurde nicht entfernt
+    notfoundhome: Das Zuhause wurde nicht gefunden! #Nicht benanntes Zuhause existiert nicht
+    allhomes:  Alle deine Standpunkte || _var #Auflistung der Homes, wenn verfuegbar
+  mmsmf:
+    reportsuccessful:
+    reportfailure:
+    discord: 'Dein Invitelink: _link' #Gibt den Invitelink aus.
+    discordmissing: Es gibt keinen Einladungslink fuer einen Discordserver. #Gibt dann aus, wenn in config.yml "false" angegeben.
+    teamspeak: 'Deine IP zum joinen: _ip' #Gibt die IP-adresse aus.
+    teamspeakmissing: Es gibt keine IP-Adresse fuer einen Teamspeakserver. #Gibt dann aus, wenn in config.yml "false" angegeben.
+  eco:
+    ecobalance: 'Geldstand: ' #Zeigt den Geldstand an.
+    ecobalanceother: Geldstand von _player #Zeigt den Geldstand anderer an.
+    ecoconsole: Die Konsole hat kein Geld. #Console darf kein Geld besitzen.
+    ecosetself: #Geldstand von sich selbst neu setzen.
+    ecosetothers: #Geldstand des anderen neu setzen.
+    ecosetfromother: #Jemand anderes hat deinen Geldstand neu gesetzt.
+    ecosetbefore: #Geldstand vor dem Neusetzen.
+    ecosetafter: #Geldstand nach dem Neusetzen.
+    ecoreset: #-check
+    ecoaddself: #geldstand selbst erhoehen.
+    ecoforbiddenminus: #Minusbetraege duerfen in keinster weise angegeben werden.
+    ecoaddothers: #Du hast jemanden Geld hinzugefuegt.
+    ecoaddfromother: #Jemand hat dir Geld hinzugefuegt.
+    ecotakeself: #Du hast dir selbst Geld entzogen.
+    ecotakeother: #Du hast jemandes Geld entzogen.
+    ecotakefromothers: #Jemand hat dir Geld entzogen.
+    ecopaytoothers: #Du hast jemanden Geld ueberwiesen.
+    ecopayfromothers: #Jemand hat dir Geld ueberwiesen.
+    econodebt: #Du darfst dich nicht verschulden.
