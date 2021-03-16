@@ -4,8 +4,8 @@ testserver/*
 !testserver/start.bat
 !testserver/start.sh
 !testserver/README.md
-/bin/
-/target/
-/.project
-/.settings/
-.classpath
+**/bin/
+**/target/
+**/.project
+**/.settings/
+**/.classpath
