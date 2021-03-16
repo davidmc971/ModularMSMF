@@ -52,7 +52,7 @@ public class CommandClearChat extends AbstractCommand{
                     } else {
                         for (Player p : Bukkit.getOnlinePlayers()) {
                             if (p.getUniqueId().toString().equalsIgnoreCase(target.toString())) {
-                                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS, "commands.clear.target", "_target", p.getDisplayName());
+                                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS, "commands.clear.target", "_target", p.displayName().toString());
                                 while (count <= 99){
                                     count++;
                                     p.sendMessage("");

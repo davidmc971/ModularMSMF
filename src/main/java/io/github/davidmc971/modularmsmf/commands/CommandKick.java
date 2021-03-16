@@ -10,6 +10,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import io.github.davidmc971.modularmsmf.ModularMSMF;
 import io.github.davidmc971.modularmsmf.core.PermissionManager;
 import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
+import net.kyori.adventure.text.Component;
 import io.github.davidmc971.modularmsmf.util.Utils;
 
 /**
@@ -70,7 +71,7 @@ public class CommandKick extends AbstractCommand {
 
 	private void kickPlayer(UUID target, String reason) {
 		plugin.getMainEvents().registerKickedPlayer(target);
-		Bukkit.getPlayer(target).kickPlayer(reason);
+		Bukkit.getPlayer(target).kick(Component.text(reason));
 	}
 
 	@Override

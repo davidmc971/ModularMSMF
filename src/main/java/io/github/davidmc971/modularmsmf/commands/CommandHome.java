@@ -14,10 +14,9 @@ import io.github.davidmc971.modularmsmf.handlers.HomeHandler.Home;
 import io.github.davidmc971.modularmsmf.util.ChatUtils;
 import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
 import io.github.davidmc971.modularmsmf.util.Utils;
-import net.md_5.bungee.api.chat.ClickEvent;
-import net.md_5.bungee.api.chat.ComponentBuilder;
-import net.md_5.bungee.api.chat.HoverEvent;
-import net.md_5.bungee.api.chat.TextComponent;
+import net.kyori.adventure.audience.MessageType;
+import net.kyori.adventure.identity.Identity;
+import net.kyori.adventure.text.Component;
 
 /**
  * @author Lightkeks
@@ -55,7 +54,7 @@ public class CommandHome extends AbstractCommand {
 		// TODO: Implementieren
 		// Playerdata plrdat =
 
-		//boolean isPlayer = sender instanceof Player;
+		// boolean isPlayer = sender instanceof Player;
 
 		switch (args.length) {
 		case 0:
@@ -73,88 +72,97 @@ public class CommandHome extends AbstractCommand {
 			// TODO: check if user uses args like "help" or home name
 			if (args[0].equalsIgnoreCase("list")) {
 				if (PermissionManager.checkPermission(sender, "home_list")) {
-					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO, "commands.home.list"/*, "_list", getHomeList()*/); //TODO: config for list homes
+					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO,
+							"commands.home.list"/* , "_list", getHomeList() */); // TODO: config for list homes
 				}
 			}
 			if (args[0].equalsIgnoreCase("help")) {
 				if (PermissionManager.checkPermission(sender, "home_help")) {
 					// list home commands by permissions set for each node
-					if (PermissionManager.checkPermission(sender, "home_set")) { //shows the help for "home set"
+					if (PermissionManager.checkPermission(sender, "home_set")) { // shows the help for "home set"
 						helpHome(sender, "/home set", "commands.home.help.set", "general.component.set");
 					}
-					if(PermissionManager.checkPermission(sender, "home_remove")){ //shows the help for "home remove"
+					if (PermissionManager.checkPermission(sender, "home_remove")) { // shows the help for "home remove"
 						helpHome(sender, "/home remove", "commands.home.help.remove", "general.component.remove");
 					}
-					if(PermissionManager.checkPermission(sender, "home_rtp")){ //shows the help for "home rtp" - rtp = request to teleport (to someone's home)
+					if (PermissionManager.checkPermission(sender, "home_rtp")) { // shows the help for "home rtp" - rtp
+																					// = request to teleport (to
+																					// someone's home)
 						helpHome(sender, "/home rtp", "commands.home.help.rtp", "general.component.rtp");
 					}
-					if(PermissionManager.checkPermission(sender, "home_admin")){ //shows the help for "home admin"
+					if (PermissionManager.checkPermission(sender, "home_admin")) { // shows the help for "home admin"
 						helpHome(sender, "/home admin", "commands.home.help.admin", "general.component.admin");
 					}
 				} else {
 					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
 				}
 			}
-			if(args[0].equalsIgnoreCase("set")){
-				//command for "home set"
-				if(PermissionManager.checkPermission(sender, "home_set")){
+			if (args[0].equalsIgnoreCase("set")) {
+				// command for "home set"
+				if (PermissionManager.checkPermission(sender, "home_set")) {
 
 				} else {
 					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
 				}
 			}
-			if(args[0].equalsIgnoreCase("remove")){
-				//command for "home remove"
-				if(PermissionManager.checkPermission(sender, "home_remove")){
+			if (args[0].equalsIgnoreCase("remove")) {
+				// command for "home remove"
+				if (PermissionManager.checkPermission(sender, "home_remove")) {
 
 				} else {
 					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
 				}
 			}
-			if(args[0].equalsIgnoreCase("rtp")){
-				//command for "home rtp"
-				if(PermissionManager.checkPermission(sender, "home_rtp")){
-					if(args.length == 0){
-						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO, "commands.home.rtp.noargument");
+			if (args[0].equalsIgnoreCase("rtp")) {
+				// command for "home rtp"
+				if (PermissionManager.checkPermission(sender, "home_rtp")) {
+					if (args.length == 0) {
+						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO,
+								"commands.home.rtp.noargument");
 					}
-					if(args.length == 1){
+					if (args.length == 1) {
 
 					} else {
-						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.toomanyarguments");
+						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+								"general.toomanyarguments");
 					}
 				} else {
 					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
 				}
 			}
-			if(args[0].equalsIgnoreCase("admin")){
-				//command for "home admin"
-				if(PermissionManager.checkPermission(sender, "home_admin")){
+			if (args[0].equalsIgnoreCase("admin")) {
+				// command for "home admin"
+				if (PermissionManager.checkPermission(sender, "home_admin")) {
 
 				} else {
 					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
 				}
 			} else {
-				if(PermissionManager.checkPermission(sender, "home_help")){
+				if (PermissionManager.checkPermission(sender, "home_help")) {
 					//
-					if(!(args[0].equalsIgnoreCase("help") || args[0].equalsIgnoreCase("list") || args[0].equalsIgnoreCase("help") || args[0].equalsIgnoreCase("set") || args[0].equalsIgnoreCase("remove") || args[0].equalsIgnoreCase("rtp") || args[0].equalsIgnoreCase("admin"))){
-						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "commands.home.invalidargument");
+					if (!(args[0].equalsIgnoreCase("help") || args[0].equalsIgnoreCase("list")
+							|| args[0].equalsIgnoreCase("help") || args[0].equalsIgnoreCase("set")
+							|| args[0].equalsIgnoreCase("remove") || args[0].equalsIgnoreCase("rtp")
+							|| args[0].equalsIgnoreCase("admin"))) {
+						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+								"commands.home.invalidargument");
 					} else {
-						//if(/** something that should match home name from args[0] */){
+						// if(/** something that should match home name from args[0] */){
 
-						//}
+						// }
 					}
-				}  else {
+				} else {
 					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
 				}
 			}
 			break;
 
-			case 2:
+		case 2:
 
 			break;
 
-			default:
-			
+		default:
+
 			break;
 		}
 		return true;
@@ -169,27 +177,27 @@ public class CommandHome extends AbstractCommand {
 		}
 		return false;
 	}
-	
 
-
-	private void helpHome(CommandSender sender, String cmd, String msg, String eventmsg){
-
+	private void helpHome(CommandSender sender, String cmd, String msg, String eventmsg) {
+		/*
+		 * TODO: cache language objects per language and generate mappings to players to
+		 * improve performance
+		 */
 		FileConfiguration language = Utils.configureCommandLanguage(sender, plugin);
-		TextComponent homeHelpComponent = new TextComponent(cmd);
-		homeHelpComponent.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, cmd));
-		homeHelpComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(language.getString(eventmsg) ).create()));
-		
-		TextComponent message = new TextComponent();
-		message.addExtra(ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.INFO));
-		message.addExtra(language.getString(msg));
-		message.addExtra(" ");
-		message.addExtra(homeHelpComponent);
-		sender.spigot().sendMessage(message); 
+
+		// FIXME: first send description of command where you can then execute it
+		Component message = Component.text(ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.INFO))
+				.append(Component.text(language.getString(msg))).append(Component.text(" ")).append(Component.text(cmd))
+				.clickEvent(net.kyori.adventure.text.event.ClickEvent.runCommand(cmd))
+				.hoverEvent(net.kyori.adventure.text.event.HoverEvent
+						.showText(Component.text(language.getString(eventmsg))));
+
+		sender.sendMessage(Identity.nil(), message, MessageType.SYSTEM);
 	}
 
 	@Override
 	public String[] getCommandLabels() {
-		return new String[]{ "home" };
+		return new String[] { "home" };
 	}
-	
+
 }

@@ -35,7 +35,7 @@ public class CommandTeleport extends AbstractCommand {
 					if (Bukkit.getPlayerExact(Name) != null) {
 						Player target = (Player) Bukkit.getPlayerExact(Name);
 						((Player) sender).teleport(target);
-						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS, "commands.teleport.success", "_target", target.getDisplayName());
+						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS, "commands.teleport.success", "_target", target.displayName().toString());
 					} else {
 						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.playernotfound");
 					}

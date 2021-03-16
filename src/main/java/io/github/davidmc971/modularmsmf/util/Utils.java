@@ -22,7 +22,8 @@ import io.github.davidmc971.modularmsmf.ModularMSMF;
 public class Utils {
 
 	//public static String listPlayerHome; //not implemented yet ~Lightkeks
-	//TODO: overload constructor sendmessage
+	// TODO: overload constructor sendmessage
+	// TODO: acommodate for component system in Utils
 
 	public static Player getPlayerByName(String name) {
 		for (Player p : Bukkit.getOnlinePlayers()) {

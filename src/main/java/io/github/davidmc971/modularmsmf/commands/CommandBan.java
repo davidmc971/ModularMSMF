@@ -19,6 +19,7 @@ import io.github.davidmc971.modularmsmf.core.PermissionManager;
 import io.github.davidmc971.modularmsmf.ModularMSMF;
 import io.github.davidmc971.modularmsmf.util.Utils;
 import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
+import net.kyori.adventure.text.Component;
 
 /**	This command handles requests for player 'ban's, 'unban's and 'ban-ip's.
  * 	It uses util. Banutils for interfacing with DataManager.
@@ -127,7 +128,7 @@ public class CommandBan extends AbstractCommand {
 			//gets playername by args, if true
 			if (player.getUniqueId().toString().equals(uuid.toString())) {
 				//kickbans the player if all stated true
-				player.kickPlayer(language.getString("event.banned").replaceAll("_reason", reason));
+				player.kick(Component.text(language.getString("event.banned").replaceAll("_reason", reason)));
 			}
 		}
 	}

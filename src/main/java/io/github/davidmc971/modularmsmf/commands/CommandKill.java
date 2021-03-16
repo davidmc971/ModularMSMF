@@ -41,7 +41,7 @@ public class CommandKill extends AbstractCommand {
 					if (PermissionManager.checkPermission(sender, "kill_me")) {
 						Player player = ((Player) sender);
 						plugin.getMainEvents().registerKilledPlayer(player, KillType.SUICIDE);
-						Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.DEATH, "event.suicide", "_var", player.getDisplayName());
+						Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.DEATH, "event.suicide", "_var", player.displayName().toString());
 						player.setHealth(0);
 					} else {
 						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
@@ -67,7 +67,7 @@ public class CommandKill extends AbstractCommand {
 					for (Player player : Bukkit.getOnlinePlayers()) {
 						if (args[0].toLowerCase().equals(player.getName().toLowerCase())) {
 							plugin.getMainEvents().registerKilledPlayer(player, KillType.KILL);
-							Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.DEATH, "event.killed_player", "_var", player.getDisplayName());
+							Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.DEATH, "event.killed_player", "_var", player.displayName().toString());
 							player.setHealth(0);
 							temp = true;
 							break;
