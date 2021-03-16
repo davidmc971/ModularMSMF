@@ -6,7 +6,7 @@
   <groupId>io.github.davidmc971</groupId>
   <artifactId>ModularMSMF</artifactId>
   <!-- Version is used in plugin.yml -->
-  <version>0.2.1-develop</version>
+  <version>0.2.2-develop</version>
   <packaging>jar</packaging>
 
   <!-- Plugin Information -->
