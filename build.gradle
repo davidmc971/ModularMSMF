@@ -5,6 +5,7 @@
 plugins {
     id 'java'
     id 'maven-publish'
+    id "com.needhamsoftware.unojar" version "1.0.1"
 }
 
 repositories {
@@ -29,13 +30,13 @@ version = '0.2.2-develop'
 description = 'ModularMSMF'
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 
-publishing {
-    publications {
-        maven(MavenPublication) {
-            from(components.java)
-        }
-    }
-}
+// publishing {
+//     publications {
+//         maven(MavenPublication) {
+//             from(components.java)
+//         }
+//     }
+// }
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
