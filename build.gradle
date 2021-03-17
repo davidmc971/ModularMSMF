@@ -38,7 +38,7 @@ subprojects {
 
     dependencies {
         testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.5.2'
-        compileOnly 'com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT'
+        implementation 'com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT'
     }
 
     // Swap placeholders in resources with values
@@ -80,13 +80,13 @@ def outputTasks() {
 }
 
 task copyToJars(type: Copy) {
-    // dependsOn tasks.findByPath(":EssentialsX:processResources")
+    //dependsOn tasks.findByPath(":ModularMSMF:processResources")
 
     outputTasks().forEach {
         from(it)
     }
 
-    // rename '(.*)-all.jar', '$1.jar'
+    rename '(.*)-all.jar', '$1.jar'
 
     into file('jars')
 }
