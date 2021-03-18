@@ -12,7 +12,7 @@ import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
 public class CommandListener implements Listener{
 
     //setting "plugin"
-    public ModularMSMF plugin;
+    public ModularMSMF plugin = ModularMSMF.Instance();
 
     //here it will catch any command, which equals any string in file, if set
     @EventHandler

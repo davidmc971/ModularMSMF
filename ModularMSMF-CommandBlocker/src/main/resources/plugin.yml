@@ -1,0 +1,17 @@
+name: ModularMSMF-CommandBlocker
+version: ${version}
+description: Easily block any command from any plugin
+website: ${url}
+authors: [Lightkeks, davidmc971]
+
+depend:
+  - "ModularMSMF-Core"
+
+api: none
+
+main: io.github.davidmc971.modularmsmf.ModularMSMFCommandBlocker
+
+commands:
+  cmdblckr:
+    description: Configure CommandBlocker
+    usage: /<command> <args>

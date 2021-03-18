@@ -4,9 +4,9 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import io.github.davidmc971.modularmsmf.ModularMSMF;
 
-public class CommandBlocker extends AbstractCommand{
+public class CommandCmdBlckr extends AbstractCommand{
 
-    public CommandBlocker(ModularMSMF plugin) {
+    public CommandCmdBlckr(ModularMSMF plugin) {
         super(plugin);
         //TODO Auto-generated constructor stub
     }
