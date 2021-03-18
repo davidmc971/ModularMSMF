@@ -10,7 +10,8 @@ rootProject.name = 'ModularMSMF'
 // Adding modules the EssentialsX way
 [
     "API",
-    "Core"//,
+    "Core",
+    "CommandBlocker"//,
     //"Basics",
     //"Permissions",
     //"Economy"
