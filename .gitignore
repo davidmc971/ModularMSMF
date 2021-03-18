@@ -4,8 +4,29 @@ testserver/*
 !testserver/start.bat
 !testserver/start.sh
 !testserver/README.md
-/bin/
-/target/
-/.project
-/.settings/
-.classpath
+**/bin/
+**/target/
+**/.project
+**/.settings/
+**/.classpath
+
+# GRADLE gitignore
+.gradle
+**/build/
+!src/**/build/
+
+# Ignore Gradle GUI config
+gradle-app.setting
+
+# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
+!gradle-wrapper.jar
+
+# Cache of project
+.gradletasknamecache
+
+# # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
+# gradle/wrapper/gradle-wrapper.properties
+# Ignore Gradle build output directory
+build
+# compilation output
+jars/

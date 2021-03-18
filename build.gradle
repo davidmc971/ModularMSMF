@@ -1,0 +1,115 @@
+plugins {
+    id "com.github.johnrengelman.shadow" version "6.1.0" apply false
+    // TODO: id 'maven-publish' apply false
+}
+
+// Root build configuration, applies to modules.
+import org.apache.tools.ant.filters.ReplaceTokens
+
+// Apply the common metadata to all projects including the root project
+allprojects {
+    apply plugin: 'maven-publish'
+
+    group = 'io.github.davidmc971.ModularMSMF'
+    // Version bump on release goes here.
+    version = '0.2.3-develop'
+
+    ext {
+        url = 'https://github.com/davidmc971/ModularMSMF'
+        build_timestamp = new Date().format('yyyy-MM-dd\'T\'HH:mm:ss\'Z\'z')
+    }
+}
+
+description = 'ModularMSMF root project'
+
+// Apply common configuration across subprojects
+subprojects {
+    apply plugin: 'java'
+
+    java.sourceCompatibility = JavaVersion.VERSION_1_8
+
+    repositories {
+        // papermc maven repo
+        maven {
+            url = uri('https://papermc.io/repo/repository/maven-public/')
+        }
+        // public maven repo
+        maven {
+            url = uri('https://repo.maven.apache.org/maven2/')
+        }
+    }
+
+    dependencies {
+        testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.5.2'
+        implementation 'com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT'
+    }
+
+    // Swap placeholders in resources with values
+    processResources {
+        filesMatching('**/plugin.yml') {
+            filter(ReplaceTokens, beginToken: '${', endToken: '}',
+                tokens: [
+                    "version": project.property('version'),
+                    "url": project.property('url')
+                ]
+            )
+        }
+        filesMatching('**/props.yml') {
+            filter(ReplaceTokens, beginToken: '${', endToken: '}',
+                tokens: [
+                    "timestamp": project.property('build_timestamp')
+                ]
+            )
+        }
+    }
+
+    compileJava {
+        options.compilerArgs.add('-Xlint:-deprecation')
+    }
+
+    // TODO: javadoc
+    tasks.withType(Jar) {
+        archiveVersion.set(version)
+    }
+
+    // publishing {
+    //     publications {
+    //         maven(MavenPublication) {
+    //             from(components.java)
+    //         }
+    //     }
+    // }
+
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
+    }
+}
+
+// Thanks to EssentialsX again
+def outputTasks() {
+    [":ModularMSMF-Core:shadowJar"].stream().map({ tasks.findByPath(it) })
+}
+
+task copyToJars(type: Copy) {
+    //dependsOn tasks.findByPath(":ModularMSMF:processResources")
+
+    outputTasks().forEach {
+        from(it)
+    }
+
+    rename '(.*)-all.jar', '$1.jar'
+
+    into file('jars')
+}
+
+task cleanJars() {
+    delete file('jars')
+}
+
+task clean() {
+    dependsOn cleanJars
+}
+
+task build() {
+    dependsOn copyToJars
+}

@@ -8,6 +8,7 @@ import java.util.UUID;
 //import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -27,6 +28,7 @@ import io.github.davidmc971.modularmsmf.ModularMSMF;
 import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
 import io.github.davidmc971.modularmsmf.util.KillType;
 import io.github.davidmc971.modularmsmf.util.Utils;
+import net.kyori.adventure.text.Component;
 import net.md_5.bungee.api.ChatColor;
 
 /**
@@ -43,18 +45,19 @@ public class Events implements Listener {
 	public static ArrayList<String> blacklistedExpressions = new ArrayList<String>();
 
 	public Events(ModularMSMF plugin) {
-        this.plugin = plugin;
-        // currently an ArrayList containing words to be filtered
-        // to be loaded from a configuration file later on
-        blacklistedExpressions.add("hacker");
+		this.plugin = plugin;
+		// currently an ArrayList containing words to be filtered
+		// to be loaded from a configuration file later on
+		blacklistedExpressions.add("hacker");
 	}
 
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event) throws IOException {
 		Player player = event.getPlayer();
-		event.setJoinMessage(null);
+		event.joinMessage(Component.empty());
 		Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.WELCOME, "event.welcome", "_var",
 				player.getDisplayName());
+
 	}
 
 	@EventHandler
@@ -122,7 +125,8 @@ public class Events implements Listener {
 			}
 		}
 		if (!temp) {
-			Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.DEATH, "event.just_died", "_var", event.getEntity().getDisplayName());
+			Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.DEATH, "event.just_died", "_var",
+					event.getEntity().getDisplayName());
 		}
 	}
 
@@ -155,81 +159,87 @@ public class Events implements Listener {
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onChat(AsyncPlayerChatEvent event) {
 		Player p = event.getPlayer();
-        String msg = event.getMessage();
-        
-        // p.sendMessage(msg);
-        
-        msg = filterMessage(msg, blacklistedExpressions, p);
+		String msg = event.getMessage();
 
-        // p.sendMessage(msg);
+		// p.sendMessage(msg);
+
+		msg = filterMessage(msg, blacklistedExpressions, p);
+
+		// p.sendMessage(msg);
 
 		// for(int i = 0; i < blacklistedExpressions.size(); i++){
-		// 	if(!blacklistedExpressions.contains(msg.toLowerCase())) {
-		// 		//plugin.getLogger().info("Async Chat Event");
-		// 		FileConfiguration playercfg = plugin.getDataManager().getPlayerCfg(event.getPlayer().getUniqueId());
-		// 		if (playercfg.isBoolean("muted") && playercfg.getBoolean("muted") && !event.getMessage().startsWith("/")) {
-		// 			event.setCancelled(true);
-		// 			Utils.sendMessageWithConfiguredLanguage(plugin, event.getPlayer(), ChatFormat.NOPERM, "event.muted");
-		// 		}
+		// if(!blacklistedExpressions.contains(msg.toLowerCase())) {
+		// //plugin.getLogger().info("Async Chat Event");
+		// FileConfiguration playercfg =
+		// plugin.getDataManager().getPlayerCfg(event.getPlayer().getUniqueId());
+		// if (playercfg.isBoolean("muted") && playercfg.getBoolean("muted") &&
+		// !event.getMessage().startsWith("/")) {
+		// event.setCancelled(true);
+		// Utils.sendMessageWithConfiguredLanguage(plugin, event.getPlayer(),
+		// ChatFormat.NOPERM, "event.muted");
+		// }
 
-		// 		FileConfiguration settings = plugin.getDataManager().settingsyaml; //TODO: change to getter
-		// 		ChatColor cl_prefix = toColor(settings, "chat.colors.prefix");
-		// 		ChatColor cl_name = toColor(settings, "chat.colors.displayname");
-		// 		ChatColor cl_msg = toColor(settings, "chat.colors.message");
+		// FileConfiguration settings = plugin.getDataManager().settingsyaml; //TODO:
+		// change to getter
+		// ChatColor cl_prefix = toColor(settings, "chat.colors.prefix");
+		// ChatColor cl_name = toColor(settings, "chat.colors.displayname");
+		// ChatColor cl_msg = toColor(settings, "chat.colors.message");
 
-		// 		//l.info("cl_prefix: " + cl_prefix);
-		// 		//l.info("cl_name: " + cl_name);
-		// 		//l.info("cl_msg: " + cl_msg);
+		// //l.info("cl_prefix: " + cl_prefix);
+		// //l.info("cl_name: " + cl_name);
+		// //l.info("cl_msg: " + cl_msg);
 
-		// 		String format = settings.getString("chat.format");
-		// 		//l.info("format #1: " + format);
-		// 		format = format.replaceAll("_name", "%1\\$s")
-		// 			.replaceAll("_message", "%2\\$s")
-		// 			.replaceAll("_clpre", cl_prefix.toString())
-		// 			.replaceAll("_clname", cl_name.toString())
-		// 			.replaceAll("_clmessage", cl_msg.toString());
-		// 		//l.info("format #2: " + format);
+		// String format = settings.getString("chat.format");
+		// //l.info("format #1: " + format);
+		// format = format.replaceAll("_name", "%1\\$s")
+		// .replaceAll("_message", "%2\\$s")
+		// .replaceAll("_clpre", cl_prefix.toString())
+		// .replaceAll("_clname", cl_name.toString())
+		// .replaceAll("_clmessage", cl_msg.toString());
+		// //l.info("format #2: " + format);
 
-		// 		event.setFormat(format);
-		// 	} else {
-		// 		p.sendMessage("Blacklisted text dectected. Not allowed to send: " + msg.toLowerCase());
-		// 		msg.replaceAll(blacklistedExpressions.get(i), "#");
-		// 		event.setCancelled(true);
-		// 		System.out.println("Sending text "+msg);
-		// 		break;
-		// 	}
+		// event.setFormat(format);
+		// } else {
+		// p.sendMessage("Blacklisted text dectected. Not allowed to send: " +
+		// msg.toLowerCase());
+		// msg.replaceAll(blacklistedExpressions.get(i), "#");
+		// event.setCancelled(true);
+		// System.out.println("Sending text "+msg);
+		// break;
+		// }
 		// }
 		event.setMessage(msg);
-    }
-    
-    private String filterMessage(String msg, List<String> blacklist, CommandSender cmdsnd) {
-        for (String expr : blacklist) {
-            expr = expr.toLowerCase();
-            // cmdsnd.sendMessage("Checking for expression: " + expr);
-            if (msg.toLowerCase().contains(expr)) {
-                // cmdsnd.sendMessage("Found match for expression: " + expr);
-                String replacement = "";
-                for (int i = 0; i < expr.length(); i++) {
-                    replacement += "*";
-                }
-                // cmdsnd.sendMessage("Replacement text: " + replacement);
-                msg = msg.replaceAll("(?i)"+Pattern.quote(expr), replacement);
-            }
-        }
-        return msg;
-    }
+	}
+
+	private String filterMessage(String msg, List<String> blacklist, CommandSender cmdsnd) {
+		for (String expr : blacklist) {
+			expr = expr.toLowerCase();
+			// cmdsnd.sendMessage("Checking for expression: " + expr);
+			if (msg.toLowerCase().contains(expr)) {
+				// cmdsnd.sendMessage("Found match for expression: " + expr);
+				String replacement = "";
+				for (int i = 0; i < expr.length(); i++) {
+					replacement += "*";
+				}
+				// cmdsnd.sendMessage("Replacement text: " + replacement);
+				msg = msg.replaceAll("(?i)" + Pattern.quote(expr), replacement);
+			}
+		}
+		return msg;
+	}
 
 	public ChatColor toColor(FileConfiguration settings, String colorKey) {
 		return ChatColor.getByChar(settings.getString(colorKey).charAt(0));
 	}
 
 	@EventHandler
-	public void onCommandEvent(PlayerCommandPreprocessEvent e){
+	public void onCommandEvent(PlayerCommandPreprocessEvent e) {
 		Player p = e.getPlayer();
-		if(p.isOp()){
+		if (p.isOp()) {
 			String commandName = e.getMessage().substring(1).split(" ")[0].toLowerCase();
 			if (commandName.equals("pl") || commandName.equals("plugins")) {
-				Utils.sendMessageWithConfiguredLanguage(plugin, p, ChatFormat.ERROR, "general.commands_blocked", "_var", commandName);
+				Utils.sendMessageWithConfiguredLanguage(plugin, p, ChatFormat.ERROR, "general.commands_blocked", "_var",
+						commandName);
 				e.setCancelled(true);
 			}
 		}
