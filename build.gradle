@@ -1,5 +1,6 @@
 plugins {
     id "com.github.johnrengelman.shadow" version "6.1.0" apply false
+    // TODO: id 'maven-publish' apply false
 }
 
 // Root build configuration, applies to modules.
@@ -18,6 +19,8 @@ allprojects {
         build_timestamp = new Date().format('yyyy-MM-dd\'T\'HH:mm:ss\'Z\'z')
     }
 }
+
+description = 'ModularMSMF root project'
 
 // Apply common configuration across subprojects
 subprojects {
@@ -68,6 +71,14 @@ subprojects {
     tasks.withType(Jar) {
         archiveVersion.set(version)
     }
+
+    // publishing {
+    //     publications {
+    //         maven(MavenPublication) {
+    //             from(components.java)
+    //         }
+    //     }
+    // }
 
     tasks.withType(JavaCompile) {
         options.encoding = 'UTF-8'
