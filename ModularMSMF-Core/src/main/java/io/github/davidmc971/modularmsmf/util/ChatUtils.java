@@ -12,7 +12,7 @@ public class ChatUtils {
 
 	public enum ChatFormat {
 		SUCCESS, INFO, ERROR, MSG, BROADCAST, STANDARD, RAINBOW, NOPERM, WELCOME, QUIT, DEATH, MONEY, CONSOLE, KICKED,
-		/* BAN, */ HOME_LIST, HOME, BANNED, KICK, BAN, UNBAN, REPORT, SPAWN, FEED, HEAL, LANGUAGE, DEBUG
+		/* BAN, */ HOME_LIST, HOME, BANNED, KICK, BAN, UNBAN, REPORT, SPAWN, FEED, HEAL, LANGUAGE, DEBUG, WARN
 	}
 
 	public static String getFormattedPrefix(ChatFormat format) {
@@ -66,6 +66,8 @@ public class ChatUtils {
 			return (ChatColor.GOLD + "[" + ChatColor.GREEN + "Heal" + ChatColor.GOLD + "]" + ChatColor.GREEN + " ");
 		case LANGUAGE: // if someone uses heal-cmd
 			return (ChatColor.GOLD + "[" + ChatColor.GRAY + "Language" + ChatColor.GOLD + "]" + ChatColor.GRAY + " ");
+		case WARN:
+			return (ChatColor.GOLD + "[" + ChatColor.YELLOW + "Warning" + ChatColor.GOLD + "]" + ChatColor.GRAY + " ");
 		default: // if no enum has been set which doesnt work
 			return "[ModularMSMF] ";
 
