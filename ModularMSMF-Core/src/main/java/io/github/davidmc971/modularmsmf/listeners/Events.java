@@ -232,16 +232,5 @@ public class Events implements Listener {
 		return ChatColor.getByChar(settings.getString(colorKey).charAt(0));
 	}
 
-	@EventHandler
-	public void onCommandEvent(PlayerCommandPreprocessEvent e) {
-		Player p = e.getPlayer();
-		if (p.isOp()) {
-			String commandName = e.getMessage().substring(1).split(" ")[0].toLowerCase();
-			if (commandName.equals("pl") || commandName.equals("plugins")) {
-				Utils.sendMessageWithConfiguredLanguage(plugin, p, ChatFormat.ERROR, "general.commands_blocked", "_var",
-						commandName);
-				e.setCancelled(true);
-			}
-		}
-	}
+	
 }
