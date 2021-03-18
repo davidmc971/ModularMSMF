@@ -1,0 +1,5 @@
+# This file should look like the following:
+BlockedCommands:
+  - command
+  - command2
+  - command3

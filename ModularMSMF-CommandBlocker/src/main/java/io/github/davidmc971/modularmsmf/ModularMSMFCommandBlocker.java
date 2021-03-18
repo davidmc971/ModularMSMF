@@ -1,5 +1,9 @@
 package io.github.davidmc971.modularmsmf;
 
+import java.io.File;
+import java.io.IOException;
+
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import io.github.davidmc971.modularmsmf.commands.CommandCmdBlckr;
