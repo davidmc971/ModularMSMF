@@ -1,0 +1,13 @@
+plugins {
+    id "com.github.johnrengelman.shadow"
+}
+
+dependencies {
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.2'
+}
+
+shadowJar {
+    dependencies {
+        include(dependency('com.fasterxml.jackson.core:.*'))
+    }
+}

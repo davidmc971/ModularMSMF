@@ -1,15 +1,12 @@
-#name: ModularMSMF
-#main: main.ModularMSMF
-#version: Alpha 0.1.0
-#author: ${author}
-
-name: ${name}
+name: ModularMSMF-Core
 version: ${version}
-description: ${description}
+description: The Core of the Modular Minecraft Server Management Framework
 website: ${url}
 authors: [Lightkeks, davidmc971]
 
-main: ${mainClass}
+api: none
+
+main: io.github.davidmc971.modularmsmf.ModularMSMF
 
 commands:
   report:
