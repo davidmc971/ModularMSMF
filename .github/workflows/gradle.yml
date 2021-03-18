@@ -29,11 +29,11 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
-    - name: Build with Maven
-      run: mvn -B package --file pom.xml
+    - name: Build with Gradle
+      run: ./gradlew clean build
     - name: develop-build-release
       uses: fnkr/github-action-ghr@v1
       if: startsWith(github.ref, 'refs/tags/')
       env:
-        GHR_PATH: target/ModularMSMF.jar
+        GHR_PATH: jars/
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
