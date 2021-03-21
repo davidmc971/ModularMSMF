@@ -2,7 +2,7 @@ package io.github.davidmc971.modularmsmf.handlers;
 
 import java.util.UUID;
 
-import io.github.davidmc971.modularmsmf.ModularMSMF;
+import io.github.davidmc971.modularmsmf.ModularMSMFCore;
 
 /*	@author davidmc971
  * 	
@@ -36,9 +36,9 @@ public class BanHandler {
 		}
 	}
 	
-	ModularMSMF plugin;
+	ModularMSMFCore plugin;
 	
-	public BanHandler(ModularMSMF plugin) {
+	public BanHandler(ModularMSMFCore plugin) {
 		this.plugin = plugin;
 	}
 	

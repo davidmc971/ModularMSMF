@@ -6,7 +6,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.server.ServerCommandEvent;
 
-import io.github.davidmc971.modularmsmf.ModularMSMF;
+import io.github.davidmc971.modularmsmf.ModularMSMFCore;
 
 public class CommandPreprocessor implements Listener {
     private static CommandPreprocessor instance = null;
@@ -17,13 +17,13 @@ public class CommandPreprocessor implements Listener {
 
     @EventHandler
     public void onPlayerCommand(PlayerCommandPreprocessEvent event) {
-        ModularMSMF.Instance().getLogger().info("PlayerCommandPreprocessEvent: " + event.getMessage());
+        ModularMSMFCore.Instance().getLogger().info("PlayerCommandPreprocessEvent: " + event.getMessage());
         handleCustomEvents(event.getMessage().substring(1), event);
     }
 
     @EventHandler
     public void onServerCommand(ServerCommandEvent event) {
-        ModularMSMF.Instance().getLogger().info("ServerCommandEvent: " + event.getCommand());
+        ModularMSMFCore.Instance().getLogger().info("ServerCommandEvent: " + event.getCommand());
         handleCustomEvents(event.getCommand(), event);
     }
 
@@ -35,7 +35,7 @@ public class CommandPreprocessor implements Listener {
     private void handleCustomEvents(String command, Cancellable event) {
         switch (command.split(" ")[0].toLowerCase()) {
             case "help":
-                ModularMSMF.Instance().getLogger().info("help command intercepted and cancelled.");
+                ModularMSMFCore.Instance().getLogger().info("help command intercepted and cancelled.");
                 event.setCancelled(true);
                 break;
         

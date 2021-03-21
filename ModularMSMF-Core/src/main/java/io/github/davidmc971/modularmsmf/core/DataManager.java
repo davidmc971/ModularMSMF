@@ -22,7 +22,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import io.github.davidmc971.modularmsmf.ModularMSMF;
+import io.github.davidmc971.modularmsmf.ModularMSMFCore;
 import io.github.davidmc971.modularmsmf.configuration.AbstractConfigurationLoader;
 import io.github.davidmc971.modularmsmf.listeners.Events;
 
@@ -68,14 +68,14 @@ public class DataManager implements Listener {
 	public FileConfiguration defaultUserdatayaml = null;
 
 	private Logger logger;
-	private ModularMSMF plugin;
+	private ModularMSMFCore plugin;
 
 	private Map<String, Object> defaultSettings = new HashMap<String, Object>();
 	private Map<String, Object> defaultUserdata = new HashMap<String, Object>();
 
 	private Map<UUID, FileConfiguration> allUsers = new HashMap<UUID, FileConfiguration>();
 
-	public DataManager(ModularMSMF plugin){
+	public DataManager(ModularMSMFCore plugin){
 		this.plugin = plugin;
 		this.logger = this.plugin.getLogger();
 		this.settingsyaml = loadCfg(pathMain + "settings.yml");

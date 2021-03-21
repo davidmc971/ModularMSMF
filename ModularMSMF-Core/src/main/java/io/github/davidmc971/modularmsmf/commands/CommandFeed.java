@@ -8,7 +8,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import io.github.davidmc971.modularmsmf.core.PermissionManager;
-import io.github.davidmc971.modularmsmf.ModularMSMF;
+import io.github.davidmc971.modularmsmf.ModularMSMFCore;
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.util.Utils;
 import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
@@ -20,10 +20,10 @@ import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
 
 public class CommandFeed implements IModularMSMFCommand {
 
-	private ModularMSMF plugin;
+	private ModularMSMFCore plugin;
 
     public CommandFeed() {
-        plugin = ModularMSMF.Instance();
+        plugin = ModularMSMFCore.Instance();
     }
 
 	@Override

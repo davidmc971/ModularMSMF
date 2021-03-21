@@ -12,7 +12,7 @@ import java.util.Map.Entry;
 
 import org.bukkit.configuration.file.YamlConfiguration;
 
-import io.github.davidmc971.modularmsmf.ModularMSMF;
+import io.github.davidmc971.modularmsmf.ModularMSMFCore;
 
 /**
  * 
@@ -21,14 +21,14 @@ import io.github.davidmc971.modularmsmf.ModularMSMF;
  */
 
 public class LanguageManager {
-	private final ModularMSMF plugin;
+	private final ModularMSMFCore plugin;
 	private final ArrayList<String> standards;
 	private final String pathExternalLanguages = "plugins/ModularMSMF/languages/";
 	private Map<LanguageInformation, YamlConfiguration> allLanguages = new HashMap<LanguageInformation, YamlConfiguration>();
 	private String defaultLanguage;
 	private Entry<LanguageInformation, YamlConfiguration> standardLanguageEntry;
 	
-	public LanguageManager(ModularMSMF plugin){
+	public LanguageManager(ModularMSMFCore plugin){
 		this.plugin = plugin;
 
 		standards = new ArrayList<String>();

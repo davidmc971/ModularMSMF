@@ -9,7 +9,7 @@ import java.util.List;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
-import io.github.davidmc971.modularmsmf.ModularMSMF;
+import io.github.davidmc971.modularmsmf.ModularMSMFCore;
 import io.github.davidmc971.modularmsmf.ModularMSMFCommandBlocker;
 import io.github.davidmc971.modularmsmf.util.ChatUtils;
 
@@ -33,7 +33,7 @@ public class BlockedCommands {
                 }
                 commandList = null;
             }
-            ModularMSMF.Instance().getLogger().warning(ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.WARN)
+            ModularMSMFCore.Instance().getLogger().warning(ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.WARN)
                     + "File exists but no blocked commands specified.");
         } else {
             try {

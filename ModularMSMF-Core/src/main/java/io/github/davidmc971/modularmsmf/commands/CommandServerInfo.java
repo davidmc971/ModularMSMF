@@ -4,7 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
-import io.github.davidmc971.modularmsmf.ModularMSMF;
+import io.github.davidmc971.modularmsmf.ModularMSMFCore;
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.core.PermissionManager;
 import io.github.davidmc971.modularmsmf.util.Utils;
@@ -19,10 +19,10 @@ import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
 
 public class CommandServerInfo implements IModularMSMFCommand {
 
-	private ModularMSMF plugin;
+	private ModularMSMFCore plugin;
 
     public CommandServerInfo() {
-        plugin = ModularMSMF.Instance();
+        plugin = ModularMSMFCore.Instance();
     }
 
 	@Override

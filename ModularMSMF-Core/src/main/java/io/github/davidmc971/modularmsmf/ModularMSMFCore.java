@@ -33,9 +33,9 @@ import io.github.davidmc971.modularmsmf.main.CommandLoader;
  * @author Lightkeks, davidmc971
  */
 
-public class ModularMSMF extends JavaPlugin {
-	private static ModularMSMF instance = null;
-	public static ModularMSMF Instance() {
+public class ModularMSMFCore extends JavaPlugin {
+	private static ModularMSMFCore instance = null;
+	public static ModularMSMFCore Instance() {
 		return instance;
 	}
 
@@ -91,7 +91,7 @@ public class ModularMSMF extends JavaPlugin {
 	//here our plugin is loaded and will be enabled
 	@Override
 	public void onEnable() {
-		ModularMSMF.instance = this;
+		ModularMSMFCore.instance = this;
 		if (debug) getLogger().info("--- onEnable() ---");
 		dataManager = new DataManager(this);
 		this.getServer().getPluginManager().registerEvents(dataManager, this);

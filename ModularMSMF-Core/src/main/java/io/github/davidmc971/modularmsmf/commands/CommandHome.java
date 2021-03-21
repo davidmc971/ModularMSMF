@@ -7,7 +7,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
-import io.github.davidmc971.modularmsmf.ModularMSMF;
+import io.github.davidmc971.modularmsmf.ModularMSMFCore;
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.core.PermissionManager;
 import io.github.davidmc971.modularmsmf.handlers.HomeHandler;
@@ -26,10 +26,10 @@ import net.kyori.adventure.text.Component;
 public class CommandHome implements IModularMSMFCommand {
 	private HomeHandler homeHandler;
 
-	private ModularMSMF plugin;
+	private ModularMSMFCore plugin;
 
     public CommandHome() {
-        plugin = ModularMSMF.Instance();
+        plugin = ModularMSMFCore.Instance();
 		this.homeHandler = new HomeHandler(plugin);
     }
 

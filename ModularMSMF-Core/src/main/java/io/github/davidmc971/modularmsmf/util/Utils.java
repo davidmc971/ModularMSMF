@@ -11,7 +11,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import io.github.davidmc971.modularmsmf.core.LanguageManager;
-import io.github.davidmc971.modularmsmf.ModularMSMF;
+import io.github.davidmc971.modularmsmf.ModularMSMFCore;
 
 /**
  * 
@@ -48,7 +48,7 @@ public class Utils {
 		return null;
 	}
 
-	public static FileConfiguration configureCommandLanguage(CommandSender sender, ModularMSMF plugin){
+	public static FileConfiguration configureCommandLanguage(CommandSender sender, ModularMSMFCore plugin){
 		LanguageManager languageManager = plugin.getLanguageManager();
 		FileConfiguration language = languageManager.getStandardLanguage();
 		if(sender instanceof Player){
@@ -79,7 +79,7 @@ public class Utils {
 	 *  Can be empty.
 	 * @return 
 	 */
-	public static void broadcastWithConfiguredLanguageEach(ModularMSMF plugin, ChatUtils.ChatFormat format, String languageKey, String... toReplace) {
+	public static void broadcastWithConfiguredLanguageEach(ModularMSMFCore plugin, ChatUtils.ChatFormat format, String languageKey, String... toReplace) {
 		String prefix = ChatUtils.getFormattedPrefix(format);
 		List<CommandSender> broadcastList = new ArrayList<CommandSender>();
 		broadcastList.add(Bukkit.getConsoleSender());
@@ -110,7 +110,7 @@ public class Utils {
 	 *  <code>replaceAll()</code> of the output string.
 	 *  Can be empty.
 	 */
-	public static void sendMessageWithConfiguredLanguage(ModularMSMF plugin, CommandSender subject, ChatUtils.ChatFormat format, String languageKey, String... toReplace) {
+	public static void sendMessageWithConfiguredLanguage(ModularMSMFCore plugin, CommandSender subject, ChatUtils.ChatFormat format, String languageKey, String... toReplace) {
 		String prefix = ChatUtils.getFormattedPrefix(format);
 		FileConfiguration language = configureCommandLanguage(subject, plugin);
 		String configuredMessage = prefix + language.getString(languageKey);
