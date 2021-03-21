@@ -22,6 +22,7 @@ import io.github.davidmc971.modularmsmf.configuration.YamlConfigurationLoader;
 import io.github.davidmc971.modularmsmf.core.DataManager;
 import io.github.davidmc971.modularmsmf.core.LanguageManager;
 import io.github.davidmc971.modularmsmf.core.PlayerManager;
+import io.github.davidmc971.modularmsmf.listeners.CommandPreprocessor;
 import io.github.davidmc971.modularmsmf.listeners.Events;
 import io.github.davidmc971.modularmsmf.util.ChatUtils;
 import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
@@ -105,7 +106,7 @@ public class ModularMSMF extends JavaPlugin {
 		mainEvents = new Events(this);
 		this.getServer().getPluginManager().registerEvents(mainEvents, this);
 		//this.getServer().getPluginManager().registerEvents(ecoSys, this);
-
+		this.getServer().getPluginManager().registerEvents(CommandPreprocessor.Instance(), this);
 		
 		/// COMMAND LOADING START ///
 		getLogger().info("Loading commands...");
