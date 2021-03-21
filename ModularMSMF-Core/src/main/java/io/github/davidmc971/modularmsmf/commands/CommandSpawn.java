@@ -35,6 +35,7 @@ public class CommandSpawn extends AbstractCommand {
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
+		//Have to figure out, if no config is set, error line should pop up
 		if(sender instanceof ConsoleCommandSender) {
 			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "general.noconsole");
 		} else {
