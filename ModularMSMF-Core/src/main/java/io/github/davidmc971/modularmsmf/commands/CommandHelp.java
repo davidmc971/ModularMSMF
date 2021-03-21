@@ -20,6 +20,7 @@ public class CommandHelp extends AbstractCommand {
 
     // lists commands as List<String>
     private List<String> forHelpListedCmds = null;
+    //get commands from CommandLoader as list
 
     private String errorPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.ERROR);
     private String infoPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.INFO);
