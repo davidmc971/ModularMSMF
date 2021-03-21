@@ -14,6 +14,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.plugin.PluginManager;
 
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.commands.*;
@@ -34,6 +35,8 @@ public class ModularMSMFCore extends JavaPlugin {
 	public static ModularMSMFCore Instance() {
 		return instance;
 	}
+
+	private PluginManager pluginManager;
 
 	private YamlConfigurationLoader yamlLoader;
 	public YamlConfigurationLoader yamlLoader() {
@@ -88,9 +91,10 @@ public class ModularMSMFCore extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		ModularMSMFCore.instance = this;
+		pluginManager = getServer().getPluginManager();
 		if (debug) getLogger().info("--- onEnable() ---");
 		dataManager = new DataManager(this);
-		this.getServer().getPluginManager().registerEvents(dataManager, this);
+		pluginManager.registerEvents(dataManager, this);
 
 		languageManager = new LanguageManager(this);
 		
@@ -101,9 +105,9 @@ public class ModularMSMFCore extends JavaPlugin {
 
 		getLogger().info("Loading events...");
 		mainEvents = new Events(this);
-		this.getServer().getPluginManager().registerEvents(mainEvents, this);
+		pluginManager.registerEvents(mainEvents, this);
 		//this.getServer().getPluginManager().registerEvents(ecoSys, this);
-		this.getServer().getPluginManager().registerEvents(CommandPreprocessor.Instance(), this);
+		pluginManager.registerEvents(CommandPreprocessor.Instance(), this);
 		
 		/// COMMAND LOADING START ///
 		getLogger().info("Loading commands...");
