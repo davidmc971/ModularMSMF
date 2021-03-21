@@ -28,9 +28,6 @@ COMMANDS:
 			- can kick a player
 			- even with or without reason
 			- broadcasting it worldwide on server
-	LAND:
-		PROGRESS:
-
 	MMSMF:
 		PROGRESS: (5%)
 			- TODO: missing many functions, have to be added			
