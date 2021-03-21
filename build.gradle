@@ -12,7 +12,7 @@ allprojects {
 
     group = 'io.github.davidmc971.ModularMSMF'
     // Version bump on release goes here.
-    version = '0.2.3-develop'
+    version = '0.3.0'
 
     ext {
         url = 'https://github.com/davidmc971/ModularMSMF'

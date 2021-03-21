@@ -2,6 +2,8 @@ package io.github.davidmc971.modularmsmf.data;
 
 import org.bukkit.configuration.file.FileConfiguration;
 
+import io.github.davidmc971.modularmsmf.api.ILanguage;
+
 /**	@author davidmc971
  * 	@since v0.2
  *	This should be an object to contain a certain language.
@@ -11,7 +13,7 @@ import org.bukkit.configuration.file.FileConfiguration;
  * 	and every PlayerConfiguration points to the configured Language object.
  */
 
-public class Language {
+public class Language implements ILanguage {
 	private FileConfiguration languageConfiguration;
 	public FileConfiguration getLanguageConfiguration() { return languageConfiguration; }
 	public void setFileConfiguration(FileConfiguration cfg) { this.languageConfiguration = cfg; }
@@ -23,4 +25,20 @@ public class Language {
 
 	public String getName() { return languageConfiguration.getString("language.name"); }
 	public void setName(String name) { languageConfiguration.set("language.name", name); }
+
+	@Override
+	public String ID() {
+		return getID();
+	}
+	@Override
+	public String Name() {
+		return getName();
+	}
+	@Override
+	public String Localize(String localizationKey) {
+		if (languageConfiguration.contains(localizationKey)) {
+			return languageConfiguration.getString(localizationKey);
+		}
+		return null;
+	}
 }

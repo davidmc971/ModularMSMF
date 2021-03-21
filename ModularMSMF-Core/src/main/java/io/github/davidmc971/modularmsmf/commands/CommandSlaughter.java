@@ -9,7 +9,8 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
 
-import io.github.davidmc971.modularmsmf.ModularMSMF;
+import io.github.davidmc971.modularmsmf.ModularMSMFCore;
+import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.core.PermissionManager;
 import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
 import io.github.davidmc971.modularmsmf.util.Utils;
@@ -20,11 +21,13 @@ import io.github.davidmc971.modularmsmf.util.Utils;
  *
  */
 
-public class CommandSlaughter extends AbstractCommand {
+public class CommandSlaughter implements IModularMSMFCommand {
 
-	public CommandSlaughter(ModularMSMF plugin) {
-		super(plugin);
-	}
+	private ModularMSMFCore plugin;
+
+    public CommandSlaughter() {
+        plugin = ModularMSMFCore.Instance();
+    }
 		/**
 		 * @TODO: fully working command
 		 */

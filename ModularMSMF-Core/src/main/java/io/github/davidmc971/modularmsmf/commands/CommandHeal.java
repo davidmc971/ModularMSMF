@@ -8,7 +8,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import io.github.davidmc971.modularmsmf.core.PermissionManager;
-import io.github.davidmc971.modularmsmf.ModularMSMF;
+import io.github.davidmc971.modularmsmf.ModularMSMFCore;
+import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.util.Utils;
 import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
 
@@ -18,11 +19,13 @@ import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
  * Fully working command
  */
 
-public class CommandHeal extends AbstractCommand {
+public class CommandHeal implements IModularMSMFCommand {
 
-	public CommandHeal(ModularMSMF plugin) {
-		super(plugin);
-	}
+	private ModularMSMFCore plugin;
+
+    public CommandHeal() {
+        plugin = ModularMSMFCore.Instance();
+    }
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {

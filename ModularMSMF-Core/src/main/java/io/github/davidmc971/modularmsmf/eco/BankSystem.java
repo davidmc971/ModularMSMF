@@ -2,7 +2,7 @@ package io.github.davidmc971.modularmsmf.eco;
 
 import org.bukkit.configuration.file.FileConfiguration;
 
-import io.github.davidmc971.modularmsmf.ModularMSMF;
+import io.github.davidmc971.modularmsmf.ModularMSMFCore;
 
 /**
  * 
@@ -12,12 +12,12 @@ import io.github.davidmc971.modularmsmf.ModularMSMF;
 
 public class BankSystem {
 
-	private ModularMSMF plugin;
+	private ModularMSMFCore plugin;
 	private FileConfiguration cfg_bank;
 
 	private double setting_bankCreateCost;
 
-	public BankSystem(ModularMSMF plugin) {
+	public BankSystem(ModularMSMFCore plugin) {
 		this.plugin = plugin;
 		cfg_bank = this.plugin.getDataManager().loadCfg("bankConfig.yml"); // ggf config f�r banken
 		init();

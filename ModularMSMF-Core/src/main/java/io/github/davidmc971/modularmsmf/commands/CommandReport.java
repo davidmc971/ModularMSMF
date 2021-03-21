@@ -4,18 +4,21 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 
-import io.github.davidmc971.modularmsmf.ModularMSMF;
+import io.github.davidmc971.modularmsmf.ModularMSMFCore;
+import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.core.PermissionManager;
 import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
 import io.github.davidmc971.modularmsmf.util.Utils;
 
-public class CommandReport extends AbstractCommand {
+public class CommandReport implements IModularMSMFCommand {
 
 	//public static HashMap<Player, String[]/**Ansammlung von mehreren argumenten in einem string? */> reportList = new HashMap<>(); //TODO: @david, kann man das so lassen?
 	
-	public CommandReport(ModularMSMF plugin) {
-		super(plugin);
-	}
+	private ModularMSMFCore plugin;
+
+    public CommandReport() {
+        plugin = ModularMSMFCore.Instance();
+    }
 
 	/**
 	 * The "/report" command.
@@ -104,16 +107,16 @@ public class CommandReport extends AbstractCommand {
 		return true;
 	}
 
-	private static void reportPlayer(CommandSender sender, String[] args, ModularMSMF plugin, FileConfiguration language) {
+	private static void reportPlayer(CommandSender sender, String[] args, ModularMSMFCore plugin, FileConfiguration language) {
 		//TODO: incomplete
 		
 	}
 
-	private static void reportBug(CommandSender sender, String[] args, ModularMSMF plugin, FileConfiguration language) {
+	private static void reportBug(CommandSender sender, String[] args, ModularMSMFCore plugin, FileConfiguration language) {
 		//TODO: incomplete
 	}
 
-	private static void reportOther(CommandSender sender, String[] args, ModularMSMF plugin, FileConfiguration language) {
+	private static void reportOther(CommandSender sender, String[] args, ModularMSMFCore plugin, FileConfiguration language) {
 		//TODO: incomplete
 	}
 

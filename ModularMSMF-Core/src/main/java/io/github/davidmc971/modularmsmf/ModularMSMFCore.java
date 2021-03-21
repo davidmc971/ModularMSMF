@@ -15,6 +15,7 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.commands.*;
 import io.github.davidmc971.modularmsmf.configuration.AbstractConfigurationLoader;
 import io.github.davidmc971.modularmsmf.configuration.JSONConfigurationLoader;
@@ -32,9 +33,9 @@ import io.github.davidmc971.modularmsmf.main.CommandLoader;
  * @author Lightkeks, davidmc971
  */
 
-public class ModularMSMF extends JavaPlugin {
-	private static ModularMSMF instance = null;
-	public static ModularMSMF Instance() {
+public class ModularMSMFCore extends JavaPlugin {
+	private static ModularMSMFCore instance = null;
+	public static ModularMSMFCore Instance() {
 		return instance;
 	}
 
@@ -85,12 +86,12 @@ public class ModularMSMF extends JavaPlugin {
 	public String nameplugin = this.getDescription().getName();
 	public List<String> authors = this.getDescription().getAuthors();
 
-	private Map<String, AbstractCommand> commandMap = null;
+	private Map<String, IModularMSMFCommand> commandMap = null;
 	
 	//here our plugin is loaded and will be enabled
 	@Override
 	public void onEnable() {
-		ModularMSMF.instance = this;
+		ModularMSMFCore.instance = this;
 		if (debug) getLogger().info("--- onEnable() ---");
 		dataManager = new DataManager(this);
 		this.getServer().getPluginManager().registerEvents(dataManager, this);
@@ -99,7 +100,7 @@ public class ModularMSMF extends JavaPlugin {
 		
 		playerManager = new PlayerManager(this);
 
-		motd = new CommandMotd(this);
+		motd = new CommandMotd();
 		motd.load();
 
 		getLogger().info("Loading events...");
@@ -117,7 +118,7 @@ public class ModularMSMF extends JavaPlugin {
 		CommandLoader loader = new CommandLoader(this);
 		
 		//<commandLabel, instance of AbstractCommand>
-		commandMap = new LinkedHashMap<String, AbstractCommand>();
+		commandMap = new LinkedHashMap<String, IModularMSMFCommand>();
 		loader.loadCommands(this.getClassLoader()).forEach(cmd -> {
 			Arrays.asList(cmd.getCommandLabels()).forEach(label -> {
 				commandMap.put(label.toLowerCase(), cmd);
@@ -233,7 +234,7 @@ public class ModularMSMF extends JavaPlugin {
 		return playerManager;
 	}
 	
-	public Map<String, AbstractCommand> getCommandMap(){
+	public Map<String, IModularMSMFCommand> getCommandMap(){
 		return commandMap;
 	}
 }

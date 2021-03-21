@@ -26,7 +26,7 @@ public class ModularMSMFCommandBlocker extends JavaPlugin {
 		this.getServer().getPluginManager().registerEvents(cmdListener, this);
 
         // Still need to figure out what to do with this
-        CommandCmdBlckr cmdBlckr = new CommandCmdBlckr(ModularMSMF.Instance());
+        CommandCmdBlckr cmdBlckr = new CommandCmdBlckr();
     }
 
     @Override

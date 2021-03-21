@@ -8,9 +8,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
-import io.github.davidmc971.modularmsmf.ModularMSMF;
+import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 
-public class CommandMotd extends AbstractCommand {
+public class CommandMotd implements IModularMSMFCommand {
 	
 	/**
 	 * @TODO onplayerjoinevent und normal zum abrufen
@@ -21,10 +21,6 @@ public class CommandMotd extends AbstractCommand {
 	//private File dataStore = new File("plugins/ModularMSMF/motd.txt");
 	
 	//private FileConfiguration cfg;
-
-	public CommandMotd(ModularMSMF plugin) {
-		super(plugin);
-	}
 
 	@SuppressWarnings("unused")
 	public void load() {

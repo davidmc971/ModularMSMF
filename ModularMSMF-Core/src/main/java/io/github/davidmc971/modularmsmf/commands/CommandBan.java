@@ -16,7 +16,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import io.github.davidmc971.modularmsmf.core.PermissionManager;
-import io.github.davidmc971.modularmsmf.ModularMSMF;
+import io.github.davidmc971.modularmsmf.ModularMSMFCore;
+import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.util.Utils;
 import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
 import net.kyori.adventure.text.Component;
@@ -31,16 +32,18 @@ import net.kyori.adventure.text.Component;
  * So an admin can check over this guy what's he doing?
  */
 
-public class CommandBan extends AbstractCommand {
+public class CommandBan implements IModularMSMFCommand {
 	
 	@Override
 	public String[] getCommandLabels() {
 		return new String[]{ "ban", "unban", "ban-ip" };
 	}
 
-	public CommandBan(ModularMSMF plugin) {
-		super(plugin);
-	}
+	private ModularMSMFCore plugin;
+
+    public CommandBan() {
+        plugin = ModularMSMFCore.Instance();
+    }
 
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 		//if arg is equal to one of them, returns command

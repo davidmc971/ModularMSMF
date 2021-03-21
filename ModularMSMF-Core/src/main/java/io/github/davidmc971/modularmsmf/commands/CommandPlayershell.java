@@ -7,7 +7,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.server.ServerCommandEvent;
 
-import io.github.davidmc971.modularmsmf.ModularMSMF;
+import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 
 /**
  * 
@@ -20,14 +20,9 @@ import io.github.davidmc971.modularmsmf.ModularMSMF;
  * 	purposes.
  */
 
-public class CommandPlayershell extends AbstractCommand implements Listener {
+public class CommandPlayershell implements IModularMSMFCommand, Listener {
 
 	private Player activeShellPlayer = null;
-	
-	
-	public CommandPlayershell(ModularMSMF plugin) {
-		super(plugin);
-	}
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {

@@ -10,7 +10,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import io.github.davidmc971.modularmsmf.core.PlayerManager;
 import io.github.davidmc971.modularmsmf.data.PlayerData;
-import io.github.davidmc971.modularmsmf.ModularMSMF;
+import io.github.davidmc971.modularmsmf.ModularMSMFCore;
 
 public class HomeHandler {
 	/*	Class representing a players home.
@@ -55,12 +55,12 @@ public class HomeHandler {
 		
 	}
 
-	ModularMSMF plugin;
+	ModularMSMFCore plugin;
 	PlayerManager plrm;
 	
 	private HashMap<UUID, ArrayList<Home>> homeMap;
 	
-	public HomeHandler(ModularMSMF plugin) {
+	public HomeHandler(ModularMSMFCore plugin) {
 		this.plugin = plugin;
 		plrm = plugin.getPlayerManager();
 		plrm.registerSaveTask(new SaveTask(this));

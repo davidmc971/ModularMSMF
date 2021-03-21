@@ -24,7 +24,7 @@ import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerLoginEvent.Result;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-import io.github.davidmc971.modularmsmf.ModularMSMF;
+import io.github.davidmc971.modularmsmf.ModularMSMFCore;
 import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
 import io.github.davidmc971.modularmsmf.util.KillType;
 import io.github.davidmc971.modularmsmf.util.Utils;
@@ -38,13 +38,13 @@ import net.md_5.bungee.api.ChatColor;
 
 public class Events implements Listener {
 
-	public ModularMSMF plugin;
+	public ModularMSMFCore plugin;
 	private ArrayList<PlayerKillConfig> killedPlayers = new ArrayList<PlayerKillConfig>();
 	private ArrayList<UUID> kickedPlayers = new ArrayList<UUID>();
 	public static HashMap<String, Location> lastLocation = new HashMap<>();
 	public static ArrayList<String> blacklistedExpressions = new ArrayList<String>();
 
-	public Events(ModularMSMF plugin) {
+	public Events(ModularMSMFCore plugin) {
 		this.plugin = plugin;
 		// currently an ArrayList containing words to be filtered
 		// to be loaded from a configuration file later on

@@ -8,7 +8,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
-import io.github.davidmc971.modularmsmf.ModularMSMF;
+import io.github.davidmc971.modularmsmf.ModularMSMFCore;
+import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.core.PermissionManager;
 import io.github.davidmc971.modularmsmf.util.ChatUtils;
 import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
@@ -27,11 +28,13 @@ import net.md_5.bungee.api.ChatColor;
  *
  */
 
-public class CommandModularMSMF extends AbstractCommand {
+public class CommandModularMSMF implements IModularMSMFCommand {
 
-	public CommandModularMSMF(ModularMSMF plugin) {
-		super(plugin);
-	}
+	private ModularMSMFCore plugin;
+
+    public CommandModularMSMF() {
+        plugin = ModularMSMFCore.Instance();
+    }
 
 	private String infoPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.INFO);
 	// private String errorPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.ERROR);

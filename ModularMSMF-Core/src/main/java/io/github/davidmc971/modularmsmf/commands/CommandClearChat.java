@@ -7,15 +7,18 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import io.github.davidmc971.modularmsmf.ModularMSMF;
+import io.github.davidmc971.modularmsmf.ModularMSMFCore;
+import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.core.PermissionManager;
 import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
 import io.github.davidmc971.modularmsmf.util.Utils;
 
-public class CommandClearChat extends AbstractCommand{
+public class CommandClearChat implements IModularMSMFCommand {
 
-	public CommandClearChat(ModularMSMF plugin) {
-		super(plugin);
+	private ModularMSMFCore plugin;
+
+    public CommandClearChat() {
+        plugin = ModularMSMFCore.Instance();
     }
     
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {

@@ -5,7 +5,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
-import io.github.davidmc971.modularmsmf.ModularMSMF;
+import io.github.davidmc971.modularmsmf.ModularMSMFCore;
+import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.core.PermissionManager;
 import io.github.davidmc971.modularmsmf.util.Utils;
 import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
@@ -16,11 +17,13 @@ import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
  *
  */
 
-public class CommandMute extends AbstractCommand {
+public class CommandMute implements IModularMSMFCommand {
 
-	public CommandMute(ModularMSMF plugin) {
-		super(plugin);
-	}
+	private ModularMSMFCore plugin;
+
+    public CommandMute() {
+        plugin = ModularMSMFCore.Instance();
+    }
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {

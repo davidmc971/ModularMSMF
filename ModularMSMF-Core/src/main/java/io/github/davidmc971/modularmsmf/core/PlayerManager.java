@@ -14,7 +14,7 @@ import org.bukkit.configuration.MemoryConfiguration;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import io.github.davidmc971.modularmsmf.data.PlayerData;
-import io.github.davidmc971.modularmsmf.ModularMSMF;
+import io.github.davidmc971.modularmsmf.ModularMSMFCore;
 
 /*	Manages all players settings and data.
  * 	Files are saved in json format.
@@ -52,7 +52,7 @@ public class PlayerManager {
 
 	private AutosaveTask autosaveTask;
 
-	ModularMSMF plugin;
+	ModularMSMFCore plugin;
 
 	List<BukkitRunnable> saveTasks;
 
@@ -62,7 +62,7 @@ public class PlayerManager {
 
 	private Map<UUID, PlayerData> playerStorage = null;
 
-	public PlayerManager(ModularMSMF plugin) {
+	public PlayerManager(ModularMSMFCore plugin) {
 		this.plugin = plugin;
 		// V`-- needed?
 		saveTasks = new ArrayList<BukkitRunnable>();
