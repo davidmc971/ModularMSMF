@@ -2,7 +2,7 @@ package io.github.davidmc971.modularmsmf.handlers;
 
 import java.util.UUID;
 
-import io.github.davidmc971.modularmsmf.ModularMSMFCore;
+import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
 
 /*	@author davidmc971
  * 	

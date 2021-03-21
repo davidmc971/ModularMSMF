@@ -24,10 +24,10 @@ import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerLoginEvent.Result;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-import io.github.davidmc971.modularmsmf.ModularMSMFCore;
-import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
+import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
+import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
 import io.github.davidmc971.modularmsmf.util.KillType;
-import io.github.davidmc971.modularmsmf.util.Utils;
+import io.github.davidmc971.modularmsmf.core.util.Utils;
 import net.kyori.adventure.text.Component;
 import net.md_5.bungee.api.ChatColor;
 

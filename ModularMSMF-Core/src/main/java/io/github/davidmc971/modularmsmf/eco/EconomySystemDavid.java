@@ -3,8 +3,8 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import io.github.davidmc971.modularmsmf.ModularMSMFCore;
-import io.github.davidmc971.modularmsmf.util.Utils;
+import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
+import io.github.davidmc971.modularmsmf.core.util.Utils;
 
 /**
  * 

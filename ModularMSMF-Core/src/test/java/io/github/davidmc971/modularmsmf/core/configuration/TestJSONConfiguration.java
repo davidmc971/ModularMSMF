@@ -1,4 +1,4 @@
-package io.github.davidmc971.modularmsmf.configuration;
+package io.github.davidmc971.modularmsmf.core.configuration;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

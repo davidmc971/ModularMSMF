@@ -9,8 +9,8 @@ import org.bukkit.Location;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import io.github.davidmc971.modularmsmf.core.PlayerManager;
-import io.github.davidmc971.modularmsmf.data.PlayerData;
-import io.github.davidmc971.modularmsmf.ModularMSMFCore;
+import io.github.davidmc971.modularmsmf.core.data.PlayerData;
+import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
 
 public class HomeHandler {
 	/*	Class representing a players home.

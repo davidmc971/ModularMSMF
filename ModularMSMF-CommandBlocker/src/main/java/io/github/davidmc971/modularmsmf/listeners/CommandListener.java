@@ -5,10 +5,10 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 
-import io.github.davidmc971.modularmsmf.ModularMSMFCore;
+import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
 import io.github.davidmc971.modularmsmf.configuration.BlockedCommands;
-import io.github.davidmc971.modularmsmf.util.Utils;
-import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
+import io.github.davidmc971.modularmsmf.core.util.Utils;
+import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
 
 public class CommandListener implements Listener {
 

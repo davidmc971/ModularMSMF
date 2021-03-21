@@ -13,8 +13,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.configuration.MemoryConfiguration;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import io.github.davidmc971.modularmsmf.data.PlayerData;
-import io.github.davidmc971.modularmsmf.ModularMSMFCore;
+import io.github.davidmc971.modularmsmf.core.data.PlayerData;
 
 /*	Manages all players settings and data.
  * 	Files are saved in json format.

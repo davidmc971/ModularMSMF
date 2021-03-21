@@ -1,4 +1,4 @@
-package io.github.davidmc971.modularmsmf.data;
+package io.github.davidmc971.modularmsmf.core.data;
 
 import org.bukkit.configuration.file.FileConfiguration;
 

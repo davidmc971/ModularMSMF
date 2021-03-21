@@ -1,4 +1,4 @@
-package io.github.davidmc971.modularmsmf.util;
+package io.github.davidmc971.modularmsmf.core.util;
 
 import net.md_5.bungee.api.ChatColor;
 

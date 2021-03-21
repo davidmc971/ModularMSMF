@@ -1,4 +1,4 @@
-package io.github.davidmc971.modularmsmf;
+package io.github.davidmc971.modularmsmf.core;
 
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -17,17 +17,13 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.commands.*;
-import io.github.davidmc971.modularmsmf.configuration.AbstractConfigurationLoader;
-import io.github.davidmc971.modularmsmf.configuration.JSONConfigurationLoader;
-import io.github.davidmc971.modularmsmf.configuration.YamlConfigurationLoader;
-import io.github.davidmc971.modularmsmf.core.DataManager;
-import io.github.davidmc971.modularmsmf.core.LanguageManager;
-import io.github.davidmc971.modularmsmf.core.PlayerManager;
-import io.github.davidmc971.modularmsmf.listeners.CommandPreprocessor;
+import io.github.davidmc971.modularmsmf.core.configuration.AbstractConfigurationLoader;
+import io.github.davidmc971.modularmsmf.core.configuration.JSONConfigurationLoader;
+import io.github.davidmc971.modularmsmf.core.configuration.YamlConfigurationLoader;
+import io.github.davidmc971.modularmsmf.core.listeners.CommandPreprocessor;
 import io.github.davidmc971.modularmsmf.listeners.Events;
-import io.github.davidmc971.modularmsmf.util.ChatUtils;
-import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
-import io.github.davidmc971.modularmsmf.main.CommandLoader;
+import io.github.davidmc971.modularmsmf.core.util.ChatUtils;
+import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
 
 /**
  * @author Lightkeks, davidmc971

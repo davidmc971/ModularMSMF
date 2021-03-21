@@ -2,7 +2,7 @@ package io.github.davidmc971.modularmsmf.eco;
 
 import org.bukkit.configuration.file.FileConfiguration;
 
-import io.github.davidmc971.modularmsmf.ModularMSMFCore;
+import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
 
 /**
  * 

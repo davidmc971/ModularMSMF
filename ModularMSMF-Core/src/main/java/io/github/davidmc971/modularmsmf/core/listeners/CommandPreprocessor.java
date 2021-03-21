@@ -1,4 +1,4 @@
-package io.github.davidmc971.modularmsmf.listeners;
+package io.github.davidmc971.modularmsmf.core.listeners;
 
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.EventHandler;
@@ -6,7 +6,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.server.ServerCommandEvent;
 
-import io.github.davidmc971.modularmsmf.ModularMSMFCore;
+import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
 
 public class CommandPreprocessor implements Listener {
     private static CommandPreprocessor instance = null;

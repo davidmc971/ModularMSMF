@@ -1,4 +1,4 @@
-package io.github.davidmc971.modularmsmf.configuration;
+package io.github.davidmc971.modularmsmf.core.configuration;
 
 import java.io.File;
 import java.io.FileNotFoundException;

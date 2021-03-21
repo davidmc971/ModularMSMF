@@ -12,8 +12,6 @@ import java.util.Map.Entry;
 
 import org.bukkit.configuration.file.YamlConfiguration;
 
-import io.github.davidmc971.modularmsmf.ModularMSMFCore;
-
 /**
  * 
  * @author davidmc971

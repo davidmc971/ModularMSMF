@@ -1,14 +1,14 @@
-package io.github.davidmc971.modularmsmf.commands;
+package io.github.davidmc971.modularmsmf.core.commands;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
-import io.github.davidmc971.modularmsmf.ModularMSMFCore;
+import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.core.PermissionManager;
-import io.github.davidmc971.modularmsmf.util.Utils;
-import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
+import io.github.davidmc971.modularmsmf.core.util.Utils;
+import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
 
 /**
  * 

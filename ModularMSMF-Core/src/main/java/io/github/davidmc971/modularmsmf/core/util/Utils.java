@@ -1,4 +1,4 @@
-package io.github.davidmc971.modularmsmf.util;
+package io.github.davidmc971.modularmsmf.core.util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +11,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import io.github.davidmc971.modularmsmf.core.LanguageManager;
-import io.github.davidmc971.modularmsmf.ModularMSMFCore;
+import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
 
 /**
  * 

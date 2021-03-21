@@ -1,4 +1,4 @@
-package io.github.davidmc971.modularmsmf.filesystem;
+package io.github.davidmc971.modularmsmf.core.filesystem;
 
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;

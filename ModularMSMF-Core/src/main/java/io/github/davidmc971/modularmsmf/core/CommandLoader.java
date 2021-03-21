@@ -1,4 +1,4 @@
-package io.github.davidmc971.modularmsmf.main;
+package io.github.davidmc971.modularmsmf.core;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import com.google.common.reflect.ClassPath;
 
 import io.github.davidmc971.modularmsmf.commands.*;
+import io.github.davidmc971.modularmsmf.core.commands.*;
 import io.github.davidmc971.modularmsmf.eco.EconomySystem;
-import io.github.davidmc971.modularmsmf.ModularMSMFCore;
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 
 /**

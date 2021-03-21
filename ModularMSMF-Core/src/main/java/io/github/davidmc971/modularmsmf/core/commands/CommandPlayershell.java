@@ -1,4 +1,4 @@
-package io.github.davidmc971.modularmsmf.commands;
+package io.github.davidmc971.modularmsmf.core.commands;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;

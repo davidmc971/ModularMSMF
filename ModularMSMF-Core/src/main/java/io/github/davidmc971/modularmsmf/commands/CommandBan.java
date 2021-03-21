@@ -16,10 +16,10 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import io.github.davidmc971.modularmsmf.core.PermissionManager;
-import io.github.davidmc971.modularmsmf.ModularMSMFCore;
+import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
-import io.github.davidmc971.modularmsmf.util.Utils;
-import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
+import io.github.davidmc971.modularmsmf.core.util.Utils;
+import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
 import net.kyori.adventure.text.Component;
 
 /**	This command handles requests for player 'ban's, 'unban's and 'ban-ip's.

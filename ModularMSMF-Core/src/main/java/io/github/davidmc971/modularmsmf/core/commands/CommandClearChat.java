@@ -1,4 +1,4 @@
-package io.github.davidmc971.modularmsmf.commands;
+package io.github.davidmc971.modularmsmf.core.commands;
 
 import java.util.UUID;
 
@@ -7,11 +7,11 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import io.github.davidmc971.modularmsmf.ModularMSMFCore;
+import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.core.PermissionManager;
-import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
-import io.github.davidmc971.modularmsmf.util.Utils;
+import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
+import io.github.davidmc971.modularmsmf.core.util.Utils;
 
 public class CommandClearChat implements IModularMSMFCommand {
 
