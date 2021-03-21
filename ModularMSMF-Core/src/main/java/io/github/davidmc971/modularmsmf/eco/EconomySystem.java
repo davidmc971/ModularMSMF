@@ -11,7 +11,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import io.github.davidmc971.modularmsmf.ModularMSMF;
-import io.github.davidmc971.modularmsmf.commands.AbstractCommand;
+import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.core.PermissionManager;
 import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
 import io.github.davidmc971.modularmsmf.util.Utils;
@@ -23,14 +23,13 @@ import io.github.davidmc971.modularmsmf.util.Utils;
  *         sendMessage with Utils.sendMessage...
  */
 
-public class EconomySystem extends AbstractCommand {
+public class EconomySystem implements IModularMSMFCommand {
 	private ModularMSMF plugin;
 	public static double defaultMoney = 500.0;
 
-	public EconomySystem(ModularMSMF plugin) {
-		super(plugin);
-		this.plugin = plugin;
-	}
+    public EconomySystem() {
+        plugin = ModularMSMF.Instance();
+    }
 
 	@Override
 	public String[] getCommandLabels() {

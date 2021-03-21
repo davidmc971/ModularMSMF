@@ -8,6 +8,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import io.github.davidmc971.modularmsmf.ModularMSMF;
+import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.core.PermissionManager;
 import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
 import net.kyori.adventure.text.Component;
@@ -19,11 +20,13 @@ import io.github.davidmc971.modularmsmf.util.Utils;
  *
  */
 
-public class CommandKick extends AbstractCommand {
+public class CommandKick implements IModularMSMFCommand {
 
-	public CommandKick(ModularMSMF plugin) {
-		super(plugin);
-	}
+	private ModularMSMF plugin;
+
+    public CommandKick() {
+        plugin = ModularMSMF.Instance();
+    }
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {

@@ -11,6 +11,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 import io.github.davidmc971.modularmsmf.ModularMSMF;
+import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.core.PermissionManager;
 import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
 import io.github.davidmc971.modularmsmf.util.Utils;
@@ -21,11 +22,13 @@ import io.github.davidmc971.modularmsmf.util.Utils;
  * 
  */
 
-public class CommandSetSpawn extends AbstractCommand {
+public class CommandSetSpawn implements IModularMSMFCommand {
 
-	public CommandSetSpawn(ModularMSMF plugin) {
-		super(plugin);
-	}
+	private ModularMSMF plugin;
+
+    public CommandSetSpawn() {
+        plugin = ModularMSMF.Instance();
+    }
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {

@@ -2,14 +2,9 @@ package io.github.davidmc971.modularmsmf.commands;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import io.github.davidmc971.modularmsmf.ModularMSMF;
+import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 
-public class CommandCmdBlckr extends AbstractCommand{
-
-    public CommandCmdBlckr(ModularMSMF plugin) {
-        super(plugin);
-        //TODO Auto-generated constructor stub
-    }
+public class CommandCmdBlckr implements IModularMSMFCommand {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label,

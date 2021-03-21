@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 
 import io.github.davidmc971.modularmsmf.core.PermissionManager;
 import io.github.davidmc971.modularmsmf.ModularMSMF;
+import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.util.Utils;
 import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
 
@@ -17,11 +18,13 @@ import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
  *	Fully working command, as it should be.
  */
 
-public class CommandFeed extends AbstractCommand {
+public class CommandFeed implements IModularMSMFCommand {
 
-	public CommandFeed(ModularMSMF plugin) {
-		super(plugin);
-	}
+	private ModularMSMF plugin;
+
+    public CommandFeed() {
+        plugin = ModularMSMF.Instance();
+    }
 
 	@Override
 	public String[] getCommandLabels() {

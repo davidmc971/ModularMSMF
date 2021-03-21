@@ -8,6 +8,7 @@ import com.google.common.reflect.ClassPath;
 import io.github.davidmc971.modularmsmf.commands.*;
 import io.github.davidmc971.modularmsmf.eco.EconomySystem;
 import io.github.davidmc971.modularmsmf.ModularMSMF;
+import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 
 /**
  * 
@@ -22,8 +23,8 @@ public class CommandLoader {
 		this.plugin = plugin;
 	}
 	
-	public ArrayList<AbstractCommand> loadCommands(ClassLoader classLoader){
-		ArrayList<AbstractCommand> commandList = new ArrayList<AbstractCommand>();
+	public ArrayList<IModularMSMFCommand> loadCommands(ClassLoader classLoader){
+		ArrayList<IModularMSMFCommand> commandList = new ArrayList<IModularMSMFCommand>();
 		
 		String packageName = "commands";
 
@@ -49,7 +50,7 @@ public class CommandLoader {
 				if(!info.getName().equals("commands.AbstractCommand")) {
 					try {
 						Class<?> clazz = Class.forName(info.getName(), true, classLoader);
-						commandList.add((AbstractCommand)clazz.getConstructor(plugin.getClass()).newInstance(plugin));
+						commandList.add((IModularMSMFCommand)clazz.getConstructor(plugin.getClass()).newInstance(plugin));
 					} catch (Exception e) {
 						plugin.getLogger().severe(e.toString());
 					}
@@ -65,7 +66,7 @@ public class CommandLoader {
 		
 		{
 			String temp = "";
-			for (AbstractCommand cmd : commandList) {
+			for (IModularMSMFCommand cmd : commandList) {
 				for(String s : cmd.getCommandLabels()) {
 					temp += s + ", ";
 				}
@@ -82,32 +83,32 @@ public class CommandLoader {
 		return commandList;
 	}
 
-	private ArrayList<AbstractCommand> loadCommandsFallback() {
+	private ArrayList<IModularMSMFCommand> loadCommandsFallback() {
 		//Reflections reflections = new Reflections("com.mycompany");    
 		//Set<Class<? extends MyInterface>> classes = reflections.getSubTypesOf(MyInterface.class);
-		ArrayList<AbstractCommand> commandList = new ArrayList<AbstractCommand>();
+		ArrayList<IModularMSMFCommand> commandList = new ArrayList<IModularMSMFCommand>();
 		
-		for(AbstractCommand cmd : new AbstractCommand[] {
-				new CommandBan(plugin),
-				new CommandBack(plugin),
-				new CommandFeed(plugin),
-				new CommandHeal(plugin),
-				new CommandHome(plugin),
-				new CommandKick(plugin),
-				new CommandKill(plugin),
-				new CommandLanguage(plugin),
-				new CommandModularMSMF(plugin),
-				new EconomySystem(plugin),
-				new CommandMotd(plugin),
-				new CommandMute(plugin),
-				new CommandPlayershell(plugin),
-				//new CommandReport(plugin),
-				new CommandServerInfo(plugin),
-				new CommandSetSpawn(plugin),
-				new CommandSlaughter(plugin),
-				new CommandSpawn(plugin),
-				new CommandTeleport(plugin),
-				new CommandClearChat(plugin)
+		for(IModularMSMFCommand cmd : new IModularMSMFCommand[] {
+				new CommandBan(),
+				new CommandBack(),
+				new CommandFeed(),
+				new CommandHeal(),
+				new CommandHome(),
+				new CommandKick(),
+				new CommandKill(),
+				new CommandLanguage(),
+				new CommandModularMSMF(),
+				new EconomySystem(),
+				new CommandMotd(),
+				new CommandMute(),
+				new CommandPlayershell(),
+				//new CommandReport(),
+				new CommandServerInfo(),
+				new CommandSetSpawn(),
+				new CommandSlaughter(),
+				new CommandSpawn(),
+				new CommandTeleport(),
+				new CommandClearChat()
 		}) {
 			commandList.add(cmd);
 		}
