@@ -1,0 +1,17 @@
+name: ModularMSMF-Economy
+version: ${version}
+description: Economy system for your server
+website: ${url}
+authors: [Lightkeks, davidmc971]
+
+depend:
+  - "ModularMSMF-Core"
+
+api: none
+
+main: io.github.davidmc971.modularmsmf.economy.ModularMSMFEconomy
+
+commands:
+  money:
+    description: Get balance
+    usage: /<command> <args>

@@ -1,0 +1,17 @@
+name: ModularMSMF-Basics
+version: ${version}
+description: Basic commands to enhance user experience and ease management
+website: ${url}
+authors: [Lightkeks, davidmc971]
+
+depend:
+  - "ModularMSMF-Core"
+
+api: none
+
+main: io.github.davidmc971.modularmsmf.basics.ModularMSMFBasics
+
+commands:
+  asdasdasd:
+    description: asdsadasds
+    usage: /<command> <args>

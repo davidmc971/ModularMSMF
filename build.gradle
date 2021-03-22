@@ -87,7 +87,13 @@ subprojects {
 
 // Thanks to EssentialsX again
 def outputTasks() {
-    [":ModularMSMF-Core:shadowJar", ":ModularMSMF-CommandBlocker:jar"].stream().map({ tasks.findByPath(it) })
+    [
+        ":ModularMSMF-Core:shadowJar",
+        ":ModularMSMF-CommandBlocker:jar",
+        ":ModularMSMF-Basics:jar",
+        ":ModularMSMF-NovaPerms:jar",
+        ":ModularMSMF-Economy:jar"
+    ].stream().map({ tasks.findByPath(it) })
 }
 
 task copyToJars(type: Copy) {

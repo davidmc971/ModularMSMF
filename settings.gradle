@@ -10,10 +10,10 @@ rootProject.name = 'ModularMSMF'
 // Adding modules the EssentialsX way
 [
     "Core",
-    "CommandBlocker"//,
-    //"Basics",
-    //"Permissions",
-    //"Economy"
+    "CommandBlocker",
+    "Basics",
+    "NovaPerms",
+    "Economy"
 ].each {
     include(":ModularMSMF-$it")
 }
