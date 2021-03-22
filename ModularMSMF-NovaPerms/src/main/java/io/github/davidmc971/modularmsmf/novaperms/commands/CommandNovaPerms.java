@@ -60,7 +60,7 @@ public class CommandNovaPerms implements IModularMSMFCommand {
 
     @Override
     public String[] getCommandLabels() {
-        return new String[]{ "novaperms", "np" };
+        return new String[]{ "novaperms", "nperms", "novap", "nope" };
     }
     
 }
