@@ -17,6 +17,11 @@ general: #Hauptsaechliche Strings fuer den Allgemeingebrauch
     notimplementedyet: Dieser Befehl existiert noch nicht. #Falls es Befehle gibt die noch nicht geschrieben wurden sind.
     bukkitversion: 'Die aktuelle Bukkitversion: _bukkitver.' #Zeigt aktuelle Version vom Server an
     commands_blocked: 'Der Befehl "_var" wurde geblockt.'
+    component:
+      set: Klick mich an um dein Home zu setzen!
+      remove: Klick mich an um dein Home zu loeschen!
+      rtp: Ich zeig dir wie man das schreibt!
+      admin: Das zeigt dir alle administrativen Befehle an!
 event:
   welcome: _var hat den Server betreten! #Kommt auf, sobald ein Spieler den Server betritt
   quit: _var hat den Server verlassen! #Kommt auf, sobald ein Spieler den Server verlaesst
@@ -48,6 +53,11 @@ commands: #Befehle
     setsuccessplayer: Deine Sprache wurde erfolgreich geaendert. #Anzeige, dass die uebersetzung erfolgreich uebernommen wurde
     notvalid: Das ist keine gueltige Sprache. #Anzeigen, dass das Argument bzw. die uebersetzung nicht existiert
     setsuccessconsole: Die Standardsprache wurde erfolgreich geaendert. #Zeigt an, dass die Standartuebersetzung geaendert wurde
+    help:
+      help: Zeigt dir die Hilfe des Sprache Befehls.
+      list: Listet dir die Sprachen auf, die existieren.
+      get: Zeigt dir die Sprache eines anderen Spielers an.
+      set: Setzt deine Sprache in eine andere Sprache.
   money: #Geldbefehl
     missingamountandplayer: Bitte gib einen Betrag sowie einen Spieler an! #Fehlender Betrag sowie Spieler
     missingamount: Bitte gib noch einen Betrag an! #Fehlender Betrag
@@ -58,6 +68,8 @@ commands: #Befehle
     feeded: Du hast dich gesaettigt! #Du hast dich selbst gesaettigt
     othersfeeded: _sender hat dich gesaettigt! #Jemandes hat dich gesaettigt
     feededperson: Du hast _player gesaettigt! #Du hast jemandes gesaettigt
+    others:
+      console: Die Konsole darf nur andere fuettern.
   heal: #Heilungsbefehl
     healself: Du hast dich selbst geheilt! #Du hast dich selbst geheilt
     healother: Du hast _player geheilt! #Du hast jemandes geheilt
@@ -72,36 +84,64 @@ commands: #Befehle
     repnodesc: Bitte gib eine Beschreibung an! #Fehlende Beschreibung
     rep: Wir kuemmern uns um diese Angelegenheit! #Versicherung zum Fall
     repmissingcmd: Bitte gib das Report-Level an! #Es gibt bestimmte Report-level, an die man sich halten sollte
-  home: #Zuhausebefehl
-    notset: Das Zuhause wurde nicht gesetzt! #Fehlendes Zuhause? Setz eins!
-    alreadyset: Das Zuhause wurde schon gesetzt! #Benanntes zuhause wurde schon gesetzt
-    notdeleted: Das Zuhause wurde nicht entfernt! #Benanntes Zuhause wurde nicht entfernt
-    notfoundhome: Das Zuhause wurde nicht gefunden! #Nicht benanntes Zuhause existiert nicht
-    allhomes:  Alle deine Standpunkte || _var #Auflistung der Homes, wenn verfuegbar
   mmsmf:
     reportsuccessful:
     reportfailure:
-    discord: 'Dein Invitelink: _link' #Gibt den Invitelink aus.
-    discordmissing: Es gibt keinen Einladungslink fuer einen Discordserver. #Gibt dann aus, wenn in config.yml "false" angegeben.
-    teamspeak: 'Deine IP zum joinen: _ip' #Gibt die IP-adresse aus.
-    teamspeakmissing: Es gibt keine IP-Adresse fuer einen Teamspeakserver. #Gibt dann aus, wenn in config.yml "false" angegeben.
+    discord:
+      discordsetup: Zeigt dir, ob ein Link gesetzt wurde.
+      link: 'Der Link zum Server: _link'
+      linkmissing: Es gibt zurzeit keinen Discord Server.
+    teamspeak:
+      teamspeaksetup: Zeigt dir, ob eine IP gesetzt wurde.
+      ip: 'Die IP zum joinen: _ip'
+      ipmissing: Es gibt zurzeit keinen Teamspeak Server.
+    info: Klick hier, um mehr Infos abzurufen.
+    report: Hilfe fuer das Report-System.
   eco:
-    ecobalance: 'Geldstand: ' #Zeigt den Geldstand an.
-    ecobalanceother: Geldstand von _player #Zeigt den Geldstand anderer an.
-    ecoconsole: Die Konsole hat kein Geld. #Console darf kein Geld besitzen.
-    ecosetself: #Geldstand von sich selbst neu setzen.
-    ecosetothers: #Geldstand des anderen neu setzen.
-    ecosetfromother: #Jemand anderes hat deinen Geldstand neu gesetzt.
-    ecosetbefore: #Geldstand vor dem Neusetzen.
-    ecosetafter: #Geldstand nach dem Neusetzen.
-    ecoreset: #-check
-    ecoaddself: #geldstand selbst erhoehen.
-    ecoforbiddenminus: #Minusbetraege duerfen in keinster weise angegeben werden.
-    ecoaddothers: #Du hast jemanden Geld hinzugefuegt.
-    ecoaddfromother: #Jemand hat dir Geld hinzugefuegt.
-    ecotakeself: #Du hast dir selbst Geld entzogen.
-    ecotakeother: #Du hast jemandes Geld entzogen.
-    ecotakefromothers: #Jemand hat dir Geld entzogen.
-    ecopaytoothers: #Du hast jemanden Geld ueberwiesen.
-    ecopayfromothers: #Jemand hat dir Geld ueberwiesen.
-    econodebt: #Du darfst dich nicht verschulden.
+    balance:
+      self: 'Kontostand: _value.'
+      other: '_target dessen Kontostand: _value.'
+    set:
+      self:
+        full: Kontostand hat sich von _value_old auf _value_new korrigiert.
+        new: 'Neuer Kontostand: _value.'
+        old: 'Alter Kontostand: _value.'
+      other:
+        full: _target's balance has been changed from _value_old to _value_new.
+        new: _target's new balance is _value.
+        old: _target's old balance was _value.
+      notify: _sender has changed your balance from _value_old to _value_new.
+    error: 
+      syntax: Falsche Syntax! #TODO: missing amount and player, etc.
+      console: "Console has no money :P"
+    reset: Your balance has been reset.
+    addself:
+    forbiddenminus:
+    addothers:
+    addfromother:
+    takeself:
+    takeother:
+    takefromothers:
+    paytoothers:
+    payfromothers:
+    nodebt:
+  teleport:
+    success: You teleported to _target!
+  home:
+    invalidargument: Please do "/home help" for more information!
+    help:
+      set: 'How to use the set command:'
+      remove: 'How to use the remove command:'
+      rtp: Requests teleport to player's home.
+      admin: 'Use for administrative home-rights:'
+    notset: Your home has not been set yet.
+    list: 'Your homes: _list'
+    rtp:
+      noargument: You should specify a player.
+  back:
+    success: You got teleported to your last place!
+    error: There is no way to get back.
+  clear:
+    done: Successfully cleared the Chat!
+    target: Cleared _target's Chat!
+    gotcleared: Your chat got cleared!

@@ -53,6 +53,11 @@ commands:
     setsuccessplayer: Your language has been saved successfully.
     notvalid: This is not a valid language.
     setsuccessconsole: The standard language was changed successfully.
+    help:
+      help: This show's the help of language commands.
+      list: List's all available languages.
+      get: Show's the language another user is using.
+      set: Set's your default language.
   money:
     missingamountandplayer: Please specify an amount and a player!
     missingamount: Please specify an amount!
@@ -63,6 +68,8 @@ commands:
     feeded: You have satisfied yourself!
     othersfeeded: _sender has satisfied you!
     feededperson: You satisfied _player!
+    others:
+      console: Console can only feed others.
   heal:
     healself: You healed yorself!
     healother: You healed _player!
@@ -77,23 +84,19 @@ commands:
     repnodesc: Please write down the description!
     rep: Thanks for your report! We will take action about this. 
     repmissingcmd: Please write down the right report-level!
-  home:
-    notset: Your home has not been set!
-    alreadyset: This home was already set!
-    notdeleted: Your home has not been removed!
-    notfoundhome: _homename has not been found!
-    allhomes: 
   mmsmf:
     reportsuccessful:
     reportfailure:
-    discord: 'Your invite to discord: _link'
-    discordmissing: There is no existing link for a Discord server.
-    teamspeak: 'Your IP adress to join: _ip'
-    teamspeakmissing: There is no existing IP for a Teamspeak server.
+    discord:
+      discordsetup: It will show you if an link is set up.
+      link: 'Your invite to discord: _link'
+      linkmissing: There is no existing link for a Discord server.
+    teamspeak:
+      teamspeaksetup: It will show you if an IP is set up.
+      ip: 'Your IP adress to join: _ip'
+      ipmissing: There is no existing IP for a Teamspeak server.
     info: Click here to display info about this plugin.
     report: Help for the reporting system.
-    teamspeak: It will show you if an IP is set up.
-    discord: It will show you if an link is set up.
   eco:
     balance:
       self: Your balance is _value.

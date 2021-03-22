@@ -5,6 +5,7 @@ import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
 import io.github.davidmc971.modularmsmf.core.PermissionManager;
@@ -14,33 +15,32 @@ import io.github.davidmc971.modularmsmf.util.Utils;
 import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
 
 /**
- *	@author Lightkeks
- *	Fully working command, as it should be.
+ * @author Lightkeks Fully working command, as it should be.
  */
 
 public class CommandFeed implements IModularMSMFCommand {
 
 	private ModularMSMFCore plugin;
 
-    public CommandFeed() {
-        plugin = ModularMSMFCore.Instance();
-    }
+	public CommandFeed() {
+		plugin = ModularMSMFCore.Instance();
+	}
 
 	@Override
 	public String[] getCommandLabels() {
-		return new String[]{ "feed" };
+		return new String[] { "feed" };
 	}
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-		//target is always null unless target is online
+		// target is always null unless target is online
 		UUID target = null;
-		//checks if sender is player instead of console
-		if(sender instanceof Player){
+		// checks if sender is player instead of console
+		if (sender instanceof Player) {
 			switch (args.length) {
-				case 0:
-				//feed yourself
-				if(PermissionManager.checkPermission(sender, "feedself")){
+			case 0:
+				// feed yourself
+				if (PermissionManager.checkPermission(sender, "feedself")) {
 					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.FEED, "commands.feed.feeded");
 					((Player) sender).setSaturation(20);
 				} else {
@@ -48,41 +48,78 @@ public class CommandFeed implements IModularMSMFCommand {
 				}
 				break;
 
-				case 1:
-				//feed target
-				if(PermissionManager.checkPermission(sender, "feedothers")){
+			case 1:
+				// feed target
+				if (PermissionManager.checkPermission(sender, "feedothers")) {
 					target = Utils.getPlayerUUIDByName(args[0]);
 					if (target == null) {
-						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.playernotfound");
-					return true;
+						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+								"general.playernotfound");
+						return true;
 					}
 				} else {
 					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
 				}
 				for (Player p : Bukkit.getOnlinePlayers()) {
 					if (p.getUniqueId().toString().equalsIgnoreCase(target.toString())) {
-						if(sender == p) {
-							Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.FEED, "commands.feed.feeded");
+						if (sender == p) {
+							Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.FEED,
+									"commands.feed.feeded");
 							((Player) sender).setSaturation(20);
 						} else {
-							Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.FEED, "commands.feed.feededperson", "_player", p.displayName().toString());
-							Utils.sendMessageWithConfiguredLanguage(plugin, p, ChatFormat.FEED, "commands.feed.othersfeeded", "_sender", sender.getName());
+							Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.FEED,
+									"commands.feed.feededperson", "_player", p.displayName().toString());
+							Utils.sendMessageWithConfiguredLanguage(plugin, p, ChatFormat.FEED,
+									"commands.feed.othersfeeded", "_sender", sender.getName());
 							p.setSaturation(20);
 						}
 					} else {
-						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.playernotonline");
+						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+								"general.playernotonline");
 					}
 					return true;
 				}
 				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.playernotfound");
 				break;
-
-				default: 
+			default:
 				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.toomanyarguments");
 				break;
 			}
 		} else {
-			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "general.noconsole");
+			switch (args.length) {
+			default:
+				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.toomanyarguments");
+				break;
+			case 0:
+				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "commands.feed.others.console");
+				break;
+			case 1:
+				target = Utils.getPlayerUUIDByName(args[0]);
+				if (target == null) {
+					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.playernotfound");
+					return true;
+				}
+				for (Player p : Bukkit.getOnlinePlayers()) {
+					if (p.getUniqueId().toString().equalsIgnoreCase(target.toString())) {
+						if (sender == p) {
+							Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.FEED,
+									"commands.feed.feeded");
+							((Player) sender).setSaturation(20);
+						} else {
+							Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.FEED,
+									"commands.feed.feededperson", "_player", p.displayName().toString());
+							Utils.sendMessageWithConfiguredLanguage(plugin, p, ChatFormat.FEED,
+									"commands.feed.othersfeeded", "_sender", sender.getName());
+							p.setSaturation(20);
+						}
+					} else {
+						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+								"general.playernotonline");
+					}
+					return true;
+				}
+				break;
+			}
 		}
 		return true;
 	}

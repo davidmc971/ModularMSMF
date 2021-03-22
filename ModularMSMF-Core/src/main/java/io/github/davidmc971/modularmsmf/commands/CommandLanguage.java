@@ -36,6 +36,9 @@ public class CommandLanguage implements IModularMSMFCommand {
 				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO, "commands.language.activelanguage", "_language", (language.getString("language.id")+" ("+language.getString("language.name")+") "));
 				break;
 			case 1:
+				if(args[0].equalsIgnoreCase("help")){
+					//TODO still wip
+				}
 				if(args[0].equalsIgnoreCase("list")){
 					String out = "[";
 					for(YamlConfiguration languageCfg : languageManager.getAvailableLanguages()){
