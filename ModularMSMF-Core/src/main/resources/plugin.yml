@@ -80,4 +80,4 @@ commands:
   clearchat:
     description: Clears the chat completely
     usage: /<command>
-    aliases: ["cc"]
+    aliases: [cc]

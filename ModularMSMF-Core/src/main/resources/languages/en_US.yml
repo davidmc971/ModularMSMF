@@ -2,26 +2,26 @@ language:
   id: en_US
   name: English
 general:
-    missing_playername: You have to specify a player.
-    playerunknown: This player has never been online before.
-    playernotfound: This player was not found.
-    playernotonline: This player is not online.
-    nopermission: You don't have permissions to do this.
-    toomanyarguments: Too many arguments.
-    invalidcustomlanguage: Invalid custom language ('_language') for player _player. Standard language will be used instead.
-    invalidarguments: Invalid arguments.
-    invalidcommand: Invalid command.
-    noconsole: Console is not permitted to use this command.
-    missingarguments: Please specify an argument!
-    couldnotcreatefile: File couldn't be created!
-    notimplementedyet: This command has not been implemented yet.
-    bukkitversion: 'The actual Bukkit version: _bukkitver'
-    commands_blocked: 'The command "_var" has been blocked.'
-    component:
-      set: Click on me to set a default home at your location!
-      remove: Click on me to remove your default home!
-      rtp: I will show you how to write it!
-      admin: It will show you administrative commands!
+  missing_playername: You have to specify a player.
+  playerunknown: This player has never been online before.
+  playernotfound: This player was not found.
+  playernotonline: This player is not online.
+  nopermission: You don't have permissions to do this.
+  toomanyarguments: Too many arguments.
+  invalidcustomlanguage: Invalid custom language ('_language') for player _player. Standard language will be used instead.
+  invalidarguments: Invalid arguments.
+  invalidcommand: Invalid command.
+  noconsole: Console is not permitted to use this command.
+  missingarguments: Please specify an argument!
+  couldnotcreatefile: File couldn't be created!
+  notimplementedyet: This command has not been implemented yet.
+  bukkitversion: 'The actual Bukkit version: _bukkitver'
+  commands_blocked: 'The command "_var" has been blocked.'
+  component:
+    set: Click on me to set a default home at your location!
+    remove: Click on me to remove your default home!
+    rtp: I will show you how to write it!
+    admin: It will show you administrative commands!
 event:
   welcome: _var has joned the Server!
   quit: _var has left the Server!
@@ -77,12 +77,6 @@ commands:
     repnodesc: Please write down the description!
     rep: Thanks for your report! We will take action about this. 
     repmissingcmd: Please write down the right report-level!
-  home:
-    notset: Your home has not been set!
-    alreadyset: This home was already set!
-    notdeleted: Your home has not been removed!
-    notfoundhome: _homename has not been found!
-    allhomes: 
   mmsmf:
     reportsuccessful:
     reportfailure:
@@ -92,8 +86,6 @@ commands:
     teamspeakmissing: There is no existing IP for a Teamspeak server.
     info: Click here to display info about this plugin.
     report: Help for the reporting system.
-    teamspeak: It will show you if an IP is set up.
-    discord: It will show you if an link is set up.
   eco:
     balance:
       self: Your balance is _value.

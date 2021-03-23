@@ -1,6 +1,6 @@
 # This file should have the following structure:
 # 
-# BlockedCommands:
-#   - command
+ BlockedCommands:
+   - god
 #   - command2
 #   - command3

@@ -2,21 +2,26 @@ language:
   id: de_DE
   name: Deutsch
 general: #Hauptsaechliche Strings fuer den Allgemeingebrauch
-    missing_playername: Du musst einen Spieler angeben. #Fehlender Spielername eines Befehles
-    playerunknown: Dieser Spieler existiert nicht. #Nicht existenter Spieler.
-    playernotfound: Dieser Spieler wurde nicht gefunden. #Falsch geschriebener Name
-    playernotonline: Dieser Spieler ist nicht online. #Wenn der angegebene Spieler nicht online ist
-    nopermission: Du hast nicht die Berechtigung dies zu tun. #Keine Rechte
-    toomanyarguments: Zu viele Argumente. #Mehr als angegebene Argumente
-    invalidcustomlanguage: Ungueltige Standardsprache ('_language') fuer den Spieler _player. Standardsprache wird stattdessen verwendet. #Spracheinstellung zum Umstellen von der Sprachdateien
-    invalidarguments: Ungueltige Argumente. #Argument existiert nicht?
-    invalidcommand: Ungueltiger Befehl. #Befehl existiert nicht?
-    noconsole: Die Konsole darf diesen Befehl nicht nutzen. #Konsole darf nicht alles
-    missingarguments: Bitte gib passende Argumente an! #Falsche Reihenfolge von Argumenten? Statt Zahlen Text eingegeben zb.
-    couldnotcreatefile: Die Datei konnte nicht erstellt werden! #Erstellen von Userfiles oder settings als .yml oder .json
-    notimplementedyet: Dieser Befehl existiert noch nicht. #Falls es Befehle gibt die noch nicht geschrieben wurden sind.
-    bukkitversion: 'Die aktuelle Bukkitversion: _bukkitver.' #Zeigt aktuelle Version vom Server an
-    commands_blocked: 'Der Befehl "_var" wurde geblockt.'
+  missing_playername: Du musst einen Spieler angeben. #Fehlender Spielername eines Befehles
+  playerunknown: Dieser Spieler existiert nicht. #Nicht existenter Spieler.
+  playernotfound: Dieser Spieler wurde nicht gefunden. #Falsch geschriebener Name
+  playernotonline: Dieser Spieler ist nicht online. #Wenn der angegebene Spieler nicht online ist
+  nopermission: Du hast nicht die Berechtigung dies zu tun. #Keine Rechte
+  toomanyarguments: Zu viele Argumente. #Mehr als angegebene Argumente
+  invalidcustomlanguage: Ungueltige Standardsprache ('_language') fuer den Spieler _player. Standardsprache wird stattdessen verwendet. #Spracheinstellung zum Umstellen von der Sprachdateien
+  invalidarguments: Ungueltige Argumente. #Argument existiert nicht?
+  invalidcommand: Ungueltiger Befehl. #Befehl existiert nicht?
+  noconsole: Die Konsole darf diesen Befehl nicht nutzen. #Konsole darf nicht alles
+  missingarguments: Bitte gib passende Argumente an! #Falsche Reihenfolge von Argumenten? Statt Zahlen Text eingegeben zb.
+  couldnotcreatefile: Die Datei konnte nicht erstellt werden! #Erstellen von Userfiles oder settings als .yml oder .json
+  notimplementedyet: Dieser Befehl existiert noch nicht. #Falls es Befehle gibt die noch nicht geschrieben wurden sind.
+  bukkitversion: 'Die aktuelle Bukkitversion: _bukkitver.' #Zeigt aktuelle Version vom Server an
+  commands_blocked: 'Der Befehl "_var" wurde geblockt.'
+  component:
+    set: Click on me to set a default home at your location!
+    remove: Click on me to remove your default home!
+    rtp: I will show you how to write it!
+    admin: It will show you administrative commands!
 event:
   welcome: _var hat den Server betreten! #Kommt auf, sobald ein Spieler den Server betritt
   quit: _var hat den Server verlassen! #Kommt auf, sobald ein Spieler den Server verlaesst
