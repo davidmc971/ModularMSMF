@@ -1,7 +1,7 @@
 language:
   id: en_US
   name: English
-general:
+general: #PLEASE NEVER EDIT THIS LINE
     missing_playername: You have to specify a player.
     playerunknown: This player has never been online before.
     playernotfound: This player was not found.
@@ -17,92 +17,97 @@ general:
     notimplementedyet: This command has not been implemented yet.
     bukkitversion: 'The actual Bukkit version: _bukkitver'
     commands_blocked: 'The command "_var" has been blocked.'
-    component:
+    component: #PLEASE NEVER EDIT THIS LINE
       set: Click on me to set a default home at your location!
       remove: Click on me to remove your default home!
       rtp: I will show you how to write it!
       admin: It will show you administrative commands!
-event:
+event: #PLEASE NEVER EDIT THIS LINE
   welcome: _var has joned the Server!
   quit: _var has left the Server!
   killed_player: _var's life has been taken away.
   suicide: _var committed suicide.
   homocide: Everyone got killed in a brutal homocide! What a sad occurrence.
   banned: You got banned.
-commands:
-  slaughter:
+commands: #PLEASE NEVER EDIT THIS LINE
+  slaughter: #PLEASE NEVER EDIT THIS LINE
     success: All mobs have been killed around your sight.
-  ban:
+  ban: #PLEASE NEVER EDIT THIS LINE
     defaultbanreason: You have been banned!
     alreadybanned: This player is already banned.
     playerbanned: 'Player _player has been banned. Reason: _reason'
     youwerebanned: 'Banned. Reason: _reason'
-  unban:
+  unban: #PLEASE NEVER EDIT THIS LINE
     notbanned: This player is not banned.
     playerunbanned: You have unbanned _player.
     unbanuuid: You have unbanned _player using UUID.
     playernotfounduuid: The player with this UUID was not found.
-  kick:
+  banip:
+    missingname: You have to specify a playername!
+    help: #PLEASE NEVER EDIT THIS LINE
+      banip: You can specify an IP-Adress to ban. #PLEASE NEVER EDIT THIS LINE
+      name: You can specify a player's name to ban it's IP-Adress. #PLEASE NEVER EDIT THIS LINE
+  kick: #PLEASE NEVER EDIT THIS LINE
     defaultkickreason: You were kicked from the server!
     seekickedall: _player has been kicked from the Server!
     seekickedallreason: '_player has been kicked of the following reason: _reason'
-  language:
+  language: #PLEASE NEVER EDIT THIS LINE
     commandnotforconsole: This command is not available for console.
     activelanguage: 'Your active language: _language'
     availablelanguages: 'Available languages: _var'
     setsuccessplayer: Your language has been saved successfully.
     notvalid: This is not a valid language.
     setsuccessconsole: The standard language was changed successfully.
-    help:
+    help: #PLEASE NEVER EDIT THIS LINE
       help: This show's the help of language commands.
       list: List's all available languages.
       get: Show's the language another user is using.
       set: Set's your default language.
-  money:
+  money: #PLEASE NEVER EDIT THIS LINE
     missingamountandplayer: Please specify an amount and a player!
     missingamount: Please specify an amount!
     amountonly: This should be a number!
     invalidpayment: You cannot specify a negative amount!
     nomoneyleft: You would run into debt!
-  feed:
+  feed: #PLEASE NEVER EDIT THIS LINE
     feeded: You have satisfied yourself!
     othersfeeded: _sender has satisfied you!
     feededperson: You satisfied _player!
-    others:
+    others: #PLEASE NEVER EDIT THIS LINE
       console: Console can only feed others.
-  heal:
+  heal: #PLEASE NEVER EDIT THIS LINE
     healself: You healed yorself!
     healother: You healed _player!
     gothealed: You were healed by _sender!
-  spawn:
+  spawn: #PLEASE NEVER EDIT THIS LINE
     nospawnset: No spawn has been set.
     spawnset: Spawn has been set!
     spawned: You were spawned!
-  report:
+  report: #PLEASE NEVER EDIT THIS LINE
     repplayeradmin: Cannot report an Admin!
     repplayersuccess: _player has been reported successfully!
     repnodesc: Please write down the description!
     rep: Thanks for your report! We will take action about this. 
     repmissingcmd: Please write down the right report-level!
-  mmsmf:
+  mmsmf: #PLEASE NEVER EDIT THIS LINE
     reportsuccessful:
     reportfailure:
-    discord:
+    discord: #PLEASE NEVER EDIT THIS LINE
       discordsetup: It will show you if an link is set up.
       link: 'Your invite to discord: _link'
       linkmissing: There is no existing link for a Discord server.
-    teamspeak:
+    teamspeak: #PLEASE NEVER EDIT THIS LINE
       teamspeaksetup: It will show you if an IP is set up.
       ip: 'Your IP adress to join: _ip'
       ipmissing: There is no existing IP for a Teamspeak server.
     info: Click here to display info about this plugin.
     report: Help for the reporting system.
-  eco:
-    balance:
+  eco: #PLEASE NEVER EDIT THIS LINE
+    balance: #PLEASE NEVER EDIT THIS LINE
       self: Your balance is _value.
       other: _target's balance is _value.
-    set:
-      self:
+    set: #PLEASE NEVER EDIT THIS LINE
+      self: #PLEASE NEVER EDIT THIS LINE
         full: Your balance has been changed from _value_old to _value_new.
         new: Your new balance is _value.
         old: Your old balance was _value.
@@ -111,7 +116,7 @@ commands:
         new: _target's new balance is _value.
         old: _target's old balance was _value.
       notify: _sender has changed your balance from _value_old to _value_new.
-    error: 
+    error:  #PLEASE NEVER EDIT THIS LINE
       syntax: wrong syntax #TODO: missing amount and player, etc.
       console: "Console has no money :P"
     reset: Your balance has been reset.
@@ -125,23 +130,23 @@ commands:
     paytoothers:
     payfromothers:
     nodebt:
-  teleport:
+  teleport: #PLEASE NEVER EDIT THIS LINE
     success: You teleported to _target!
-  home:
+  home: #PLEASE NEVER EDIT THIS LINE
     invalidargument: Please do "/home help" for more information!
-    help:
+    help: #PLEASE NEVER EDIT THIS LINE
       set: 'How to use the set command:'
       remove: 'How to use the remove command:'
       rtp: Requests teleport to player's home.
       admin: 'Use for administrative home-rights:'
     notset: Your home has not been set yet.
     list: 'Your homes: _list'
-    rtp:
+    rtp: #PLEASE NEVER EDIT THIS LINE
       noargument: You should specify a player.
-  back:
+  back: #PLEASE NEVER EDIT THIS LINE
     success: You got teleported to your last place!
     error: There is no way to get back.
-  clear:
+  clear: #PLEASE NEVER EDIT THIS LINE
     done: Successfully cleared the Chat!
     target: Cleared _target's Chat!
     gotcleared: Your chat got cleared!

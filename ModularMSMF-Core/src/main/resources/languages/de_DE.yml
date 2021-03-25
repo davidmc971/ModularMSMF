@@ -1,7 +1,7 @@
 language:
   id: de_DE
   name: Deutsch
-general: #Hauptsaechliche Strings fuer den Allgemeingebrauch
+general: #Hauptsaechliche Strings fuer den Allgemeingebrauch #BITTE UNTER KEINEN UMSTÄNDEN DIESE LINE BEARBEITEN
     missing_playername: Du musst einen Spieler angeben. #Fehlender Spielername eines Befehles
     playerunknown: Dieser Spieler existiert nicht. #Nicht existenter Spieler.
     playernotfound: Dieser Spieler wurde nicht gefunden. #Falsch geschriebener Name
@@ -17,22 +17,22 @@ general: #Hauptsaechliche Strings fuer den Allgemeingebrauch
     notimplementedyet: Dieser Befehl existiert noch nicht. #Falls es Befehle gibt die noch nicht geschrieben wurden sind.
     bukkitversion: 'Die aktuelle Bukkitversion: _bukkitver.' #Zeigt aktuelle Version vom Server an
     commands_blocked: 'Der Befehl "_var" wurde geblockt.'
-    component:
+    component: #BITTE UNTER KEINEN UMSTÄNDEN DIESE LINE BEARBEITEN
       set: Klick mich an um dein Home zu setzen!
       remove: Klick mich an um dein Home zu loeschen!
       rtp: Ich zeig dir wie man das schreibt!
       admin: Das zeigt dir alle administrativen Befehle an!
-event:
+event: #BITTE UNTER KEINEN UMSTÄNDEN DIESE LINE BEARBEITEN
   welcome: _var hat den Server betreten! #Kommt auf, sobald ein Spieler den Server betritt
   quit: _var hat den Server verlassen! #Kommt auf, sobald ein Spieler den Server verlaesst
   killed_player: _var's Leben wurde genommen. #Jemand hat jemandes Leben genommen
   suicide: _var hat Suizid begangen. #Selbsterklärend
   homocide: Alle Spieler wurden in einem brutalen Homozid niedergemetzelt! #Alle spieler wurden getoetet
   banned: Du wurdest gebannt. #Gebannter Spieler, bekommt diese Nachricht, sobald dieser versucht zu joinen
-commands: #Befehle
+commands: #Befehle #BITTE UNTER KEINEN UMSTÄNDEN DIESE LINE BEARBEITEN
   slaughter:
     success: Alle Mobs in deiner Naehe wurden getoetet. #Signal fuer 
-  ban: #Bannbefehl
+  ban: #Bannbefehl #BITTE UNTER KEINEN UMSTÄNDEN DIESE LINE BEARBEITEN
     defaultbanreason: Du wurdest gebannt! #Spieler wurde mit einem Standartgrund gebannt
     alreadybanned: Dieser Spieler ist schon gebannt. #Spieler wurde schon gebannt
     playerbanned: 'Spieler _player wurde gebannt. Grund: _reason' #Spieler wurde mit einem Grund gebannt
@@ -42,76 +42,81 @@ commands: #Befehle
     playerunbanned: Du hast _player entbannt. #Spieler wurde entbannt
     unbanuuid: Du hast _player per UUID entbannt! #Spieler wurde per UUID entbannt
     playernotfounduuid: Der Spieler mit dieser UUID wurde nicht gefunden. #Anzeigename hat nicht die gleiche UUID
-  kick: #Kickbefehl
+  banip: #BITTE UNTER KEINEN UMSTÄNDEN DIESE LINE BEARBEITEN
+    missingname: Du musst einen Spielernamen angeben!
+    help: #BITTE UNTER KEINEN UMSTÄNDEN DIESE LINE BEARBEITEN
+      banip: Du gibst eine IP-Adresse an, um diese zu bannen. #BITTE UNTER KEINEN UMSTÄNDEN DIESE LINE BEARBEITEN
+      name: Du kannst auch einen Namen angeben, um dessen IP-Adresse zu bannen. #BITTE UNTER KEINEN UMSTÄNDEN DIESE LINE BEARBEITEN
+  kick: #Kickbefehl #BITTE UNTER KEINEN UMSTÄNDEN DIESE LINE BEARBEITEN
     defaultkickreason: Du wurdest vom Server gekickt! #Spieler wurde mit einem Standartgrund gekickt
     seekickedall: _player wurde vom Server gekickt! #Anzeigen, dass ein Spieler gekickt wurde
     seekickedallreason: '_player wurde aus folgendem Grund gekickt: _reason' #Anzeigen, dass ein Spieler mit einem Grund gekickt wurde
-  language: #�bersetzungsbefehl
+  language: #�bersetzungsbefehl #BITTE UNTER KEINEN UMSTÄNDEN DIESE LINE BEARBEITEN
     commandnotforconsole: Dieser Befehl ist nicht gueltig fuer die Konsole. #Console darf keine ausgewählten Befehle verwenden.
     activelanguage: 'Deine aktuelle Sprache: _language' #Welche uebersetzung eingestellt wurde
     availablelanguages: 'Verfuegbare Sprachen: _var' #Welche uebersetzungen existieren
     setsuccessplayer: Deine Sprache wurde erfolgreich geaendert. #Anzeige, dass die uebersetzung erfolgreich uebernommen wurde
     notvalid: Das ist keine gueltige Sprache. #Anzeigen, dass das Argument bzw. die uebersetzung nicht existiert
     setsuccessconsole: Die Standardsprache wurde erfolgreich geaendert. #Zeigt an, dass die Standartuebersetzung geaendert wurde
-    help:
+    help: #BITTE UNTER KEINEN UMSTÄNDEN DIESE LINE BEARBEITEN
       help: Zeigt dir die Hilfe des Sprache Befehls.
       list: Listet dir die Sprachen auf, die existieren.
       get: Zeigt dir die Sprache eines anderen Spielers an.
       set: Setzt deine Sprache in eine andere Sprache.
-  money: #Geldbefehl
+  money: #Geldbefehl #BITTE UNTER KEINEN UMSTÄNDEN DIESE LINE BEARBEITEN
     missingamountandplayer: Bitte gib einen Betrag sowie einen Spieler an! #Fehlender Betrag sowie Spieler
     missingamount: Bitte gib noch einen Betrag an! #Fehlender Betrag
     amountonly: Bitte gib eine Zahl an! #Falscher Argument wenn Text statt Zahl angegeben wird
     invalidpayment: Du darfst keine Minusbetraege angeben! #Es ist im Allgemeinen nicht gestattet, Minusbetraege anzugeben
     nomoneyleft: Du wuerdest dich verschulden! #ueber den Wert, den man tatsaechlich besitzt, kann man nicht uebersteigen
-  feed: #S�ttigungsbefehl
+  feed: #S�ttigungsbefehl #BITTE UNTER KEINEN UMSTÄNDEN DIESE LINE BEARBEITEN
     feeded: Du hast dich gesaettigt! #Du hast dich selbst gesaettigt
     othersfeeded: _sender hat dich gesaettigt! #Jemandes hat dich gesaettigt
     feededperson: Du hast _player gesaettigt! #Du hast jemandes gesaettigt
-    others:
+    others: #BITTE UNTER KEINEN UMSTÄNDEN DIESE LINE BEARBEITEN
       console: Die Konsole darf nur andere fuettern.
-  heal: #Heilungsbefehl
+  heal: #Heilungsbefehl #BITTE UNTER KEINEN UMSTÄNDEN DIESE LINE BEARBEITEN
     healself: Du hast dich selbst geheilt! #Du hast dich selbst geheilt
     healother: Du hast _player geheilt! #Du hast jemandes geheilt
     gothealed: Du wurdest von _sender geheilt! #Du wurdest von jemandes geheilt
-  spawn: #Spawnbefehl
+  spawn: #Spawnbefehl #BITTE UNTER KEINEN UMSTÄNDEN DIESE LINE BEARBEITEN
     nospawnset: Es wurde kein Spawn gesetzt. #Kein Spawn gesetzt? Wird's Zeit
     spawnset: Der Spawn wurde gesetzt! #Spawn wurde gesetzt
     spawned: DU wurdest gespawnt! #Du hast dich zum gesetzten Spawn teleportiert
-  report: #Benarichtigungsbefehl
+  report: #Benarichtigungsbefehl #BITTE UNTER KEINEN UMSTÄNDEN DIESE LINE BEARBEITEN
     repplayeradmin: Du kannst keinen Admin melden! #Meldungen gegenueber Admins ist es regulaer nicht erlaubt, da diese sich um Faelle kuemmern
     repplayersuccess: _player wurde erfolgreich gemeldet! #Du hast jemandes gemeldet
     repnodesc: Bitte gib eine Beschreibung an! #Fehlende Beschreibung
     rep: Wir kuemmern uns um diese Angelegenheit! #Versicherung zum Fall
     repmissingcmd: Bitte gib das Report-Level an! #Es gibt bestimmte Report-level, an die man sich halten sollte
-  mmsmf:
+  mmsmf: #BITTE UNTER KEINEN UMSTÄNDEN DIESE LINE BEARBEITEN
     reportsuccessful:
     reportfailure:
-    discord:
+    discord: #BITTE UNTER KEINEN UMSTÄNDEN DIESE LINE BEARBEITEN
       discordsetup: Zeigt dir, ob ein Link gesetzt wurde.
       link: 'Der Link zum Server: _link'
       linkmissing: Es gibt zurzeit keinen Discord Server.
-    teamspeak:
+    teamspeak: #BITTE UNTER KEINEN UMSTÄNDEN DIESE LINE BEARBEITEN
       teamspeaksetup: Zeigt dir, ob eine IP gesetzt wurde.
       ip: 'Die IP zum joinen: _ip'
       ipmissing: Es gibt zurzeit keinen Teamspeak Server.
     info: Klick hier, um mehr Infos abzurufen.
     report: Hilfe fuer das Report-System.
-  eco:
-    balance:
+  eco: #BITTE UNTER KEINEN UMSTÄNDEN DIESE LINE BEARBEITEN
+    balance: #BITTE UNTER KEINEN UMSTÄNDEN DIESE LINE BEARBEITEN
       self: 'Kontostand: _value.'
       other: '_target dessen Kontostand: _value.'
-    set:
-      self:
+    set: #BITTE UNTER KEINEN UMSTÄNDEN DIESE LINE BEARBEITEN
+      self: #BITTE UNTER KEINEN UMSTÄNDEN DIESE LINE BEARBEITEN
         full: Kontostand hat sich von _value_old auf _value_new korrigiert.
         new: 'Neuer Kontostand: _value.'
         old: 'Alter Kontostand: _value.'
-      other:
+      other: #BITTE UNTER KEINEN UMSTÄNDEN DIESE LINE BEARBEITEN
         full: _target's balance has been changed from _value_old to _value_new.
         new: _target's new balance is _value.
         old: _target's old balance was _value.
       notify: _sender has changed your balance from _value_old to _value_new.
-    error: 
+    error:  #BITTE UNTER KEINEN UMSTÄNDEN DIESE LINE BEARBEITEN
       syntax: Falsche Syntax! #TODO: missing amount and player, etc.
       console: "Console has no money :P"
     reset: Your balance has been reset.
@@ -125,23 +130,23 @@ commands: #Befehle
     paytoothers:
     payfromothers:
     nodebt:
-  teleport:
+  teleport: #BITTE UNTER KEINEN UMSTÄNDEN DIESE LINE BEARBEITEN
     success: You teleported to _target!
-  home:
+  home: #BITTE UNTER KEINEN UMSTÄNDEN DIESE LINE BEARBEITEN
     invalidargument: Please do "/home help" for more information!
-    help:
+    help: #BITTE UNTER KEINEN UMSTÄNDEN DIESE LINE BEARBEITEN
       set: 'How to use the set command:'
       remove: 'How to use the remove command:'
       rtp: Requests teleport to player's home.
       admin: 'Use for administrative home-rights:'
     notset: Your home has not been set yet.
     list: 'Your homes: _list'
-    rtp:
+    rtp: #BITTE UNTER KEINEN UMSTÄNDEN DIESE LINE BEARBEITEN
       noargument: You should specify a player.
-  back:
+  back: #BITTE UNTER KEINEN UMSTÄNDEN DIESE LINE BEARBEITEN
     success: You got teleported to your last place!
     error: There is no way to get back.
-  clear:
-    done: Successfully cleared the Chat!
-    target: Cleared _target's Chat!
-    gotcleared: Your chat got cleared!
+  clear: #BITTE UNTER KEINEN UMSTÄNDEN DIESE LINE BEARBEITEN
+    done: Erfolgreich den Chat geleert!
+    target: _target's Chat geleert!
+    gotcleared: Dein Chat wurde geleert!
