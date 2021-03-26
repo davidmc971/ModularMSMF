@@ -4,7 +4,7 @@ import java.util.UUID;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import io.github.davidmc971.modularmsmf.ModularMSMFCore;
@@ -14,6 +14,10 @@ import io.github.davidmc971.modularmsmf.util.Utils;
 import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
 
 public class CommandFly implements IModularMSMFCommand {
+
+    /*
+    It needs to be toggleable in config to turn on and off fly
+    */
 
     private ModularMSMFCore plugin;
 
@@ -26,9 +30,10 @@ public class CommandFly implements IModularMSMFCommand {
             @NotNull String[] args) {
         UUID target = null;
         // checks if command sender is a player or console
-        if (sender instanceof ConsoleCommandSender) {
+        if (sender instanceof Player) {
             // checks if sender has permission
-            if (PermissionManager.checkPermission(sender, "commands.fly")) {
+            if (PermissionManager.checkPermission(sender, "fly")) {
+                Player p = (Player) sender;
                 // checks length of argument given
                 switch (args.length) {
                 // if 0, normally fly should be activated
@@ -36,11 +41,12 @@ public class CommandFly implements IModularMSMFCommand {
                     /*
                      * INSERT CODE HERE "code"
                      */
+
                     break;
                 // maybe someone else should get fly?
                 case 1:
                 //checks if you have permissions to give other players fly
-                    if (PermissionManager.checkPermission(sender, "commands.fly.others")) {
+                    if (PermissionManager.checkPermission(sender, "fly.others")) {
                         target = Utils.getPlayerUUIDByName(args[0]);
                         // checks if player (target) is online
                         if (target == null) {
