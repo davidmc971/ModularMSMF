@@ -28,6 +28,7 @@ public class PlayerManager {
 		temp.addDefaults(new LinkedHashMap<String, Object>() {
 			private static final long serialVersionUID = 1L;
 			{
+				put("player.ipAdress", "");
 				put("player.uuid", 0);
 				put("player.name", "");
 			}
@@ -99,7 +100,7 @@ public class PlayerManager {
 
 		for (UUID uuid : uuids) {
 			PlayerData data = new PlayerData(uuid,
-					plugin.getDataManager().loadCfg(playerDataPath.replace("_UUID", uuid.toString())));
+					plugin.getDataManager().loadCfg(playerDataPath.replace("_UUID", uuid.toString())), null);
 			data.getConfiguration().addDefaults(defaultConfig);
 			playerStorage.put(uuid, data);
 		}

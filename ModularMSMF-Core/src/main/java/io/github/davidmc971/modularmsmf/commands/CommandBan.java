@@ -1,6 +1,8 @@
 package io.github.davidmc971.modularmsmf.commands;
 
 import java.lang.annotation.Target;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
 
 /**
  * 
@@ -17,7 +19,9 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerEvent;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import io.github.davidmc971.modularmsmf.core.PermissionManager;
 import io.github.davidmc971.modularmsmf.ModularMSMFCore;
@@ -65,6 +69,7 @@ public class CommandBan implements IModularMSMFCommand {
 
 	private boolean banIpCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 		// TODO: code stuff in here for banip
+		FileConfiguration language = Utils.configureCommandLanguage(sender, plugin);
 		if (PermissionManager.checkPermission(sender, "banip")) {
 			switch (args.length){
 				case 0: //if no argument or playername has given, likely as "help"
@@ -72,10 +77,18 @@ public class CommandBan implements IModularMSMFCommand {
 					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO, "commands.banip.help.name");
 				break;
 				case 1: //if given playername
+					String reason = language.getString("event.banned");
 					UUID uuid = getPlayerUUIDByNameForBan(args[0]);
-					//only test if cmd works
 					if(uuid == null){
 					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "commands.banip.missingname");
+					} else {
+						if(plugin.getDataManager().getPlayerCfg(uuid).getBoolean("banned")){
+							Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "commands.ban.alreadybanned");
+							return true;
+						} else {
+							banPlayer(uuid, reason, language);
+							banPlayerIp(uuid, reason, language, ipAdress);
+						}
 					}
 				break;
 				default: //if too many arguments are given
@@ -137,9 +150,13 @@ public class CommandBan implements IModularMSMFCommand {
 	}
 
 	// bans an ip from a player
-	public void banPlayerIp(UUID uuid, String name, FileConfiguration language, String ipAdress) {
+	public void banPlayerIp(UUID uuid, String reason, FileConfiguration language, InetAddress playerIp) {
 		// TODO: need work on it
-
+		//Player ipAdress = ipAdress.getPlayer().getAddress();
+		FileConfiguration cfg = plugin.getDataManager().getPlayerCfg(uuid);
+		cfg.set("banned", true);
+		cfg.set("reason", reason);
+		cfg.set("ipAdress", playerIp);
 	}
 
 	// bans playername / uuid
