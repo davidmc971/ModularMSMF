@@ -7,8 +7,7 @@ import org.jetbrains.annotations.NotNull;
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
 import io.github.davidmc971.modularmsmf.core.PermissionManager;
-import io.github.davidmc971.modularmsmf.core.util.Utils;
-import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
+import net.kyori.adventure.text.Component;
 
 public class CommandNovaPerms implements IModularMSMFCommand {
 
@@ -17,50 +16,62 @@ public class CommandNovaPerms implements IModularMSMFCommand {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
             @NotNull String[] args) {
-        // TODO structure for using novaperms command
-        /*
-        TODO NovaPerms list ->
-                groups (list groups)
-                perms (for selecting group or player)
-                player (lists player in a group)
-            set ->
-                user (set permission node for specified player)
-                group (set a new group)
-            remove ->
-                user (remove permission node from specified player)
-                node (remove permission node from a group)
-                group (remove group)
-            add ->
-                node (adds a permission node to a group)
-                user (adds a permission node to specified user)
-        */
-        // checks if perms are set
-        if(PermissionManager.checkPermission(sender, "novaperms.use")){
-            //switch for subcommands
-            switch(args[0].toLowerCase()){
-                case "list":
-                //TODO list subcommand for groups or perms in a group or for a player
-                switch(args[0].toLowerCase()){
-                    default:
-                    //if any written stuff is not applicable to the cases below
-                        Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "novaperms.invalidargument");
-                    break;
-                    case "groups":
-                    //TODO list all groups
-                    break;
-                    
-                }
-            }
+        if (!PermissionManager.checkPermission(sender, "novaperms.use")) {
+            // TODO: allow a user to see their own info?
+            sender.sendMessage(Component.text("No permission."));
+            return true;
+        }
 
-        } else {
-            //TODO if no perms
+        for (String string : args) {
+            string = string.toLowerCase();
+        }
+        // switch for subcommands
+        switch (args[0]) {
+        case "groups":
+        case "g":
+            // list available groups
+            break;
+        case "inspect":
+        case "info":
+        case "i":
+            // inspect group or player to get detailed info
+            break;
+        case "assign":
+        case "add":
+        case "a":
+            // assign a player to a group
+            break;
+        case "permit":
+        case "allow":
+        case "p":
+            // permit a group or player for a specific permission
+            break;
+        case "create":
+        case "new":
+        case "c":
+            // create a new group
+            break;
+        case "prefix":
+            // set a group's prefix
+            break;
+        case "forbid":
+        case "remove":
+        case "rm":
+        case "r":
+            // remove a permission from a group or user
+            break;
+        case "delete":
+        case "del":
+        case "d":
+            // remove player from all groups or delete a group
+            break;
         }
         return false;
     }
 
     @Override
     public String[] getCommandLabels() {
-        return new String[]{ "novaperms", "nperms", "novap", "nope" };
+        return new String[] { "novaperms", "nperms", "novap", "nope", "np" };
     }
-    
+
 }
