@@ -1,8 +1,6 @@
 package io.github.davidmc971.modularmsmf.commands;
 
-import java.lang.annotation.Target;
 import java.net.InetAddress;
-import java.net.InetSocketAddress;
 
 /**
  * 
@@ -19,11 +17,9 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.event.player.PlayerEvent;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import io.github.davidmc971.modularmsmf.core.PermissionManager;
+import io.github.davidmc971.modularmsmf.data.PlayerData;
 import io.github.davidmc971.modularmsmf.ModularMSMFCore;
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.util.Utils;
@@ -79,6 +75,7 @@ public class CommandBan implements IModularMSMFCommand {
 				case 1: //if given playername
 					String reason = language.getString("event.banned");
 					UUID uuid = getPlayerUUIDByNameForBan(args[0]);
+					InetAddress ipAdress = PlayerData.getInetAddress();
 					if(uuid == null){
 					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "commands.banip.missingname");
 					} else {

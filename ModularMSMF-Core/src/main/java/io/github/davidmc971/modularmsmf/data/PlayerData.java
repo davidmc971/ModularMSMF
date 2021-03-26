@@ -16,12 +16,12 @@ import io.github.davidmc971.modularmsmf.api.IPlayerData;
 public class PlayerData implements IPlayerData {
 	private UUID uuid;
 	private FileConfiguration cfg;
-	private InetAddress playerIp;
+	private static InetAddress getInetAddress;
 	
 	public PlayerData(UUID uuid, FileConfiguration cfg, InetAddress playerIp) {
 		this.uuid = uuid;
 		this.cfg = cfg;
-		this.playerIp = playerIp;
+		PlayerData.getInetAddress = playerIp;
 	}
 	
 	public UUID getUUID() { return uuid; }
@@ -62,8 +62,12 @@ public class PlayerData implements IPlayerData {
 		return cfg;
 	}
 
+	public static InetAddress getInetAddress() {
+		return getInetAddress;
+	}
+
 	@Override
 	public InetAddress IPAdress() {
-		return playerIp;
+		return null;
 	}
 }
