@@ -1,0 +1,79 @@
+package io.github.davidmc971.modularmsmf.commands;
+
+import java.util.UUID;
+
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
+import org.jetbrains.annotations.NotNull;
+
+import io.github.davidmc971.modularmsmf.ModularMSMFCore;
+import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
+import io.github.davidmc971.modularmsmf.core.PermissionManager;
+import io.github.davidmc971.modularmsmf.util.Utils;
+import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
+
+public class CommandFly implements IModularMSMFCommand {
+
+    private ModularMSMFCore plugin;
+
+    public CommandFly() {
+        plugin = ModularMSMFCore.Instance();
+    }
+
+    @Override
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
+            @NotNull String[] args) {
+        UUID target = null;
+        // checks if command sender is a player or console
+        if (sender instanceof ConsoleCommandSender) {
+            // checks if sender has permission
+            if (PermissionManager.checkPermission(sender, "commands.fly")) {
+                // checks length of argument given
+                switch (args.length) {
+                // if 0, normally fly should be activated
+                case 0:
+                    /*
+                     * INSERT CODE HERE "code"
+                     */
+                    break;
+                // maybe someone else should get fly?
+                case 1:
+                //checks if you have permissions to give other players fly
+                    if (PermissionManager.checkPermission(sender, "commands.fly.others")) {
+                        target = Utils.getPlayerUUIDByName(args[0]);
+                        // checks if player (target) is online
+                        if (target == null) {
+                            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+                                    "general.playernotfound");
+                        } else {
+                            /*
+                             * INSERT CODE HERE "code"
+                             */
+                        }
+                    } else {
+                        Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
+                    }
+                    break;
+                default:
+                    Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+                            "general.toomanyarguments");
+                    break;
+                }
+            } else {
+                // denies if sender has no permission
+                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
+            }
+        } else {
+            // denies if command sender is console
+            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "general.noconsole");
+        }
+        return true;
+    }
+
+    @Override
+    public String[] getCommandLabels() {
+        return new String[] { "fly" };
+    }
+
+}
