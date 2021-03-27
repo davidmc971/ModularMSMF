@@ -82,7 +82,7 @@ commands: #Befehle #BITTE UNTER KEINEN UMSTÄNDEN DIESE LINE BEARBEITEN
   spawn: #Spawnbefehl #BITTE UNTER KEINEN UMSTÄNDEN DIESE LINE BEARBEITEN
     nospawnset: Es wurde kein Spawn gesetzt. #Kein Spawn gesetzt? Wird's Zeit
     spawnset: Der Spawn wurde gesetzt! #Spawn wurde gesetzt
-    spawned: DU wurdest gespawnt! #Du hast dich zum gesetzten Spawn teleportiert
+    spawned: Du wurdest gespawnt! #Du hast dich zum gesetzten Spawn teleportiert
   report: #Benarichtigungsbefehl #BITTE UNTER KEINEN UMSTÄNDEN DIESE LINE BEARBEITEN
     repplayeradmin: Du kannst keinen Admin melden! #Meldungen gegenueber Admins ist es regulaer nicht erlaubt, da diese sich um Faelle kuemmern
     repplayersuccess: _player wurde erfolgreich gemeldet! #Du hast jemandes gemeldet
