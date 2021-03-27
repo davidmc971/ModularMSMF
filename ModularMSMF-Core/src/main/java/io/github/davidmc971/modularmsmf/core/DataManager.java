@@ -12,7 +12,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChunkSnapshot;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -21,6 +23,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import io.github.davidmc971.modularmsmf.ModularMSMFCore;
 import io.github.davidmc971.modularmsmf.configuration.AbstractConfigurationLoader;
@@ -208,6 +212,7 @@ public class DataManager implements Listener {
 	}
 
 	private void initDefaultSettings() {
+	//String worldname = World.getName();
 		defaultSettings.clear();
 		defaultSettings.put("economy.money", 0.0d);
 		defaultSettings.put("teamspeakIP", "");
@@ -217,6 +222,12 @@ public class DataManager implements Listener {
 		defaultSettings.put("chat.colors.displayname", "9");
 		defaultSettings.put("chat.colors.message", "f");
 		defaultSettings.put("chat.format", "_clpre<_clname_name_clpre> _clmessage_message");
+		defaultSettings.put("Worldspawn.X", "");
+		defaultSettings.put("Worldspawn.Y", "");
+		defaultSettings.put("Worldspawn.Z", "");
+		defaultSettings.put("Worldspawn.Yaw", "");
+		defaultSettings.put("Worldspawn.Pitch", "");
+		defaultSettings.put("Worldspawn.Worldname", "");
 		for(Entry<String, Object> e : defaultSettings.entrySet()){
 			if(settingsyaml.get(e.getKey()) == null){
 				settingsyaml.set(e.getKey(), e.getValue());
