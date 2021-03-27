@@ -9,8 +9,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.player.PlayerLoginEvent;
 
 import io.github.davidmc971.modularmsmf.ModularMSMFCore;
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
@@ -19,9 +17,7 @@ import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
 import io.github.davidmc971.modularmsmf.util.Utils;
 
 /**
- * 
- * @authors davidmc971
- * 
+ * @authors Lightkeks
  */
 
 public class CommandSetSpawn implements IModularMSMFCommand {
@@ -34,14 +30,10 @@ public class CommandSetSpawn implements IModularMSMFCommand {
 
 	private File file = new File("plugins/ModularMSMF/settings.yml");
 	private YamlConfiguration cfg = YamlConfiguration.loadConfiguration(file);
-/*
-	@EventHandler
-	void onLogin(PlayerLoginEvent lEvent) {
-		
-	}
-*/
+
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+		//
 		Player p = (Player) sender;
 		Location loc = p.getLocation();
 		double x = loc.getX();
