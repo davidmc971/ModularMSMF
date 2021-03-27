@@ -34,16 +34,14 @@ public class CommandSetSpawn implements IModularMSMFCommand {
 
 	private File file = new File("plugins/ModularMSMF/settings.yml");
 	private YamlConfiguration cfg = YamlConfiguration.loadConfiguration(file);
-
+/*
 	@EventHandler
 	void onLogin(PlayerLoginEvent lEvent) {
 		
 	}
-
+*/
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-		//File file = new File("plugins/ModularMSMF/settings.yml");
-		//YamlConfiguration cfg = YamlConfiguration.loadConfiguration(file);
 		Player p = (Player) sender;
 		Location loc = p.getLocation();
 		double x = loc.getX();
@@ -56,13 +54,12 @@ public class CommandSetSpawn implements IModularMSMFCommand {
 		if (!file.exists()) {
 			try {
 				file.createNewFile();
-				//Location getSpawnLocation();
-				cfg.set("Worldspawn.X", x);
-				cfg.set("Worldspawn.Y", y);
-				cfg.set("Worldspawn.Z", z);
-				cfg.set("Worldspawn.Yaw", yaw);
-				cfg.set("Worldspawn.Pitch", pitch);
-				cfg.set("Worldspawn.Worldname", worldname);
+				cfg.set("worldspawn.coordinates.X", x);
+				cfg.set("worldspawn.coordinates.Y", y);
+				cfg.set("worldspawn.coordinates.Z", z);
+				cfg.set("worldspawn.coordinates.Yaw", yaw);
+				cfg.set("worldspawn.coordinates.Pitch", pitch);
+				cfg.set("worldspawn.world", worldname);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -73,12 +70,12 @@ public class CommandSetSpawn implements IModularMSMFCommand {
 						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE,
 								"general.noconsole");
 					} else {
-						cfg.set("X", x);
-						cfg.set("Y", y);
-						cfg.set("Z", z);
-						cfg.set("Yaw", yaw);
-						cfg.set("Pitch", pitch);
-						cfg.set("Worldname", worldname);
+						cfg.set("worldspawn.coordinates.X", x);
+						cfg.set("worldspawn.coordinates.Y", y);
+						cfg.set("worldspawn.coordinates.Z", z);
+						cfg.set("worldspawn.coordinates.Yaw", yaw);
+						cfg.set("worldspawn.coordinates.Pitch", pitch);
+						cfg.set("worldspawn.world", worldname);
 						try {
 							cfg.save(file);
 						} catch (IOException e) {

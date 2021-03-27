@@ -52,26 +52,30 @@ public class CommandSpawn implements IModularMSMFCommand {
 					Utils.sendMessageWithConfiguredLanguage(plugin, p, ChatFormat.SPAWN, "commands.spawn.nospawnset");
 				} else {
 					YamlConfiguration cfg = YamlConfiguration.loadConfiguration(file);
-					double x = cfg.getDouble("worldspawn.coordinates.X");
-					double y = cfg.getDouble("worldspawn.coordinates.Y");
-					double z = cfg.getDouble("worldspawn.coordinates.Z");
-					double yaw = cfg.getDouble("worldspawn.coordinates.Yaw");
-					double pitch = cfg.getDouble("worldspawn.coordinates.Pitch");
-					String worldname = cfg.getString("worldspawn.world");
+					if (cfg.get("worldspawn.world").toString().equals("")) {
+						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+								"commands.spawn.nospawnset");
+					} else {
+						// YamlConfiguration cfg = YamlConfiguration.loadConfiguration(file);
+						double x = cfg.getDouble("worldspawn.coordinates.X");
+						double y = cfg.getDouble("worldspawn.coordinates.Y");
+						double z = cfg.getDouble("worldspawn.coordinates.Z");
+						double yaw = cfg.getDouble("worldspawn.coordinates.Yaw");
+						double pitch = cfg.getDouble("worldspawn.coordinates.Pitch");
+						String worldname = cfg.getString("worldspawn.world");
+						World welt = Bukkit.getWorld(worldname);
+						Location loc = p.getLocation();
 
-					Location loc = p.getLocation();
+						loc.setX(x);
+						loc.setY(y);
+						loc.setZ(z);
+						loc.setYaw((float) yaw);
+						loc.setPitch((float) pitch);
+						loc.setWorld(welt);
 
-					loc.setX(x);
-					loc.setY(y);
-					loc.setZ(z);
-					loc.setYaw((float) yaw);
-					loc.setPitch((float) pitch);
-
-					World welt = Bukkit.getWorld(worldname);
-					loc.setWorld(welt);
-
-					p.teleport(loc);
-					Utils.sendMessageWithConfiguredLanguage(plugin, p, ChatFormat.SPAWN, "commands.spawn.spawned");
+						p.teleport(loc);
+						Utils.sendMessageWithConfiguredLanguage(plugin, p, ChatFormat.SPAWN, "commands.spawn.spawned");
+					}
 				}
 			}
 		}
