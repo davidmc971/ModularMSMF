@@ -100,8 +100,8 @@ public class ModularMSMFCore extends JavaPlugin {
 		
 		playerManager = new PlayerManager(this);
 
-		motd = new CommandMotd();
-		motd.load();
+		//motd = new CommandMotd();
+		//motd.load();
 
 		getLogger().info("Loading events...");
 		mainEvents = new Events(this);

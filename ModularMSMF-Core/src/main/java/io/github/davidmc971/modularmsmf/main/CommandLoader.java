@@ -99,7 +99,7 @@ public class CommandLoader {
 				new CommandLanguage(),
 				new CommandModularMSMF(),
 				new EconomySystem(),
-				new CommandMotd(),
+				//new CommandMotd(),
 				new CommandMute(),
 				new CommandPlayershell(),
 				//new CommandReport(),

@@ -222,12 +222,12 @@ public class DataManager implements Listener {
 		defaultSettings.put("chat.colors.displayname", "9");
 		defaultSettings.put("chat.colors.message", "f");
 		defaultSettings.put("chat.format", "_clpre<_clname_name_clpre> _clmessage_message");
-		defaultSettings.put("Worldspawn.X", "");
-		defaultSettings.put("Worldspawn.Y", "");
-		defaultSettings.put("Worldspawn.Z", "");
-		defaultSettings.put("Worldspawn.Yaw", "");
-		defaultSettings.put("Worldspawn.Pitch", "");
-		defaultSettings.put("Worldspawn.Worldname", "");
+		defaultSettings.put("worldspawn.coordinates.X", "");
+		defaultSettings.put("worldspawn.coordinates.Y", "");
+		defaultSettings.put("worldspawn.coordinates.Z", "");
+		defaultSettings.put("worldspawn.coordinates.Yaw", "");
+		defaultSettings.put("worldspawn.coordinates.Pitch", "");
+		defaultSettings.put("worldspawn.world", "");
 		for(Entry<String, Object> e : defaultSettings.entrySet()){
 			if(settingsyaml.get(e.getKey()) == null){
 				settingsyaml.set(e.getKey(), e.getValue());

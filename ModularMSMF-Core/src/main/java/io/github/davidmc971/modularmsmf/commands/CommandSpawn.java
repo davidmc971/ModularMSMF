@@ -52,12 +52,12 @@ public class CommandSpawn implements IModularMSMFCommand {
 					Utils.sendMessageWithConfiguredLanguage(plugin, p, ChatFormat.SPAWN, "commands.spawn.nospawnset");
 				} else {
 					YamlConfiguration cfg = YamlConfiguration.loadConfiguration(file);
-					double x = cfg.getDouble("Worldspawn.X");
-					double y = cfg.getDouble("Worldspawn.Y");
-					double z = cfg.getDouble("Worldspawn.Z");
-					double yaw = cfg.getDouble("Worldspawn.Yaw");
-					double pitch = cfg.getDouble("Worldspawn.Pitch");
-					String worldname = cfg.getString("Worldspawn.Worldname");
+					double x = cfg.getDouble("worldspawn.coordinates.X");
+					double y = cfg.getDouble("worldspawn.coordinates.Y");
+					double z = cfg.getDouble("worldspawn.coordinates.Z");
+					double yaw = cfg.getDouble("worldspawn.coordinates.Yaw");
+					double pitch = cfg.getDouble("worldspawn.coordinates.Pitch");
+					String worldname = cfg.getString("worldspawn.world");
 
 					Location loc = p.getLocation();
 
