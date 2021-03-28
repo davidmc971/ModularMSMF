@@ -56,6 +56,10 @@ public class CommandFly implements IModularMSMFCommand {
                             /*
                              * INSERT CODE HERE "code"
                              */
+                            
+                            //UUID target = null;
+                            target = Utils.getPlayerUUIDByName(args[0]);
+                            toggleFlight(target, toggleFlight(null, false));
                         }
                     } else {
                         Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
@@ -80,6 +84,10 @@ public class CommandFly implements IModularMSMFCommand {
     @Override
     public String[] getCommandLabels() {
         return new String[] { "fly" };
+    }
+
+    private boolean toggleFlight(UUID uuid, boolean isFlight){
+        return true;
     }
 
 }
