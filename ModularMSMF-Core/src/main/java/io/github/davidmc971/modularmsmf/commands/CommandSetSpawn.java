@@ -17,7 +17,7 @@ import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
 import io.github.davidmc971.modularmsmf.util.Utils;
 
 /**
- * @authors Lightkeks
+ * @authors Lightkeks, davidmc971
  */
 
 public class CommandSetSpawn implements IModularMSMFCommand {

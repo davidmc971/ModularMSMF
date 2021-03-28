@@ -19,7 +19,7 @@ import io.github.davidmc971.modularmsmf.util.Utils;
 
 /**
  * 
- * @author davidmc971
+ * @authors Lightkeks, davidmc971
  *
  */
 
