@@ -74,6 +74,9 @@ public class PermissionManager {
 		put("report_player", "modularmsmf.report.player");
 		put("report_bug", "modularmsmf.report.bug");
 		put("report_other", "modularmsmf.report.other");
+		//fly permissions
+		put("fly", "modularmsmf.fly");
+		put("fly.others", "modularmsmf.fly.others");
 	}};
 
 	public static boolean checkPermission(CommandSender sender, String permission) {

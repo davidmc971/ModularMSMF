@@ -108,8 +108,9 @@ public class CommandLoader {
 				new CommandSlaughter(),
 				new CommandSpawn(),
 				new CommandTeleport(),
-				new CommandClearChat()
-		}) {
+				new CommandClearChat(),
+				new CommandFly()
+			}) {
 			commandList.add(cmd);
 		}
 		
