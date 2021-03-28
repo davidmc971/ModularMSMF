@@ -2,8 +2,10 @@ package io.github.davidmc971.modularmsmf.commands;
 
 import java.util.UUID;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -16,10 +18,11 @@ import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
 public class CommandFly implements IModularMSMFCommand {
 
     /*
-    It needs to be toggleable in config to turn on and off fly
-    */
+     * It needs to be toggleable in config to turn on and off fly
+     */
 
     private ModularMSMFCore plugin;
+    private boolean isFlight;
 
     public CommandFly() {
         plugin = ModularMSMFCore.Instance();
@@ -45,7 +48,7 @@ public class CommandFly implements IModularMSMFCommand {
                     break;
                 // maybe someone else should get fly?
                 case 1:
-                //checks if you have permissions to give other players fly
+                    // checks if you have permissions to give other players fly
                     if (PermissionManager.checkPermission(sender, "fly.others")) {
                         target = Utils.getPlayerUUIDByName(args[0]);
                         // checks if player (target) is online
@@ -56,13 +59,14 @@ public class CommandFly implements IModularMSMFCommand {
                             /*
                              * INSERT CODE HERE "code"
                              */
-                            
-                            //UUID target = null;
+
+                            // UUID target = null;
                             target = Utils.getPlayerUUIDByName(args[0]);
-                            toggleFlight(target, toggleFlight(null, false));
+                            toggleFlight(target);
                         }
                     } else {
-                        Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
+                        Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM,
+                                "general.nopermission");
                     }
                     break;
                 default:
@@ -86,7 +90,19 @@ public class CommandFly implements IModularMSMFCommand {
         return new String[] { "fly" };
     }
 
-    private boolean toggleFlight(UUID uuid, boolean isFlight){
+    private boolean toggleFlight(UUID uuid) {
+        FileConfiguration cfg = plugin.getDataManager().getPlayerCfg(uuid);
+        Player player = Bukkit.getPlayer(uuid);
+        if (cfg.getBoolean("modes.flight")) {
+            // set allow flight to true for player
+            player.setAllowFlight(false);
+            cfg.set("modes.flight", false);
+        } else {
+            // set allow flight to false for player
+            player.setAllowFlight(true);
+            cfg.set("modes.flight", true);
+        }
+
         return true;
     }
 
