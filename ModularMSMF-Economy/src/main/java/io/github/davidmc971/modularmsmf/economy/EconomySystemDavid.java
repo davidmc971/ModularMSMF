@@ -1,4 +1,4 @@
-package io.github.davidmc971.modularmsmf.eco;
+package io.github.davidmc971.modularmsmf.economy;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;

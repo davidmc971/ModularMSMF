@@ -7,7 +7,6 @@ import com.google.common.reflect.ClassPath;
 
 import io.github.davidmc971.modularmsmf.commands.*;
 import io.github.davidmc971.modularmsmf.core.commands.*;
-import io.github.davidmc971.modularmsmf.eco.EconomySystem;
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 
 /**
@@ -98,7 +97,7 @@ public class CommandLoader {
 				new CommandKill(),
 				new CommandLanguage(),
 				new CommandModularMSMF(),
-				new EconomySystem(),
+				// new EconomySystem(),
 				new CommandMotd(),
 				new CommandMute(),
 				new CommandPlayershell(),

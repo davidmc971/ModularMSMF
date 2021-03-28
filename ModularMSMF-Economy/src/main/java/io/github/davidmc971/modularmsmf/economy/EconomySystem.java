@@ -1,4 +1,4 @@
-package io.github.davidmc971.modularmsmf.eco;
+package io.github.davidmc971.modularmsmf.economy;
 
 import java.util.Arrays;
 import java.util.UUID;

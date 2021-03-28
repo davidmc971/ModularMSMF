@@ -11,6 +11,7 @@ api: none
 
 main: io.github.davidmc971.modularmsmf.economy.ModularMSMFEconomy
 
+# This section should be initialized at runtime
 commands:
   money:
     description: Get balance
