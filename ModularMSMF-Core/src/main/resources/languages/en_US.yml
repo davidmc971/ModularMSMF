@@ -83,6 +83,7 @@ commands: #PLEASE NEVER EDIT THIS LINE
     nospawnset: No spawn has been set.
     spawnset: Spawn has been set!
     spawned: You were spawned!
+    others: You have spawned _player!
   report: #PLEASE NEVER EDIT THIS LINE
     repplayeradmin: Cannot report an Admin!
     repplayersuccess: _player has been reported successfully!

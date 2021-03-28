@@ -81,7 +81,7 @@ public class CommandSpawn implements IModularMSMFCommand {
 					}
 				}
 			}
-			if(args.length == 1){
+			if (args.length == 1) {
 				UUID target = null;
 				target = Utils.getPlayerUUIDByName(args[0]);
 				if (target == null) {
@@ -115,6 +115,8 @@ public class CommandSpawn implements IModularMSMFCommand {
 								p.teleport(loc);
 								Utils.sendMessageWithConfiguredLanguage(plugin, p, ChatFormat.SPAWN,
 										"commands.spawn.spawned");
+								Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
+										"commands.spawn.others", "_player", args[0]);
 							}
 						}
 					}
