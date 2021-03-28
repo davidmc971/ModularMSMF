@@ -16,7 +16,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
-import io.github.davidmc971.modularmsmf.commands.*;
+//import io.github.davidmc971.modularmsmf.commands.*;
 import io.github.davidmc971.modularmsmf.configuration.AbstractConfigurationLoader;
 import io.github.davidmc971.modularmsmf.configuration.JSONConfigurationLoader;
 import io.github.davidmc971.modularmsmf.configuration.YamlConfigurationLoader;
@@ -67,7 +67,7 @@ public class ModularMSMFCore extends JavaPlugin {
 	private PlayerManager playerManager;
 	
 
-	private CommandMotd motd;
+	//private CommandMotd motd;
 
 	public final boolean debug = true;
 	private String debugTimestamp = "";
