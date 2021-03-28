@@ -32,19 +32,26 @@ public class CommandSpawn implements IModularMSMFCommand {
 		plugin = ModularMSMFCore.Instance();
 	}
 
-	/**
-	 * @TODO: Complete rewrite
-	 */
-
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+
+		String empty = "";
+
 		File file = new File("plugins/ModularMSMF/settings.yml");
 		YamlConfiguration cfg = YamlConfiguration.loadConfiguration(file);
-		// Have to figure out, if no config is set, error line should pop up
-		if (sender instanceof ConsoleCommandSender) {
-			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "general.noconsole");
-		} else {
-			if (args.length == 0) {
+
+		double x = cfg.getDouble("worldspawn.coordinates.X");
+		double y = cfg.getDouble("worldspawn.coordinates.Y");
+		double z = cfg.getDouble("worldspawn.coordinates.Z");
+		double yaw = cfg.getDouble("worldspawn.coordinates.Yaw");
+		double pitch = cfg.getDouble("worldspawn.coordinates.Pitch");
+		String worldname = cfg.getString("worldspawn.world");
+
+		switch (args.length) {
+		case 0:
+			if (sender instanceof ConsoleCommandSender) {
+				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "general.noconsole");
+			} else {
 				Player p = (Player) sender;
 				if (!(PermissionManager.checkPermission(sender, "spawn"))) {
 					Utils.sendMessageWithConfiguredLanguage(plugin, p, ChatFormat.SPAWN, "general.nopermission");
@@ -57,23 +64,14 @@ public class CommandSpawn implements IModularMSMFCommand {
 							Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
 									"commands.spawn.nospawnset");
 						} else {
-							// YamlConfiguration cfg = YamlConfiguration.loadConfiguration(file);
-							double x = cfg.getDouble("worldspawn.coordinates.X");
-							double y = cfg.getDouble("worldspawn.coordinates.Y");
-							double z = cfg.getDouble("worldspawn.coordinates.Z");
-							double yaw = cfg.getDouble("worldspawn.coordinates.Yaw");
-							double pitch = cfg.getDouble("worldspawn.coordinates.Pitch");
-							String worldname = cfg.getString("worldspawn.world");
 							World welt = Bukkit.getWorld(worldname);
 							Location loc = p.getLocation();
-
 							loc.setX(x);
 							loc.setY(y);
 							loc.setZ(z);
 							loc.setYaw((float) yaw);
 							loc.setPitch((float) pitch);
 							loc.setWorld(welt);
-
 							p.teleport(loc);
 							Utils.sendMessageWithConfiguredLanguage(plugin, p, ChatFormat.SPAWN,
 									"commands.spawn.spawned");
@@ -81,7 +79,22 @@ public class CommandSpawn implements IModularMSMFCommand {
 					}
 				}
 			}
-			if (args.length == 1) {
+			break;
+		case 1:
+			if (args[0].equalsIgnoreCase("remove")) {
+				if (!cfg.get("worldspawn.world").toString().equals("")) {
+					cfg.set("worldspawn.coordinates.X", empty);
+					cfg.set("worldspawn.coordinates.Y", empty);
+					cfg.set("worldspawn.coordinates.Z", empty);
+					cfg.set("worldspawn.coordinates.Yaw", empty);
+					cfg.set("worldspawn.coordinates.Pitch", empty);
+					cfg.set("worldspawn.world", worldname);
+					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
+							"commands.spawn.removed");
+				} else {
+					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "commands.spawn.nospawnset");
+				}
+			} else {
 				UUID target = null;
 				target = Utils.getPlayerUUIDByName(args[0]);
 				if (target == null) {
@@ -96,22 +109,14 @@ public class CommandSpawn implements IModularMSMFCommand {
 									"commands.spawn.nospawnset");
 						} else {
 							for (Player p : Bukkit.getOnlinePlayers()) {
-								double x = cfg.getDouble("worldspawn.coordinates.X");
-								double y = cfg.getDouble("worldspawn.coordinates.Y");
-								double z = cfg.getDouble("worldspawn.coordinates.Z");
-								double yaw = cfg.getDouble("worldspawn.coordinates.Yaw");
-								double pitch = cfg.getDouble("worldspawn.coordinates.Pitch");
-								String worldname = cfg.getString("worldspawn.world");
 								World welt = Bukkit.getWorld(worldname);
 								Location loc = p.getLocation();
-
 								loc.setX(x);
 								loc.setY(y);
 								loc.setZ(z);
 								loc.setYaw((float) yaw);
 								loc.setPitch((float) pitch);
 								loc.setWorld(welt);
-
 								p.teleport(loc);
 								Utils.sendMessageWithConfiguredLanguage(plugin, p, ChatFormat.SPAWN,
 										"commands.spawn.spawned");
@@ -122,11 +127,20 @@ public class CommandSpawn implements IModularMSMFCommand {
 					}
 				}
 			}
-			if (args.length >= 2) {
-				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.toomanyarguments");
+			break;
+		default:
+			if (sender instanceof ConsoleCommandSender) {
+				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "general.noconsole");
+			} else {
+				if (args.length >= 2) {
+					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+							"general.toomanyarguments");
+				}
 			}
+			break;
 		}
 		return true;
+
 	}
 
 	@Override
