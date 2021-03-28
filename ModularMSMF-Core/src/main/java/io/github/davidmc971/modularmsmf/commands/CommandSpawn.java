@@ -9,6 +9,7 @@ import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
@@ -37,8 +38,7 @@ public class CommandSpawn implements IModularMSMFCommand {
 
 		String empty = "";
 
-		File file = new File("plugins/ModularMSMF/settings.yml");
-		YamlConfiguration cfg = YamlConfiguration.loadConfiguration(file);
+		FileConfiguration cfg = plugin.getDataManager().settingsyaml;
 
 		double x = cfg.getDouble("worldspawn.coordinates.X");
 		double y = cfg.getDouble("worldspawn.coordinates.Y");
@@ -56,7 +56,7 @@ public class CommandSpawn implements IModularMSMFCommand {
 				if (!(PermissionManager.checkPermission(sender, "spawn"))) {
 					Utils.sendMessageWithConfiguredLanguage(plugin, p, ChatFormat.SPAWN, "general.nopermission");
 				} else {
-					if (!file.exists()) {
+					if (!cfg.contains("worldspawn")) {
 						Utils.sendMessageWithConfiguredLanguage(plugin, p, ChatFormat.SPAWN,
 								"commands.spawn.nospawnset");
 					} else {
@@ -82,25 +82,26 @@ public class CommandSpawn implements IModularMSMFCommand {
 			break;
 		case 1:
 			if (args[0].equalsIgnoreCase("remove")) {
-				if (!cfg.get("worldspawn.world").toString().equals("")) {
-					cfg.set("worldspawn.coordinates.X", empty);
-					cfg.set("worldspawn.coordinates.Y", empty);
-					cfg.set("worldspawn.coordinates.Z", empty);
-					cfg.set("worldspawn.coordinates.Yaw", empty);
-					cfg.set("worldspawn.coordinates.Pitch", empty);
-					cfg.set("worldspawn.world", worldname);
+				cfg.set("worldspawn", null);
+				// if (!cfg.get("worldspawn.world").toString().equals("")) {
+				// 	cfg.set("worldspawn.coordinates.X", empty);
+				// 	cfg.set("worldspawn.coordinates.Y", empty);
+				// 	cfg.set("worldspawn.coordinates.Z", empty);
+				// 	cfg.set("worldspawn.coordinates.Yaw", empty);
+				// 	cfg.set("worldspawn.coordinates.Pitch", empty);
+				// 	cfg.set("worldspawn.world", worldname);
 					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
 							"commands.spawn.removed");
-				} else {
-					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "commands.spawn.nospawnset");
-				}
+				// } else {
+					// Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "commands.spawn.nospawnset");
+				// }
 			} else {
 				UUID target = null;
 				target = Utils.getPlayerUUIDByName(args[0]);
 				if (target == null) {
 					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.playernotfound");
 				} else {
-					if (!file.exists()) {
+					if (!cfg.contains("worldspawn")) {
 						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SPAWN,
 								"commands.spawn.nospawnset");
 					} else {

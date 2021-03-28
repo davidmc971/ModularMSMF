@@ -209,7 +209,7 @@ public class ModularMSMFCore extends JavaPlugin {
 	@Override
 	public void onDisable() {
 		if (debug) getLogger().info("--- onDisable() ---");
-		dataManager.saveAllUserdata();
+		dataManager.unload();
 		playerManager.saveAll();
 		this.getLogger().info("ModularMSMF has been disabled.");
 	}

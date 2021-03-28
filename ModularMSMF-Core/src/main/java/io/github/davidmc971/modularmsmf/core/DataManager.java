@@ -265,6 +265,15 @@ public class DataManager implements Listener {
 		
 		savePlayerCfg(cfg, uuid);
 	}
+
+	public void unload() {
+		saveAllUserdata();
+		try {
+			settingsyaml.save(pathMain + "settings.yml");
+		} catch (Exception e) {
+			//TODO: handle exception
+		}
+	}
 }
 
 /* penis
