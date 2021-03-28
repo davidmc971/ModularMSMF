@@ -1,5 +1,6 @@
 package io.github.davidmc971.modularmsmf.api;
 
+import java.net.InetAddress;
 import java.util.Date;
 import java.util.UUID;
 
@@ -14,6 +15,8 @@ import org.bukkit.configuration.Configuration;
  * @since 0.3.0
  */
 public interface IPlayerData {
+
+    public InetAddress IPAdress();
     /**
      * The current name of a player. Can change.
      * 

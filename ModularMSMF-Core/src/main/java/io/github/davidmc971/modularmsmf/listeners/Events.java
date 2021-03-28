@@ -87,11 +87,13 @@ public class Events implements Listener {
 	}
 
 	@EventHandler
-	public void onLogin(PlayerLoginEvent event) {
-		Player player = event.getPlayer();
-		FileConfiguration language = Utils.configureCommandLanguage(player, plugin);
+	public void onLogin(PlayerLoginEvent event, FileConfiguration language, UUID uuid) {
+		//Player player = event.getPlayer();
+		//FileConfiguration language = Utils.configureCommandLanguage(player, plugin);
+		FileConfiguration cfg = plugin.getDataManager().getPlayerCfg(uuid);
 		String reason = language.getString("event.banned");
-		FileConfiguration cfg = plugin.getDataManager().getPlayerCfg(player.getUniqueId());
+		//FileConfiguration cfg = plugin.getDataManager().getPlayerCfg(player.getUniqueId());
+		cfg.set("players.ipAddress", event.getAddress());
 		if (cfg.isBoolean("banned") && cfg.getBoolean("banned")) {
 			if (cfg.isString("reason")) {
 				event.disallow(Result.KICK_BANNED, cfg.getString("reason"));

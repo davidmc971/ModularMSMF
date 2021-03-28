@@ -1,5 +1,6 @@
 package io.github.davidmc971.modularmsmf.data;
 
+import java.net.InetAddress;
 import java.util.Date;
 import java.util.UUID;
 
@@ -15,10 +16,12 @@ import io.github.davidmc971.modularmsmf.api.IPlayerData;
 public class PlayerData implements IPlayerData {
 	private UUID uuid;
 	private FileConfiguration cfg;
+	private static InetAddress getInetAddress;
 	
-	public PlayerData(UUID uuid, FileConfiguration cfg) {
+	public PlayerData(UUID uuid, FileConfiguration cfg, InetAddress playerIp) {
 		this.uuid = uuid;
 		this.cfg = cfg;
+		PlayerData.getInetAddress = playerIp;
 	}
 	
 	public UUID getUUID() { return uuid; }
@@ -57,5 +60,14 @@ public class PlayerData implements IPlayerData {
 	@Override
 	public Configuration PlayerConfiguration() {
 		return cfg;
+	}
+
+	public static InetAddress getInetAddress() {
+		return getInetAddress;
+	}
+
+	@Override
+	public InetAddress IPAdress() {
+		return null;
 	}
 }
