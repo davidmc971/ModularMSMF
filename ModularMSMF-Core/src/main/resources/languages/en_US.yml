@@ -85,6 +85,7 @@ commands: #PLEASE NEVER EDIT THIS LINE
     spawned: You were spawned!
     others: You have spawned _player!
     removed: You have removed the spawnpoint!
+    alreadyremoved: Spawn doesn't exist!
   report: #PLEASE NEVER EDIT THIS LINE
     repplayeradmin: Cannot report an Admin!
     repplayersuccess: _player has been reported successfully!

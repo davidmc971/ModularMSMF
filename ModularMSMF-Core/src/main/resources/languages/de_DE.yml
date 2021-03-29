@@ -85,6 +85,7 @@ commands: #Befehle #BITTE UNTER KEINEN UMSTÄNDEN DIESE LINE BEARBEITEN
     spawned: Du wurdest gespawnt! #Du hast dich zum gesetzten Spawn teleportiert
     others: Du hast _player gespawnt!
     removed: Du hast den Spawnpunkt entfernt!
+    alreadyremoved: Der Spawnpunkt existiert nicht!
   report: #Benarichtigungsbefehl #BITTE UNTER KEINEN UMSTÄNDEN DIESE LINE BEARBEITEN
     repplayeradmin: Du kannst keinen Admin melden! #Meldungen gegenueber Admins ist es regulaer nicht erlaubt, da diese sich um Faelle kuemmern
     repplayersuccess: _player wurde erfolgreich gemeldet! #Du hast jemandes gemeldet

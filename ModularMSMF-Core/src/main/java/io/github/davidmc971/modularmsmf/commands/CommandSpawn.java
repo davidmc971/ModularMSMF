@@ -36,8 +36,6 @@ public class CommandSpawn implements IModularMSMFCommand {
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-		String empty = "";
-
 		FileConfiguration cfg = plugin.getDataManager().settingsyaml;
 
 		double x = cfg.getDouble("worldspawn.coordinates.X");
@@ -56,45 +54,35 @@ public class CommandSpawn implements IModularMSMFCommand {
 				if (!(PermissionManager.checkPermission(sender, "spawn"))) {
 					Utils.sendMessageWithConfiguredLanguage(plugin, p, ChatFormat.SPAWN, "general.nopermission");
 				} else {
-					if (!cfg.contains("worldspawn")) {
-						Utils.sendMessageWithConfiguredLanguage(plugin, p, ChatFormat.SPAWN,
+					if (cfg.get("worldspawn.isTrue").toString().equals("false")) {
+						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
 								"commands.spawn.nospawnset");
 					} else {
-						if (cfg.get("worldspawn.world").toString().equals("")) {
-							Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
-									"commands.spawn.nospawnset");
-						} else {
-							World welt = Bukkit.getWorld(worldname);
-							Location loc = p.getLocation();
-							loc.setX(x);
-							loc.setY(y);
-							loc.setZ(z);
-							loc.setYaw((float) yaw);
-							loc.setPitch((float) pitch);
-							loc.setWorld(welt);
-							p.teleport(loc);
-							Utils.sendMessageWithConfiguredLanguage(plugin, p, ChatFormat.SPAWN,
-									"commands.spawn.spawned");
-						}
+						World welt = Bukkit.getWorld(worldname);
+						Location loc = p.getLocation();
+						loc.setX(x);
+						loc.setY(y);
+						loc.setZ(z);
+						loc.setYaw((float) yaw);
+						loc.setPitch((float) pitch);
+						loc.setWorld(welt);
+						p.teleport(loc);
+						Utils.sendMessageWithConfiguredLanguage(plugin, p, ChatFormat.SPAWN, "commands.spawn.spawned");
 					}
 				}
 			}
 			break;
 		case 1:
 			if (args[0].equalsIgnoreCase("remove")) {
-				cfg.set("worldspawn", null);
-				// if (!cfg.get("worldspawn.world").toString().equals("")) {
-				// 	cfg.set("worldspawn.coordinates.X", empty);
-				// 	cfg.set("worldspawn.coordinates.Y", empty);
-				// 	cfg.set("worldspawn.coordinates.Z", empty);
-				// 	cfg.set("worldspawn.coordinates.Yaw", empty);
-				// 	cfg.set("worldspawn.coordinates.Pitch", empty);
-				// 	cfg.set("worldspawn.world", worldname);
+				if (cfg.get("worldspawn.isTrue").toString().equals("false")) {
+					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+							"commands.spawn.alreadyremoved");
+				} else {
+					cfg.set("worldspawn", null);
+					cfg.set("worldspawn.isTrue", "false");
 					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
 							"commands.spawn.removed");
-				// } else {
-					// Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "commands.spawn.nospawnset");
-				// }
+				}
 			} else {
 				UUID target = null;
 				target = Utils.getPlayerUUIDByName(args[0]);
