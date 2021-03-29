@@ -99,10 +99,12 @@ commands: #PLEASE NEVER EDIT THIS LINE
       discordsetup: It will show you if an link is set up.
       link: 'Your invite to discord: _link'
       linkmissing: There is no existing link for a Discord server.
+      click: It will show you the link!
     teamspeak: #PLEASE NEVER EDIT THIS LINE
       teamspeaksetup: It will show you if an IP is set up.
       ip: 'Your IP adress to join: _ip'
       ipmissing: There is no existing IP for a Teamspeak server.
+      click: It will show you the IP!
     info: Click here to display info about this plugin.
     report: Help for the reporting system.
   eco: #PLEASE NEVER EDIT THIS LINE
@@ -153,3 +155,12 @@ commands: #PLEASE NEVER EDIT THIS LINE
     done: Successfully cleared the Chat!
     target: Cleared _target's Chat!
     gotcleared: Your chat got cleared!
+#### Lang-files for Basics
+basics:
+  commands:
+    teleport:
+      others:
+        nooneonline: Neither _target1 nor _target2 is online!
+        target1: Only _target1 is online!
+        target2: Only _target2 is online!
+        toself: You may choose another person!

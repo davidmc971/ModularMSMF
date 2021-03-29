@@ -99,10 +99,12 @@ commands: #Befehle #BITTE UNTER KEINEN UMSTÄNDEN DIESE LINE BEARBEITEN
       discordsetup: Zeigt dir, ob ein Link gesetzt wurde.
       link: 'Der Link zum Server: _link'
       linkmissing: Es gibt zurzeit keinen Discord Server.
+      click: Laesst dir den Link anzeigen!
     teamspeak: #BITTE UNTER KEINEN UMSTÄNDEN DIESE LINE BEARBEITEN
       teamspeaksetup: Zeigt dir, ob eine IP gesetzt wurde.
       ip: 'Die IP zum joinen: _ip'
       ipmissing: Es gibt zurzeit keinen Teamspeak Server.
+      click: Laesst dir die IP anzeigen!
     info: Klick hier, um mehr Infos abzurufen.
     report: Hilfe fuer das Report-System.
   eco: #BITTE UNTER KEINEN UMSTÄNDEN DIESE LINE BEARBEITEN
@@ -153,3 +155,12 @@ commands: #Befehle #BITTE UNTER KEINEN UMSTÄNDEN DIESE LINE BEARBEITEN
     done: Erfolgreich den Chat geleert!
     target: _target's Chat geleert!
     gotcleared: Dein Chat wurde geleert!
+#### Lang-files for Basics
+basics:
+  commands:
+    teleport:
+      others:
+        nooneonline: Weder _target1 noch _target2 ist online!
+        target1: Nur _target1 ist online!
+        target2: Nur _target2 ist online!
+        toself: Du sollst einen anderen Spieler angeben!

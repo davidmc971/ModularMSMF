@@ -56,7 +56,7 @@ public class CommandModularMSMF implements IModularMSMFCommand {
 			if (PermissionManager.checkPermission(sender, "mmsmf")) {
 				if (args.length == 0) {
 					/**
-					 * TODO: changing server name as its own by new command, needs to be
+					 * TODO changing server name as its own by new command, needs to be
 					 * implemented.
 					 */
 					sender.sendMessage(infoPrefix + "Plugin enabled on: " + Bukkit.getName());
@@ -78,13 +78,13 @@ public class CommandModularMSMF implements IModularMSMFCommand {
 							.append(Component.text("teamspeak")
 									.color(TextColor.color(127, 127, 127))
 									.hoverEvent(net.kyori.adventure.text.event.HoverEvent
-											.showText(Component.text(language.getString("commands.mmsmf.teamspeak"))))
+											.showText(Component.text(language.getString("commands.mmsmf.teamspeak.click"))))
 									.clickEvent(net.kyori.adventure.text.event.ClickEvent.runCommand("/mmsmf teamspeak")))
 							.append(Component.text(" "))
 							.append(Component.text("discord")
 									.color(TextColor.color(127, 127, 255))
 									.hoverEvent(net.kyori.adventure.text.event.HoverEvent
-							.showText(Component.text(language.getString("commands.mmsmf.discord"))))
+							.showText(Component.text(language.getString("commands.mmsmf.discord.click"))))
 									.clickEvent(net.kyori.adventure.text.event.ClickEvent.runCommand("/mmsmf discord")));
 
 					sender.sendMessage(Identity.nil(), testComponent, MessageType.SYSTEM);
