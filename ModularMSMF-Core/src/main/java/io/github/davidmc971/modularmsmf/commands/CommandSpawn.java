@@ -50,7 +50,7 @@ public class CommandSpawn implements IModularMSMFCommand {
 			} else {
 				Player p = (Player) sender;
 				if (!(PermissionManager.checkPermission(sender, "spawn"))) {
-					Utils.sendMessageWithConfiguredLanguage(plugin, p, ChatFormat.SPAWN, "general.nopermission");
+					Utils.sendMessageWithConfiguredLanguage(plugin, p, ChatFormat.NOPERM, "general.nopermission");
 				} else {
 					if (cfg.get("worldspawn.isTrue").toString().equals("false")) {
 						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
@@ -88,7 +88,7 @@ public class CommandSpawn implements IModularMSMFCommand {
 					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.playernotfound");
 				} else {
 					if (!cfg.contains("worldspawn")) {
-						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SPAWN,
+						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
 								"commands.spawn.nospawnset");
 					} else {
 						if (cfg.get("worldspawn.world").toString().equals("")) {
