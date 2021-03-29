@@ -1,0 +1,21 @@
+name: ModularMSMF-Economy
+version: ${version}
+description: Economy system for your server
+website: ${url}
+authors: [Lightkeks, davidmc971]
+
+depend:
+  - "ModularMSMF-Core"
+
+api: none
+
+main: io.github.davidmc971.modularmsmf.economy.ModularMSMFEconomy
+
+# This section should be initialized at runtime
+commands:
+  money:
+    description: Get balance
+    usage: /<command> <args>
+  eco:
+    description: Geldstand anzeigen oder anderes.
+    usage: /<command> <args>
