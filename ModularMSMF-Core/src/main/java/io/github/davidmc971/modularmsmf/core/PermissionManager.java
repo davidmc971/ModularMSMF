@@ -59,7 +59,9 @@ public class PermissionManager {
 		put("slaughter", "modularmsmf.slaughter");
 		//spawn permissions
 		put("spawn", "modularmsmf.spawn");
+		put("spawn_others", "modularmsmf.spawn.others");
 		put("setspawn", "modularmsmf.setspawn");
+		put("spawn_remove", "modularmsmf.spawn.remove");
 		//teleport permissions
 		put("teleport", "modularmsmf.teleport");
 		//back permissions
