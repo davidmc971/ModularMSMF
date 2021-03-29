@@ -87,29 +87,24 @@ public class CommandSpawn implements IModularMSMFCommand {
 				if (target == null) {
 					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.playernotfound");
 				} else {
-					if (!cfg.contains("worldspawn")) {
+					if (!cfg.get("worldspawn.isTrue").toString().equals("true")) {
 						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
 								"commands.spawn.nospawnset");
 					} else {
-						if (cfg.get("worldspawn.world").toString().equals("")) {
-							Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
-									"commands.spawn.nospawnset");
-						} else {
-							for (Player p : Bukkit.getOnlinePlayers()) {
-								World welt = Bukkit.getWorld(worldname);
-								Location loc = p.getLocation();
-								loc.setX(x);
-								loc.setY(y);
-								loc.setZ(z);
-								loc.setYaw((float) yaw);
-								loc.setPitch((float) pitch);
-								loc.setWorld(welt);
-								p.teleport(loc);
-								Utils.sendMessageWithConfiguredLanguage(plugin, p, ChatFormat.SPAWN,
-										"commands.spawn.spawned");
-								Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
-										"commands.spawn.others", "_player", args[0]);
-							}
+						for (Player p : Bukkit.getOnlinePlayers()) {
+							World welt = Bukkit.getWorld(worldname);
+							Location loc = p.getLocation();
+							loc.setX(x);
+							loc.setY(y);
+							loc.setZ(z);
+							loc.setYaw((float) yaw);
+							loc.setPitch((float) pitch);
+							loc.setWorld(welt);
+							p.teleport(loc);
+							Utils.sendMessageWithConfiguredLanguage(plugin, p, ChatFormat.SPAWN,
+									"commands.spawn.spawned");
+							Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
+									"commands.spawn.others", "_player", args[0]);
 						}
 					}
 				}
