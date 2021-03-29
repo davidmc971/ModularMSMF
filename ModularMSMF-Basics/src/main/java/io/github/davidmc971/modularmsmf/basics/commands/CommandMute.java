@@ -1,5 +1,8 @@
 package io.github.davidmc971.modularmsmf.basics.commands;
 
+import java.util.UUID;
+
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -21,18 +24,22 @@ public class CommandMute implements IModularMSMFCommand {
 
 	private ModularMSMFCore plugin;
 
-    public CommandMute() {
-        plugin = ModularMSMFCore.Instance();
-    }
+	public CommandMute() {
+		plugin = ModularMSMFCore.Instance();
+	}
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-		if(sender instanceof Player){
-			if(sender.hasPermission(PermissionManager.getPermission("mute"))){
-				/* TODO: implementation of mute with every subcommand
-				*
-				*/
+		if (sender instanceof Player) {
+			if (PermissionManager.checkPermission(sender, "mute")) {
+				/*
+				 * TODO: implementation of mute with every subcommand
+				 *
+				 */
+				UUID target = null;
+				target = Utils.getPlayerUUIDByName(args[0]);
+				toggleMute(target);
 				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.notimplementedyet");
 			} else {
 				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
@@ -41,37 +48,39 @@ public class CommandMute implements IModularMSMFCommand {
 			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "general.noconsole");
 		}
 		return true;
-		
+
 	}
-	
+
 	/**
 	 * TODO implement mute
-	 * @param player
+	 * 
+	 * @param target
 	 */
 
-	public void mute(Player player) { // TODO UUID Support
-		FileConfiguration playercfg = plugin.getDataManager().getPlayerCfg(player.getUniqueId());
-		playercfg.set("muted", true);
+	public void toggleMute(UUID target) {
+		FileConfiguration cfg = plugin.getDataManager().getPlayerCfg(target);
+		if (cfg.get("toggleablestuff.isMuted").toString().equals("false")) {
+			cfg.set("toggleablestuff.isMuted", "true");
+		}
+		if (cfg.get("toggleablestuff.isMuted").toString().equals("true")) {
+			cfg.set("toggleablestuff.isMuted", "false");
+		}
 	}
 
-	/**
-	public void setTempMute(Player player, int time) { // TODO
+	public void setTempMute(UUID uuid, int time) {
 		// UUID
 		// Support
-		FileConfiguration playercfg = plugin.getDataManager().getPlayerCfg(player.getUniqueId());
-		playercfg.set("muted", true);
-		Bukkit.getScheduler().runTaskLater(plugin, new Runnable() {
-			public void run() {
-				playercfg.set("muted", false);
-			}
-		}, time * 20);
-	}
-	*/
-	public boolean alreadyMute(Player player) { // TODO UUID Support
-		FileConfiguration playercfg = plugin.getDataManager().getPlayerCfg(player.getUniqueId());
-		if (playercfg.isBoolean("muted")) {
-			return playercfg.getBoolean("muted");
+		FileConfiguration cfg = plugin.getDataManager().getPlayerCfg(uuid);
+		if (cfg.get("toggleablestuff.isMuted").toString().equals("true")) {
+			Bukkit.getScheduler().runTaskLater(plugin, new Runnable() {
+				public void run() {
+					cfg.set("muted", false);
+				}
+			}, time * 20);
 		}
+	}
+
+	public boolean alreadyMute(UUID uuid) { // TODO already mute add
 		return false;
 	}
 
@@ -82,7 +91,7 @@ public class CommandMute implements IModularMSMFCommand {
 
 	@Override
 	public String[] getCommandLabels() {
-		return new String[]{ "mute" };
+		return new String[] { "mute" };
 	}
 
 }
