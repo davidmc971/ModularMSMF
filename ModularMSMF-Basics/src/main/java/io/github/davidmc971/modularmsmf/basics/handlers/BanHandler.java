@@ -1,4 +1,4 @@
-package io.github.davidmc971.modularmsmf.handlers;
+package io.github.davidmc971.modularmsmf.basics.handlers;
 
 import java.util.UUID;
 

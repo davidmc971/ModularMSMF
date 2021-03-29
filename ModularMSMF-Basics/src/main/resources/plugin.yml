@@ -11,7 +11,54 @@ api: none
 
 main: io.github.davidmc971.modularmsmf.basics.ModularMSMFBasics
 
+# TODO: load at runtime with our secret haxx
 commands:
-  asdasdasd:
-    description: asdsadasds
+  teleport:
+    description: teleportation zu einem Spieler.
+    usage: /<command> <target>
+    aliases: [tp, tele]
+  heal:
+    description: Heilt Spieler.
+    usage: /<command> <target>
+  feed:
+    description: Saettigt den Spieler.
+    usage: /<command> <player>
+  ban:
+    description: Bannt einen Spieler.
+    usage: /<command> <player>
+  unban:
+    description: Entbannt einen Spieler.
+    usage: /<command> <player> <args>
+  ban-ip:
+    description: Bans a player by IP.
+    usage: /<command> <args>
+  kick:
+    description: Kickt einen Spieler.
+    usage: /<command> <player>
+  kill:
+    description: Killt einen Spieler.
+    usage: /<command> <args>
+  mute:    
+    description: Mutet einen Spieler.
+    usage: /<command> <player>
+  motd:
+    description: Message Of The Day.
+    usage: /<command> <args>
+  slaughter:
+    description: Destroy entities.
+    usage: /<command> <args>
+  home:
+    description: Teleports you home. Optionally specify a home name. Also sets homes.
+    usage: /<command> <args>
+  setspawn:
+    description: Set the spawn
+    usage: /<command>
+  spawn:
+    description: Spawns the player
+    usage: /<command>
+  back:
+    description: Gets back the player to the last position
+    usage: /<command>
+  fly:
+    description: Let the player fly
     usage: /<command> <args>

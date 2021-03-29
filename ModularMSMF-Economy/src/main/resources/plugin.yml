@@ -16,3 +16,6 @@ commands:
   money:
     description: Get balance
     usage: /<command> <args>
+  eco:
+    description: Geldstand anzeigen oder anderes.
+    usage: /<command> <args>

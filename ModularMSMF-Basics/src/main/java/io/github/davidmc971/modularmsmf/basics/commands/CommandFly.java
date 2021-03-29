@@ -1,4 +1,4 @@
-package io.github.davidmc971.modularmsmf.commands;
+package io.github.davidmc971.modularmsmf.basics.commands;
 
 import java.util.UUID;
 
@@ -22,7 +22,7 @@ public class CommandFly implements IModularMSMFCommand {
      */
 
     private ModularMSMFCore plugin;
-    private boolean isFlight;
+    // private boolean isFlight;
 
     public CommandFly() {
         plugin = ModularMSMFCore.Instance();
@@ -36,7 +36,7 @@ public class CommandFly implements IModularMSMFCommand {
         if (sender instanceof Player) {
             // checks if sender has permission
             if (PermissionManager.checkPermission(sender, "fly")) {
-                Player p = (Player) sender;
+                // Player p = (Player) sender;
                 // checks length of argument given
                 switch (args.length) {
                 // if 0, normally fly should be activated

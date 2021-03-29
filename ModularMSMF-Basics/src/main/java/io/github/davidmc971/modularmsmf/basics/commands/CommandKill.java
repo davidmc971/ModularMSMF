@@ -1,4 +1,4 @@
-package io.github.davidmc971.modularmsmf.commands;
+package io.github.davidmc971.modularmsmf.basics.commands;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -9,7 +9,9 @@ import io.github.davidmc971.modularmsmf.core.PermissionManager;
 import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils;
-import io.github.davidmc971.modularmsmf.util.KillType;
+import io.github.davidmc971.modularmsmf.basics.ModularMSMFBasics;
+import io.github.davidmc971.modularmsmf.basics.listeners.DeathListener;
+import io.github.davidmc971.modularmsmf.basics.util.KillType;
 import io.github.davidmc971.modularmsmf.core.util.Utils;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
 
@@ -21,10 +23,12 @@ import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
 
 public class CommandKill implements IModularMSMFCommand {
 
-	private ModularMSMFCore plugin;
+	private ModularMSMFCore MMSMFCore;
+	private DeathListener deathListener;
 
     public CommandKill() {
-        plugin = ModularMSMFCore.Instance();
+        MMSMFCore = ModularMSMFCore.Instance();
+		deathListener = ModularMSMFBasics.Instance().getDeathListener();
     }
 
 	@Override
@@ -34,7 +38,7 @@ public class CommandKill implements IModularMSMFCommand {
 			//checks permission of user
 			if(PermissionManager.checkPermission(sender, "kill")){
 				if (args.length == 0) {
-					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.missingarguments");
+					Utils.sendMessageWithConfiguredLanguage(MMSMFCore, sender, ChatFormat.ERROR, "general.missingarguments");
 					return true;
 				}
 
@@ -43,11 +47,11 @@ public class CommandKill implements IModularMSMFCommand {
 					//suicide
 					if (PermissionManager.checkPermission(sender, "kill_me")) {
 						Player player = ((Player) sender);
-						plugin.getMainEvents().registerKilledPlayer(player, KillType.SUICIDE);
-						Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.DEATH, "event.suicide", "_var", player.displayName().toString());
+						deathListener.registerKilledPlayer(player, KillType.SUICIDE);
+						Utils.broadcastWithConfiguredLanguageEach(MMSMFCore, ChatFormat.DEATH, "event.suicide", "_var", player.displayName().toString());
 						player.setHealth(0);
 					} else {
-						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
+						Utils.sendMessageWithConfiguredLanguage(MMSMFCore, sender, ChatFormat.NOPERM, "general.nopermission");
 					}
 					break;
 
@@ -55,12 +59,12 @@ public class CommandKill implements IModularMSMFCommand {
 					//kills all players online
 					if (PermissionManager.checkPermission(sender, "kill_all")) {
 						for (Player player : Bukkit.getOnlinePlayers()) {
-							plugin.getMainEvents().registerKilledPlayer(player, KillType.HOMOCIDE);
+							deathListener.registerKilledPlayer(player, KillType.HOMOCIDE);
 							player.setHealth(0);
 						}
-						Utils.broadcastWithConfiguredLanguageEach(plugin, ChatUtils.ChatFormat.DEATH, "event.homocide");
+						Utils.broadcastWithConfiguredLanguageEach(MMSMFCore, ChatUtils.ChatFormat.DEATH, "event.homocide");
 					} else {
-						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
+						Utils.sendMessageWithConfiguredLanguage(MMSMFCore, sender, ChatFormat.NOPERM, "general.nopermission");
 					}
 					break;
 
@@ -69,22 +73,22 @@ public class CommandKill implements IModularMSMFCommand {
 					boolean temp = false;
 					for (Player player : Bukkit.getOnlinePlayers()) {
 						if (args[0].toLowerCase().equals(player.getName().toLowerCase())) {
-							plugin.getMainEvents().registerKilledPlayer(player, KillType.KILL);
-							Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.DEATH, "event.killed_player", "_var", player.displayName().toString());
+							deathListener.registerKilledPlayer(player, KillType.KILL);
+							Utils.broadcastWithConfiguredLanguageEach(MMSMFCore, ChatFormat.DEATH, "event.killed_player", "_var", player.displayName().toString());
 							player.setHealth(0);
 							temp = true;
 							break;
 						}
 					}
 					if (!temp){
-						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.playernotfound");
+						Utils.sendMessageWithConfiguredLanguage(MMSMFCore, sender, ChatFormat.ERROR, "general.playernotfound");
 					}
 				}
 			} else {
-				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "general.nopermission");
+				Utils.sendMessageWithConfiguredLanguage(MMSMFCore, sender, ChatFormat.CONSOLE, "general.nopermission");
 			}
 		} else {
-			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "general.noconsole");
+			Utils.sendMessageWithConfiguredLanguage(MMSMFCore, sender, ChatFormat.CONSOLE, "general.noconsole");
 		}
 		return true;
 	}

@@ -21,7 +21,7 @@ import io.github.davidmc971.modularmsmf.core.configuration.AbstractConfiguration
 import io.github.davidmc971.modularmsmf.core.configuration.JSONConfigurationLoader;
 import io.github.davidmc971.modularmsmf.core.configuration.YamlConfigurationLoader;
 import io.github.davidmc971.modularmsmf.core.listeners.CommandPreprocessor;
-import io.github.davidmc971.modularmsmf.listeners.Events;
+import io.github.davidmc971.modularmsmf.core.listeners.Events;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
 
@@ -33,6 +33,10 @@ public class ModularMSMFCore extends JavaPlugin {
 	private static ModularMSMFCore instance = null;
 	public static ModularMSMFCore Instance() {
 		return instance;
+	}
+
+	public ModularMSMFCore() {
+		ModularMSMFCore.instance = this;
 	}
 
 	private PluginManager pluginManager;
@@ -89,7 +93,6 @@ public class ModularMSMFCore extends JavaPlugin {
 	//here our plugin is loaded and will be enabled
 	@Override
 	public void onEnable() {
-		ModularMSMFCore.instance = this;
 		pluginManager = getServer().getPluginManager();
 		if (debug) getLogger().info("--- onEnable() ---");
 		dataManager = new DataManager(this);

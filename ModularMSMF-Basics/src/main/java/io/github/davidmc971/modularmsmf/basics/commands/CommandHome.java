@@ -1,4 +1,4 @@
-package io.github.davidmc971.modularmsmf.commands;
+package io.github.davidmc971.modularmsmf.basics.commands;
 
 import java.util.UUID;
 
@@ -10,8 +10,8 @@ import org.bukkit.entity.Player;
 import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.core.PermissionManager;
-import io.github.davidmc971.modularmsmf.handlers.HomeHandler;
-import io.github.davidmc971.modularmsmf.handlers.HomeHandler.Home;
+import io.github.davidmc971.modularmsmf.basics.handlers.HomeHandler;
+import io.github.davidmc971.modularmsmf.basics.handlers.HomeHandler.Home;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
 import io.github.davidmc971.modularmsmf.core.util.Utils;

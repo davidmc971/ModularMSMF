@@ -1,12 +1,7 @@
-package io.github.davidmc971.modularmsmf.commands;
-
-import java.io.File;
-import java.io.IOException;
+package io.github.davidmc971.modularmsmf.basics.commands;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 
@@ -22,21 +17,21 @@ public class CommandMotd implements IModularMSMFCommand {
 	
 	//private FileConfiguration cfg;
 
-	public void load() {
+	// public void load() {
 
-		File file = new File("plugins/ModularMSMF/motd.yml");
-		if (file.exists()) {
-			FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
-		} else {
-			try {
-				file.getParentFile().mkdirs();
-				file.createNewFile();
+	// 	File file = new File("plugins/ModularMSMF/motd.yml");
+	// 	if (file.exists()) {
+	// 		FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
+	// 	} else {
+	// 		try {
+	// 			file.getParentFile().mkdirs();
+	// 			file.createNewFile();
 
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-	}
+	// 		} catch (IOException e) {
+	// 			e.printStackTrace();
+	// 		}
+	// 	}
+	// }
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {

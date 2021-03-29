@@ -1,4 +1,4 @@
-package io.github.davidmc971.modularmsmf.util;
+package io.github.davidmc971.modularmsmf.basics.util;
 
 /**
  * 

@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 import com.google.common.reflect.ClassPath;
 
-import io.github.davidmc971.modularmsmf.commands.*;
 import io.github.davidmc971.modularmsmf.core.commands.*;
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 
@@ -88,27 +87,12 @@ public class CommandLoader {
 		ArrayList<IModularMSMFCommand> commandList = new ArrayList<IModularMSMFCommand>();
 		
 		for(IModularMSMFCommand cmd : new IModularMSMFCommand[] {
-				new CommandBan(),
-				new CommandBack(),
-				new CommandFeed(),
-				new CommandHeal(),
-				new CommandHome(),
-				new CommandKick(),
-				new CommandKill(),
 				new CommandLanguage(),
 				new CommandModularMSMF(),
-				// new EconomySystem(),
-				new CommandMotd(),
-				new CommandMute(),
 				new CommandPlayershell(),
-				//new CommandReport(),
+				new CommandReport(),
 				new CommandServerInfo(),
-				new CommandSetSpawn(),
-				new CommandSlaughter(),
-				new CommandSpawn(),
-				new CommandTeleport(),
 				new CommandClearChat(),
-				new CommandFly()
 			}) {
 			commandList.add(cmd);
 		}

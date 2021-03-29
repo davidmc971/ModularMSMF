@@ -1,4 +1,4 @@
-package io.github.davidmc971.modularmsmf.listeners;
+package io.github.davidmc971.modularmsmf.core.listeners;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -24,7 +24,6 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
-import io.github.davidmc971.modularmsmf.util.KillType;
 import io.github.davidmc971.modularmsmf.core.util.Utils;
 import net.kyori.adventure.text.Component;
 import net.md_5.bungee.api.ChatColor;
@@ -37,7 +36,6 @@ import net.md_5.bungee.api.ChatColor;
 public class Events implements Listener {
 
 	public ModularMSMFCore plugin;
-	private ArrayList<PlayerKillConfig> killedPlayers = new ArrayList<PlayerKillConfig>();
 	private ArrayList<UUID> kickedPlayers = new ArrayList<UUID>();
 	public static HashMap<String, Location> lastLocation = new HashMap<>();
 	public static ArrayList<String> blacklistedExpressions = new ArrayList<String>();
@@ -101,60 +99,11 @@ public class Events implements Listener {
 		}
 	}
 
-	@EventHandler
-	public void onDeath(PlayerDeathEvent event) {
-		Player p = event.getEntity();
-		Events.lastLocation.put(p.getName(), p.getLocation());
-		boolean temp = false;
-		for (PlayerKillConfig pkf : killedPlayers) {
-			if (pkf.getP().getName().equals(event.getEntity().getName())) {
-				switch (pkf.getKt()) {
-				case KILL:
-					event.setDeathMessage(null);
-					break;
-				case SUICIDE:
-					event.setDeathMessage(null);
-					break;
-				case HOMOCIDE:
-					event.setDeathMessage(null);
-					break;
-				}
-				killedPlayers.remove(pkf);
-				temp = true;
-				break;
-			}
-		}
-		if (!temp) {
-			Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.DEATH, "event.just_died", "_var",
-					event.getEntity().getDisplayName());
-		}
-	}
-
-	public void registerKilledPlayer(Player p, KillType kt) {
-		killedPlayers.add(new PlayerKillConfig(p, kt));
-	}
-
 	public void registerKickedPlayer(UUID uuid) {
 		kickedPlayers.add(uuid);
 	}
 
-	private class PlayerKillConfig {
-		private Player p;
-		private KillType kt;
-
-		public PlayerKillConfig(Player p, KillType kt) {
-			this.p = p;
-			this.kt = kt;
-		}
-
-		public Player getP() {
-			return p;
-		}
-
-		public KillType getKt() {
-			return kt;
-		}
-	}
+	
 
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onChat(AsyncPlayerChatEvent event) {

@@ -1,4 +1,4 @@
-package io.github.davidmc971.modularmsmf.commands;
+package io.github.davidmc971.modularmsmf.basics.commands;
 
 import org.bukkit.Location;
 import org.bukkit.command.Command;
