@@ -17,7 +17,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.PluginManager;
 
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
-import io.github.davidmc971.modularmsmf.commands.*;
 import io.github.davidmc971.modularmsmf.core.configuration.AbstractConfigurationLoader;
 import io.github.davidmc971.modularmsmf.core.configuration.JSONConfigurationLoader;
 import io.github.davidmc971.modularmsmf.core.configuration.YamlConfigurationLoader;
@@ -66,7 +65,7 @@ public class ModularMSMFCore extends JavaPlugin {
 	private PlayerManager playerManager;
 	
 
-	private CommandMotd motd;
+	//private CommandMotd motd;
 
 	public final boolean debug = true;
 	private String debugTimestamp = "";
@@ -100,8 +99,8 @@ public class ModularMSMFCore extends JavaPlugin {
 		
 		playerManager = new PlayerManager(this);
 
-		motd = new CommandMotd();
-		motd.load();
+		//motd = new CommandMotd();
+		//motd.load();
 
 		getLogger().info("Loading events...");
 		mainEvents = new Events(this);
@@ -209,7 +208,7 @@ public class ModularMSMFCore extends JavaPlugin {
 	@Override
 	public void onDisable() {
 		if (debug) getLogger().info("--- onDisable() ---");
-		dataManager.saveAllUserdata();
+		dataManager.unload();
 		playerManager.saveAll();
 		this.getLogger().info("ModularMSMF has been disabled.");
 	}

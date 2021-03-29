@@ -207,6 +207,7 @@ public class DataManager implements Listener {
 	}
 
 	private void initDefaultSettings() {
+	//String worldname = World.getName();
 		defaultSettings.clear();
 		defaultSettings.put("economy.money", 0.0d);
 		defaultSettings.put("teamspeakIP", "");
@@ -216,6 +217,7 @@ public class DataManager implements Listener {
 		defaultSettings.put("chat.colors.displayname", "9");
 		defaultSettings.put("chat.colors.message", "f");
 		defaultSettings.put("chat.format", "_clpre<_clname_name_clpre> _clmessage_message");
+		defaultSettings.put("worldspawn.isTrue", "false");
 		for(Entry<String, Object> e : defaultSettings.entrySet()){
 			if(settingsyaml.get(e.getKey()) == null){
 				settingsyaml.set(e.getKey(), e.getValue());
@@ -252,6 +254,15 @@ public class DataManager implements Listener {
 		 */
 		
 		savePlayerCfg(cfg, uuid);
+	}
+
+	public void unload() {
+		saveAllUserdata();
+		try {
+			settingsyaml.save(pathMain + "settings.yml");
+		} catch (Exception e) {
+			//TODO: handle exception
+		}
 	}
 }
 

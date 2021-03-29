@@ -59,7 +59,9 @@ public class PermissionManager {
 		put("slaughter", "modularmsmf.slaughter");
 		//spawn permissions
 		put("spawn", "modularmsmf.spawn");
+		put("spawn_others", "modularmsmf.spawn.others");
 		put("setspawn", "modularmsmf.setspawn");
+		put("spawn_remove", "modularmsmf.spawn.remove");
 		//teleport permissions
 		put("teleport", "modularmsmf.teleport");
 		//back permissions
@@ -74,6 +76,9 @@ public class PermissionManager {
 		put("report_player", "modularmsmf.report.player");
 		put("report_bug", "modularmsmf.report.bug");
 		put("report_other", "modularmsmf.report.other");
+		//fly permissions
+		put("fly", "modularmsmf.fly");
+		put("fly.others", "modularmsmf.fly.others");
 	}};
 
 	public static boolean checkPermission(CommandSender sender, String permission) {

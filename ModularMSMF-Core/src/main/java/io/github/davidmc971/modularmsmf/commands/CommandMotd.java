@@ -22,7 +22,6 @@ public class CommandMotd implements IModularMSMFCommand {
 	
 	//private FileConfiguration cfg;
 
-	@SuppressWarnings("unused")
 	public void load() {
 
 		File file = new File("plugins/ModularMSMF/motd.yml");

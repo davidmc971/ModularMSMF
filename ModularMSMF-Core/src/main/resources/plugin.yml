@@ -80,4 +80,7 @@ commands:
   clearchat:
     description: Clears the chat completely
     usage: /<command>
-    aliases: [cc]
+    aliases: ["cc"]
+  fly:
+    description: Let the player fly
+    usage: /<command> <args>

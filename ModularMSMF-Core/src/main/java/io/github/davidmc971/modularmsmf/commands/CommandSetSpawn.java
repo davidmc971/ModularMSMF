@@ -1,13 +1,10 @@
 package io.github.davidmc971.modularmsmf.commands;
 
-import java.io.File;
-import java.io.IOException;
-
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
-import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
@@ -17,25 +14,25 @@ import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
 import io.github.davidmc971.modularmsmf.core.util.Utils;
 
 /**
- * 
- * @authors davidmc971
- * 
+ * @authors Lightkeks, davidmc971
  */
 
 public class CommandSetSpawn implements IModularMSMFCommand {
 
 	private ModularMSMFCore plugin;
+	private FileConfiguration cfg;
 
-    public CommandSetSpawn() {
-        plugin = ModularMSMFCore.Instance();
-    }
+	public CommandSetSpawn() {
+		plugin = ModularMSMFCore.Instance();
+		cfg = plugin.getDataManager().settingsyaml;
+	}
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-		if (sender instanceof Player) {
-			if (PermissionManager.checkPermission(sender, "setspawn")) {
-				File file = new File("plugins/ModularMSMF/settings.yml");
-				YamlConfiguration cfg = YamlConfiguration.loadConfiguration(file);
+		if (sender instanceof ConsoleCommandSender) {
+			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "general.noconsole");
+		} else {
+			if (args.length == 0) {
 				Player p = (Player) sender;
 				Location loc = p.getLocation();
 				double x = loc.getX();
@@ -44,33 +41,31 @@ public class CommandSetSpawn implements IModularMSMFCommand {
 				double yaw = loc.getYaw();
 				double pitch = loc.getPitch();
 				String worldname = loc.getWorld().getName();
-				if (sender instanceof ConsoleCommandSender) {
-					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "general.noconsole");
-				} else {
-					if (!file.exists()) {
-						try {
-							file.createNewFile();
-						} catch (IOException e) {
-							e.printStackTrace();
+				if (sender instanceof Player) {
+					if (PermissionManager.checkPermission(sender, "setspawn")) {
+						if (sender instanceof ConsoleCommandSender) {
+							Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE,
+									"general.noconsole");
+						} else {
+							cfg.set("worldspawn.coordinates.X", x);
+							cfg.set("worldspawn.coordinates.Y", y);
+							cfg.set("worldspawn.coordinates.Z", z);
+							cfg.set("worldspawn.coordinates.Yaw", yaw);
+							cfg.set("worldspawn.coordinates.Pitch", pitch);
+							cfg.set("worldspawn.world", worldname);
+							cfg.set("worldspawn.isTrue", "true");
+							Utils.sendMessageWithConfiguredLanguage(plugin, p, ChatFormat.SPAWN,
+									"commands.spawn.spawnset");
+							return true;
 						}
+					} else {
+						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM,
+								"general.nopermission");
 					}
-					cfg.set("X", x);
-					cfg.set("Y", y);
-					cfg.set("Z", z);
-					cfg.set("Yaw", yaw);
-					cfg.set("Pitch", pitch);
-					cfg.set("Worldname", worldname);
-					try {
-						cfg.save(file);
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-					Utils.sendMessageWithConfiguredLanguage(plugin, p, ChatFormat.SPAWN, "commands.spawn.spawnset");
-					return true;
 				}
+			} else {
+				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.toomanyarguments");
 			}
-		} else {
-			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "general.noconsole");
 		}
 		return true;
 	}

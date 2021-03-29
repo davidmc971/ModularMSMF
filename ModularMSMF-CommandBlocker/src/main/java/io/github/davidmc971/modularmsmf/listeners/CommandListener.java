@@ -34,6 +34,8 @@ public class CommandListener implements Listener {
 						commandName);
 				e.setCancelled(true);
 			}
-		}
+		} /*else {
+			Utils.sendMessageWithConfiguredLanguage(plugin, p, ChatFormat.NOPERM, "general.nopermission");
+		}*/
 	}
 }

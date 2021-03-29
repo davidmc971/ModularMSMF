@@ -89,13 +89,13 @@ Ideas:
 Lightkeks:
 	Commands:
 		Home:
-			* TODO Implementing hasNoHome (delhome, home)
-			* TODO Implementing hasHome (home, delhome)
-			* TODO Implementing hasAlreadyHome (sethome)
-			* TODO Implementing changeLocHome (sethome)
-			* TODO Implementing changeLocHomeOtherPlayer (sethome)
+			TODO Implementing hasNoHome (delhome, home)
+			TODO Implementing hasHome (home, delhome)
+			TODO Implementing hasAlreadyHome (sethome)
+			TODO Implementing changeLocHome (sethome)
+			TODO Implementing changeLocHomeOtherPlayer (sethome)
 		All cmds:
-			* TODO adjusting all permissions and all language-linkings in all cmds (still working on it)
+			TODO adjusting all permissions and all language-linkings in all cmds (still working on it)
 			
 davidmc971:
 	Command structure:
@@ -104,13 +104,13 @@ davidmc971:
 			TODO: at the moment it has to be in plugin.yml to be executable, could be automated
 
 	System of interfacing with players and console:
-		LanguageManager [Still TODO:]
-		ChatUtils [Still TODO:]
+		TODO LanguageManager
+		TODO ChatUtils
 	
 	Internal data management:
 		DataManager
 			-> switch mostly from yml to json, but still keep support
-		PermissionManager [TODO:]
+		TODO PermissionManager
 		
 	General utilities:
 		Utils
@@ -118,9 +118,9 @@ davidmc971:
 		Interface für Einteilung zw. Spigot, Bukkit und Forge und dass wir die Daten auf gleiche Art und Weise bekommen können
 		Feature: Annotation wie Forge only/Spigot only/Bukkit only
 	Lightkeks:
-		settings.yml mit Währungseinstellung
-		loading currency while set in settings.yml like $ or €
+		TODO settings.yml mit Währungseinstellung
+		TODO loading currency while set in settings.yml like $ or €
 	Lightkeks:
-		Filtering bad words? Wäre eine sehr gute Idee für alle die, die nicht unbedingt beleidigungen oder böse wörter im chat haben wollen.
+		TODO Filtering bad words? Wäre eine sehr gute Idee für alle die, die nicht unbedingt beleidigungen oder böse wörter im chat haben wollen.
 	Lightkeks:
 		Verwarnsystem? Textchat-farbe des jenigen ändert sich auf gelb wenn einmal verwarnt, beim zweiten mal rot und beim dritten mal fliegt die person?
