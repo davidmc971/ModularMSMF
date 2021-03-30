@@ -29,6 +29,7 @@ event: #BITTE UNTER KEINEN UMSTÄNDEN DIESE LINE BEARBEITEN
   suicide: _var hat Suizid begangen. #Selbsterklärend
   homocide: Alle Spieler wurden in einem brutalen Homozid niedergemetzelt! #Alle spieler wurden getoetet
   banned: Du wurdest gebannt. #Gebannter Spieler, bekommt diese Nachricht, sobald dieser versucht zu joinen
+  just_died: _var ist einfach gestorben.
 commands: #Befehle #BITTE UNTER KEINEN UMSTÄNDEN DIESE LINE BEARBEITEN
   slaughter:
     success: Alle Mobs in deiner Naehe wurden getoetet. #Signal fuer 
@@ -157,6 +158,7 @@ commands: #Befehle #BITTE UNTER KEINEN UMSTÄNDEN DIESE LINE BEARBEITEN
     gotcleared: Dein Chat wurde geleert!
 #### Lang-files for Basics
 basics:
+  nottoggledtrue: Der Befehl _args ist nicht aktiv.
   commands:
     teleport:
       others:

@@ -29,6 +29,7 @@ event: #PLEASE NEVER EDIT THIS LINE
   suicide: _var committed suicide.
   homocide: Everyone got killed in a brutal homocide! What a sad occurrence.
   banned: You got banned.
+  just_died: _var just died.
 commands: #PLEASE NEVER EDIT THIS LINE
   slaughter: #PLEASE NEVER EDIT THIS LINE
     success: All mobs have been killed around your sight.
@@ -157,6 +158,7 @@ commands: #PLEASE NEVER EDIT THIS LINE
     gotcleared: Your chat got cleared!
 #### Lang-files for Basics
 basics:
+  nottoggledtrue: The command _args is not active.
   commands:
     teleport:
       others:
