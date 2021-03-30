@@ -29,6 +29,7 @@ public class CommandBack implements IModularMSMFCommand {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         // checks if toggleConfig hast been set true (default: true)
         FileConfiguration cfg = plugin.getDataManager().settingsyaml;
+        //
         if (cfg.get("toggle.commands.back", true).toString().equals("true")) {
             // checks if sent command has been done by player
             if (sender instanceof Player) {
