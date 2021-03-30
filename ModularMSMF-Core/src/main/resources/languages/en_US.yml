@@ -22,6 +22,9 @@ general: #PLEASE NEVER EDIT THIS LINE
       remove: Click on me to remove your default home!
       rtp: I will show you how to write it!
       admin: It will show you administrative commands!
+    missingconfig: #BITTE UNTER KEINEN UMSTÄNDEN DIESE LINE BEARBEITEN
+      mainstring: Missing comfigtree - creating a new one...
+      substring: Missing substring - creating a new one...
 event: #PLEASE NEVER EDIT THIS LINE
   welcome: _var has joned the Server!
   quit: _var has left the Server!
@@ -158,7 +161,7 @@ commands: #PLEASE NEVER EDIT THIS LINE
     gotcleared: Your chat got cleared!
 #### Lang-files for Basics
 basics:
-  nottoggledtrue: The command _args is not active.
+  nottoggledtrue: The command is not active.
   commands:
     teleport:
       others:
@@ -166,3 +169,6 @@ basics:
         target1: Only _target1 is online!
         target2: Only _target2 is online!
         toself: You may choose another person!
+  toggle:
+    setTrue: You can use _args now!
+    setFalse: _args has been disabled!
