@@ -1,11 +1,8 @@
 package io.github.davidmc971.modularmsmf.basics.commands;
 
-import java.util.UUID;
-
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.jetbrains.annotations.NotNull;
 
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
@@ -40,11 +37,11 @@ public class CommandToggle implements IModularMSMFCommand {
                     if (cfg.isSet("toggle.commands")) {
                         if (cfg.isSet("toggle.commands.back")) {
                             if (cfg.get("toggle.commands.back").toString().equals("false")) {
-                                cfg.set("toggle.commands.back", true);
+                                cfg.set("toggle.commands.back", "true");
                                 Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
                                         "basics.toggle.setTrue", "_args", args[0]);
                             } else {
-                                cfg.set("toggle.commands.back", false);
+                                cfg.set("toggle.commands.back", "false");
                                 Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
                                         "basics.toggle.setFalse", "_args", args[0]);
                             }
