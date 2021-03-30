@@ -1,4 +1,4 @@
-COMMANDS:
+COMMANDS: 
 	REPORT:
 		DESCRIPTION: (TODO: 0%)
 			/report <category> <args>
@@ -8,37 +8,27 @@ COMMANDS:
 			/report other <description>
 		PROGRESS:
 			structure updated, needs work
-	BAN:
-		PROGRESS: (65%)
-			- console can ban (w/o permission)
-			- can ban player on+offline (with permission)
-			- TODO: banip not implemented yet
-	FEED:
-		PROGRESS: (100%)
-			- can feed yourself (with permission)
-			- can feed other users (with permission)
-			- cannot feed console (only player can be feeded)
-			- console can feed everyone but not itself (w/o permissions)
-	HEAL:
-		PROGRESS: (100%)
-			- can heal a player
-			- healing yourself
-	KICK:
-		PROGRESS: (100%)
-			- can kick a player
-			- even with or without reason
-			- broadcasting it worldwide on server
-	LAND:
-		PROGRESS:
-
+	BAN: 
+			- console can ban (w/o permission) 
+			- can ban player on+offline (with permission) 
+			- TODO: banip not implemented yet 
+	FEED:  {cm:2021-03-30}
+			- can feed yourself (with permission) {cm:2021-03-30}
+			- can feed other users (with permission) {cm:2021-03-30}
+			- cannot feed console (only player can be feeded) {cm:2021-03-30}
+			- console can feed everyone but not itself (w/o permissions) {cm:2021-03-30}
+	HEAL: {cm:2021-03-30}
+			- can heal a player {cm:2021-03-30}
+			- healing yourself {cm:2021-03-30}
+	KICK: {cm:2021-03-30}
+			- can kick a player {cm:2021-03-30}
+			- even with or without reason {cm:2021-03-30}
+			- broadcasting it worldwide on server {cm:2021-03-30}
 	MMSMF:
-		PROGRESS: (5%)
 			- TODO: missing many functions, have to be added			
 	TELEPORT:
-		PROGRESS: (15%)
 			- can teleport players
 	UNBAN:
-		PROGRESS: (65%)
 			- same as BAN
 	ECO:
 		PROGRESS:
@@ -48,21 +38,15 @@ COMMANDS:
 		PROGRESS: (same as ECO)
 			
 	HOME: 
-		PROGRESS: (?%)
 			- only displaying messages and permissions has been set
 			- no playerdata atm
-			
 	MUTE / UNMUTE: 
-		PROGRESS: (?%)
 			
 	WORTH: 
-		PROGRESS: (?%)
 			 
 	GETSERVER:
-		PROGRESS: (?%)
 			
 	MOTD:
-		PROGRESS: (?%)
 		
 		
     
