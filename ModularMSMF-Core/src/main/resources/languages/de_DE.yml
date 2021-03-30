@@ -22,9 +22,6 @@ general: #Hauptsaechliche Strings fuer den Allgemeingebrauch #BITTE UNTER KEINEN
       remove: Klick mich an um dein Home zu loeschen!
       rtp: Ich zeig dir wie man das schreibt!
       admin: Das zeigt dir alle administrativen Befehle an!
-    missingconfig: #BITTE UNTER KEINEN UMSTÄNDEN DIESE LINE BEARBEITEN
-      mainstring: Fehlender Configbaum - erstelle einen neuen...
-      substring: Fehlender Substring - erstelle einen neuen...
 event: #BITTE UNTER KEINEN UMSTÄNDEN DIESE LINE BEARBEITEN
   welcome: _var hat den Server betreten! #Kommt auf, sobald ein Spieler den Server betritt
   quit: _var hat den Server verlassen! #Kommt auf, sobald ein Spieler den Server verlaesst
@@ -162,6 +159,9 @@ commands: #Befehle #BITTE UNTER KEINEN UMSTÄNDEN DIESE LINE BEARBEITEN
 #### Lang-files for Basics
 basics:
   nottoggledtrue: Der Befehl ist nicht aktiv.
+  missingconfig: #BITTE UNTER KEINEN UMSTÄNDEN DIESE LINE BEARBEITEN
+    mainstring: Fehlender mainstring - erstelle einen neuen...
+    substring: Fehlender substring - erstelle einen neuen...
   commands:
     teleport:
       others:

@@ -33,6 +33,27 @@ public class CommandToggle implements IModularMSMFCommand {
                     break;
                 case "help":
                     break;
+                case "setspawn":
+                    if (cfg.isSet("toggle.commands")) {
+                        if (cfg.isSet("toggle.commands.setspawn")) {
+                            if (cfg.get("toggle.commands.setspawn").toString().equals("false")) {
+                                cfg.set("toggle.commands.setspawn", "true");
+                                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
+                                        "basics.toggle.setTrue", "_args", args[0]);
+                            } else {
+                                cfg.set("toggle.commands.setspawn", "false");
+                                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
+                                        "basics.toggle.setFalse", "_args", args[0]);
+                            }
+                        } else {
+                            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.DEBUG, "basics.missingconfig.substring");
+                            cfg.set("toggle.commands.setspawn", "true");
+                        }
+                    } else {
+                        Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.DEBUG, "basics.missingconfig.mainstring");
+                        cfg.createSection("toggle.commands");
+                    }
+                    break;
                 case "back":
                     if (cfg.isSet("toggle.commands")) {
                         if (cfg.isSet("toggle.commands.back")) {
@@ -45,16 +66,17 @@ public class CommandToggle implements IModularMSMFCommand {
                                 Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
                                         "basics.toggle.setFalse", "_args", args[0]);
                             }
-                            break;
                         } else {
-                            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.DEBUG, "general.missingconfig.substring");
-                            cfg.set("toggle.commands.back", "false");
+                            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.DEBUG,
+                                    "basics.missingconfig.substring");
+                            cfg.set("toggle.commands.back", "true");
                         }
                     } else {
-                        Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
-                                "general.missingconfig");
+                        Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.DEBUG,
+                                "basics.missingconfig.mainstring");
                         cfg.createSection("toggle.commands");
                     }
+                    break;
                 }
             } else {
                 Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.toomanyarguments");

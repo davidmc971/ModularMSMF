@@ -22,9 +22,6 @@ general: #PLEASE NEVER EDIT THIS LINE
       remove: Click on me to remove your default home!
       rtp: I will show you how to write it!
       admin: It will show you administrative commands!
-    missingconfig: #BITTE UNTER KEINEN UMSTÄNDEN DIESE LINE BEARBEITEN
-      mainstring: Missing comfigtree - creating a new one...
-      substring: Missing substring - creating a new one...
 event: #PLEASE NEVER EDIT THIS LINE
   welcome: _var has joned the Server!
   quit: _var has left the Server!
@@ -162,6 +159,9 @@ commands: #PLEASE NEVER EDIT THIS LINE
 #### Lang-files for Basics
 basics:
   nottoggledtrue: The command is not active.
+  missingconfig: #BITTE UNTER KEINEN UMSTÄNDEN DIESE LINE BEARBEITEN
+    mainstring: Missing mainstring - creating a new one...
+    substring: Missing substring - creating a new one...
   commands:
     teleport:
       others:
