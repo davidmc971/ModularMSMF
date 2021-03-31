@@ -27,7 +27,7 @@ public interface IModularMSMFCommand extends CommandExecutor {
 
     /**
      * Get if the command is currently enabled. If the command will always be
-     * enabled, this can just return true. If the it is configurable whether the
+     * enabled, this can just return true. If it is configurable whether the
      * command is enabled or not, you can give that info here.
      * 
      * @return true if command is enabled.
