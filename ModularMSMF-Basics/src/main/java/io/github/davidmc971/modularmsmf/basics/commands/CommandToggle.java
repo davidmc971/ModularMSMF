@@ -29,12 +29,12 @@ public class CommandToggle implements IModularMSMFCommand {
                 switch (args[0].toLowerCase()) {
                 default:
                     Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
-                            "general.invalidargument");
+                            "general.invalidarguments");
                     break;
                 case "help":
                     break;
                 case "teleport":
-                    if (cfg.isSet("toggle.commands")) { //FIXME: string has to be loaded when module Basics is loaded
+                    if (cfg.isSet("toggle.commands")) { // FIXME: string has to be loaded when module Basics is loaded
                         if (cfg.isSet("toggle.commands.teleport")) {
                             if (cfg.get("toggle.commands.teleport").toString().equals("false")) {
                                 cfg.set("toggle.commands.teleport", "true");
@@ -57,7 +57,7 @@ public class CommandToggle implements IModularMSMFCommand {
                     }
                     break;
                 case "setspawn":
-                    if (cfg.isSet("toggle.commands")) { //FIXME: string has to be loaded when module Basics is loaded
+                    if (cfg.isSet("toggle.commands")) { // FIXME: string has to be loaded when module Basics is loaded
                         if (cfg.isSet("toggle.commands.setspawn")) {
                             if (cfg.get("toggle.commands.setspawn").toString().equals("false")) {
                                 cfg.set("toggle.commands.setspawn", "true");
@@ -80,7 +80,7 @@ public class CommandToggle implements IModularMSMFCommand {
                     }
                     break;
                 case "back":
-                    if (cfg.isSet("toggle.commands")) { //FIXME: string has to be loaded when module Basics is loaded
+                    if (cfg.isSet("toggle.commands")) { // FIXME: string has to be loaded when module Basics is loaded
                         if (cfg.isSet("toggle.commands.back")) {
                             if (cfg.get("toggle.commands.back").toString().equals("false")) {
                                 cfg.set("toggle.commands.back", "true");

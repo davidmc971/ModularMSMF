@@ -87,7 +87,6 @@ public class CommandTeleport implements IModularMSMFCommand {
 			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basics.nottoggledtrue");
 		}
 		return true;
-
 	}
 
 	@Override

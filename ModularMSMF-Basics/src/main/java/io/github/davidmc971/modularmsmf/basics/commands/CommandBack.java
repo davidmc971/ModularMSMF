@@ -14,16 +14,12 @@ import io.github.davidmc971.modularmsmf.core.util.Utils;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
 
 public class CommandBack implements IModularMSMFCommand {
-    
+
     private ModularMSMFCore plugin;
 
     public CommandBack() {
         plugin = ModularMSMFCore.Instance();
     }
-
-    /**
-     * @author Lightkeks
-     */
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -45,7 +41,7 @@ public class CommandBack implements IModularMSMFCommand {
                             Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
                                     "commands.back.success");
                             ((Entity) sender).teleport(Events.lastLocation.get(sender.getName()));
-                            //Events.lastLocation.remove(sender.getName());
+                            // Events.lastLocation.remove(sender.getName());
                             return true;
                             // give back if no lastLocation has been found
                         } else {
