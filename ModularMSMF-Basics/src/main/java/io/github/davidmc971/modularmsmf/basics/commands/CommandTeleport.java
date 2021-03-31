@@ -49,7 +49,7 @@ public class CommandTeleport implements IModularMSMFCommand {
 			if (p != null) {
 				((Player) sender).teleport(p);
 				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS, "commands.teleport.success",
-						"_target", p.displayName().toString());
+						"_target", p.getName());
 				return true;
 			}
 			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.playernotfound");
