@@ -3,18 +3,34 @@ package io.github.davidmc971.modularmsmf.api;
 import org.bukkit.command.CommandExecutor;
 
 /**
- * An Interface to represent the key requirements for a command to be used
+ * An Interface to represent the key requirements for a command to be used and
  * executed in ModularMSMF.
  * 
- * @author davidmc971 (David Alexander Pfeiffer)
+ * @author David Alexander Pfeiffer (davidmc971)
  * @since 0.3.0
  */
 public interface IModularMSMFCommand extends CommandExecutor {
     /**
-     * Get the labels associated with this command.
+     * Get the main label of this command. Command will be registered using this
+     * label.
      * 
-     * @return An array containing at least one command label without a leading
-     *         slash (e.g. "command1").
+     * @return The commands' label.
      */
-    public String[] getCommandLabels();
+    public String Label();
+
+    /**
+     * Get the aliases of this command. Aliases will be registered. Can be empty.
+     * 
+     * @return The commands' aliases.
+     */
+    public String[] Aliases();
+
+    /**
+     * Get if the command is currently enabled. If the command will always be
+     * enabled, this can just return true. If the it is configurable whether the
+     * command is enabled or not, you can give that info here.
+     * 
+     * @return true if command is enabled.
+     */
+    public boolean Enabled();
 }

@@ -3,7 +3,7 @@ package io.github.davidmc971.modularmsmf.basics.util;
 import org.bukkit.entity.Player;
 
 /**
- * @author davidmc971
+ * @author David Alexander Pfeiffer (davidmc971)
  */
 
 public class PlayerKillConfig {

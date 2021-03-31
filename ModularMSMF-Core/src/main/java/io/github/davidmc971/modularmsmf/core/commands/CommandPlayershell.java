@@ -11,13 +11,13 @@ import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 
 /**
  * 
- * @author davidmc971
+ * @author David Alexander Pfeiffer (davidmc971)
  *
  */
 
-/*	This command is supposed to be a shell, enabling
- * 	the console to emulate being a player for testing
- * 	purposes.
+/*
+ * This command is supposed to be a shell, enabling the console to emulate being
+ * a player for testing purposes.
  */
 
 public class CommandPlayershell implements IModularMSMFCommand, Listener {
@@ -30,23 +30,33 @@ public class CommandPlayershell implements IModularMSMFCommand, Listener {
 			sender.sendMessage("Only for console.");
 			return true;
 		}
-		
-		/*	/playershell start <playername>
-		 * 	/playershell exit
-		 */
-		
-		return true;
-	}
 
-	@Override
-	public String[] getCommandLabels() {
-		return new String[]{ "playershell" };
+		/*
+		 * /playershell start <playername> /playershell exit
+		 */
+
+		return true;
 	}
 
 	@EventHandler
 	public void onServerCommandEvent(ServerCommandEvent event) {
 		if (activeShellPlayer != null) {
-			
+
 		}
+	}
+
+	@Override
+	public String Label() {
+		return "playershell";
+	}
+
+	@Override
+	public String[] Aliases() {
+		return new String[] { "plrsh", "plsh" };
+	}
+
+	@Override
+	public boolean Enabled() {
+		return true;
 	}
 }

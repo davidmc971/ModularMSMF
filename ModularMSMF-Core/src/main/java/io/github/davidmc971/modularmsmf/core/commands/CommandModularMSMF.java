@@ -32,18 +32,14 @@ public class CommandModularMSMF implements IModularMSMFCommand {
 
 	private ModularMSMFCore plugin;
 
-    public CommandModularMSMF() {
-        plugin = ModularMSMFCore.Instance();
-    }
+	public CommandModularMSMF() {
+		plugin = ModularMSMFCore.Instance();
+	}
 
 	private String infoPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.INFO);
-	// private String errorPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.ERROR);
+	// private String errorPrefix =
+	// ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.ERROR);
 	private String debugPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.DEBUG);
-
-	@Override
-	public String[] getCommandLabels() {
-		return new String[] { "mmsmf" };
-	}
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -56,36 +52,33 @@ public class CommandModularMSMF implements IModularMSMFCommand {
 			if (PermissionManager.checkPermission(sender, "mmsmf")) {
 				if (args.length == 0) {
 					/**
-					 * TODO changing server name as its own by new command, needs to be
-					 * implemented.
+					 * TODO changing server name as its own by new command, needs to be implemented.
 					 */
 					sender.sendMessage(infoPrefix + "Plugin enabled on: " + Bukkit.getName());
 
 					Component testComponent = Component.text(infoPrefix + "More help: ")
 							.style(Style.empty().decorate(TextDecoration.BOLD))
-							.append(Component.text("info")
-									.color(TextColor.color(127, 127, 127))
+							.append(Component.text("info").color(TextColor.color(127, 127, 127))
 									.hoverEvent(net.kyori.adventure.text.event.HoverEvent
 											.showText(Component.text(language.getString("commands.mmsmf.info"))))
 									.clickEvent(net.kyori.adventure.text.event.ClickEvent.runCommand("/mmsmf info")))
 							.append(Component.text(" "))
-							.append(Component.text("report a bug")
-									.color(TextColor.color(255, 127, 127))
+							.append(Component.text("report a bug").color(TextColor.color(255, 127, 127))
 									.hoverEvent(net.kyori.adventure.text.event.HoverEvent
 											.showText(Component.text(language.getString("commands.mmsmf.report"))))
 									.clickEvent(net.kyori.adventure.text.event.ClickEvent.runCommand("/mmsmf report")))
 							.append(Component.text(" "))
-							.append(Component.text("teamspeak")
-									.color(TextColor.color(127, 127, 127))
-									.hoverEvent(net.kyori.adventure.text.event.HoverEvent
-											.showText(Component.text(language.getString("commands.mmsmf.teamspeak.click"))))
-									.clickEvent(net.kyori.adventure.text.event.ClickEvent.runCommand("/mmsmf teamspeak")))
+							.append(Component.text("teamspeak").color(TextColor.color(127, 127, 127))
+									.hoverEvent(net.kyori.adventure.text.event.HoverEvent.showText(
+											Component.text(language.getString("commands.mmsmf.teamspeak.click"))))
+									.clickEvent(
+											net.kyori.adventure.text.event.ClickEvent.runCommand("/mmsmf teamspeak")))
 							.append(Component.text(" "))
-							.append(Component.text("discord")
-									.color(TextColor.color(127, 127, 255))
-									.hoverEvent(net.kyori.adventure.text.event.HoverEvent
-							.showText(Component.text(language.getString("commands.mmsmf.discord.click"))))
-									.clickEvent(net.kyori.adventure.text.event.ClickEvent.runCommand("/mmsmf discord")));
+							.append(Component.text("discord").color(TextColor.color(127, 127, 255))
+									.hoverEvent(net.kyori.adventure.text.event.HoverEvent.showText(
+											Component.text(language.getString("commands.mmsmf.discord.click"))))
+									.clickEvent(
+											net.kyori.adventure.text.event.ClickEvent.runCommand("/mmsmf discord")));
 
 					sender.sendMessage(Identity.nil(), testComponent, MessageType.SYSTEM);
 
@@ -158,6 +151,21 @@ public class CommandModularMSMF implements IModularMSMFCommand {
 				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
 			}
 		}
+		return true;
+	}
+
+	@Override
+	public String Label() {
+		return "modularmsmf";
+	}
+
+	@Override
+	public String[] Aliases() {
+		return new String[] { "mmsmf" };
+	}
+
+	@Override
+	public boolean Enabled() {
 		return true;
 	}
 }

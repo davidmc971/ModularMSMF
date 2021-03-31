@@ -26,62 +26,69 @@ public class CommandKill implements IModularMSMFCommand {
 	private ModularMSMFCore MMSMFCore;
 	private DeathListener deathListener;
 
-    public CommandKill() {
-        MMSMFCore = ModularMSMFCore.Instance();
+	public CommandKill() {
+		MMSMFCore = ModularMSMFCore.Instance();
 		deathListener = ModularMSMFBasics.Instance().getDeathListener();
-    }
+	}
 
 	@Override
-	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {	
-		//checks if command sender is player instead of console
-		if(sender instanceof Player){
-			//checks permission of user
-			if(PermissionManager.checkPermission(sender, "kill")){
+	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+		// checks if command sender is player instead of console
+		if (sender instanceof Player) {
+			// checks permission of user
+			if (PermissionManager.checkPermission(sender, "kill")) {
 				if (args.length == 0) {
-					Utils.sendMessageWithConfiguredLanguage(MMSMFCore, sender, ChatFormat.ERROR, "general.missingarguments");
+					Utils.sendMessageWithConfiguredLanguage(MMSMFCore, sender, ChatFormat.ERROR,
+							"general.missingarguments");
 					return true;
 				}
 
 				switch (args[0].toLowerCase()) {
-					case "me":
-					//suicide
+				case "me":
+					// suicide
 					if (PermissionManager.checkPermission(sender, "kill_me")) {
 						Player player = ((Player) sender);
 						deathListener.registerKilledPlayer(player, KillType.SUICIDE);
-						Utils.broadcastWithConfiguredLanguageEach(MMSMFCore, ChatFormat.DEATH, "event.suicide", "_var", player.displayName().toString());
+						Utils.broadcastWithConfiguredLanguageEach(MMSMFCore, ChatFormat.DEATH, "event.suicide", "_var",
+								player.displayName().toString());
 						player.setHealth(0);
 					} else {
-						Utils.sendMessageWithConfiguredLanguage(MMSMFCore, sender, ChatFormat.NOPERM, "general.nopermission");
+						Utils.sendMessageWithConfiguredLanguage(MMSMFCore, sender, ChatFormat.NOPERM,
+								"general.nopermission");
 					}
 					break;
 
-					case "all":
-					//kills all players online
+				case "all":
+					// kills all players online
 					if (PermissionManager.checkPermission(sender, "kill_all")) {
 						for (Player player : Bukkit.getOnlinePlayers()) {
 							deathListener.registerKilledPlayer(player, KillType.HOMOCIDE);
 							player.setHealth(0);
 						}
-						Utils.broadcastWithConfiguredLanguageEach(MMSMFCore, ChatUtils.ChatFormat.DEATH, "event.homocide");
+						Utils.broadcastWithConfiguredLanguageEach(MMSMFCore, ChatUtils.ChatFormat.DEATH,
+								"event.homocide");
 					} else {
-						Utils.sendMessageWithConfiguredLanguage(MMSMFCore, sender, ChatFormat.NOPERM, "general.nopermission");
+						Utils.sendMessageWithConfiguredLanguage(MMSMFCore, sender, ChatFormat.NOPERM,
+								"general.nopermission");
 					}
 					break;
 
-					default:
-					//kills specified player
+				default:
+					// kills specified player
 					boolean temp = false;
 					for (Player player : Bukkit.getOnlinePlayers()) {
 						if (args[0].toLowerCase().equals(player.getName().toLowerCase())) {
 							deathListener.registerKilledPlayer(player, KillType.KILL);
-							Utils.broadcastWithConfiguredLanguageEach(MMSMFCore, ChatFormat.DEATH, "event.killed_player", "_var", player.displayName().toString());
+							Utils.broadcastWithConfiguredLanguageEach(MMSMFCore, ChatFormat.DEATH,
+									"event.killed_player", "_var", player.displayName().toString());
 							player.setHealth(0);
 							temp = true;
 							break;
 						}
 					}
-					if (!temp){
-						Utils.sendMessageWithConfiguredLanguage(MMSMFCore, sender, ChatFormat.ERROR, "general.playernotfound");
+					if (!temp) {
+						Utils.sendMessageWithConfiguredLanguage(MMSMFCore, sender, ChatFormat.ERROR,
+								"general.playernotfound");
 					}
 				}
 			} else {
@@ -94,7 +101,17 @@ public class CommandKill implements IModularMSMFCommand {
 	}
 
 	@Override
-	public String[] getCommandLabels() {
-		return new String[]{ "kill" };
+	public String Label() {
+		return "kill";
+	}
+
+	@Override
+	public String[] Aliases() {
+		return null;
+	}
+
+	@Override
+	public boolean Enabled() {
+		return true;
 	}
 }

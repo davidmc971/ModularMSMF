@@ -14,7 +14,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 /**
  * 
- * @author davidmc971
+ * @author David Alexander Pfeiffer (davidmc971)
  *
  */
 

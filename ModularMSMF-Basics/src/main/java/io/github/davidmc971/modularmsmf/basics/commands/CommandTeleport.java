@@ -15,7 +15,7 @@ import io.github.davidmc971.modularmsmf.core.util.Utils;
 
 /**
  * 
- * @author davidmc971
+ * @author David Alexander Pfeiffer (davidmc971)
  *
  */
 
@@ -72,8 +72,8 @@ public class CommandTeleport implements IModularMSMFCommand {
 						"basics.commands.teleport.success.toyou", "_player", sender.getName());
 				return true;
 			}
-			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basics.commands.teleport.error.notonline",
-					"_player", p2.getName());
+			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+					"basics.commands.teleport.error.notonline", "_player", p2.getName());
 			break;
 		case 3:
 			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.toomanyarguments");
@@ -84,7 +84,17 @@ public class CommandTeleport implements IModularMSMFCommand {
 	}
 
 	@Override
-	public String[] getCommandLabels() {
-		return new String[] { "teleport", "tele", "tp" };
+	public String Label() {
+		return "teleport";
+	}
+
+	@Override
+	public String[] Aliases() {
+		return new String[] { "tele", "tp" };
+	}
+
+	@Override
+	public boolean Enabled() {
+		return true;
 	}
 }

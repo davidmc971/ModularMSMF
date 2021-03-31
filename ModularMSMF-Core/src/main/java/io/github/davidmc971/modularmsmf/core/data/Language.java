@@ -4,7 +4,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 
 import io.github.davidmc971.modularmsmf.api.ILanguage;
 
-/**	@author davidmc971
+/**	@author David Alexander Pfeiffer (davidmc971)
  * 	@since v0.2
  *	This should be an object to contain a certain language.
  * 	Every player should have a Language attached.

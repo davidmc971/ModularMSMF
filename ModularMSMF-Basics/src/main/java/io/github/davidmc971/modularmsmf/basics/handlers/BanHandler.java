@@ -4,7 +4,7 @@ import java.util.UUID;
 
 import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
 
-/*	@author davidmc971
+/*	@author David Alexander Pfeiffer (davidmc971)
  * 	
  * 	This class will be a manager object to help CommandBan interface with the DataManager.
  * 	It isolates CommandBan from handling the bans so it is easier to work on them separately.
@@ -14,7 +14,7 @@ import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
 
 /**
  * 
- * @author davidmc971
+ * @author David Alexander Pfeiffer (davidmc971)
  *
  */
 

@@ -17,7 +17,7 @@ import io.github.davidmc971.modularmsmf.core.util.Utils;
 
 /**
  * 
- * @author davidmc971
+ * @author David Alexander Pfeiffer (davidmc971)
  *
  */
 
@@ -25,34 +25,38 @@ public class CommandSlaughter implements IModularMSMFCommand {
 
 	private ModularMSMFCore plugin;
 
-    public CommandSlaughter() {
-        plugin = ModularMSMFCore.Instance();
-    }
-		/**
-		 * @TODO: fully working command
-		 */
+	public CommandSlaughter() {
+		plugin = ModularMSMFCore.Instance();
+	}
+
+	/**
+	 * @TODO: fully working command
+	 */
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-		if(PermissionManager.checkPermission(sender, "slaughter")){
-			if(sender instanceof ConsoleCommandSender){
+		if (PermissionManager.checkPermission(sender, "slaughter")) {
+			if (sender instanceof ConsoleCommandSender) {
 				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "general.noconsole");
 			} else {
-				if(args.length == 0) {
+				if (args.length == 0) {
 					Location playerloc = ((Player) sender).getLocation();
 					for (Entity e : ((Player) sender).getWorld().getNearbyEntities(playerloc, 500, 500, 500)) {
 						if (!(e instanceof Player) && (e instanceof Monster))
 							e.remove();
 					}
-					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS, "commands.slaughter.success");
-				} else if(args.length == 1 && args[0].equalsIgnoreCase("passive")){
+					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
+							"commands.slaughter.success");
+				} else if (args.length == 1 && args[0].equalsIgnoreCase("passive")) {
 					Location playerloc = ((Player) sender).getLocation();
 					for (Entity e : ((Player) sender).getWorld().getNearbyEntities(playerloc, 500, 500, 500)) {
 						if (!(e instanceof Player) && (e instanceof Animals))
 							e.remove();
 					}
-					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS, "commands.slaughter.success");
+					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
+							"commands.slaughter.success");
 				} else {
-					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.toomanyarguments");
+					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+							"general.toomanyarguments");
 				}
 			}
 		} else {
@@ -61,10 +65,18 @@ public class CommandSlaughter implements IModularMSMFCommand {
 		return true;
 	}
 
-
 	@Override
-	public String[] getCommandLabels() {
-		return new String[]{ "slaughter" };
+	public String Label() {
+		return "slaughter";
 	}
 
+	@Override
+	public String[] Aliases() {
+		return null;
+	}
+
+	@Override
+	public boolean Enabled() {
+		return true;
+	}
 }

@@ -26,11 +26,6 @@ public class CommandFeed implements IModularMSMFCommand {
 	}
 
 	@Override
-	public String[] getCommandLabels() {
-		return new String[] { "feed" };
-	}
-
-	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		// target is always null unless target is online
 		UUID target = null;
@@ -90,7 +85,8 @@ public class CommandFeed implements IModularMSMFCommand {
 				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.toomanyarguments");
 				break;
 			case 0:
-				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "commands.feed.others.console");
+				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE,
+						"commands.feed.others.console");
 				break;
 			case 1:
 				target = Utils.getPlayerUUIDByName(args[0]);
@@ -120,6 +116,21 @@ public class CommandFeed implements IModularMSMFCommand {
 				break;
 			}
 		}
+		return true;
+	}
+
+	@Override
+	public String Label() {
+		return "feed";
+	}
+
+	@Override
+	public String[] Aliases() {
+		return null;
+	}
+
+	@Override
+	public boolean Enabled() {
 		return true;
 	}
 }

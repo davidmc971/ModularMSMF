@@ -55,10 +55,19 @@ public class CommandBack implements IModularMSMFCommand {
         }
         return true;
     }
-
-    @Override
-    public String[] getCommandLabels() {
-        return new String[]{ "back" };
-    }
     
+    @Override
+	public String Label() {
+		return "back";
+	}
+
+	@Override
+	public String[] Aliases() {
+		return null;
+	}
+
+	@Override
+	public boolean Enabled() {
+		return true;
+	}
 }

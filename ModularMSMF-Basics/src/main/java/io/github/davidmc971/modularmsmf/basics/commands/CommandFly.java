@@ -85,11 +85,6 @@ public class CommandFly implements IModularMSMFCommand {
         return true;
     }
 
-    @Override
-    public String[] getCommandLabels() {
-        return new String[] { "fly" };
-    }
-
     private boolean toggleFlight(UUID uuid) {
         FileConfiguration cfg = plugin.getDataManager().getPlayerCfg(uuid);
         Player player = Bukkit.getPlayer(uuid);
@@ -106,4 +101,18 @@ public class CommandFly implements IModularMSMFCommand {
         return true;
     }
 
+    @Override
+    public String Label() {
+        return "fly";
+    }
+
+    @Override
+    public String[] Aliases() {
+        return null;
+    }
+
+    @Override
+    public boolean Enabled() {
+        return true;
+    }
 }

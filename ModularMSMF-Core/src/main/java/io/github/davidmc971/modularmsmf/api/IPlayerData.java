@@ -11,7 +11,7 @@ import org.bukkit.configuration.Configuration;
 /**
  * An interface for all common player-related data.
  * 
- * @author davidmc971 (David Alexander Pfeiffer)
+ * @author David Alexander Pfeiffer (davidmc971)
  * @since 0.3.0
  */
 public interface IPlayerData {

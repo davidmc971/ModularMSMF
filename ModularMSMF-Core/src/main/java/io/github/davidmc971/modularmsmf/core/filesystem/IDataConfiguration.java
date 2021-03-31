@@ -11,7 +11,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 
 /**
  * 
- * @author davidmc971
+ * @author David Alexander Pfeiffer (davidmc971)
  *
  */
 

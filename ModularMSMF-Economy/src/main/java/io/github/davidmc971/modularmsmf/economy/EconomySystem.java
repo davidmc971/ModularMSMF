@@ -1,6 +1,5 @@
 package io.github.davidmc971.modularmsmf.economy;
 
-import java.util.Arrays;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
@@ -19,7 +18,7 @@ import io.github.davidmc971.modularmsmf.core.util.Utils;
 /**
  * TODO: Mainclass for economysystem <3
  * 
- * @author Lightkeks with help from @author davidmc971 TODO: changing all
+ * @author Lightkeks with help from @author David Alexander Pfeiffer (davidmc971) TODO: changing all
  *         sendMessage with Utils.sendMessage...
  */
 
@@ -30,11 +29,6 @@ public class EconomySystem implements IModularMSMFCommand {
     public EconomySystem() {
         plugin = ModularMSMFCore.Instance();
     }
-
-	@Override
-	public String[] getCommandLabels() {
-		return new String[] { "eco", "money" };
-	}
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
@@ -48,10 +42,6 @@ public class EconomySystem implements IModularMSMFCommand {
 		String currencyFormat = "\\$";
 		// TODO: something like language.getCurrencyFormat() which loads from
 		// settings.yml
-
-		// checks contained string above in getCommandLabels()
-		if (!Arrays.asList(getCommandLabels()).contains(commandLabel.toLowerCase()))
-			return false;
 
 		if (args.length == 0) {
 			if ((sender instanceof Player)) {
@@ -389,4 +379,18 @@ public class EconomySystem implements IModularMSMFCommand {
 		return -1;
 	}
 
+	@Override
+    public String Label() {
+        return "money";
+    }
+
+    @Override
+    public String[] Aliases() {
+        return new String[] { "eco" };
+    }
+
+    @Override
+    public boolean Enabled() {
+        return true;
+    }
 }

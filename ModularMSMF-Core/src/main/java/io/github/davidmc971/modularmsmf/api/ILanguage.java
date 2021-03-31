@@ -4,7 +4,7 @@ package io.github.davidmc971.modularmsmf.api;
  * An Interface to represent the key requirements for a language to be used in
  * ModularMSMF.
  * 
- * @author davidmc971 (David Alexander Pfeiffer)
+ * @author David Alexander Pfeiffer (davidmc971)
  * @since 0.3.0
  */
 public interface ILanguage {

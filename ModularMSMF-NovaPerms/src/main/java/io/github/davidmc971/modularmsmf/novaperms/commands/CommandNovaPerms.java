@@ -76,11 +76,6 @@ public class CommandNovaPerms implements IModularMSMFCommand {
         return true;
     }
 
-    @Override
-    public String[] getCommandLabels() {
-        return new String[] { "novaperms", "nperms", "novap", "nope", "np" };
-    }
-
     private void novaperms_groups(CommandSender sender, Command command, String label, String[] args) {
         // TODO: implementation
     }
@@ -111,5 +106,20 @@ public class CommandNovaPerms implements IModularMSMFCommand {
 
     private void novaperms_delete(CommandSender sender, Command command, String label, String[] args) {
         // TODO: implementation
+    }
+
+    @Override
+    public String Label() {
+        return "novaperms";
+    }
+
+    @Override
+    public String[] Aliases() {
+        return new String[] { "nperms", "novap", "nope", "np" };
+    }
+
+    @Override
+    public boolean Enabled() {
+        return true;
     }
 }

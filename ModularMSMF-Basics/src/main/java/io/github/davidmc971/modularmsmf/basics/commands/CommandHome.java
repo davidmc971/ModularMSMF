@@ -28,10 +28,10 @@ public class CommandHome implements IModularMSMFCommand {
 
 	private ModularMSMFCore plugin;
 
-    public CommandHome() {
-        plugin = ModularMSMFCore.Instance();
+	public CommandHome() {
+		plugin = ModularMSMFCore.Instance();
 		this.homeHandler = new HomeHandler(plugin);
-    }
+	}
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -199,8 +199,17 @@ public class CommandHome implements IModularMSMFCommand {
 	}
 
 	@Override
-	public String[] getCommandLabels() {
-		return new String[] { "home" };
+	public String Label() {
+		return "home";
 	}
 
+	@Override
+	public String[] Aliases() {
+		return null;
+	}
+
+	@Override
+	public boolean Enabled() {
+		return true;
+	}
 }

@@ -1,17 +1,12 @@
 package io.github.davidmc971.modularmsmf.core.storage;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-import java.util.Map.Entry;
 
 import org.bukkit.configuration.MemoryConfiguration;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-
-import io.github.davidmc971.modularmsmf.api.IModule;
 
 /**
  * This class is intended to give a centralized approach to data handling.
@@ -22,16 +17,16 @@ import io.github.davidmc971.modularmsmf.api.IModule;
  * @author David Alexander Pfeiffer (davidmc971)
  */
 public class StorageHandler {
-    private final String pathModularMSMF = "plugins/ModularMSMF/";
+    // private final String pathModularMSMF = "plugins/ModularMSMF/";
     // private final String pathUserdata = pathMain + "userdata/";
     // private final String pathPlayers = pathMain + "players/";
 
     // General settings
-    private FileConfiguration settingsStorage = new YamlConfiguration();
+    // private FileConfiguration settingsStorage = new YamlConfiguration();
     // Central player storage
     private Map<UUID, FileConfiguration> playerStorage = new HashMap<>();
     // Module storage
-    private Map<IModule, Map<Entry<String, File>, FileConfiguration>> moduleStorage;
+    // private Map<IModule, Map<Entry<String, File>, FileConfiguration>> moduleStorage;
 
     public StorageHandler() {
         initialize();

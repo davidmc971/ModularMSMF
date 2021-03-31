@@ -10,7 +10,7 @@ import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 
 /**
  * 
- * @author davidmc971
+ * @author David Alexander Pfeiffer (davidmc971)
  *
  */
 
@@ -65,9 +65,7 @@ public class CommandLoader {
 		{
 			String temp = "";
 			for (IModularMSMFCommand cmd : commandList) {
-				for(String s : cmd.getCommandLabels()) {
-					temp += s + ", ";
-				}
+				temp += cmd.Label() + ", ";
 			}
 			
 			try {

@@ -38,12 +38,6 @@ import net.kyori.adventure.text.Component;
  */
 
 public class CommandBan implements IModularMSMFCommand {
-
-	@Override
-	public String[] getCommandLabels() {
-		return new String[] { "ban", "unban", "ban-ip" };
-	}
-
 	private ModularMSMFCore plugin;
 
 	public CommandBan() {
@@ -67,29 +61,31 @@ public class CommandBan implements IModularMSMFCommand {
 		// TODO: code stuff in here for banip
 		FileConfiguration language = Utils.configureCommandLanguage(sender, plugin);
 		if (PermissionManager.checkPermission(sender, "banip")) {
-			switch (args.length){
-				case 0: //if no argument or playername has given, likely as "help"
-					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO, "commands.banip.help.banip");
-					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO, "commands.banip.help.name");
+			switch (args.length) {
+			case 0: // if no argument or playername has given, likely as "help"
+				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO, "commands.banip.help.banip");
+				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO, "commands.banip.help.name");
 				break;
-				case 1: //if given playername
-					String reason = language.getString("event.banned");
-					UUID uuid = getPlayerUUIDByNameForBan(args[0]);
-					InetAddress ipAdress = PlayerData.getInetAddress();
-					if(uuid == null){
-					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "commands.banip.missingname");
+			case 1: // if given playername
+				String reason = language.getString("event.banned");
+				UUID uuid = getPlayerUUIDByNameForBan(args[0]);
+				InetAddress ipAdress = PlayerData.getInetAddress();
+				if (uuid == null) {
+					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+							"commands.banip.missingname");
+				} else {
+					if (plugin.getDataManager().getPlayerCfg(uuid).getBoolean("banned")) {
+						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+								"commands.ban.alreadybanned");
+						return true;
 					} else {
-						if(plugin.getDataManager().getPlayerCfg(uuid).getBoolean("banned")){
-							Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "commands.ban.alreadybanned");
-							return true;
-						} else {
-							banPlayer(uuid, reason, language);
-							banPlayerIp(uuid, reason, language, ipAdress);
-						}
+						banPlayer(uuid, reason, language);
+						banPlayerIp(uuid, reason, language, ipAdress);
 					}
+				}
 				break;
-				default: //if too many arguments are given
-					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.toomanyarguments");
+			default: // if too many arguments are given
+				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.toomanyarguments");
 				break;
 			}
 		} else {
@@ -149,7 +145,7 @@ public class CommandBan implements IModularMSMFCommand {
 	// bans an ip from a player
 	public void banPlayerIp(UUID uuid, String reason, FileConfiguration language, InetAddress playerIp) {
 		// TODO: need work on it
-		//Player ipAdress = ipAdress.getPlayer().getAddress();
+		// Player ipAdress = ipAdress.getPlayer().getAddress();
 		FileConfiguration cfg = plugin.getDataManager().getPlayerCfg(uuid);
 		cfg.set("banned", true);
 		cfg.set("reason", reason);
@@ -272,6 +268,21 @@ public class CommandBan implements IModularMSMFCommand {
 		}
 		// gives out if no permissions are given
 		Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.UNBAN, "general.nopermission");
+		return true;
+	}
+
+	@Override
+	public String Label() {
+		return "ban";
+	}
+
+	@Override
+	public String[] Aliases() {
+		return new String[] { "unban", "ban-ip" };
+	}
+
+	@Override
+	public boolean Enabled() {
 		return true;
 	}
 }

@@ -12,8 +12,8 @@ import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
 
 /**
  * 
- * @author Lightkeks
- * Will be looking for some features in future like addition of showing IP adress or some other stuff like TP
+ * @author Lightkeks Will be looking for some features in future like addition
+ *         of showing IP adress or some other stuff like TP
  *
  */
 
@@ -21,21 +21,32 @@ public class CommandServerInfo implements IModularMSMFCommand {
 
 	private ModularMSMFCore plugin;
 
-    public CommandServerInfo() {
-        plugin = ModularMSMFCore.Instance();
-    }
+	public CommandServerInfo() {
+		plugin = ModularMSMFCore.Instance();
+	}
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-		
+
 		if (PermissionManager.checkPermission(sender, "serverinfo")) {
-			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO, "general.bukkitversion", "_bukkitver", Bukkit.getBukkitVersion());
+			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO, "general.bukkitversion",
+					"_bukkitver", Bukkit.getBukkitVersion());
 		}
 		return true;
 	}
 
 	@Override
-	public String[] getCommandLabels() {
-		return new String[]{ "serverinfo" };
+	public String Label() {
+		return "serverinfo";
+	}
+
+	@Override
+	public String[] Aliases() {
+		return null;
+	}
+
+	@Override
+	public boolean Enabled() {
+		return true;
 	}
 }

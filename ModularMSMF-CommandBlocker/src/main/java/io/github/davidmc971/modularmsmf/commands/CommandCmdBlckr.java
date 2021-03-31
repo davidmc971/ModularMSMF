@@ -18,17 +18,15 @@ public class CommandCmdBlckr implements IModularMSMFCommand {
         if (sender.hasPermission(PermissionManager.getPermission("commandblocker.use"))) {
             // TODO structure given:
             /*
-             * commandblocker/cb -> help//shows "this" help
-             * add //adds a command to list
-             * remove //removes a command from list
-             * list //lists all blocked commands
+             * commandblocker/cb -> help//shows "this" help add //adds a command to list
+             * remove //removes a command from list list //lists all blocked commands
              */
             switch (args.length) {
             default:
                 Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.invalidarguments");
                 // debug
                 sender.sendMessage("default, only command, invalid argument");
-            break;
+                break;
             case 1:
                 switch (args[0].toLowerCase()) {
                 default:
@@ -47,7 +45,7 @@ public class CommandCmdBlckr implements IModularMSMFCommand {
                 case "list":
                     break;
                 }
-            break;
+                break;
             }
         } else {
             Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
@@ -57,8 +55,17 @@ public class CommandCmdBlckr implements IModularMSMFCommand {
     }
 
     @Override
-    public String[] getCommandLabels() {
-        return new String[] { "commandblocker", "cmdblckr", "cb" };
+    public String Label() {
+        return "commandblocker";
     }
 
+    @Override
+    public String[] Aliases() {
+        return new String[] { "cmdblckr", "cb" };
+    }
+
+    @Override
+    public boolean Enabled() {
+        return true;
+    }
 }

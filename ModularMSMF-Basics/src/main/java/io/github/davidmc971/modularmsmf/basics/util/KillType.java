@@ -2,7 +2,7 @@ package io.github.davidmc971.modularmsmf.basics.util;
 
 /**
  * 
- * @author davidmc971
+ * @author David Alexander Pfeiffer (davidmc971)
  *
  */
 

@@ -2,7 +2,6 @@ package io.github.davidmc971.modularmsmf.core;
 
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -122,9 +121,7 @@ public class ModularMSMFCore extends JavaPlugin {
 		//<commandLabel, instance of AbstractCommand>
 		commandMap = new LinkedHashMap<String, IModularMSMFCommand>();
 		loader.loadCommands(this.getClassLoader()).forEach(cmd -> {
-			Arrays.asList(cmd.getCommandLabels()).forEach(label -> {
-				commandMap.put(label.toLowerCase(), cmd);
-			});
+			commandMap.put(cmd.Label(), cmd);
 		});
 
 		//load plugin.yml for comparison

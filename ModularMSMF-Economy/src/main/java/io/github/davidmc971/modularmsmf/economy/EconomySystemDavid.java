@@ -8,7 +8,7 @@ import io.github.davidmc971.modularmsmf.core.util.Utils;
 
 /**
  * 
- * @author davidmc971
+ * @author David Alexander Pfeiffer (davidmc971)
  *
  */
 

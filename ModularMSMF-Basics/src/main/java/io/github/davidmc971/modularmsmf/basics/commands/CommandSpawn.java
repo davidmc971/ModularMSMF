@@ -133,7 +133,17 @@ public class CommandSpawn implements IModularMSMFCommand {
     }
 
     @Override
-    public String[] getCommandLabels() {
-        return new String[] { "spawn" };
+    public String Label() {
+        return "spawn";
+    }
+
+    @Override
+    public String[] Aliases() {
+        return null;
+    }
+
+    @Override
+    public boolean Enabled() {
+        return true;
     }
 }

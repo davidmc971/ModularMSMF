@@ -90,8 +90,17 @@ public class CommandMute implements IModularMSMFCommand {
 	}
 
 	@Override
-	public String[] getCommandLabels() {
-		return new String[] { "mute" };
+	public String Label() {
+		return "mute";
 	}
 
+	@Override
+	public String[] Aliases() {
+		return new String[] { "silence" };
+	}
+
+	@Override
+	public boolean Enabled() {
+		return true;
+	}
 }

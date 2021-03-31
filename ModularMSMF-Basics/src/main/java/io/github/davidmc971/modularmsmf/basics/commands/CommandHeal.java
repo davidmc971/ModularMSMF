@@ -15,23 +15,22 @@ import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
 
 /**
  * 
- * @author Lightkeks
- * Fully working command
+ * @author Lightkeks Fully working command
  */
 
 public class CommandHeal implements IModularMSMFCommand {
 
 	private ModularMSMFCore plugin;
 
-    public CommandHeal() {
-        plugin = ModularMSMFCore.Instance();
-    }
+	public CommandHeal() {
+		plugin = ModularMSMFCore.Instance();
+	}
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-		//target is always null unless target is online
+		// target is always null unless target is online
 		UUID target = null;
-		if(sender instanceof Player){
+		if (sender instanceof Player) {
 			switch (args.length) {
 			case 0:
 				if (PermissionManager.checkPermission(sender, "healself")) {
@@ -45,21 +44,26 @@ public class CommandHeal implements IModularMSMFCommand {
 				target = Utils.getPlayerUUIDByName(args[0]);
 				if (PermissionManager.checkPermission(sender, "healother")) {
 					if (target == null) {
-						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.playernotfound");
+						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+								"general.playernotfound");
 						return true;
 					} else
 						for (Player p : Bukkit.getOnlinePlayers()) {
 							if (p.getUniqueId().toString().equalsIgnoreCase(target.toString())) {
-								if(sender == p) {
-									Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.HEAL, "commands.heal.healself");
-									((Player)sender).setHealth(20);
+								if (sender == p) {
+									Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.HEAL,
+											"commands.heal.healself");
+									((Player) sender).setHealth(20);
 								} else {
-									Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.HEAL, "commands.heal.healother", "_player", p.displayName().toString());
-									Utils.sendMessageWithConfiguredLanguage(plugin, p, ChatFormat.HEAL, "commands.heal.gothealed", "_sender", sender.getName());
+									Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.HEAL,
+											"commands.heal.healother", "_player", p.displayName().toString());
+									Utils.sendMessageWithConfiguredLanguage(plugin, p, ChatFormat.HEAL,
+											"commands.heal.gothealed", "_sender", sender.getName());
 									p.setHealth(20);
 								}
 							} else {
-								Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.playernotonline");
+								Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+										"general.playernotonline");
 							}
 						}
 					break;
@@ -70,7 +74,7 @@ public class CommandHeal implements IModularMSMFCommand {
 				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.toomanyarguments");
 				break;
 			}
-			
+
 		} else {
 			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "general.noconsole");
 		}
@@ -78,7 +82,17 @@ public class CommandHeal implements IModularMSMFCommand {
 	}
 
 	@Override
-	public String[] getCommandLabels() {
-		return new String[]{ "heal" };
+	public String Label() {
+		return "heal";
+	}
+
+	@Override
+	public String[] Aliases() {
+		return null;
+	}
+
+	@Override
+	public boolean Enabled() {
+		return true;
 	}
 }

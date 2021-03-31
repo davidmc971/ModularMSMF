@@ -4,7 +4,7 @@ import net.md_5.bungee.api.ChatColor;
 
 /**
  * 
- * @author davidmc971
+ * @author David Alexander Pfeiffer (davidmc971)
  *
  */
 

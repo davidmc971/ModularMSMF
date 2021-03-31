@@ -26,7 +26,7 @@ import io.github.davidmc971.modularmsmf.core.configuration.AbstractConfiguration
 import io.github.davidmc971.modularmsmf.core.listeners.Events;
 
 /**
- * @author davidmc971
+ * @author David Alexander Pfeiffer (davidmc971)
  */
 
 /*
