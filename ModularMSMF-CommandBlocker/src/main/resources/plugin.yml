@@ -12,7 +12,7 @@ api: none
 main: io.github.davidmc971.modularmsmf.ModularMSMFCommandBlocker
 
 commands:
-  cmdblckr:
+  commandblocker:
     description: Configure CommandBlocker
     usage: /<command> <args>
-    aliases: [cb, commandblocker, cmdblckr]
+    aliases: [cb, cmdblckr]
