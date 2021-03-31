@@ -160,4 +160,6 @@ basics:
       success:
         toplayer: Du hast dich erfolgreich zu _player teleportiert!
         toyou: _player hat sich zu dir teleportiert!
-      error: _player ist nicht online!
+      error:
+        notonline: _player ist nicht online!
+        samename: Du kannst dich nicht zu dir selbst teleportieren!
