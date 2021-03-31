@@ -10,7 +10,7 @@ COMMANDS:
 			- console can ban (w/o permission)
 			- can ban player on+offline (with permission)
 			- TODO: banip not implemented yet
-	FEED:
+	FEED: {cm:2021-03-31}
 			- can feed yourself (with permission) {cm:2021-03-31}
 			- can feed other users (with permission) {cm:2021-03-31}
 			- cannot feed console (only player can be feeded) {cm:2021-03-31}
@@ -51,7 +51,7 @@ GENERAL TODO AND IDEAS:
 			might convert "languages.*" into seperate files to create which can be accessed outside which the user can edit to its own?
 			like we dont need this anymore, creating a basic file which the user can edit at it's own will? option should be switchable
 			in the console or as player in it's OP-state. like "/changelang"?
-			TODO: Changing language for each player?
+			TODO: Changing language for each player? {cm:2021-03-31}
 			TODO: /language set//get
 			
 		Debugging-Info:
@@ -60,7 +60,7 @@ GENERAL TODO AND IDEAS:
 			create a file or sending a message to our discord server throught a bot?
 		
 		LannguageManager.java:
-			Adding client-side language setting? hard to code, but possible anyways. server should look up where's the user's coming from
+			Adding client-side language setting? hard to code, but possible anyways. server should look up where's the user's coming from 
 			so it could auto set it to it's most usable language? 
 
 		Home:
@@ -70,7 +70,7 @@ GENERAL TODO AND IDEAS:
 			TODO Implementing changeLocHome (sethome)
 			TODO Implementing changeLocHomeOtherPlayer (sethome)
 		All cmds:
-			TODO adjusting all permissions and all language-linkings in all cmds (still working on it)
+			TODO adjusting all permissions and all language-linkings in all cmds (still working on it) {cm:2021-03-31}
 			
 		AbstractCommand
 			now the basis for every Command, in the package commands, every command will be loaded automatically
