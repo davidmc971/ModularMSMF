@@ -113,8 +113,18 @@ public class CommandToggle implements IModularMSMFCommand {
     }
 
     @Override
-    public String[] getCommandLabels() {
-        return new String[] { "toggle", "tog" };
+    public String Label() {
+        return "toggle";
+    }
+
+    @Override
+    public String[] Aliases() {
+        return null;
+    }
+
+    @Override
+    public boolean Enabled() {
+        return true;
     }
 
 }

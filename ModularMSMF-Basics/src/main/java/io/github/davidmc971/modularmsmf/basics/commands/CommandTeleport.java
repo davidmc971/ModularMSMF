@@ -7,7 +7,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
-import org.checkerframework.checker.formatter.qual.ReturnsFormat;
 
 import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
@@ -16,7 +15,7 @@ import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
 import io.github.davidmc971.modularmsmf.core.util.Utils;
 
 /**
- * 
+ *
  * @author davidmc971
  *
  */
@@ -25,6 +24,7 @@ public class CommandTeleport implements IModularMSMFCommand {
 
 	private ModularMSMFCore plugin;
 	UUID target = null;
+	
 
 	public CommandTeleport() {
 		plugin = ModularMSMFCore.Instance();
@@ -90,7 +90,17 @@ public class CommandTeleport implements IModularMSMFCommand {
 	}
 
 	@Override
-	public String[] getCommandLabels() {
-		return new String[] { "teleport", "tele", "tp" };
+	public String Label() {
+		return "teleport";
+	}
+
+	@Override
+	public String[] Aliases() {
+		return new String[] { "tp" };
+	}
+
+	@Override
+	public boolean Enabled() {
+		return true;
 	}
 }
