@@ -31,7 +31,7 @@ public class CommandTeleport implements IModularMSMFCommand {
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (!PermissionManager.checkPermission(sender, "teleport")) {
-			// FIXME: send permission error
+			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
 			return true;
 		}
 		UUID target1, target2;
@@ -61,11 +61,12 @@ public class CommandTeleport implements IModularMSMFCommand {
 			if (p1 != null && p2 != null) {
 				// Both are online and can be teleported
 				p1.teleport(p2);
-				// FIXME: send success message
+				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS, "basics.commands.teleport.success.toplayer", "_player", p2.getName());
+				Utils.sendMessageWithConfiguredLanguage(plugin, p2, ChatFormat.INFO, "basics.commands.teleport.success.toyou", "_player", sender.getName());
 
 				return true;
 			}
-			// FIXME: send error message
+			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basics.commands.teleport.error", "_player", p2.getName());
 			break;
 		case 3:
 			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.toomanyarguments");

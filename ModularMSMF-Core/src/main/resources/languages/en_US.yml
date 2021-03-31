@@ -159,8 +159,7 @@ commands: #PLEASE NEVER EDIT THIS LINE
 basics:
   commands:
     teleport:
-      others:
-        nooneonline: Neither _target1 nor _target2 is online!
-        target1: Only _target1 is online!
-        target2: Only _target2 is online!
-        toself: You may choose another person!
+      success:
+        toplayer: You teleported to _player!
+        toyou: _player has teleported to you!
+      error: _player is not online!

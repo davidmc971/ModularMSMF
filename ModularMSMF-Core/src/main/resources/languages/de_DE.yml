@@ -135,8 +135,6 @@ commands: #Befehle #BITTE UNTER KEINEN UMSTÄNDEN DIESE LINE BEARBEITEN
     paytoothers:
     payfromothers:
     nodebt:
-  teleport: #BITTE UNTER KEINEN UMSTÄNDEN DIESE LINE BEARBEITEN
-    success: You teleported to _target!
   home: #BITTE UNTER KEINEN UMSTÄNDEN DIESE LINE BEARBEITEN
     invalidargument: Please do "/home help" for more information!
     help: #BITTE UNTER KEINEN UMSTÄNDEN DIESE LINE BEARBEITEN
@@ -159,8 +157,7 @@ commands: #Befehle #BITTE UNTER KEINEN UMSTÄNDEN DIESE LINE BEARBEITEN
 basics:
   commands:
     teleport:
-      others:
-        nooneonline: Weder _target1 noch _target2 ist online!
-        target1: Nur _target1 ist online!
-        target2: Nur _target2 ist online!
-        toself: Du sollst einen anderen Spieler angeben!
+      success:
+        toplayer: Du hast dich erfolgreich zu _player teleportiert!
+        toyou: _player hat sich zu dir teleportiert!
+      error: _player ist nicht online!
