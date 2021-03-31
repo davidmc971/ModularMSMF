@@ -55,18 +55,25 @@ public class CommandTeleport implements IModularMSMFCommand {
 			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.playernotfound");
 			break;
 		case 2:
+			if (args[0].equalsIgnoreCase(args[1])) {
+				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+						"basics.commands.teleport.error.samename");
+				return true;
+			}
 			target1 = Utils.getPlayerUUIDByName(args[0]);
 			target2 = Utils.getPlayerUUIDByName(args[1]);
 			Player p1 = Bukkit.getPlayer(target1), p2 = Bukkit.getPlayer(target2);
 			if (p1 != null && p2 != null) {
 				// Both are online and can be teleported
 				p1.teleport(p2);
-				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS, "basics.commands.teleport.success.toplayer", "_player", p2.getName());
-				Utils.sendMessageWithConfiguredLanguage(plugin, p2, ChatFormat.INFO, "basics.commands.teleport.success.toyou", "_player", sender.getName());
-
+				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
+						"basics.commands.teleport.success.toplayer", "_player", p2.getName());
+				Utils.sendMessageWithConfiguredLanguage(plugin, p2, ChatFormat.INFO,
+						"basics.commands.teleport.success.toyou", "_player", sender.getName());
 				return true;
 			}
-			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basics.commands.teleport.error", "_player", p2.getName());
+			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basics.commands.teleport.error.notonline",
+					"_player", p2.getName());
 			break;
 		case 3:
 			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.toomanyarguments");
