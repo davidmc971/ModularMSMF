@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
-//import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
 import org.bukkit.Location;
@@ -52,7 +51,7 @@ public class Events implements Listener {
 		Player player = event.getPlayer();
 		event.joinMessage(Component.empty());
 		Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.WELCOME, "event.welcome", "_var",
-				player.getDisplayName());
+				player.getName());
 
 	}
 
@@ -61,7 +60,7 @@ public class Events implements Listener {
 		// check if kicked players are still to be processed
 		if (!kickedPlayers.isEmpty()) {
 			if (kickedPlayers.contains(event.getPlayer().getUniqueId())) {
-				event.setQuitMessage(null);
+				event.quitMessage(null);
 				kickedPlayers.remove(event.getPlayer().getUniqueId());
 				return;
 			}
@@ -73,23 +72,19 @@ public class Events implements Listener {
 		String reason = cfg.getString("reason");
 		if (cfg.isBoolean("banned") == true) {
 			Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.BANNED, "commands.ban.playerbanned", "_player",
-					player.getDisplayName(), "_reason", reason);
-			event.setQuitMessage(null);
+					player.getName(), "_reason", reason);
+			event.quitMessage(null);
 		} else {
 			Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.QUIT, "event.quit", "_var",
-					player.getDisplayName());
-			event.setQuitMessage(null);
+					player.getName());
+			event.quitMessage(null);
 		}
 	}
 
 	@EventHandler
 	public void onLogin(PlayerLoginEvent event, FileConfiguration language, UUID uuid) {
-		// Player player = event.getPlayer();
-		// FileConfiguration language = Utils.configureCommandLanguage(player, plugin);
 		FileConfiguration cfg = plugin.getDataManager().getPlayerCfg(uuid);
 		String reason = language.getString("event.banned");
-		// FileConfiguration cfg =
-		// plugin.getDataManager().getPlayerCfg(player.getUniqueId());
 		cfg.set("players.ipAddress", event.getAddress());
 		if (cfg.isBoolean("banned") && cfg.getBoolean("banned")) {
 			if (cfg.isString("reason")) {
