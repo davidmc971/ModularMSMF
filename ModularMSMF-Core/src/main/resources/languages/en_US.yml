@@ -29,6 +29,7 @@ event: #PLEASE NEVER EDIT THIS LINE
   suicide: _var committed suicide.
   homocide: Everyone got killed in a brutal homocide! What a sad occurrence.
   banned: You got banned.
+  just_died: _var just died.
 commands: #PLEASE NEVER EDIT THIS LINE
   slaughter: #PLEASE NEVER EDIT THIS LINE
     success: All mobs have been killed around your sight.
@@ -157,11 +158,17 @@ commands: #PLEASE NEVER EDIT THIS LINE
     gotcleared: Your chat got cleared!
 #### Lang-files for Basics
 basics:
+  nottoggledtrue: The command is not active.
+  missingconfig: #BITTE UNTER KEINEN UMSTÄNDEN DIESE LINE BEARBEITEN
+    mainstring: Missing mainstring - creating a new one...
+    substring: Missing substring - creating a new one...
   commands:
     teleport:
-      success:
-        toplayer: You teleported to _player!
-        toyou: _player has teleported to you!
-      error:
-        notonline: _player is not online!
-        samename: You cannot teleport to yourself!
+      others:
+        nooneonline: Neither _target1 nor _target2 is online!
+        target1: Only _target1 is online!
+        target2: Only _target2 is online!
+        toself: You may choose another person!
+  toggle:
+    setTrue: You can use _args now!
+    setFalse: _args has been disabled!

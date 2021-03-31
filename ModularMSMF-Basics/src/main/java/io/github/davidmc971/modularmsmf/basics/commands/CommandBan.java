@@ -45,16 +45,21 @@ public class CommandBan implements IModularMSMFCommand {
 	}
 
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
-		// if arg is equal to one of them, returns command
-		switch (commandLabel.toLowerCase()) {
-		case "ban":
-			return banCommand(sender, cmd, commandLabel, args);
-		case "unban":
-			return unbanCommand(sender, cmd, commandLabel, args);
-		case "ban-ip":
-			return banIpCommand(sender, cmd, commandLabel, args); // TODO: still not on working list
+		FileConfiguration cfg = plugin.getDataManager().settingsyaml;
+		if (cfg.get("toggle.commands.ban").toString().equals("true")) {
+			// if arg is equal to one of them, returns command
+			switch (commandLabel.toLowerCase()) {
+			case "ban":
+				return banCommand(sender, cmd, commandLabel, args);
+			case "unban":
+				return unbanCommand(sender, cmd, commandLabel, args);
+			case "ban-ip":
+				return banIpCommand(sender, cmd, commandLabel, args); // TODO: still not on working list
+			}
+		} else {
+			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basics.nottoggledtrue");
 		}
-		return false;
+		return true;
 	}
 
 	private boolean banIpCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {

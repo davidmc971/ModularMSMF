@@ -79,6 +79,10 @@ public class PermissionManager {
 		//fly permissions
 		put("fly", "modularmsmf.fly");
 		put("fly.others", "modularmsmf.fly.others");
+		/* 
+		Basic module permissions
+		*/
+		put("toggle_use", "modularmsmf.toggle.use");
 	}};
 
 	public static boolean checkPermission(CommandSender sender, String permission) {

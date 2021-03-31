@@ -1,29 +1,27 @@
-COMMANDS: 
+COMMANDS:
 	REPORT:
-		DESCRIPTION: (TODO: 0%)
 			/report <category> <args>
 			categories: player, bug, other
 			/report player <playername> <reason>
 			/report bug <description>
 			/report other <description>
-		PROGRESS:
 			structure updated, needs work
-	BAN: 
-			- console can ban (w/o permission) 
-			- can ban player on+offline (with permission) 
-			- TODO: banip not implemented yet 
-	FEED:  {cm:2021-03-30}
-			- can feed yourself (with permission) {cm:2021-03-30}
-			- can feed other users (with permission) {cm:2021-03-30}
-			- cannot feed console (only player can be feeded) {cm:2021-03-30}
-			- console can feed everyone but not itself (w/o permissions) {cm:2021-03-30}
-	HEAL: {cm:2021-03-30}
-			- can heal a player {cm:2021-03-30}
-			- healing yourself {cm:2021-03-30}
-	KICK: {cm:2021-03-30}
-			- can kick a player {cm:2021-03-30}
-			- even with or without reason {cm:2021-03-30}
-			- broadcasting it worldwide on server {cm:2021-03-30}
+	BAN:
+			- console can ban (w/o permission)
+			- can ban player on+offline (with permission)
+			- TODO: banip not implemented yet
+	FEED: {cm:2021-03-31}
+			- can feed yourself (with permission) {cm:2021-03-31}
+			- can feed other users (with permission) {cm:2021-03-31}
+			- cannot feed console (only player can be feeded) {cm:2021-03-31}
+			- console can feed everyone but not itself (w/o permissions) {cm:2021-03-31}
+	HEAL: {cm:2021-03-31}
+			- can heal a player {cm:2021-03-31}
+			- healing yourself {cm:2021-03-31}
+	KICK: {cm:2021-03-31}
+			- can kick a player {cm:2021-03-31}
+			- even with or without reason {cm:2021-03-31}
+			- broadcasting it worldwide on server {cm:2021-03-31}
 	MMSMF:
 			- TODO: missing many functions, have to be added			
 	TELEPORT:
@@ -31,7 +29,6 @@ COMMANDS:
 	UNBAN:
 			- same as BAN
 	ECO:
-		PROGRESS:
 			- nothing really happened earlier, so fixing commands
 			
 	MONEY:
@@ -40,6 +37,7 @@ COMMANDS:
 	HOME: 
 			- only displaying messages and permissions has been set
 			- no playerdata atm
+			
 	MUTE / UNMUTE: 
 			
 	WORTH: 
@@ -47,18 +45,13 @@ COMMANDS:
 	GETSERVER:
 			
 	MOTD:
-		
-		
-    
-GENERAL TODO AND IDEAS:
 
-Ideas:
-	Lightkeks: 
+GENERAL TODO AND IDEAS:
 		Languages: 
 			might convert "languages.*" into seperate files to create which can be accessed outside which the user can edit to its own?
 			like we dont need this anymore, creating a basic file which the user can edit at it's own will? option should be switchable
 			in the console or as player in it's OP-state. like "/changelang"?
-			TODO: Changing language for each player?
+			TODO: Changing language for each player? {cm:2021-03-31}
 			TODO: /language set//get
 			
 		Debugging-Info:
@@ -67,11 +60,9 @@ Ideas:
 			create a file or sending a message to our discord server throught a bot?
 		
 		LannguageManager.java:
-			Adding client-side language setting? hard to code, but possible anyways. server should look up where's the user's coming from
+			Adding client-side language setting? hard to code, but possible anyways. server should look up where's the user's coming from 
 			so it could auto set it to it's most usable language? 
 
-Lightkeks:
-	Commands:
 		Home:
 			TODO Implementing hasNoHome (delhome, home)
 			TODO Implementing hasHome (home, delhome)
@@ -79,10 +70,8 @@ Lightkeks:
 			TODO Implementing changeLocHome (sethome)
 			TODO Implementing changeLocHomeOtherPlayer (sethome)
 		All cmds:
-			TODO adjusting all permissions and all language-linkings in all cmds (still working on it)
+			TODO adjusting all permissions and all language-linkings in all cmds (still working on it) {cm:2021-03-31}
 			
-davidmc971:
-	Command structure:
 		AbstractCommand
 			now the basis for every Command, in the package commands, every command will be loaded automatically
 			TODO: at the moment it has to be in plugin.yml to be executable, could be automated
@@ -98,13 +87,9 @@ davidmc971:
 		
 	General utilities:
 		Utils
-	Lightkeks:
 		Interface für Einteilung zw. Spigot, Bukkit und Forge und dass wir die Daten auf gleiche Art und Weise bekommen können
 		Feature: Annotation wie Forge only/Spigot only/Bukkit only
-	Lightkeks:
 		TODO settings.yml mit Währungseinstellung
 		TODO loading currency while set in settings.yml like $ or €
-	Lightkeks:
 		TODO Filtering bad words? Wäre eine sehr gute Idee für alle die, die nicht unbedingt beleidigungen oder böse wörter im chat haben wollen.
-	Lightkeks:
 		Verwarnsystem? Textchat-farbe des jenigen ändert sich auf gelb wenn einmal verwarnt, beim zweiten mal rot und beim dritten mal fliegt die person?

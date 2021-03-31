@@ -29,6 +29,7 @@ event: #BITTE UNTER KEINEN UMSTÄNDEN DIESE LINE BEARBEITEN
   suicide: _var hat Suizid begangen. #Selbsterklärend
   homocide: Alle Spieler wurden in einem brutalen Homozid niedergemetzelt! #Alle spieler wurden getoetet
   banned: Du wurdest gebannt. #Gebannter Spieler, bekommt diese Nachricht, sobald dieser versucht zu joinen
+  just_died: _var ist einfach gestorben.
 commands: #Befehle #BITTE UNTER KEINEN UMSTÄNDEN DIESE LINE BEARBEITEN
   slaughter:
     success: Alle Mobs in deiner Naehe wurden getoetet. #Signal fuer 
@@ -135,6 +136,8 @@ commands: #Befehle #BITTE UNTER KEINEN UMSTÄNDEN DIESE LINE BEARBEITEN
     paytoothers:
     payfromothers:
     nodebt:
+  teleport: #BITTE UNTER KEINEN UMSTÄNDEN DIESE LINE BEARBEITEN
+    success: You teleported to _target!
   home: #BITTE UNTER KEINEN UMSTÄNDEN DIESE LINE BEARBEITEN
     invalidargument: Please do "/home help" for more information!
     help: #BITTE UNTER KEINEN UMSTÄNDEN DIESE LINE BEARBEITEN
@@ -155,11 +158,17 @@ commands: #Befehle #BITTE UNTER KEINEN UMSTÄNDEN DIESE LINE BEARBEITEN
     gotcleared: Dein Chat wurde geleert!
 #### Lang-files for Basics
 basics:
+  nottoggledtrue: Der Befehl ist nicht aktiv.
+  missingconfig: #BITTE UNTER KEINEN UMSTÄNDEN DIESE LINE BEARBEITEN
+    mainstring: Fehlender mainstring - erstelle einen neuen...
+    substring: Fehlender substring - erstelle einen neuen...
   commands:
     teleport:
-      success:
-        toplayer: Du hast dich erfolgreich zu _player teleportiert!
-        toyou: _player hat sich zu dir teleportiert!
-      error:
-        notonline: _player ist nicht online!
-        samename: Du kannst dich nicht zu dir selbst teleportieren!
+      others:
+        nooneonline: Weder _target1 noch _target2 ist online!
+        target1: Nur _target1 ist online!
+        target2: Nur _target2 ist online!
+        toself: Du sollst einen anderen Spieler angeben!
+  toggle:
+    setTrue: Du kannst nun _args benutzen!
+    setFalse: _args wurde deaktiviert!

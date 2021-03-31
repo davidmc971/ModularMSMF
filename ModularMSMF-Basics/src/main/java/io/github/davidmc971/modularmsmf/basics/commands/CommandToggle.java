@@ -1,0 +1,120 @@
+package io.github.davidmc971.modularmsmf.basics.commands;
+
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
+
+import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
+import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
+import io.github.davidmc971.modularmsmf.core.PermissionManager;
+import io.github.davidmc971.modularmsmf.core.util.Utils;
+import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
+
+public class CommandToggle implements IModularMSMFCommand {
+
+    private ModularMSMFCore plugin;
+
+    public CommandToggle() {
+        plugin = ModularMSMFCore.Instance();
+    }
+
+    @Override
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+
+        FileConfiguration cfg = plugin.getDataManager().settingsyaml;
+        if (PermissionManager.checkPermission(sender, "toggle_use")) {
+            if (args.length == 0) {
+                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.missingarguments");
+            } else if (args.length == 1) {
+                switch (args[0].toLowerCase()) {
+                default:
+                    Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+                            "general.invalidarguments");
+                    break;
+                case "help":
+                    break;
+                case "teleport":
+                    if (cfg.isSet("toggle.commands")) { // FIXME: string has to be loaded when module Basics is loaded
+                        if (cfg.isSet("toggle.commands.teleport")) {
+                            if (cfg.get("toggle.commands.teleport").toString().equals("false")) {
+                                cfg.set("toggle.commands.teleport", "true");
+                                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
+                                        "basics.toggle.setTrue", "_args", args[0]);
+                            } else {
+                                cfg.set("toggle.commands.teleport", "false");
+                                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
+                                        "basics.toggle.setFalse", "_args", args[0]);
+                            }
+                        } else {
+                            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.DEBUG,
+                                    "basics.missingconfig.substring");
+                            cfg.set("toggle.commands.teleport", "true");
+                        }
+                    } else {
+                        Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.DEBUG,
+                                "basics.missingconfig.mainstring");
+                        cfg.createSection("toggle.commands");
+                    }
+                    break;
+                case "setspawn":
+                    if (cfg.isSet("toggle.commands")) { // FIXME: string has to be loaded when module Basics is loaded
+                        if (cfg.isSet("toggle.commands.setspawn")) {
+                            if (cfg.get("toggle.commands.setspawn").toString().equals("false")) {
+                                cfg.set("toggle.commands.setspawn", "true");
+                                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
+                                        "basics.toggle.setTrue", "_args", args[0]);
+                            } else {
+                                cfg.set("toggle.commands.setspawn", "false");
+                                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
+                                        "basics.toggle.setFalse", "_args", args[0]);
+                            }
+                        } else {
+                            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.DEBUG,
+                                    "basics.missingconfig.substring");
+                            cfg.set("toggle.commands.setspawn", "true");
+                        }
+                    } else {
+                        Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.DEBUG,
+                                "basics.missingconfig.mainstring");
+                        cfg.createSection("toggle.commands");
+                    }
+                    break;
+                case "back":
+                    if (cfg.isSet("toggle.commands")) { // FIXME: string has to be loaded when module Basics is loaded
+                        if (cfg.isSet("toggle.commands.back")) {
+                            if (cfg.get("toggle.commands.back").toString().equals("false")) {
+                                cfg.set("toggle.commands.back", "true");
+                                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
+                                        "basics.toggle.setTrue", "_args", args[0]);
+                            } else {
+                                cfg.set("toggle.commands.back", "false");
+                                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
+                                        "basics.toggle.setFalse", "_args", args[0]);
+                            }
+                        } else {
+                            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.DEBUG,
+                                    "basics.missingconfig.substring");
+                            cfg.set("toggle.commands.back", "true");
+                        }
+                    } else {
+                        Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.DEBUG,
+                                "basics.missingconfig.mainstring");
+                        cfg.createSection("toggle.commands");
+                    }
+                    break;
+                }
+            } else {
+                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.toomanyarguments");
+            }
+        } else {
+            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
+        }
+        return true;
+    }
+
+    @Override
+    public String[] getCommandLabels() {
+        return new String[] { "toggle", "tog" };
+    }
+
+}
