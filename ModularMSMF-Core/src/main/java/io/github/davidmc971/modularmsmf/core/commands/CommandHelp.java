@@ -1,4 +1,4 @@
-package io.github.davidmc971.modularmsmf.commands;
+package io.github.davidmc971.modularmsmf.core.commands;
 
 import java.util.List;
 import org.bukkit.command.Command;
@@ -6,16 +6,18 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import io.github.davidmc971.modularmsmf.ModularMSMF;
-import io.github.davidmc971.modularmsmf.core.LanguageManager;
-import io.github.davidmc971.modularmsmf.util.ChatUtils;
-import io.github.davidmc971.modularmsmf.util.Utils;
-import io.github.davidmc971.modularmsmf.util.ChatUtils.ChatFormat;
+import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
+import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
+import io.github.davidmc971.modularmsmf.core.util.ChatUtils;
+import io.github.davidmc971.modularmsmf.core.util.Utils;
+import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
 
-public class CommandHelp extends AbstractCommand {
+public class CommandHelp implements IModularMSMFCommand {
 
-    public CommandHelp(ModularMSMF plugin) {
-        super(plugin);
+    private ModularMSMFCore plugin;
+
+    public CommandHelp(ModularMSMFCore plugin) {
+        plugin = ModularMSMFCore.Instance();
     }
 
     // lists commands as List<String>
@@ -75,8 +77,18 @@ public class CommandHelp extends AbstractCommand {
     }
 
     @Override
-    public String[] getCommandLabels() {
-        return new String[] { "help" };
+    public String Label() {
+        return "help";
+    }
+
+    @Override
+    public String[] Aliases() {
+        return null;
+    }
+
+    @Override
+    public boolean Enabled() {
+        return false;
     }
 
 }

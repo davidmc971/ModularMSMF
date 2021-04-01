@@ -2,6 +2,24 @@ language:
   id: de_DE
   name: Deutsch
 general: #Hauptsaechliche Strings fuer den Allgemeingebrauch #BITTE UNTER KEINEN UMSTÄNDEN DIESE LINE BEARBEITEN
+    test:
+      switch:
+        check: Checke, ob Switch funktioniert
+        checktrue: "True, switch"
+        checkfalse: "False, switch"
+        commandtest:
+          check: Checke, ob Case akzeptiert wird
+          checktrue: "True, case"
+          checkfalse: "False, case"
+      cfgisset:
+        check: Checke, ob String existiert
+        checktrue: "True, string"
+        checkfalse: "False, string"
+      cfgget:
+        substring:
+          check: Checke, ob cfgget gesetzt ist
+          checkfalse: "False, substring"
+          checktrue: "True, substring"
     missing_playername: Du musst einen Spieler angeben. #Fehlender Spielername eines Befehles
     playerunknown: Dieser Spieler existiert nicht. #Nicht existenter Spieler.
     playernotfound: Dieser Spieler wurde nicht gefunden. #Falsch geschriebener Name
