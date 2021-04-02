@@ -190,3 +190,4 @@ basics:
   toggle:
     setTrue: Du kannst nun _args benutzen!
     setFalse: _args wurde deaktiviert!
+    help: Nutzen, um Befehle zu togglen! (nur fuer MMSMF)
