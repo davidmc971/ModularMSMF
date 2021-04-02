@@ -22,29 +22,29 @@ public class CommandToggle implements IModularMSMFCommand {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         // FIXME: commands won't load properly
         // @bug --^---
-        if (PermissionManager.checkPermission(sender, "toggle_use")) {
-            if (args.length == 0) {
-                switch (label.toLowerCase()) {
-                case "help":
-                    return helpSub(sender, command, label, args);
-                case "all":
-                    return allSub(sender, command, label, args);
-                case "teleport":
-                    return teleportSub(sender, command, label, args);
-                case "setspawn":
-                    return setspawnSub(sender, command, label, args);
-                case "back":
-                    return backSub(sender, command, label, args);
-                case "test":
-                    return testSub(sender, command, label, args);
-                default:
-                    Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
-                            "general.invalidarguments");
-                    break;
-                }
-            } else {
-                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
-            }
+        if (!PermissionManager.checkPermission(sender, "toggle_use")) {
+            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
+            return true;
+        }
+        if(args.length < 1){
+            return helpSub(sender, command, label, args);
+        }
+        switch (args[0].toLowerCase()) {
+        case "help":
+            return helpSub(sender, command, label, args);
+        case "all":
+            return allSub(sender, command, label, args);
+        case "teleport":
+            return teleportSub(sender, command, label, args);
+        case "setspawn":
+            return setspawnSub(sender, command, label, args);
+        case "back":
+            return backSub(sender, command, label, args);
+        case "test":
+            return testSub(sender, command, label, args);
+        default:
+            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.invalidarguments");
+            break;
         }
         return true;
     }
@@ -137,7 +137,8 @@ public class CommandToggle implements IModularMSMFCommand {
     }
 
     private boolean helpSub(CommandSender sender, Command command, String commandLabel, String[] args) {
-        return false;
+        sender.sendMessage("help here");
+        return true;
     }
 
     @Override
