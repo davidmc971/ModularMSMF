@@ -191,3 +191,4 @@ basics:
     setTrue: You can use _args now!
     setFalse: _args has been disabled!
     help: Used to toggle commands for use! (MMSMF only)
+    all-blocked: All commands has now been blocked (Basics-Module)

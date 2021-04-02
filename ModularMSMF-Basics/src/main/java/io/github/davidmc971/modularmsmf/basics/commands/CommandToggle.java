@@ -1,13 +1,10 @@
 package io.github.davidmc971.modularmsmf.basics.commands;
 
-import java.util.LinkedHashSet;
-import java.util.Set;
-
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.MemoryConfiguration;
 
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
+import io.github.davidmc971.modularmsmf.basics.util.ToggleCommandsConfig;
 import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
 import io.github.davidmc971.modularmsmf.core.PermissionManager;
 import io.github.davidmc971.modularmsmf.core.util.Utils;
@@ -19,12 +16,6 @@ public class CommandToggle implements IModularMSMFCommand {
 
     public CommandToggle() {
         plugin = ModularMSMFCore.Instance();
-    }
-
-    public Set<String> togglecmds = new LinkedHashSet<String>();
-
-    public static void togglecmds(String command) {
-
     }
 
     @Override
@@ -43,48 +34,59 @@ public class CommandToggle implements IModularMSMFCommand {
         case "help":
             return helpSub(sender, args);
         case "all":
+            return allSub(sender, args);
+        case "list":
+        return listSub(sender, args);
         case "teleport":
         case "setspawn":
         case "back":
         case "test":
-            if (!togglecmds.contains(args[0])) {
-                //if its not set in list
-                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.DEBUG, "basics.toggle.setTrue", "_args", args[0]);
-                togglecmds.add(args[0]);
+            if (!listCommands.equals(togglecmds)){ //FIXME: REEEEEEEE 
+                // if its not set in list
+                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.DEBUG, "basics.toggle.setTrue",
+                        "_args", args[0]);
+                ToggleCommandsConfig.togglecmds.put(args[0], true);
             } else {
-                //else it was already in list
-                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.DEBUG, "basics.toggle.setFalse", "_args", args[0]);
-                togglecmds.remove(args[0]);
+                // else it was already in list
+                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.DEBUG, "basics.toggle.setFalse",
+                        "_args", args[0]);
+                ToggleCommandsConfig.togglecmds.put(args[0], false);
+
             }
-            //only for debug stuff
-            System.out.println(togglecmds);
+            // only for debug stuff
+            System.out.println(ToggleCommandsConfig.togglecmds);
             break;
-        default: //if args[0] does not equal any case labels
+        default: // if args[0] does not equal any case labels
             Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.invalidarguments");
             break;
         }
         return true;
     }
 
+    private boolean listSub(CommandSender sender, String[] args) {
+        for (String cmd : togglecmds.keySet()){
+            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.DEBUG, "basics.toggle.list.1");
+            System.out.println(cmd+togglecmds.get(cmd));
+        }
+        
+        return false;
+    }
+
+    private boolean allSub(CommandSender sender, String[] args) {
+        /*
+        if (!togglecmds.isEmpty()) {
+            togglecmds.clear();
+            togglecmds.add("all-basics-module");
+            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.DEBUG, "basics.toggle.all-blocked");
+        } else {
+            togglecmds.add("all-basics-module");
+            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.DEBUG, "basics.toggle.all-blocked");
+        }*/
+        return false;
+    }
+
     private boolean helpSub(CommandSender sender, String[] args) {
         Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO, "basics.toggle.help");
-        /*
-         * MemoryConfiguration cfg = plugin.getDataManager().settingsyaml;
-         *
-         * if(!cfg.isSet("toggle.commands")){
-         * Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.DEBUG,
-         * "basics.missingconfig.mainstring"); cfg.createSection("toggle.commands");
-         * return true; } if(!cfg.isSet("toggle.commands.help")){
-         * Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.DEBUG,
-         * "basics.missingconfig.substring"); cfg.set("toggle.commands.help", "true");
-         * return true; } if
-         * (!cfg.get("toggle.commands.help").toString().equals("false")) {
-         * Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.DEBUG,
-         * "basics.toggle.setFalse", "_args", args[0]); cfg.set("toggle.commands.help",
-         * "false"); } else { Utils.sendMessageWithConfiguredLanguage(plugin, sender,
-         * ChatFormat.DEBUG, "basics.toggle.setTrue", "_args", args[0]);
-         * cfg.set("toggle.commands.help", "true"); return true; }
-         */
         return true;
 
     }
@@ -103,5 +105,4 @@ public class CommandToggle implements IModularMSMFCommand {
     public boolean Enabled() {
         return true;
     }
-
 }
