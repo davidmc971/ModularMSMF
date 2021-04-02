@@ -2,6 +2,24 @@ language:
   id: en_US
   name: English
 general: #PLEASE NEVER EDIT THIS LINE
+    test:
+      switch:
+        check: Checke, ob Switch funktioniert
+        checktrue: "True, switch"
+        checkfalse: "False, switch"
+        commandtest:
+          check: Checke, ob Case akzeptiert wird
+          checktrue: "True, case"
+          checkfalse: "False, case"
+      cfgisset:
+        check: Checke, ob String existiert
+        checktrue: "True, string"
+        checkfalse: "False, string"
+      cfgget:
+        substring:
+          check: Checke, ob cfgget gesetzt ist
+          checkfalse: "False, substring"
+          checktrue: "True, substring"
     missing_playername: You have to specify a player.
     playerunknown: This player has never been online before.
     playernotfound: This player was not found.
