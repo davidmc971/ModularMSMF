@@ -35,26 +35,30 @@ public class CommandToggle implements IModularMSMFCommand {
             Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
             return true;
         }
-        if (args.length < 1) {
-            return helpSub(sender, command, label, args);
-        }
         if (args.length > 3) {
             Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.toomanyarguments");
             return true;
         }
-        switch (args[0].toLowerCase()) {
+        switch ((args.length < 1) ? "help" : args[0].toLowerCase()) {
         case "help":
-            return helpSub(sender, command, label, args); //TODO: have to add
+            return helpSub(sender, args);
         case "all":
-            return allSub(sender, command, label, args); //TODO: have to add
         case "teleport":
-            return teleportSub(sender, command, label, args); //TODO: have to add
         case "setspawn":
-            return setspawnSub(sender, command, label, args); //TODO: have to add
         case "back":
-            return backSub(sender, command, label, args); //TODO: have to add
         case "test":
-            return testSub(sender, command, label, args); //TODO: have to add
+            if (!togglecmds.contains(args[0])) {
+                //if its not set in list
+                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.DEBUG, "basics.toggle.setTrue", "_args", args[0]);
+                togglecmds.add(args[0]);
+            } else {
+                //else it was already in list
+                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.DEBUG, "basics.toggle.setFalse", "_args", args[0]);
+                togglecmds.remove(args[0]);
+            }
+            //only for debug stuff
+            System.out.println(togglecmds);
+            break;
         default: //if args[0] does not equal any case labels
             Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.invalidarguments");
             break;
@@ -62,80 +66,7 @@ public class CommandToggle implements IModularMSMFCommand {
         return true;
     }
 
-    private boolean testSub(CommandSender sender, Command command, String label, String[] args) {
-        Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.DEBUG, "general.notimplementedyet");
-        return false;
-    }
-
-    private boolean backSub(CommandSender sender, Command command, String commandLabel, String[] args) {
-        // checking if teleport has been added to list
-        if (!togglecmds.contains(args[0])) {
-            //if its not set in list
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.DEBUG, "basics.toggle.setTrue", "_args", args[0]);
-            togglecmds.add(args[0]);
-        } else {
-            //else it was already in list
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.DEBUG, "basics.toggle.setFalse", "_args", args[0]);
-            togglecmds.remove(args[0]);
-        }
-        //only for debug stuff
-        System.out.println(togglecmds);
-
-        return true;
-    }
-
-    private boolean setspawnSub(CommandSender sender, Command command, String commandLabel, String[] args) {
-        // checking if teleport has been added to list
-        if (!togglecmds.contains("setspawn")) {
-            //if its not set in list
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.DEBUG, "basics.toggle.setTrue", "_args", args[0]);
-            togglecmds.add("setspawn");
-        } else {
-            //else it was already in list
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.DEBUG, "basics.toggle.setFalse", "_args", args[0]);
-            togglecmds.remove("setspawn");
-        }
-        //only for debug stuff
-        System.out.println(togglecmds);
-
-        return true;
-    }
-
-    private boolean teleportSub(CommandSender sender, Command command, String commandLabel, String[] args) {
-        // checking if teleport has been added to list
-        if (!togglecmds.contains("teleport")) {
-            //if its not set in list
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.DEBUG, "basics.toggle.setTrue", "_args", args[0]);
-            togglecmds.add("teleport");
-        } else {
-            //else it was already in list
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.DEBUG, "basics.toggle.setFalse", "_args", args[0]);
-            togglecmds.remove("teleport");
-        }
-        //only for debug stuff
-        System.out.println(togglecmds);
-
-        return true;
-    }
-
-    private boolean allSub(CommandSender sender, Command command, String commandLabel, String[] args) {
-        // checking if teleport has been added to list
-        if (!togglecmds.contains("all-module-basic")) {
-            //if its not set in list
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.DEBUG, "basics.toggle.setTrue", "_args", args[0]);
-            togglecmds.add("all-module-basic");
-        } else {
-            //else it was already in list
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.DEBUG, "basics.toggle.setFalse", "_args", args[0]);
-            togglecmds.remove("all-module-basic");
-        }
-        //only for debug stuff
-        System.out.println(togglecmds);
-
-        return true;
-    }
-
-    private boolean helpSub(CommandSender sender, Command command, String commandLabel, String[] args) {
+    private boolean helpSub(CommandSender sender, String[] args) {
         Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO, "basics.toggle.help");
         /*
          * MemoryConfiguration cfg = plugin.getDataManager().settingsyaml;
