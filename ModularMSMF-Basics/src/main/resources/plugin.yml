@@ -13,13 +13,13 @@ main: io.github.davidmc971.modularmsmf.basics.ModularMSMFBasics
 
 # TODO: load at runtime with our secret haxx
 commands:
-  test:
-    description: test
-    usage: /<command>
-  toggle:
-    description: toggle cmds
-    usage: /<command> <args>
-    aliases: [tog]
+  channel:
+    description: channels
+    usage: /<command> <label> <args>
+  #  toggle:
+  #    description: toggle cmds
+  #    usage: /<command> <args>
+  #    aliases: [tog]
   teleport:
     description: teleportation zu einem Spieler.
     usage: /<command> <target>
@@ -45,7 +45,7 @@ commands:
   kill:
     description: Killt einen Spieler.
     usage: /<command> <args>
-  mute:    
+  mute:
     description: Mutet einen Spieler.
     usage: /<command> <player>
   motd:

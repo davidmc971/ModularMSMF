@@ -20,8 +20,9 @@ public class CommandLoader {
 				new CommandSpawn(),
 				new CommandTeleport(),
 				new CommandFly(),
-				new CommandToggle(),
-				new CommandTest()
+				new CommandChannels()
+				//new CommandToggle()
+				//new CommandTest()
         }) {
             plugin.getCommand(cmd.Label()).setExecutor(cmd);
         }

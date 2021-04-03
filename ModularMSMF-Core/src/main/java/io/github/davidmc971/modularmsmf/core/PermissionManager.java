@@ -79,10 +79,16 @@ public class PermissionManager {
 		//fly permissions
 		put("fly", "modularmsmf.fly");
 		put("fly.others", "modularmsmf.fly.others");
-		/* 
+		/*
 		Basic module permissions
 		*/
-		put("toggle_use", "modularmsmf.toggle.use");
+		//toggle permissions
+		put("toggle_use", "modularmsmf.toggle.use"); //to toggle commands for use
+		//channel permissions
+		put("channels_use", "modularmsmf.channels.use"); // to use the command
+		put("channels_list_all", "modularmsmf.channel.list.all"); //admin related
+		put("channels_list_public", "modularmsmf.channels.list.public"); //anyone can see public channels, only if permission is set
+		put("channels_list_private", "modularmsmf.channels.list.private"); //mod/admin related
 	}};
 
 	public static boolean checkPermission(CommandSender sender, String permission) {
