@@ -1,6 +1,5 @@
 package io.github.davidmc971.modularmsmf.basics.util;
 
-import java.util.Collection;
 import java.util.HashMap;
 
 public class ToggleCommandsConfig {
@@ -10,7 +9,4 @@ public class ToggleCommandsConfig {
             put("test", null);
         };
     };
-    public Collection<Boolean> listCommands(String list){
-        return togglecmds.values();
-    }
 }
