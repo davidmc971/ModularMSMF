@@ -24,7 +24,6 @@ public class CommandTeleport implements IModularMSMFCommand {
 
 	private ModularMSMFCore plugin;
 	UUID target = null;
-	
 
 	public CommandTeleport() {
 		plugin = ModularMSMFCore.Instance();

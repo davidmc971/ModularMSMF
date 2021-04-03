@@ -21,7 +21,6 @@ public class CommandToggle implements IModularMSMFCommand {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         //// FIXME: commands won't load properly
-        // @bug --^---
         if (!PermissionManager.checkPermission(sender, "toggle_use")) {
             Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
             return true;
@@ -41,7 +40,7 @@ public class CommandToggle implements IModularMSMFCommand {
         case "setspawn":
         case "back":
         case "test":
-            if (!listCommands.equals(togglecmds)){ //FIXME: REEEEEEEE 
+            if (!listCommands.equals(togglecmds)){ //FIXME: REEEEEEEE
                 // if its not set in list
                 Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.DEBUG, "basics.toggle.setTrue",
                         "_args", args[0]);
@@ -64,9 +63,9 @@ public class CommandToggle implements IModularMSMFCommand {
     }
 
     private boolean listSub(CommandSender sender, String[] args) {
-        for (String cmd : togglecmds.keySet()){
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.DEBUG, "basics.toggle.list.1");
-            System.out.println(cmd+togglecmds.get(cmd));
+        for (String cmd : togglecmds.keySet()){ //FIXME:
+            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.DEBUG, "basics.toggle.list.1"); //TODO change to easier language
+            System.out.println(cmd+togglecmds.get(cmd)); //FIXME:
         }
         
         return false;
