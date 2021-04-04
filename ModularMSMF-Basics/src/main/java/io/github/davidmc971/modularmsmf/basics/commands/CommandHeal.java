@@ -7,7 +7,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Damageable;
-import org.bukkit.entity.Player;
 
 import io.github.davidmc971.modularmsmf.core.PermissionManager;
 import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
@@ -17,6 +16,7 @@ import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
 
 /**
  * @author Lightkeks Fully working command
+ * ANCHOR Heal command is fully working
  */
 
 public class CommandHeal implements IModularMSMFCommand {
@@ -52,12 +52,12 @@ public class CommandHeal implements IModularMSMFCommand {
 			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.playernotfound");
 			return true;
 		} else
-			for (Player p : Bukkit.getOnlinePlayers()) {
+			for (Damageable p : Bukkit.getOnlinePlayers()) {
 				if (p.getUniqueId().toString().equalsIgnoreCase(target.toString())) {
 					if (sender == p) {
 						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.HEAL,
 								"commands.heal.healself");
-						((Player) sender).setHealth(20);
+						((Damageable) sender).setHealth(20);
 					} else {
 						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.HEAL,
 								"commands.heal.healother", "_player", p.getName());

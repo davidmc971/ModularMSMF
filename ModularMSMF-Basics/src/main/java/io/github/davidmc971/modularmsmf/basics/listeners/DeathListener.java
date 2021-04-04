@@ -26,7 +26,7 @@ public class DeathListener implements Listener {
 		killedPlayers.add(new PlayerKillConfig(p, kt));
 	}
     
-    // FIXME: Replace deprecated methods
+    // FIXME[epic=code needed,seq=22] Replace deprecated methods
     @SuppressWarnings("deprecation")
     @EventHandler
 	public void onDeath(PlayerDeathEvent event) {
@@ -53,7 +53,7 @@ public class DeathListener implements Listener {
 		}
 		if (!temp) {
 			Utils.broadcastWithConfiguredLanguageEach(MMSMFCore, ChatFormat.DEATH, "event.just_died", "_var",
-					event.getEntity().getDisplayName());
+					event.getEntity().getName());
 		}
 	}
 }

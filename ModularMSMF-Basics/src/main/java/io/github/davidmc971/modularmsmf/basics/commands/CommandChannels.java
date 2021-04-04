@@ -32,7 +32,7 @@ public class CommandChannels implements IModularMSMFCommand {
                 // help for "/channel"
                 return channelsHelp(sender, command, label, args);
             }
-            switch ((args.length < 1) ? "help" : args[0].toLowerCase()) {
+            switch (args[1].toLowerCase()) {
             case "help":
                 return channelsHelp(sender, command, label, args); // same as args[0]
             case "set":
@@ -107,7 +107,7 @@ public class CommandChannels implements IModularMSMFCommand {
     }
 
     private boolean channelsCreate(CommandSender sender, Command command, String label, String[] args) {
-        // FIXME: creates a channel and moves you in automatically
+        // FIXME[epic=code needed,seq=18] creates a channel and moves you in automatically
         if (args.length == 0) {
             sender.sendMessage("test");
             return true;
@@ -127,7 +127,7 @@ public class CommandChannels implements IModularMSMFCommand {
     }
 
     private boolean channelsSet(CommandSender sender, Command command, String label, String[] args) {
-        // FIXME: Set the channel type youre currently in to chosen type
+        // FIXME[epic=code needed,seq=17] Set the channel type youre currently in to chosen type
         // ENUM: PUBLIC, PRIVATE, ADMIN, MOD, SUPPORT
         return true;
     }
