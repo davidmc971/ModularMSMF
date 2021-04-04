@@ -17,6 +17,7 @@ import io.github.davidmc971.modularmsmf.core.util.Utils;
 /**
  * 
  * @authors Lightkeks, davidmc971
+ * TODO[epic=code needed,seq=25] rewrite for more "safe" work with command
  *
  */
 

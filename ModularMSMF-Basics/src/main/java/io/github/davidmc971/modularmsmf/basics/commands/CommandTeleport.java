@@ -28,6 +28,10 @@ public class CommandTeleport implements IModularMSMFCommand {
 		plugin = ModularMSMFCore.Instance();
 	}
 
+	/**
+	 * TODO[epic=code needed,seq=29] rewrite to better code
+	 */
+
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (!PermissionManager.checkPermission(sender, "teleport")) {

@@ -54,7 +54,7 @@ public class CommandBan implements IModularMSMFCommand {
 			case "unban":
 				return unbanCommand(sender, cmd, commandLabel, args);
 			case "ban-ip":
-				return banIpCommand(sender, cmd, commandLabel, args); // TODO: still not on working list
+				return banIpCommand(sender, cmd, commandLabel, args); // TODO[epic=code needed,seq=27] still not on working list
 			}
 		/*} else {
 			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basics.nottoggledtrue");

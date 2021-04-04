@@ -20,6 +20,12 @@ public class CommandBack implements IModularMSMFCommand {
         plugin = ModularMSMFCore.Instance();
     }
 
+    /**
+     * @author Lightkeks
+     * ANCHOR still wip because need another structure
+     * TODO[epic=code needed,seq=28] Change structure for command
+     */
+
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
             if (sender instanceof Player) {

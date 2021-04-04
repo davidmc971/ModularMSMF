@@ -19,7 +19,7 @@ import io.github.davidmc971.modularmsmf.core.util.Utils;
 /**
  *
  * @authors Lightkeks, davidmc971
- *
+ * TODO[epic=code needed,seq=30] rewrite to better code
  */
 
 public class CommandSpawn implements IModularMSMFCommand {

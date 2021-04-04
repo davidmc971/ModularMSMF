@@ -18,7 +18,7 @@ import io.github.davidmc971.modularmsmf.core.util.Utils;
 /**
  * 
  * @author David Alexander Pfeiffer (davidmc971)
- *
+ * TODO[epic=done] Slaughter - fully working command
  */
 
 public class CommandSlaughter implements IModularMSMFCommand {
@@ -29,9 +29,6 @@ public class CommandSlaughter implements IModularMSMFCommand {
 		plugin = ModularMSMFCore.Instance();
 	}
 
-	/**
-	 * @TODO: fully working command
-	 */
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (PermissionManager.checkPermission(sender, "slaughter")) {
