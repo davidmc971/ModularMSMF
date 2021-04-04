@@ -17,6 +17,7 @@ import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
 /**
  * @author Lightkeks Fully working command
  * ANCHOR Heal command is fully working
+ * TODO[epic=done] Heal - fully working
  */
 
 public class CommandHeal implements IModularMSMFCommand {

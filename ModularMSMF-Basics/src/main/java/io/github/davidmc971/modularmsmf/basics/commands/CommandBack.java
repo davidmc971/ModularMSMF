@@ -2,7 +2,6 @@ package io.github.davidmc971.modularmsmf.basics.commands;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
@@ -23,10 +22,6 @@ public class CommandBack implements IModularMSMFCommand {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        // checks if toggleConfig hast been set true (default: true)
-        /*FileConfiguration cfg = plugin.getDataManager().settingsyaml;
-        if (cfg.get("toggle.commands.back").toString().equals("true")) {
-        */    // checks if sent command has been done by player
             if (sender instanceof Player) {
                 // checks permission for sender
                 if (PermissionManager.checkPermission(sender, "back")) {
@@ -57,9 +52,6 @@ public class CommandBack implements IModularMSMFCommand {
             } else {
                 Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "general.noconsole");
             }
-        /*} else {
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basics.nottoggledtrue");
-        }*/
         return true;
     }
 
