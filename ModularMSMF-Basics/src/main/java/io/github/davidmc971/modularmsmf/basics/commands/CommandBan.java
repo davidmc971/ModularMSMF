@@ -6,7 +6,7 @@ import java.net.InetAddress;
  * 
  * @authors Lightkeks, davidmc971
  * 		Bannt Spieler. (fast) alles fertig. :D
- * 		TODO: Unterstützung für ip-banning fehlt
+ * 		TODO[epic=code needed,seq=14] Unterstützung für ip-banning fehlt
  */
 
 import java.util.UUID;
@@ -63,7 +63,7 @@ public class CommandBan implements IModularMSMFCommand {
 	}
 
 	private boolean banIpCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
-		// TODO: code stuff in here for banip
+		// TODO[epic=code needed,seq=15] code stuff in here for banip
 		FileConfiguration language = Utils.configureCommandLanguage(sender, plugin);
 		if (PermissionManager.checkPermission(sender, "banip")) {
 			switch (args.length) {
@@ -149,12 +149,12 @@ public class CommandBan implements IModularMSMFCommand {
 
 	// bans an ip from a player
 	public void banPlayerIp(UUID uuid, String reason, FileConfiguration language, InetAddress playerIp) {
-		// TODO: need work on it
+		// TODO[epic=code needed,seq=19] need work on it
 		// Player ipAdress = ipAdress.getPlayer().getAddress();
 		FileConfiguration cfg = plugin.getDataManager().getPlayerCfg(uuid);
 		cfg.set("banned", true);
 		cfg.set("reason", reason);
-		cfg.set("ipAdress", playerIp);
+		cfg.set("ipAdress", playerIp); //TODO[epic=code needed,seq=16] still missing configuration to save ipadress
 	}
 
 	// bans playername / uuid

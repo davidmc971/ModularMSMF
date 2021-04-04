@@ -39,7 +39,7 @@ public class CommandLanguage implements IModularMSMFCommand {
 			break;
 		case 1:
 			if (args[0].equalsIgnoreCase("help")) {
-				// TODO still wip
+				// TODO[epic=code needed,seq=23] still wip
 			}
 			if (args[0].equalsIgnoreCase("list")) {
 				String out = "[";
@@ -84,7 +84,7 @@ public class CommandLanguage implements IModularMSMFCommand {
 					}
 				}
 			} else if (args[0].equalsIgnoreCase("get")) {
-				// TODO: get other players language
+				// TODO[epic=code needed,seq=24] get other players language
 			}
 			break;
 		default:

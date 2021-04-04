@@ -18,7 +18,7 @@ public class CommandToggle implements IModularMSMFCommand {
         plugin = ModularMSMFCore.Instance();
     }
 
-    /* TODO: needs rewrite, still no good structure and needs HashSet/Map to work properly
+    /* TODO[epic=code needed,seq=20] needs rewrite, still no good structure and needs HashSet/Map to work properly
     *
     */
     @Override
@@ -66,7 +66,7 @@ public class CommandToggle implements IModularMSMFCommand {
     }
 /*
     private boolean listSub(CommandSender sender, String[] args) {
-        for (String cmd : togglecmds.keySet()){ //FIXME:
+        for (String cmd : togglecmds.keySet()){ //FIXME[epic=code needed,seq=21] not working
             Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.DEBUG, "basics.toggle.list.1"); //TODO change to easier language
             System.out.println(cmd+togglecmds.get(cmd)); //FIXME:
         }
