@@ -20,7 +20,8 @@ public class CommandLoader {
 				new CommandSpawn(),
 				new CommandTeleport(),
 				new CommandFly(),
-				new CommandChannels()
+				new CommandChannels(),
+				new CommandSet()
 				//new CommandToggle()
 				//new CommandTest()
         }) {

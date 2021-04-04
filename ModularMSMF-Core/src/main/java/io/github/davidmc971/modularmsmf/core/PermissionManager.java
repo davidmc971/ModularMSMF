@@ -82,6 +82,11 @@ public class PermissionManager {
 		/*
 		Basic module permissions
 		*/
+		//set permissions
+		put("set_use","modularmsmf.set.use");
+		put("set_use_life","modularmsmf.set.use.life");
+		put("set_use_food","modularmsmf.set.use.food");
+		put("set_use_saturation","modularmsmf.set.use.saturation");
 		//toggle permissions
 		put("toggle_use", "modularmsmf.toggle.use"); //to toggle commands for use
 		//channel permissions
