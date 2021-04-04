@@ -28,8 +28,8 @@ public class CommandSetSpawn implements IModularMSMFCommand {
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		FileConfiguration cfg = plugin.getDataManager().settingsyaml;
-		if (cfg.get("toggle.commands.setspawn").toString().equals("true")) {
-			if (sender instanceof ConsoleCommandSender) {
+		/*if (cfg.get("toggle.commands.setspawn").toString().equals("true")) {
+		*/	if (sender instanceof ConsoleCommandSender) {
 				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "general.noconsole");
 			} else {
 				if (args.length == 0) {
@@ -68,9 +68,9 @@ public class CommandSetSpawn implements IModularMSMFCommand {
 							"general.toomanyarguments");
 				}
 			}
-		} else {
+		/*} else {
 			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basics.nottoggledtrue");
-		}
+		}*/
 		return true;
 	}
 

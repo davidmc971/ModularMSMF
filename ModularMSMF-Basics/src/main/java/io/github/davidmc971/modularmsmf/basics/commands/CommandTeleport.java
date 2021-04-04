@@ -31,9 +31,9 @@ public class CommandTeleport implements IModularMSMFCommand {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-		FileConfiguration cfg = plugin.getDataManager().settingsyaml;
+		/*FileConfiguration cfg = plugin.getDataManager().settingsyaml;
 		if (cfg.get("toggle.commands.teleport").toString().equals("true")) {
-			if (!PermissionManager.checkPermission(sender, "teleport")) {
+		*/	if (!PermissionManager.checkPermission(sender, "teleport")) {
 				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
 				return true;
 			}
@@ -82,9 +82,9 @@ public class CommandTeleport implements IModularMSMFCommand {
 				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.toomanyarguments");
 				break;
 			}
-		} else {
+		/*} else {
 			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basics.nottoggledtrue");
-		}
+		}*/
 		return true;
 	}
 
