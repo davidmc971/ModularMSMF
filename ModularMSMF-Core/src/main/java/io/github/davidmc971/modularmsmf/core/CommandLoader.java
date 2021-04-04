@@ -91,6 +91,7 @@ public class CommandLoader {
 				new CommandReport(),
 				new CommandServerInfo(),
 				new CommandClearChat(),
+				new CommandConfigure(),
 			}) {
 			commandList.add(cmd);
 		}
