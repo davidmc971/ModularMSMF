@@ -16,7 +16,7 @@ public class CommandNovaPerms implements IModularMSMFCommand {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
             @NotNull String[] args) {
-        if (!PermissionManager.checkPermission(sender, "novaperms.use")) {
+        if (!PermissionManager.checkPermission(sender, "novaperms_use")) {
             // TODO: allow a user to see their own info?
             sender.sendMessage(Component.text("No permission."));
             return true;
