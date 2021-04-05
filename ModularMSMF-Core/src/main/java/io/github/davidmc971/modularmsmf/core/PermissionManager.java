@@ -66,6 +66,7 @@ public class PermissionManager {
 		put("teleport", "modularmsmf.teleport");
 		//back permissions
 		put("back", "modularmsmf.back");
+		put("back_others", "modularmsmf.back.others");
 		//clearcommand permissions
 		put("clear_command", "modularmsmf.clear");
 		put("clear_all", "modularmsmf.clear.all");
