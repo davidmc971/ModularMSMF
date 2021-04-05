@@ -6,7 +6,7 @@ import org.jetbrains.annotations.NotNull;
 
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
-import io.github.davidmc971.modularmsmf.novaperms.PermissionManager;
+import io.github.davidmc971.modularmsmf.core.PermissionManager;
 import net.kyori.adventure.text.Component;
 
 public class CommandNovaPerms implements IModularMSMFCommand {

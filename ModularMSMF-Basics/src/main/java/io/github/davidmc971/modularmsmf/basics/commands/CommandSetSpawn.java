@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 
 import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
-import io.github.davidmc971.modularmsmf.basics.PermissionManager;
+import io.github.davidmc971.modularmsmf.core.PermissionManager;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
 import io.github.davidmc971.modularmsmf.core.util.Utils;
 

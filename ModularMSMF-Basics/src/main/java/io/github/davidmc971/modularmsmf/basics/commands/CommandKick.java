@@ -9,7 +9,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 
 import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
-import io.github.davidmc971.modularmsmf.basics.PermissionManager;
+import io.github.davidmc971.modularmsmf.core.PermissionManager;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
 import net.kyori.adventure.text.Component;
 import io.github.davidmc971.modularmsmf.core.util.Utils;
