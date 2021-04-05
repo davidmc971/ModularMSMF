@@ -1,4 +1,4 @@
-package io.github.davidmc971.modularmsmf.core;
+package io.github.davidmc971.modularmsmf.economy;
 
 import java.util.HashMap;
 
@@ -16,7 +16,7 @@ public class PermissionManager {
 		/**
 		*
 		*/
-		private static final long serialVersionUID = 7255133207146959566L;
+		private static final long serialVersionUID = 8264538963637L;
 		{
 		//economy permissions
 		put("eco_set", "modularmsmf.eco.set");
@@ -24,19 +24,6 @@ public class PermissionManager {
 		put("eco_take", "modularmsmf.eco.take");
 		put("eco_pay", "modularmsmf.eco.pay");
 		put("eco_lookup", "modularmsmf.eco.lookup");
-		//mmsmf permissions
-		put("mmsmfhelp", "modularmsmf.help");
-		put("mmsmf", "modularmsmf.mmsmf");
-		//clearcommand permissions
-		put("clear_command", "modularmsmf.clear");
-		put("clear_all", "modularmsmf.clear.all");
-		put("clear_target", "modularmsmf.clear.target");
-		//serverinfo permissions
-		put("serverinfo", "modularmsmf.serverinfo");
-		//report permissions
-		put("report_player", "modularmsmf.report.player");
-		put("report_bug", "modularmsmf.report.bug");
-		put("report_other", "modularmsmf.report.other");
 	}};
 
 	public static boolean checkPermission(CommandSender sender, String permission) {
