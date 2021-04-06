@@ -311,6 +311,8 @@ basicsmodule:
     set:
       noint: Du musst eine Zahl angeben!
       nonnegative: Du darfst keine negative Zahl benutzen!
+      upperlimit: Du darfst nur bis max. 20 setzen!
+      survivalonly: Du kannst nur im Überlebensmodus deine Leben setzen!
 #for economy-module de_DE file
 economy-module:
   commands:

@@ -1,17 +1,21 @@
-package io.github.davidmc971.modularmsmf.commands;
+package io.github.davidmc971.modularmsmf.commandblocker.commands;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
-import io.github.davidmc971.modularmsmf.PermissionManager;
+import io.github.davidmc971.modularmsmf.commandblocker.PermissionManager;
 import io.github.davidmc971.modularmsmf.core.util.Utils;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
 
 public class CommandCmdBlckr implements IModularMSMFCommand {
 
-    private ModularMSMFCore plugin;
+	private ModularMSMFCore plugin;
+
+	public CommandCmdBlckr() {
+		plugin = ModularMSMFCore.Instance();
+	}
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {

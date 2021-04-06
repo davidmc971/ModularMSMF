@@ -1,10 +1,10 @@
-package io.github.davidmc971.modularmsmf;
+package io.github.davidmc971.modularmsmf.commandblocker;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
 //import io.github.davidmc971.modularmsmf.commands.CommandCmdBlckr;
-import io.github.davidmc971.modularmsmf.configuration.BlockedCommands;
-import io.github.davidmc971.modularmsmf.listeners.CommandListener;
+import io.github.davidmc971.modularmsmf.commandblocker.configuration.BlockedCommands;
+import io.github.davidmc971.modularmsmf.commandblocker.listeners.CommandListener;
 
 //@SuppressWarnings("unused")
 public class ModularMSMFCommandBlocker extends JavaPlugin {

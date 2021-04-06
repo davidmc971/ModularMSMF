@@ -1,4 +1,4 @@
-package io.github.davidmc971.modularmsmf;
+package io.github.davidmc971.modularmsmf.commandblocker;
 
 import java.util.HashMap;
 

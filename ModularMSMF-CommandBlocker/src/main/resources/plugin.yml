@@ -9,10 +9,10 @@ depend:
 
 api: none
 
-main: io.github.davidmc971.modularmsmf.ModularMSMFCommandBlocker
+main: io.github.davidmc971.modularmsmf.commandblocker.ModularMSMFCommandBlocker
 
 commands:
   commandblocker:
     description: Configure CommandBlocker
     usage: /<command> <args>
-    aliases: [cb, cmdblckr]
+    aliases: [cmdblckr, cb]

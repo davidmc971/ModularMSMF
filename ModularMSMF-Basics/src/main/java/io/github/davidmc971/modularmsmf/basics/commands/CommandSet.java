@@ -3,8 +3,11 @@ package io.github.davidmc971.modularmsmf.basics.commands;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Damageable;
+import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -32,10 +35,7 @@ public class CommandSet implements IModularMSMFCommand {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
             @NotNull String[] args) {
         if (PermissionManager.checkPermission(sender, "set_use")) {
-            if (args.length == 0) {
-                return helpSet(sender, command, label, args);
-            }
-            switch (args[1].toLowerCase()) {
+            switch (args[0].toLowerCase()) {
             case "help":
                 return helpSet(sender, command, label, args);
             case "life":
@@ -61,13 +61,8 @@ public class CommandSet implements IModularMSMFCommand {
                 return true;
             }
             // TODO[epic=SetCommand] to code life below
-            switch (args.length) {
-            case 0:
+            if (args.length > 2) {
                 return lifeSetSub(sender, command, label, args);
-            // /set life <int>
-            case 1:
-                return lifeSetOthersSub(sender, command, label, args);
-            // /set life <player> <int>
             }
             if (args.length > 3) {
                 Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.toomanyarguments");
@@ -91,33 +86,77 @@ public class CommandSet implements IModularMSMFCommand {
         return true;
     }
 
-    private boolean lifeSetOthersSub(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
-            @NotNull String[] args) {
-        // TODO[epic=SetCommand,seq=81] still need code
-        return false;
-    }
-
     private boolean lifeSetSub(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
             @NotNull String[] args) {
+        // /set life <name> <int>
         // TODO[epic=SetCommand,seq=82] still need code
         UUID target;
-        target = null;
-        Player player = Bukkit.getPlayer(target);
-        // /set life <int>
-        int i;
-        try {
-            i = Integer.parseInt(args[0]);
-        } catch (Exception e) {
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basicsmodule.commands.set.noint");
-            return false;
+        target = Utils.getPlayerUUIDByName(args[0]);
+        Player p = Bukkit.getPlayer(target);
+        ((HumanEntity) p).getGameMode();
+        if (target == null) {
+            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.playernotonline");
+            return true;
         }
-        if(i > 0){
-            //TODO[epic=SetCommand,seq=90] still need code
+        if (p == sender) {
+            int i;
+            try {
+                i = Integer.parseInt(args[0]);
+                // /set life <name> '<int>'
+                // deny if creative or spectator mode
+                if ((GameMode.CREATIVE != null || GameMode.ADVENTURE != null || GameMode.SPECTATOR != null)) {
+                    if (i >= 0) {
+                        if (i <= 20) {
+                            ((Damageable) sender).setHealth(i);
+                            return true;
+                        } else {
+                            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+                                    "basicsmodule.commands.set.upperlimit");
+                        }
+                    } else {
+                        Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+                                "basicsmodule.commands.set.nonnegative");
+                    }
+                    return true;
+                } else {
+                    Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+                            "basicsmodule.commands.set.survivalonly");
+                }
+                return true;
+            } catch (NumberFormatException e) {
+                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "languageKey");
+                return false;
+            }
         } else {
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basicsmodule.commands.set.nonnegative");
+            int i;
+            try {
+                i = Integer.parseInt(args[0]);
+                // /set life <name> '<int>'
+                // deny if creative or spectator mode
+                if ((GameMode.CREATIVE != null || GameMode.ADVENTURE != null || GameMode.SPECTATOR != null)) {
+                    if (i >= 0) {
+                        if (i <= 20) {
+                            ((Damageable) sender).setHealth(i);
+                            return true;
+                        } else {
+                            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+                                    "basicsmodule.commands.set.upperlimit");
+                        }
+                    } else {
+                        Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+                                "basicsmodule.commands.set.nonnegative");
+                    }
+                    return true;
+                } else {
+                    Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+                            "basicsmodule.commands.set.survivalonly");
+                }
+                return true;
+            } catch (NumberFormatException e) {
+                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "languageKey");
+                return false;
+            }
         }
-
-        return false;
     }
 
     private boolean helpSet(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
@@ -138,6 +177,6 @@ public class CommandSet implements IModularMSMFCommand {
 
     @Override
     public boolean Enabled() {
-        return false;
+        return true;
     }
 }
