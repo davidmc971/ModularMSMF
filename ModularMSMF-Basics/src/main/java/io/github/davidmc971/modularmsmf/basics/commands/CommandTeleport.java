@@ -45,7 +45,7 @@ public class CommandTeleport implements IModularMSMFCommand {
 		case 1:
 			return teleportOneArgsSub(sender, command, label, args);
 		case 2:
-		return teleportTwoArgsSub(sender, command, label, args);
+			return teleportTwoArgsSub(sender, command, label, args);
 		default:
 			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.toomanyarguments");
 			break;
@@ -63,7 +63,7 @@ public class CommandTeleport implements IModularMSMFCommand {
 		target1 = Utils.getPlayerUUIDByName(args[0]);
 		target2 = Utils.getPlayerUUIDByName(args[1]);
 		Player p1 = Bukkit.getPlayer(target1), p2 = Bukkit.getPlayer(target2);
-		if (p1 != null && p2 != null) { //FIXME fix null players if not online or nonexistant
+		if (p1 != null && p2 != null) { // FIXME fix null players if not online or nonexistant
 			// Both are online and can be teleported
 			p1.teleport(p2);
 			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
@@ -78,21 +78,8 @@ public class CommandTeleport implements IModularMSMFCommand {
 	}
 
 	private boolean teleportOneArgsSub(CommandSender sender, Command command, String label, String[] args) {
-		UUID target1;
-		if (sender instanceof ConsoleCommandSender) {
-			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "general.noconsole");
-			return true;
-		}
-		target1 = Utils.getPlayerUUIDByName(args[0]); //FIXME fix null players if not online or nonexistant
-		Player p = Bukkit.getPlayer(target1);
-		if (p != sender) {
-			((Player) sender).teleport(p);
-			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS, "commands.teleport.success.toplayer",
-					"_player", p.getName());
-			return true;
-		} else {
-			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basics.commands.teleport.error.samename");
-		}
+		//FIXME no null output or same name as "not online"
+		//TODO code stuff for /tp <target>
 		return true;
 	}
 

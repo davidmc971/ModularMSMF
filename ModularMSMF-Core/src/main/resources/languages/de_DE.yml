@@ -300,6 +300,7 @@ basics-module:
       gotcleared: Dein Chat wurde geleert!
     teleport:
       success: You teleported to _target!
+      notonline: _target is not online!
       others:
         nooneonline: Weder _target1 noch _target2 ist online!
         target1: Nur _target1 ist online!
