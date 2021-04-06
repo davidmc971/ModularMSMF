@@ -170,7 +170,7 @@ basics:
 #                                                 #
 ###################################################
 #in core-module de_DE file
-core-module:
+coremodule:
   player:
     name: Du musst einen Spieler angeben.
     unknown: Dieser Spieler existiert nicht.
@@ -225,7 +225,7 @@ core-module:
       info: Klick hier, um mehr Infos abzurufen.
       report: Hilfe für das Report-System.
 #in basics-module de_DE file
-basics-module:
+basicsmodule:
   commands:
     arguments:
       missing: Bitte gib passende Argumente angeben!
@@ -299,12 +299,14 @@ basics-module:
       target: _target's Chat geleert!
       gotcleared: Dein Chat wurde geleert!
     teleport:
-      success: You teleported to _target!
-      notonline: _target is not online!
+      force:
+        toplayer: Du wurdest von _player teleportiert!
+        toyou: Du hast _player zu dir teleportiert!
+      success: Du hast dich zu _player teleportiert!
+      notonline: _player ist nicht online.
       others:
-        nooneonline: Weder _target1 noch _target2 ist online!
-        target1: Nur _target1 ist online!
-        target2: Nur _target2 ist online!
+        toyou: _player hat sich zu dir teleportiert!
+        nooneonline: Weder _player1 noch _player2 ist online.
         toself: Du sollst einen anderen Spieler angeben!
 #for economy-module de_DE file
 economy-module:

@@ -7,6 +7,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Damageable;
+import org.bukkit.entity.Player;
 
 import io.github.davidmc971.modularmsmf.basics.PermissionManager;
 import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
@@ -15,9 +16,8 @@ import io.github.davidmc971.modularmsmf.core.util.Utils;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
 
 /**
- * @author Lightkeks Fully working command
- * ANCHOR Heal command is fully working
- * TODO[epic=done] Heal - fully working
+ * @author Lightkeks Fully working command ANCHOR Heal command is fully working
+ *         TODO[epic=done] Heal - fully working
  */
 
 public class CommandHeal implements IModularMSMFCommand {
@@ -45,6 +45,7 @@ public class CommandHeal implements IModularMSMFCommand {
 	private boolean healOthers(CommandSender sender, Command command, String label, String[] args) {
 		UUID target = null;
 		target = Utils.getPlayerUUIDByName(args[0]);
+		Player healed = Bukkit.getPlayer(target);
 		if (!PermissionManager.checkPermission(sender, "healother")) {
 			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
 			return true;
@@ -52,25 +53,18 @@ public class CommandHeal implements IModularMSMFCommand {
 		if (target == null) {
 			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.playernotfound");
 			return true;
-		} else
-			for (Damageable p : Bukkit.getOnlinePlayers()) {
-				if (p.getUniqueId().toString().equalsIgnoreCase(target.toString())) {
-					if (sender == p) {
-						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.HEAL,
-								"commands.heal.healself");
-						((Damageable) sender).setHealth(20);
-					} else {
-						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.HEAL,
-								"commands.heal.healother", "_player", p.getName());
-						Utils.sendMessageWithConfiguredLanguage(plugin, p, ChatFormat.HEAL, "commands.heal.gothealed",
-								"_sender", sender.getName());
-						p.setHealth(20);
-					}
-				} else {
-					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
-							"general.playernotonline");
-				}
-			}
+		}
+		if (sender == healed) {
+			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.HEAL, "commands.heal.healself");
+			((Damageable) sender).setHealth(20);
+			return true;
+		} else {
+			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.HEAL, "commands.heal.healother",
+							"_player", healed.getName());
+			Utils.sendMessageWithConfiguredLanguage(plugin, healed, ChatFormat.HEAL, "commands.heal.gothealed",
+							"_sender", sender.getName());
+			healed.setHealth(20);
+		}
 		return true;
 	}
 

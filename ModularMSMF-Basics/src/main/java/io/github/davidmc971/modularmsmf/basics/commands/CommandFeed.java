@@ -7,6 +7,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.HumanEntity;
+import org.bukkit.entity.Player;
 
 import io.github.davidmc971.modularmsmf.basics.PermissionManager;
 import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
@@ -15,8 +16,8 @@ import io.github.davidmc971.modularmsmf.core.util.Utils;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
 
 /**
- * @author Lightkeks Fully working command, as it should be.
- * TODO[epic=done] Feed - done
+ * @author Lightkeks Fully working command, as it should be. TODO[epic=done]
+ *         Feed - done
  */
 
 public class CommandFeed implements IModularMSMFCommand {
@@ -43,34 +44,27 @@ public class CommandFeed implements IModularMSMFCommand {
 
 	private boolean feedOthers(CommandSender sender, Command command, String label, String[] args) {
 		UUID target = null;
+		target = Utils.getPlayerUUIDByName(args[0]);
+		Player feeded = Bukkit.getPlayer(target);
 		if (!PermissionManager.checkPermission(sender, "feedothers")) {
 			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
+			return true;
 		}
-		target = Utils.getPlayerUUIDByName(args[0]);
 		if (target == null) {
 			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.playernotfound");
 			return true;
-		} else
-			for (HumanEntity p : Bukkit.getOnlinePlayers()) {
-				if (p.getUniqueId().toString().equalsIgnoreCase(target.toString())) {
-					if (sender == p) {
-						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.FEED,
-								"commands.feed.feeded");
-						((HumanEntity) sender).setFoodLevel(20);
-					} else {
-						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.FEED,
-								"commands.feed.feededperson", "_player", p.getName());
-						Utils.sendMessageWithConfiguredLanguage(plugin, p, ChatFormat.FEED,
-								"commands.feed.othersfeeded", "_sender", sender.getName());
-						p.setFoodLevel(20);
-					}
-				} else {
-					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
-							"general.playernotonline");
-				}
-				return true;
-			}
-		Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.playernotfound");
+		}
+		if (sender == feeded) {
+			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.FEED, "commands.feed.feeded");
+			((HumanEntity) sender).setFoodLevel(20);
+			return true;
+		} else {
+			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.FEED, "commands.feed.feededperson",
+					"_player", feeded.getName());
+			Utils.sendMessageWithConfiguredLanguage(plugin, feeded, ChatFormat.FEED, "commands.feed.othersfeeded",
+					"_sender", sender.getName());
+			feeded.setFoodLevel(20);
+		}
 		return true;
 	}
 

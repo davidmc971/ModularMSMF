@@ -16,7 +16,7 @@ import io.github.davidmc971.modularmsmf.core.util.Utils;
 
 /**
  *
- * @author davidmc971
+ * @author davidmc971, Lightkeks
  *
  */
 
@@ -28,10 +28,6 @@ public class CommandTeleport implements IModularMSMFCommand {
 	public CommandTeleport() {
 		plugin = ModularMSMFCore.Instance();
 	}
-
-	/**
-	 * TODO[epic=code needed,seq=29] rewrite to better code
-	 */
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -57,35 +53,71 @@ public class CommandTeleport implements IModularMSMFCommand {
 		UUID target1, target2;
 		if (args[0].equalsIgnoreCase(args[1])) {
 			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
-					"basics.commands.teleport.error.samename");
+					"basicsmodule.commands.teleport.others.toself");
 			return true;
 		}
 		target1 = Utils.getPlayerUUIDByName(args[0]);
 		target2 = Utils.getPlayerUUIDByName(args[1]);
 		Player p1 = Bukkit.getPlayer(target1), p2 = Bukkit.getPlayer(target2);
-		if (p1 != null && p2 != null) { // FIXME fix null players if not online or nonexistant
-			// Both are online and can be teleported
+		if (p1 != null && p2 != null) {
 			p1.teleport(p2);
-			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
-					"basics.commands.teleport.success.toplayer", "_player", p2.getName());
-			Utils.sendMessageWithConfiguredLanguage(plugin, p2, ChatFormat.INFO,
-					"basics.commands.teleport.success.toyou", "_player", sender.getName());
+			if (p1 == sender) {
+				Utils.sendMessageWithConfiguredLanguage(plugin, p2, ChatFormat.INFO,
+						"basicsmodule.commands.teleport.others.toyou", "_player", p1.getName());
+				Utils.sendMessageWithConfiguredLanguage(plugin, p1, ChatFormat.SUCCESS,
+						"basicsmodule.commands.teleport.success", "_player", p2.getName());
+				return true;
+			}
+			if (p2 == sender) {
+				Utils.sendMessageWithConfiguredLanguage(plugin, p1, ChatFormat.SUCCESS,
+						"basicsmodule.commands.teleport.force.toplayer", "_player", p2.getName());
+				Utils.sendMessageWithConfiguredLanguage(plugin, p2, ChatFormat.INFO,
+						"basicsmodule.commands.teleport.force.toyou", "_player", p1.getName());
+				return true;
+			}
+		}
+		if (p2 == sender && p1 == null) {
+			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+					"basicsmodule.commands.teleport.notonline", "_player", args[0]);
 			return true;
 		}
-		Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
-				"basics.commands.teleport.error.notonline", "_player", p2.getName());
+		if (p1 == sender && p2 == null) {
+			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+					"basicsmodule.commands.teleport.notonline", "_player", args[1]);
+			return true;
+		}
 		return true;
 	}
 
 	private boolean teleportOneArgsSub(CommandSender sender, Command command, String label, String[] args) {
-		//FIXME no null output or same name as "not online"
-		//TODO code stuff for /tp <target>
+		if (sender instanceof ConsoleCommandSender) {
+			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "coremodule.noconsole");
+			return true;
+		}
+		UUID target;
+		target = Utils.getPlayerUUIDByName(args[0]);
+		Player p = Bukkit.getPlayer(target);
+		if (target == null) {
+			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+					"basicsmodule.commands.teleport.notonline", "_player", args[0]);
+			return true;
+		}
+		if (p == sender) {
+			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+					"basicsmodule.commands.teleport.others.toself");
+			return true;
+		} else {
+			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
+					"basicsmodule.commands.teleport.success", "_player", p.getName());
+					Utils.sendMessageWithConfiguredLanguage(plugin, p, ChatFormat.INFO, "basicsmodule.commands.teleport.others.toyou", "_player", sender.getName());
+			((Player) sender).teleport(p);
+		}
 		return true;
 	}
 
 	private boolean helpSub(CommandSender sender, Command command, String label, String[] args) {
 		Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.missing_playername");
-		sender.sendMessage("send help here"); // TODO code help here
+		sender.sendMessage("send help here"); // TODO[epic=help code] teleport help missing
 		return true;
 	}
 

@@ -57,7 +57,7 @@ public class CommandClearChat implements IModularMSMFCommand {
                         for (Player p : Bukkit.getOnlinePlayers()) {
                             if (p.getUniqueId().toString().equalsIgnoreCase(target.toString())) {
                                 Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
-                                        "commands.clear.target", "_target", p.displayName().toString());
+                                        "commands.clear.target", "_target", p.getName());
                                 while (count <= 99) {
                                     count++;
                                     p.sendMessage("");

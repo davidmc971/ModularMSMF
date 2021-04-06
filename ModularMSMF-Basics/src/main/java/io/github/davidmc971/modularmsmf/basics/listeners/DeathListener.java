@@ -27,7 +27,6 @@ public class DeathListener implements Listener {
 	}
     
     // FIXME[epic=code needed,seq=22] Replace deprecated methods
-    @SuppressWarnings("deprecation")
     @EventHandler
 	public void onDeath(PlayerDeathEvent event) {
 		Player p = event.getEntity();
@@ -37,13 +36,13 @@ public class DeathListener implements Listener {
 			if (pkf.getP().getName().equals(event.getEntity().getName())) {
 				switch (pkf.getKt()) {
 				case KILL:
-					event.setDeathMessage(null);
+					event.deathMessage(null);
 					break;
 				case SUICIDE:
-					event.setDeathMessage(null);
+					event.deathMessage(null);
 					break;
 				case HOMOCIDE:
-					event.setDeathMessage(null);
+					event.deathMessage(null);
 					break;
 				}
 				killedPlayers.remove(pkf);

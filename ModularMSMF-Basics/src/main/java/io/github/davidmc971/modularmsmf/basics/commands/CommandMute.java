@@ -16,7 +16,7 @@ import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
 
 /**
  * 
- * @author Lightkeks, davidmc971
+ * @authors Lightkeks, davidmc971
  *
  */
 

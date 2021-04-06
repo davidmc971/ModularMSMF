@@ -16,9 +16,7 @@ import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
 import io.github.davidmc971.modularmsmf.core.util.Utils;
 
 /**
- * 
- * @author David Alexander Pfeiffer (davidmc971)
- * TODO[epic=done] Slaughter - fully working command
+ * @authors David Alexander Pfeiffer (davidmc971), Lightkeks
  */
 
 public class CommandSlaughter implements IModularMSMFCommand {
@@ -31,33 +29,33 @@ public class CommandSlaughter implements IModularMSMFCommand {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-		if (PermissionManager.checkPermission(sender, "slaughter")) {
-			if (sender instanceof ConsoleCommandSender) {
-				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "general.noconsole");
-			} else {
-				if (args.length == 0) {
-					Location playerloc = ((Player) sender).getLocation();
-					for (Entity e : ((Player) sender).getWorld().getNearbyEntities(playerloc, 500, 500, 500)) {
-						if (!(e instanceof Player) && (e instanceof Monster))
-							e.remove();
-					}
-					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
-							"commands.slaughter.success");
-				} else if (args.length == 1 && args[0].equalsIgnoreCase("passive")) {
-					Location playerloc = ((Player) sender).getLocation();
-					for (Entity e : ((Player) sender).getWorld().getNearbyEntities(playerloc, 500, 500, 500)) {
-						if (!(e instanceof Player) && (e instanceof Animals))
-							e.remove();
-					}
-					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
-							"commands.slaughter.success");
-				} else {
-					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
-							"general.toomanyarguments");
-				}
-			}
-		} else {
+		if (!PermissionManager.checkPermission(sender, "slaughter")) {
 			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
+			return true;
+		}
+		if (sender instanceof ConsoleCommandSender) {
+			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "general.noconsole");
+			return true;
+		}
+		if (args.length == 0) {
+			Location playerloc = ((Player) sender).getLocation();
+			for (Entity e : ((Player) sender).getWorld().getNearbyEntities(playerloc, 500, 500, 500)) {
+				if (!(e instanceof Player) && (e instanceof Monster))
+					e.remove();
+					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS, "commands.slaughter.success");
+					return true;
+			}
+		}
+		if (args.length == 1 && args[0].equalsIgnoreCase("passive")) {
+			Location playerloc = ((Player) sender).getLocation();
+			for (Entity e : ((Player) sender).getWorld().getNearbyEntities(playerloc, 500, 500, 500)) {
+				if (!(e instanceof Player) && (e instanceof Animals))
+					e.remove();
+					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS, "commands.slaughter.success");
+					return true;
+			}
+		} if(args.length >=2) {
+			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.toomanyarguments");
 		}
 		return true;
 	}

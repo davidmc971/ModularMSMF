@@ -3,6 +3,7 @@ package io.github.davidmc971.modularmsmf.basics.commands;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
 import io.github.davidmc971.modularmsmf.basics.PermissionManager;
@@ -16,9 +17,7 @@ import io.github.davidmc971.modularmsmf.core.util.Utils;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
 
 /**
- * 
  * @author Lightkeks
- *
  */
 
 public class CommandKill implements IModularMSMFCommand {
@@ -33,69 +32,72 @@ public class CommandKill implements IModularMSMFCommand {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-		// checks if command sender is player instead of console
-		if (sender instanceof Player) {
-			// checks permission of user
-			if (PermissionManager.checkPermission(sender, "kill")) {
-				if (args.length == 0) {
-					Utils.sendMessageWithConfiguredLanguage(MMSMFCore, sender, ChatFormat.ERROR,
-							"general.missingarguments");
-					return true;
-				}
+		if (!PermissionManager.checkPermission(sender, "kill")) {
+			Utils.sendMessageWithConfiguredLanguage(MMSMFCore, sender, ChatFormat.CONSOLE, "general.nopermission");
+			return true;
+		}
+		if (args.length == 0) {
+			Utils.sendMessageWithConfiguredLanguage(MMSMFCore, sender, ChatFormat.ERROR, "general.missingarguments");
+			return true;
+		}
+		switch (args[0].toLowerCase()) {
+		case "me":
+			return killMeSub(sender, command, label, args);
+		case "all":
+			return killAllSub(sender, command, label, args);
+		default:
+			return killDefault(sender, command, label, args);
+		}
+	}
 
-				switch (args[0].toLowerCase()) {
-				case "me":
-					// suicide
-					if (PermissionManager.checkPermission(sender, "kill_me")) {
-						Player player = ((Player) sender);
-						deathListener.registerKilledPlayer(player, KillType.SUICIDE);
-						Utils.broadcastWithConfiguredLanguageEach(MMSMFCore, ChatFormat.DEATH, "event.suicide", "_var",
-								player.displayName().toString());
-						player.setHealth(0);
-					} else {
-						Utils.sendMessageWithConfiguredLanguage(MMSMFCore, sender, ChatFormat.NOPERM,
-								"general.nopermission");
-					}
-					break;
-
-				case "all":
-					// kills all players online
-					if (PermissionManager.checkPermission(sender, "kill_all")) {
-						for (Player player : Bukkit.getOnlinePlayers()) {
-							deathListener.registerKilledPlayer(player, KillType.HOMOCIDE);
-							player.setHealth(0);
-						}
-						Utils.broadcastWithConfiguredLanguageEach(MMSMFCore, ChatUtils.ChatFormat.DEATH,
-								"event.homocide");
-					} else {
-						Utils.sendMessageWithConfiguredLanguage(MMSMFCore, sender, ChatFormat.NOPERM,
-								"general.nopermission");
-					}
-					break;
-
-				default:
-					// kills specified player
-					boolean temp = false;
-					for (Player player : Bukkit.getOnlinePlayers()) {
-						if (args[0].toLowerCase().equals(player.getName().toLowerCase())) {
-							deathListener.registerKilledPlayer(player, KillType.KILL);
-							Utils.broadcastWithConfiguredLanguageEach(MMSMFCore, ChatFormat.DEATH,
-									"event.killed_player", "_var", player.displayName().toString());
-							player.setHealth(0);
-							temp = true;
-							break;
-						}
-					}
-					if (!temp) {
-						Utils.sendMessageWithConfiguredLanguage(MMSMFCore, sender, ChatFormat.ERROR,
-								"general.playernotfound");
-					}
-				}
-			} else {
-				Utils.sendMessageWithConfiguredLanguage(MMSMFCore, sender, ChatFormat.CONSOLE, "general.nopermission");
-			}
-		} else {
+	private boolean killMeSub(CommandSender sender, Command command, String label, String[] args) {
+		if (sender instanceof ConsoleCommandSender) {
 			Utils.sendMessageWithConfiguredLanguage(MMSMFCore, sender, ChatFormat.CONSOLE, "general.noconsole");
+			return true;
+		}
+		if (!PermissionManager.checkPermission(sender, "kill_me")) {
+			Utils.sendMessageWithConfiguredLanguage(MMSMFCore, sender, ChatFormat.NOPERM, "general.nopermission");
+			return true;
+		}
+		Player player = ((Player) sender);
+		deathListener.registerKilledPlayer(player, KillType.SUICIDE);
+		Utils.broadcastWithConfiguredLanguageEach(MMSMFCore, ChatFormat.DEATH, "event.suicide", "_var",
+				player.getName());
+		player.setHealth(0);
+		return true;
+	}
+
+	private boolean killAllSub(CommandSender sender, Command command, String label, String[] args) {
+		if(sender instanceof ConsoleCommandSender){
+			Utils.sendMessageWithConfiguredLanguage(MMSMFCore, sender, ChatFormat.CONSOLE, "general.noconsole");
+			return true;
+		}
+		if (!PermissionManager.checkPermission(sender, "kill_all")) {
+			Utils.sendMessageWithConfiguredLanguage(MMSMFCore, sender, ChatFormat.NOPERM, "general.nopermission");
+			return true;
+		}
+		for (Player player : Bukkit.getOnlinePlayers()) {
+			deathListener.registerKilledPlayer(player, KillType.HOMOCIDE);
+			player.setHealth(0);
+		}
+		Utils.broadcastWithConfiguredLanguageEach(MMSMFCore, ChatUtils.ChatFormat.DEATH, "event.homocide");
+		return true;
+	}
+
+	private boolean killDefault(CommandSender sender, Command command, String label, String[] args) {
+		boolean temp = false;
+		for (Player player : Bukkit.getOnlinePlayers()) {
+			if (args[0].toLowerCase().equals(player.getName().toLowerCase())) {
+				deathListener.registerKilledPlayer(player, KillType.KILL);
+				Utils.broadcastWithConfiguredLanguageEach(MMSMFCore, ChatFormat.DEATH, "event.killed_player",
+						"_var", player.getName());
+				player.setHealth(0);
+				temp = true;
+				break;
+			}
+		}
+		if (!temp) {
+			Utils.sendMessageWithConfiguredLanguage(MMSMFCore, sender, ChatFormat.ERROR, "general.playernotfound");
 		}
 		return true;
 	}
