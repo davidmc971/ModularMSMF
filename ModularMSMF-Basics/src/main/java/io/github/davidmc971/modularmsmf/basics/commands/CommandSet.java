@@ -64,7 +64,7 @@ public class CommandSet implements IModularMSMFCommand {
                 case 0:
                 return lifeSetSub(sender, command, label, args);
                 case 1:
-                return lifeSetOthersSub(sender, command, label, args)
+                return lifeSetOthersSub(sender, command, label, args);
                 default:
                 Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.toomanyarguments");
             }
