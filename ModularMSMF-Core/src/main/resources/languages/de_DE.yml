@@ -308,6 +308,9 @@ basicsmodule:
         toyou: _player hat sich zu dir teleportiert!
         nooneonline: Weder _player1 noch _player2 ist online.
         toself: Du sollst einen anderen Spieler angeben!
+    set:
+      noint: Du musst eine Zahl angeben!
+      nonnegative: Du darfst keine negative Zahl benutzen!
 #for economy-module de_DE file
 economy-module:
   commands:

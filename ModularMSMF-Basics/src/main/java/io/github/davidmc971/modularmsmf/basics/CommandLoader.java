@@ -21,7 +21,7 @@ public class CommandLoader {
 				new CommandTeleport(),
 				new CommandFly(),
 				new CommandChannels(),
-				new CommandSet()
+				new CommandSet(),
         }) {
             plugin.getCommand(cmd.Label()).setExecutor(cmd);
         }

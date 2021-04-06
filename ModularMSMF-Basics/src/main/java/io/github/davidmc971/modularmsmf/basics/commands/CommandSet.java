@@ -55,18 +55,23 @@ public class CommandSet implements IModularMSMFCommand {
     private boolean subSet(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
             @NotNull String[] args) {
         if (args[0].equalsIgnoreCase("life")) {
+            // /set life
             if (!PermissionManager.checkPermission(sender, "set_use_life")) {
                 Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.nopermission");
                 return true;
             }
-            //TODO[epic=SetCommand] to code life below
-            switch(args.length){
-                case 0:
+            // TODO[epic=SetCommand] to code life below
+            switch (args.length) {
+            case 0:
                 return lifeSetSub(sender, command, label, args);
-                case 1:
+            // /set life <int>
+            case 1:
                 return lifeSetOthersSub(sender, command, label, args);
-                default:
+            // /set life <player> <int>
+            }
+            if (args.length > 3) {
                 Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.toomanyarguments");
+                return true;
             }
         }
         if (args[0].equalsIgnoreCase("food")) {
@@ -74,30 +79,44 @@ public class CommandSet implements IModularMSMFCommand {
                 Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.nopermission");
                 return true;
             }
-            //TODO[epic=SetCommand] to code food below
+            // TODO[epic=SetCommand] to code food below
         }
-        if(args[0].equalsIgnoreCase("sat") || args[0].equalsIgnoreCase("saturation")){
-            if(!PermissionManager.checkPermission(sender, "set_use_saturation")){
+        if (args[0].equalsIgnoreCase("sat") || args[0].equalsIgnoreCase("saturation")) {
+            if (!PermissionManager.checkPermission(sender, "set_use_saturation")) {
                 Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.nopermission");
                 return true;
             }
-            //TODO[epic=SetCommand] to code saturation below
+            // TODO[epic=SetCommand] to code saturation below
         }
         return true;
     }
 
     private boolean lifeSetOthersSub(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
             @NotNull String[] args) {
-                //TODO[epic=SetCommand,seq=81] still need code
+        // TODO[epic=SetCommand,seq=81] still need code
         return false;
     }
 
     private boolean lifeSetSub(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
             @NotNull String[] args) {
-                //TODO[epic=SetCommand,seq=82] still need code
-                UUID target;
-                target = null;
-                Player player = Bukkit.getPlayer(target);
+        // TODO[epic=SetCommand,seq=82] still need code
+        UUID target;
+        target = null;
+        Player player = Bukkit.getPlayer(target);
+        // /set life <int>
+        int i;
+        try {
+            i = Integer.parseInt(args[0]);
+        } catch (Exception e) {
+            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basicsmodule.commands.set.noint");
+            return false;
+        }
+        if(i > 0){
+            //TODO[epic=SetCommand,seq=90] still need code
+        } else {
+            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basicsmodule.commands.set.nonnegative");
+        }
+
         return false;
     }
 
