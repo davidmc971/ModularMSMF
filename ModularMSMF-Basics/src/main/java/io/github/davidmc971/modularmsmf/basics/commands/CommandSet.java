@@ -1,7 +1,11 @@
 package io.github.davidmc971.modularmsmf.basics.commands;
 
+import java.util.UUID;
+
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
@@ -28,7 +32,7 @@ public class CommandSet implements IModularMSMFCommand {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
             @NotNull String[] args) {
         if (PermissionManager.checkPermission(sender, "set_use")) {
-            if(args.length == 0){
+            if (args.length == 0) {
                 return helpSet(sender, command, label, args);
             }
             switch (args[1].toLowerCase()) {
@@ -56,6 +60,14 @@ public class CommandSet implements IModularMSMFCommand {
                 return true;
             }
             //TODO[epic=SetCommand] to code life below
+            switch(args.length){
+                case 0:
+                return lifeSetSub(sender, command, label, args);
+                case 1:
+                return lifeSetOthersSub(sender, command, label, args)
+                default:
+                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.toomanyarguments");
+            }
         }
         if (args[0].equalsIgnoreCase("food")) {
             if (!PermissionManager.checkPermission(sender, "set_use_food")) {
@@ -74,9 +86,24 @@ public class CommandSet implements IModularMSMFCommand {
         return true;
     }
 
+    private boolean lifeSetOthersSub(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
+            @NotNull String[] args) {
+                //TODO[epic=SetCommand,seq=81] still need code
+        return false;
+    }
+
+    private boolean lifeSetSub(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
+            @NotNull String[] args) {
+                //TODO[epic=SetCommand,seq=82] still need code
+                UUID target;
+                target = null;
+                Player player = Bukkit.getPlayer(target);
+        return false;
+    }
+
     private boolean helpSet(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
             @NotNull String[] args) {
-                sender.sendMessage("help set");
+        sender.sendMessage("help set");
         return true;
     }
 
