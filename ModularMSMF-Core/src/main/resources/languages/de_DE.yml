@@ -309,10 +309,14 @@ basicsmodule:
         nooneonline: Weder _player1 noch _player2 ist online.
         toself: Du sollst einen anderen Spieler angeben!
     set:
+      life:
+        done: Dein Leben wurde gesetzt!
       noint: Du musst eine Zahl angeben!
       nonnegative: Du darfst keine negative Zahl benutzen!
+      nosuicide: Bitte nutze "/kill me" dafür!
       upperlimit: Du darfst nur bis max. 20 setzen!
       survivalonly: Du kannst nur im Überlebensmodus deine Leben setzen!
+      nokill: Du musst "/kill name" dafür benutzen!
 #for economy-module de_DE file
 economy-module:
   commands:

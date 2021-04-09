@@ -44,7 +44,7 @@ public class EconomySystem implements IModularMSMFCommand {
 		// settings.yml
 
 		if (args.length == 0) {
-			if ((sender instanceof Player)) {
+			if (sender instanceof Player) {
 				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO, "commands.eco.balance.self", "_value", (String) (getMoney(uuid) + currencyFormat));
 			} else {
 				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "commands.eco.error.console");

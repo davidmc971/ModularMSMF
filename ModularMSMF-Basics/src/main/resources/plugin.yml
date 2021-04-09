@@ -15,7 +15,7 @@ main: io.github.davidmc971.modularmsmf.basics.ModularMSMFBasics
 commands:
   set:
     description: set values
-    usage: /<command> <args>
+    usage: /<command> <args> <int> <player>
   channel:
     description: channels
     usage: /<command> <label> <args>
