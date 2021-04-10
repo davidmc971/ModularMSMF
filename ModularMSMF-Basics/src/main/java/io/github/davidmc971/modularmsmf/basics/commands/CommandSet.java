@@ -7,7 +7,6 @@ import org.bukkit.Difficulty;
 import org.bukkit.GameMode;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -49,10 +48,11 @@ public class CommandSet implements IModularMSMFCommand {
         case "food":
         case "saturation":
         case "sat":
-            return subSet(sender, command, label, args); // for subcommands like "/set args[1] (life, saturation,
-                                                         // food,...)"
+        case "exp":
+        case "level":
+            return subSet(sender, command, label, args);
         default:
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.invalidarguments");
+            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basicsmodule.commands.arguments.invalid");
             break;
         }
         return true;
@@ -61,7 +61,6 @@ public class CommandSet implements IModularMSMFCommand {
     private boolean subSet(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
             @NotNull String[] args) {
         if (args[0].equalsIgnoreCase("life")) {
-            // /set life
             if (!PermissionManager.checkPermission(sender, "set_use_life")) {
                 Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
                         "coremodule.player.nopermission");
@@ -90,7 +89,7 @@ public class CommandSet implements IModularMSMFCommand {
                 Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO,
                         "basicsmodule.commands.set.food.usage");
             }
-            if (args.length >= 2) { // for self
+            if (args.length >= 2) {
                 return setFood(sender, command, label, args);
             }
         }
@@ -104,8 +103,206 @@ public class CommandSet implements IModularMSMFCommand {
                 Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO,
                         "basicsmodule.commands.set.saturation.usage");
             }
-            if (args.length >= 2) { // for self
+            if (args.length >= 2) {
                 return setSaturation(sender, command, label, args);
+            }
+        }
+        if (args[0].equalsIgnoreCase("exp")) {
+            if (!PermissionManager.checkPermission(sender, "set_use_exp")) {
+                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+                        "coremodule.player.nopermission");
+                return true;
+            }
+            if (args.length == 1) {
+                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO,
+                        "basicsmodule.commands.set.exp.usage");
+            }
+            if (args.length >= 2) {
+                return setExp(sender, command, label, args);
+            }
+        }
+        if (args[0].equalsIgnoreCase("level") || args[0].equalsIgnoreCase("lvl")) {
+            if (!PermissionManager.checkPermission(sender, "set_use_level")) {
+                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+                        "coremodule.player.nopermission");
+                return true;
+            }
+            if (args.length == 1) {
+                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO,
+                        "basicsmodule.commands.set.level.usage");
+            }
+            if (args.length >= 2) {
+                return setLevel(sender, command, label, args);
+            }
+        }
+        return true;
+    }
+
+    private boolean setLevel(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
+            @NotNull String[] args) {
+                int i = 0;
+                if (args.length == 2) {
+                    try {
+                        i = Integer.parseInt(args[1]);
+                    } catch (NumberFormatException exception) {
+                        exception.printStackTrace(); // debug only
+                        Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+                                "basicsmodule.commands.set.noint");
+                        return true;
+                    }
+                    if (((Player) sender).getWorld().getDifficulty() == Difficulty.PEACEFUL) {
+                        Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basicsmodule.peaceful");
+                        return true;
+                    }
+                    if (((Player) sender).getGameMode() == GameMode.CREATIVE) {
+                        Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basicsmodule.creative");
+                        return true;
+                    }
+                    if ((i < 0)) {
+                        Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+                                "basicsmodule.commands.set.nonnegative");
+                        return true;
+                    }
+                    if (i >= 101) {
+                        Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+                                "basicsmodule.commands.set.toohigh");
+                        return true;
+                    }
+                    ((Player) sender).setLevel(i);
+                    Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
+                            "basicsmodule.commands.set.level.done", "_args", args[1]);
+                    return true;
+                }
+                if (args.length == 3) {
+                    UUID target = null;
+                    target = Utils.getPlayerUUIDByName(args[2]);
+                    Player set = Bukkit.getPlayer(target);
+                    try {
+                        i = Integer.parseInt(args[1]);
+                    } catch (NumberFormatException exception) {
+                        exception.printStackTrace(); // debug only
+                        Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+                                "basicsmodule.commands.set.noint");
+                        return true;
+                    }
+                    if (set != null && set.getWorld().getDifficulty() == Difficulty.PEACEFUL) {
+                        Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basicsmodule.peaceful");
+                        return true;
+                    }
+                    if (set != null && set.getGameMode() == GameMode.CREATIVE) {
+                        Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basicsmodule.creative");
+                        return true;
+                    }
+                    if ((i < 0)) {
+                        Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+                                "basicsmodule.commands.set.nonnegative");
+                        return true;
+                    }
+                    if (i >= 101) {
+                        Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+                                "basicsmodule.commands.set.toohigh");
+                        return true;
+                    }
+                    if (set == sender) {
+                        set.setLevel(i);
+                        Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
+                                "basicsmodule.commands.set.level.done", "_args", args[1]);
+                        return true;
+                    }
+                    if (target == null) {
+                        Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "coremodule.player.unknown");
+                        return true;
+                    } else {
+                        set.setLevel(i);
+                        Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
+                                "basicsmodule.commands.set.level.others", "_args", args[1], "_player", args[2]);
+                        Utils.sendMessageWithConfiguredLanguage(plugin, set, ChatFormat.SUCCESS,
+                                "basicsmodule.commands.set.level.done", "_args", args[1]);
+                    }
+                }
+                return true;
+    }
+
+    private boolean setExp(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
+            @NotNull String[] args) {
+        float f = 0;
+        if (args.length == 2) {
+            try {
+                f = Float.parseFloat(args[1]);
+            } catch (NumberFormatException exception) {
+                exception.printStackTrace(); // debug only
+                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+                        "basicsmodule.commands.set.noint");
+                return true;
+            }
+            if (((Player) sender).getWorld().getDifficulty() == Difficulty.PEACEFUL) {
+                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basicsmodule.peaceful");
+                return true;
+            }
+            if (((Player) sender).getGameMode() == GameMode.CREATIVE) {
+                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basicsmodule.creative");
+                return true;
+            }
+            if ((f < 0)) {
+                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+                        "basicsmodule.commands.set.nonnegative");
+                return true;
+            }
+            if (f > 1) {
+                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+                        "basicsmodule.commands.set.toohigh");
+                return true;
+            }
+            ((Player) sender).setExp(f);
+            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
+                    "basicsmodule.commands.set.exp.done", "_args", args[1]);
+            return true;
+        }
+        if (args.length == 3) {
+            UUID target = null;
+            target = Utils.getPlayerUUIDByName(args[2]);
+            Player set = Bukkit.getPlayer(target);
+            try {
+                f = Float.parseFloat(args[1]);
+            } catch (NumberFormatException exception) {
+                exception.printStackTrace(); // debug only
+                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+                        "basicsmodule.commands.set.noint");
+                return true;
+            }
+            if (set != null && set.getWorld().getDifficulty() == Difficulty.PEACEFUL) {
+                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basicsmodule.peaceful");
+                return true;
+            }
+            if (set != null && set.getGameMode() == GameMode.CREATIVE) {
+                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basicsmodule.creative");
+                return true;
+            }
+            if ((f < 0)) {
+                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+                        "basicsmodule.commands.set.nonnegative");
+                return true;
+            }
+            if (f > 1) {
+                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+                        "basicsmodule.commands.set.toohigh");
+                return true;
+            }
+            if (set == sender) {
+                set.setExp(f);
+                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
+                        "basicsmodule.commands.set.exp.done", "_args", args[1]);
+                return true;
+            }
+            if (target == null) {
+                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "coremodule.player.unknown");
+                return true;
+            } else {
+                set.setExp(f);
+                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
+                        "basicsmodule.commands.set.exp.others", "_args", args[1], "_player", args[2]);
+                Utils.sendMessageWithConfiguredLanguage(plugin, set, ChatFormat.SUCCESS,
+                        "basicsmodule.commands.set.exp.done", "_args", args[1]);
             }
         }
         return true;
@@ -123,11 +320,11 @@ public class CommandSet implements IModularMSMFCommand {
                         "basicsmodule.commands.set.noint");
                 return true;
             }
-            if (((HumanEntity) sender).getWorld().getDifficulty() == Difficulty.PEACEFUL) {
+            if (((Player) sender).getWorld().getDifficulty() == Difficulty.PEACEFUL) {
                 Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basicsmodule.peaceful");
                 return true;
             }
-            if (((HumanEntity) sender).getGameMode() == GameMode.CREATIVE) {
+            if (((Player) sender).getGameMode() == GameMode.CREATIVE) {
                 Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basicsmodule.creative");
                 return true;
             }
@@ -136,12 +333,12 @@ public class CommandSet implements IModularMSMFCommand {
                         "basicsmodule.commands.set.nonnegative");
                 return true;
             }
-            if (i >= 101) {
+            if (i >= 81) {
                 Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
-                        "basicsmodule.commands.set.saturation.upperlimit");
+                        "basicsmodule.commands.set.toohigh");
                 return true;
             }
-            ((HumanEntity) sender).setSaturation(i);
+            ((Player) sender).setSaturation(i);
             Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
                     "basicsmodule.commands.set.saturation.done", "_args", args[1]);
             return true;
@@ -171,9 +368,9 @@ public class CommandSet implements IModularMSMFCommand {
                         "basicsmodule.commands.set.nonnegative");
                 return true;
             }
-            if (i >= 21) {
+            if (i >= 81) {
                 Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
-                        "basicsmodule.commands.set.upperlimit");
+                        "basicsmodule.commands.set.toohigh");
                 return true;
             }
             if (set == sender) {
@@ -208,11 +405,11 @@ public class CommandSet implements IModularMSMFCommand {
                         "basicsmodule.commands.set.noint");
                 return true;
             }
-            if (((HumanEntity) sender).getWorld().getDifficulty() == Difficulty.PEACEFUL) {
+            if (((Player) sender).getWorld().getDifficulty() == Difficulty.PEACEFUL) {
                 Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basicsmodule.peaceful");
                 return true;
             }
-            if (((HumanEntity) sender).getGameMode() == GameMode.CREATIVE) {
+            if (((Player) sender).getGameMode() == GameMode.CREATIVE) {
                 Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basicsmodule.creative");
                 return true;
             }
@@ -226,7 +423,7 @@ public class CommandSet implements IModularMSMFCommand {
                         "basicsmodule.commands.set.upperlimit");
                 return true;
             }
-            ((HumanEntity) sender).setFoodLevel(i);
+            ((Player) sender).setFoodLevel(i);
             Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
                     "basicsmodule.commands.set.food.done");
             return true;
@@ -294,11 +491,11 @@ public class CommandSet implements IModularMSMFCommand {
                         "basicsmodule.commands.set.noint");
                 return true;
             }
-            if (((HumanEntity) sender).getWorld().getDifficulty() == Difficulty.PEACEFUL) {
+            if (((Player) sender).getWorld().getDifficulty() == Difficulty.PEACEFUL) {
                 Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basicsmodule.peaceful");
                 return true;
             }
-            if (((HumanEntity) sender).getGameMode() == GameMode.CREATIVE) {
+            if (((Player) sender).getGameMode() == GameMode.CREATIVE) {
                 Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basicsmodule.creative");
                 return true;
             }
@@ -317,7 +514,7 @@ public class CommandSet implements IModularMSMFCommand {
                         "basicsmodule.commands.set.upperlimit");
                 return true;
             }
-            ((HumanEntity) sender).setHealth(i);
+            ((Player) sender).setHealth(i);
             Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
                     "basicsmodule.commands.set.life.done", "_args", args[1]);
             return true;

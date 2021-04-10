@@ -315,24 +315,30 @@ basicsmodule:
         done: Dein Leben wurde auf _args gesetzt!
         usage: "Leben setzen: /set life <num> <name>"
         others: Du hast _player's Leben auf _args gesetzt!
-        all: Alle Spieler dessen Leben wurden auf _args gesetzt!
       food:
         done: Dein Hungerlevel wurde auf _args gesetzt!
         usage: "Hungerlevel setzen: /set food <num> <name>"
         others: Du hast _player's Hungerlevel auf _args gesetzt!
-        all: Alle Spieler dessen Hungerlevel wurden auf _args gesetzt!
       saturation:
         done: Dein Sättigungsgefühl wurde auf _args gesetzt!
         usage: "Sättigungsgefühl setzen: /set (sat/saturation) <num> <name>"
         others: Du hast _player's Sättigungsgefühl auf _args gesetzt!
-        all: Alle Spieler dessen Sättigungsgefühl wurden auf _args gesetzt!
         upperlimit: Du darst nur bis max. 100 setzen!
+      exp:
+        done: Deine EXP wurden auf _args gesetzt!
+        usage: "EXP setzen: /set exp (0.0-1.0) <name>"
+        others: Du hast _player's EXP auf _args gesetzt!
+      level:
+        done: Dein Level wurden auf _args gesetzt!
+        usage: "Level setzen: /set (level/lvl) <num> <name>"
+        others: Du hast _player's Level auf _args gesetzt!
       noint: Du musst eine Zahl angeben!
       nonnegative: Du darfst keine negative Zahl benutzen!
       nosuicide: Bitte nutze "/kill <me>" dafür!
       upperlimit: Du darfst nur bis max. 20 setzen!
       survivalonly: Du kannst nur im Überlebensmodus deine Leben setzen!
       nokill: Du musst "/kill <name>" dafür benutzen!
+      toohigh: Dieser Wert ist zu hoch!
 #for economy-module de_DE file
 economy-module:
   commands:

@@ -55,6 +55,8 @@ public class PermissionManager {
 		put("set_use_life","modularmsmf.set.use.life");
 		put("set_use_food","modularmsmf.set.use.food");
 		put("set_use_saturation","modularmsmf.set.use.saturation");
+		put("set_use_exp","modularmsmf.set.use.exp");
+		put("set_use_level","modularmsmf.set.use.level");
 		//channel permissions
 		put("channels_use", "modularmsmf.channels.use"); // to use the command
 		put("channels_list_all", "modularmsmf.channel.list.all"); //admin related
