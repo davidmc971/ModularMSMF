@@ -226,6 +226,8 @@ coremodule:
       report: Hilfe für das Report-System.
 #in basics-module de_DE file
 basicsmodule:
+  peaceful: Du bist im Friedlichmodus!
+  creative: Du bist im Kreativmodus!
   commands:
     arguments:
       missing: Bitte gib passende Argumente angeben!
@@ -310,13 +312,27 @@ basicsmodule:
         toself: Du sollst einen anderen Spieler angeben!
     set:
       life:
-        done: Dein Leben wurde gesetzt!
+        done: Dein Leben wurde auf _args gesetzt!
+        usage: "Leben setzen: /set life <num> <name>"
+        others: Du hast _player's Leben auf _args gesetzt!
+        all: Alle Spieler dessen Leben wurden auf _args gesetzt!
+      food:
+        done: Dein Hungerlevel wurde auf _args gesetzt!
+        usage: "Hungerlevel setzen: /set food <num> <name>"
+        others: Du hast _player's Hungerlevel auf _args gesetzt!
+        all: Alle Spieler dessen Hungerlevel wurden auf _args gesetzt!
+      saturation:
+        done: Dein Sättigungsgefühl wurde auf _args gesetzt!
+        usage: "Sättigungsgefühl setzen: /set (sat/saturation) <num> <name>"
+        others: Du hast _player's Sättigungsgefühl auf _args gesetzt!
+        all: Alle Spieler dessen Sättigungsgefühl wurden auf _args gesetzt!
+        upperlimit: Du darst nur bis max. 100 setzen!
       noint: Du musst eine Zahl angeben!
       nonnegative: Du darfst keine negative Zahl benutzen!
-      nosuicide: Bitte nutze "/kill me" dafür!
+      nosuicide: Bitte nutze "/kill <me>" dafür!
       upperlimit: Du darfst nur bis max. 20 setzen!
       survivalonly: Du kannst nur im Überlebensmodus deine Leben setzen!
-      nokill: Du musst "/kill name" dafür benutzen!
+      nokill: Du musst "/kill <name>" dafür benutzen!
 #for economy-module de_DE file
 economy-module:
   commands:
