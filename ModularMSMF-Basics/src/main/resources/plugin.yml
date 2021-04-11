@@ -13,6 +13,9 @@ main: io.github.davidmc971.modularmsmf.basics.ModularMSMFBasics
 
 # TODO: load at runtime with our secret haxx
 commands:
+  get:
+    description: get values
+    usage: /<command> <args> <player>
   set:
     description: set values
     usage: /<command> <args> <int> <player>

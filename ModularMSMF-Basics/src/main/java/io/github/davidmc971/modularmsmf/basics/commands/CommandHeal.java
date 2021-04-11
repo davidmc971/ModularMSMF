@@ -64,12 +64,12 @@ public class CommandHeal implements IModularMSMFCommand {
 			return true;
 		}
 		if (sender == healed) {
-			if (((HumanEntity) sender).getWorld().getDifficulty() == Difficulty.PEACEFUL) {
+			if (((Player) sender).getWorld().getDifficulty() == Difficulty.PEACEFUL) {
 				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basicsmodule.peaceful");
 				return true;
 			} else {
 				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.HEAL, "basicsmodule.commands.heal.self");
-				((HumanEntity) sender).setHealth(20);
+				((Player) sender).setHealth(20);
 				return true;
 			}
 		} else {
@@ -91,15 +91,15 @@ public class CommandHeal implements IModularMSMFCommand {
 			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "coremodule.player.nopermission");
 			return true;
 		}
-		if (((HumanEntity) sender).getWorld().getDifficulty() == Difficulty.PEACEFUL) {
+		if (((Player) sender).getWorld().getDifficulty() == Difficulty.PEACEFUL) {
 			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basicsmodule.peaceful");
 			return true;
 		}
-		if(((HumanEntity)sender).getGameMode() == GameMode.CREATIVE){
+		if(((Player)sender).getGameMode() == GameMode.CREATIVE){
 			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basicsmodule.creative");
 			return true;
 		} else {
-			((HumanEntity) sender).setHealth(20);
+			((Player) sender).setHealth(20);
 			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.HEAL, "basicsmodule.commands.heal.self");
 		}
 		return true;

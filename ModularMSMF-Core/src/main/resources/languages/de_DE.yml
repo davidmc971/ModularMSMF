@@ -325,9 +325,9 @@ basicsmodule:
         others: Du hast _player's Sättigungsgefühl auf _args gesetzt!
         upperlimit: Du darst nur bis max. 100 setzen!
       exp:
-        done: Deine EXP wurden auf _args gesetzt!
+        done: "Deine EXP wurden auf _args% gesetzt!"
         usage: "EXP setzen: /set exp (0.0-1.0) <name>"
-        others: Du hast _player's EXP auf _args gesetzt!
+        others: "Du hast _player's EXP auf _args% gesetzt!"
       level:
         done: Dein Level wurden auf _args gesetzt!
         usage: "Level setzen: /set (level/lvl) <num> <name>"
@@ -339,6 +339,27 @@ basicsmodule:
       survivalonly: Du kannst nur im Überlebensmodus deine Leben setzen!
       nokill: Du musst "/kill <name>" dafür benutzen!
       toohigh: Dieser Wert ist zu hoch!
+    get:
+      life:
+        done: "Dein Leben: _value"
+        usage: "Leben eines anderen sehen: /get life <name>"
+        others: "_player's Leben: _value"
+      food:
+        done: "Dein Hungerlevel: _value"
+        usage: "Hungerlevel eines anderen sehen: /get food <name>"
+        others: "_player's Hungerlevel: _value"
+      saturation:
+        done: "Dein Sättigungslevel: _value"
+        usage: "Sättigungslevel eines anderen sehen: /get (sat/saturation) <name>"
+        others: "_player's Sättigungslevel: _value"
+      exp:
+        done: "Deine EXP: _value%"
+        usage: "EXP eines anderen sehen: /get exp <name>"
+        others: "_player's EXP: _value%"
+      level:
+        done: "Dein Level: _value"
+        usage: "Level eines anderen sehen: /get (lvl/level) <name>"
+        others: "_player's Level: _value"
 #for economy-module de_DE file
 economy-module:
   commands:

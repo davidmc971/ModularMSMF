@@ -66,7 +66,7 @@ public class CommandFeed implements IModularMSMFCommand {
 		}
 		if (sender == feeded) {
 			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.FEED, "commands.feed.feeded");
-			((HumanEntity) sender).setFoodLevel(20);
+			((Player) sender).setFoodLevel(20);
 			return true;
 		} else {
 			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.FEED, "commands.feed.feededperson",
@@ -83,17 +83,17 @@ public class CommandFeed implements IModularMSMFCommand {
 			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "general.noconsole");
 			return true;
 		}
-		if (((HumanEntity) sender).getWorld().getDifficulty() == Difficulty.PEACEFUL) {
+		if (((Player) sender).getWorld().getDifficulty() == Difficulty.PEACEFUL) {
 			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basicsmodule.peaceful");
 			return true;
 		}
-		if(((HumanEntity)sender).getGameMode() == GameMode.CREATIVE){
+		if(((Player)sender).getGameMode() == GameMode.CREATIVE){
 			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basicsmodule.creative");
 			return true;
 		}
 		if (PermissionManager.checkPermission(sender, "feedself")) {
 			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.FEED, "commands.feed.feeded");
-			((HumanEntity) sender).setFoodLevel(20);
+			((Player) sender).setFoodLevel(20);
 		} else {
 			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
 		}
