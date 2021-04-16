@@ -1,6 +1,5 @@
 package io.github.davidmc971.modularmsmf.basics.commands;
 
-import java.text.DecimalFormat;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;

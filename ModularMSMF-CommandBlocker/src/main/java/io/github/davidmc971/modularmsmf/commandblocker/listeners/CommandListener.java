@@ -26,28 +26,12 @@ public class CommandListener implements Listener {
 	// here it will catch any command, which equals any string in file, if set
 	@EventHandler
 	public void onCommandEvent(PlayerCommandPreprocessEvent e) {
-		String commandName = e.getMessage().substring(1).split(" ")[0].toLowerCase();
+/*		String commandName = e.getMessage().substring(1).split(" ")[0].toLowerCase();
 		Player p = e.getPlayer();
-		// if (!p.isOp()) {
-		// if (!PermissionManager.checkPermission((CommandSender) e,
-		// "commandblocker.use")) {
-		// Utils.sendMessageWithConfiguredLanguage(plugin, (CommandSender) e,
-		// ChatFormat.NOPERM,
-		// "general.nopermission");
-		// } else {
-		// FIXME: change "if" to "loadFromFile" and "saveToFile"
-		// row: first saveToFile, then loadFromFile
-		if (blockedCommands.commandIsBlocked(commandName)) {
-			Utils.sendMessageWithConfiguredLanguage(plugin, p, ChatFormat.ERROR, "general.commands_blocked", "_var",
-					commandName);
-			e.setCancelled(true);
-		}
-		// }/* else {
-		// row: first saveToFile, then loadFromFile
 		if (blockedCommands.commandIsBlocked(commandName)) {
 			Utils.sendMessageWithConfiguredLanguage(plugin, p, ChatFormat.ERROR, "general.commands_blocked", "_var",
 					commandName);
 			e.setCancelled(false);
 		}
-	}
+	*/	}
 }
