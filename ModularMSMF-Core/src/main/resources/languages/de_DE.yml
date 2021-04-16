@@ -360,6 +360,10 @@ basicsmodule:
         done: "Dein Level: _value"
         usage: "Level eines anderen sehen: /get (lvl/level) <name>"
         others: "_player's Level: _value"
+      ip:
+        done: "Deine IP-Adresse: _value"
+        usage: "IP-Adresse eines anderen sehen: /get ip <name>"
+        others: "_player's IP-Adresse: _value"
 #for economy-module de_DE file
 economy-module:
   commands:

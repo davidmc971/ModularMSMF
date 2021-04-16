@@ -64,6 +64,7 @@ public class PermissionManager {
 		put("get_use_saturation","modularmsmf.get.use.saturation");
 		put("get_use_exp","modularmsmf.get.use.exp");
 		put("get_use_level","modularmsmf.get.use.level");
+		put("get_use_ip","modularmsmf.get.use.ip");
 		//channel permissions
 		put("channels_use", "modularmsmf.channels.use"); // to use the command
 		put("channels_list_all", "modularmsmf.channel.list.all"); //admin related

@@ -1,5 +1,6 @@
 package io.github.davidmc971.modularmsmf.basics.commands;
 
+import java.text.DecimalFormat;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
@@ -31,10 +32,6 @@ public class CommandGet implements IModularMSMFCommand {
         plugin = ModularMSMFCore.Instance();
     }
 
-    private String s_get_double = String.valueOf(double.class);
-    private String s_get_float = String.valueOf(float.class);
-    private String s_get_int = String.valueOf(int.class);
-
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
             @NotNull String[] args) {
@@ -55,6 +52,7 @@ public class CommandGet implements IModularMSMFCommand {
         case "sat":
         case "exp":
         case "level":
+        case "ip":
             return subGet(sender, command, label, args);
         default:
             Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
@@ -148,7 +146,7 @@ public class CommandGet implements IModularMSMFCommand {
             }
         }
         if (args[0].equalsIgnoreCase("level") || args[0].equalsIgnoreCase("lvl")) {
-            if (!PermissionManager.checkPermission(sender, "set_use_level")) {
+            if (!PermissionManager.checkPermission(sender, "get_use_level")) {
                 Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
                         "coremodule.player.nopermission");
                 return true;
@@ -167,6 +165,51 @@ public class CommandGet implements IModularMSMFCommand {
                 return true;
             }
         }
+        if (args[0].equalsIgnoreCase("ip")) {
+            if (!PermissionManager.checkPermission(sender, "get_use_ip")) {
+                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+                        "coremodule.player.nopermission");
+                return true;
+            }
+            if (args.length == 1) {
+                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO,
+                        "basicsmodule.commands.get.ip.usage");
+                return true;
+            }
+            if (args.length == 2) {
+                return getIp(sender, command, label, args);
+            }
+            if (args.length >= 3) {
+                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+                        "basicsmodule.commands.arguments.toomany");
+                return true;
+            }
+        }
+        return true;
+    }
+
+    private boolean getIp(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
+            @NotNull String[] args) {
+        UUID target = null;
+        target = Utils.getPlayerUUIDByName(args[1]);
+        Player player = Bukkit.getPlayer(target);
+        if (sender instanceof ConsoleCommandSender) {
+            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "coremodule.noconsole");
+            return true;
+        }
+        if (player == null) {
+            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "coremodule.player.notfound");
+            return true;
+        }
+        if (player == sender) {
+            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
+                    "basicsmodule.commands.get.ip.done", "_value", player.getAddress().getAddress().toString());
+            return true;
+        } else {
+            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
+                    "basicsmodule.commands.get.ip.others", "_player", args[1], "_value",
+                    player.getAddress().getAddress().toString());
+        }
         return true;
     }
 
@@ -175,8 +218,6 @@ public class CommandGet implements IModularMSMFCommand {
         UUID target = null;
         target = Utils.getPlayerUUIDByName(args[1]);
         Player player = Bukkit.getPlayer(target);
-        int d_level = player.getLevel();
-        s_get_int = String.valueOf(d_level);
         if (sender instanceof ConsoleCommandSender) {
             Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "coremodule.noconsole");
             return true;
@@ -189,13 +230,21 @@ public class CommandGet implements IModularMSMFCommand {
             Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basicsmodule.creative");
             return true;
         }
+        if (player == null) {
+            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "coremodule.player.notfound");
+            return true;
+        }
         if (player == sender) {
+            int i = player.getLevel();
+            String s = String.valueOf(i);
             Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
-                    "basicsmodule.commands.get.level.done", "_value", s_get_int);
+                    "basicsmodule.commands.get.level.done", "_value", s);
             return true;
         } else {
+            int i = player.getLevel();
+            String s = String.valueOf(i);
             Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
-                    "basicsmodule.commands.get.level.others", "_player", args[1], "_value", s_get_int);
+                    "basicsmodule.commands.get.level.others", "_player", args[1], "_value", s);
         }
         return true;
     }
@@ -205,8 +254,6 @@ public class CommandGet implements IModularMSMFCommand {
         UUID target = null;
         target = Utils.getPlayerUUIDByName(args[1]);
         Player player = Bukkit.getPlayer(target);
-        float d_exp = player.getExp();
-        s_get_float = String.valueOf(d_exp);
         if (sender instanceof ConsoleCommandSender) {
             Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "coremodule.noconsole");
             return true;
@@ -219,15 +266,31 @@ public class CommandGet implements IModularMSMFCommand {
             Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basicsmodule.creative");
             return true;
         }
-        if (player == sender) {
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
-                    "basicsmodule.commands.get.exp.done", "_value", s_get_float);
+        if (player == null) {
+            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "coremodule.player.notfound");
             return true;
-        } else {
+        }
+        if (player == sender) {
+            Float f = player.getExp();
+            Float f1;
+            f1 = f * 100;
+            int i = f1.intValue();
+            String s = String.valueOf(i);
             Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
-                    "basicsmodule.commands.get.exp.others", "_player", args[1], "_value", s_get_float);
+                    "basicsmodule.commands.get.exp.done", "_value", s);
+
+        } else {
+            Float f = player.getExp();
+            Float f1;
+            f1 = f * 100;
+            int i = f1.intValue();
+            String s = String.valueOf(i);
+            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
+                    "basicsmodule.commands.get.exp.others", "_player", args[1], "_value", s);
+            return true;
         }
         return true;
+
     }
 
     private boolean getSaturation(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
@@ -235,8 +298,6 @@ public class CommandGet implements IModularMSMFCommand {
         UUID target = null;
         target = Utils.getPlayerUUIDByName(args[1]);
         Player player = Bukkit.getPlayer(target);
-        int d_saturation = (int) player.getSaturation();
-        s_get_int = String.valueOf(d_saturation);
         if (sender instanceof ConsoleCommandSender) {
             Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "coremodule.noconsole");
             return true;
@@ -249,13 +310,23 @@ public class CommandGet implements IModularMSMFCommand {
             Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basicsmodule.creative");
             return true;
         }
+        if (player == null) {
+            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "coremodule.player.notfound");
+            return true;
+        }
         if (player == sender) {
+            Float f = player.getSaturation();
+            int i = f.intValue();
+            String s = String.valueOf(i);
             Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
-                    "basicsmodule.commands.get.saturation.done", "_value", s_get_int);
+                    "basicsmodule.commands.get.saturation.done", "_value", s);
             return true;
         } else {
+            Float f = player.getSaturation();
+            int i = f.intValue();
+            String s = String.valueOf(i);
             Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
-                    "basicsmodule.commands.get.saturation.others", "_player", args[1], "_value", s_get_int);
+                    "basicsmodule.commands.get.saturation.others", "_player", args[1], "_value", s);
         }
         return true;
     }
@@ -265,8 +336,6 @@ public class CommandGet implements IModularMSMFCommand {
         UUID target = null;
         target = Utils.getPlayerUUIDByName(args[1]);
         Player player = Bukkit.getPlayer(target);
-        int d_food = (int) player.getFoodLevel();
-        s_get_int = String.valueOf(d_food);
         if (sender instanceof ConsoleCommandSender) {
             Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "coremodule.noconsole");
             return true;
@@ -279,13 +348,21 @@ public class CommandGet implements IModularMSMFCommand {
             Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basicsmodule.creative");
             return true;
         }
+        if (player == null) {
+            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "coremodule.player.notfound");
+            return true;
+        }
         if (player == sender) {
+            int i = player.getFoodLevel();
+            String s = String.valueOf(i);
             Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
-                    "basicsmodule.commands.get.food.done", "_value", s_get_int);
+                    "basicsmodule.commands.get.food.done", "_value", s);
             return true;
         } else {
+            int i = player.getFoodLevel();
+            String s = String.valueOf(i);
             Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
-                    "basicsmodule.commands.get.food.others", "_player", args[1], "_value", s_get_int);
+                    "basicsmodule.commands.get.food.others", "_player", args[1], "_value", s);
         }
         return true;
     }
@@ -295,8 +372,6 @@ public class CommandGet implements IModularMSMFCommand {
         UUID target = null;
         target = Utils.getPlayerUUIDByName(args[1]);
         Player player = Bukkit.getPlayer(target);
-        int d_life = (int) player.getHealth();
-        s_get_int = String.valueOf(d_life);
         if (sender instanceof ConsoleCommandSender) {
             Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "coremodule.noconsole");
             return true;
@@ -309,13 +384,23 @@ public class CommandGet implements IModularMSMFCommand {
             Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basicsmodule.creative");
             return true;
         }
+        if (player == null) {
+            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "coremodule.player.notfound");
+            return true;
+        }
         if (player == sender) {
+            Double d = player.getHealth();
+            int i = d.intValue();
+            String s = String.valueOf(i);
             Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
-                    "basicsmodule.commands.get.life.done", "_value", s_get_int);
+                    "basicsmodule.commands.get.life.done", "_value", s);
             return true;
         } else {
+            Double d = player.getHealth();
+            int i = d.intValue();
+            String s = String.valueOf(i);
             Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
-                    "basicsmodule.commands.get.life.others", "_player", args[1], "_value", s_get_int);
+                    "basicsmodule.commands.get.life.others", "_player", args[1], "_value", s);
         }
         return true;
     }

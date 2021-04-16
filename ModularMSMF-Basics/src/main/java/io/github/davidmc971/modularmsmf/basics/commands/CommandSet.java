@@ -1,7 +1,6 @@
 package io.github.davidmc971.modularmsmf.basics.commands;
 
 import java.util.UUID;
-import java.util.regex.Pattern;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Difficulty;
@@ -63,6 +62,17 @@ public class CommandSet implements IModularMSMFCommand {
                     "basicsmodule.commands.arguments.invalid");
             break;
         }
+        return true;
+    }
+
+    private boolean helpSet(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
+            @NotNull String[] args) {
+        sender.sendMessage("/set help");
+        sender.sendMessage("/set life");
+        sender.sendMessage("/set food");
+        sender.sendMessage("/set (saturation/sat)");
+        sender.sendMessage("/set exp");
+        sender.sendMessage("/set (level/lvl)");
         return true;
     }
 
@@ -162,12 +172,11 @@ public class CommandSet implements IModularMSMFCommand {
 
     private boolean setLevel(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
             @NotNull String[] args) {
-        int i = 0;
+        int i;
         if (args.length == 2) {
             try {
                 i = Integer.parseInt(args[1]);
-            } catch (NumberFormatException exception) {
-                exception.printStackTrace(); // debug only
+            } catch (NumberFormatException e) {
                 Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
                         "basicsmodule.commands.set.noint");
                 return true;
@@ -201,8 +210,7 @@ public class CommandSet implements IModularMSMFCommand {
             Player set = Bukkit.getPlayer(target);
             try {
                 i = Integer.parseInt(args[1]);
-            } catch (NumberFormatException exception) {
-                exception.printStackTrace(); // debug only
+            } catch (NumberFormatException e) {
                 Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
                         "basicsmodule.commands.set.noint");
                 return true;
@@ -215,7 +223,7 @@ public class CommandSet implements IModularMSMFCommand {
                 Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basicsmodule.creative");
                 return true;
             }
-            if ((i < 0)) {
+            if (i < 0) {
                 Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
                         "basicsmodule.commands.set.nonnegative");
                 return true;
@@ -247,17 +255,11 @@ public class CommandSet implements IModularMSMFCommand {
 
     private boolean setExp(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
             @NotNull String[] args) {
-        float f = 0;
-        String s = String.valueOf(f); // convert string into float, convert to eg. 0.9, if 90
-        String[] splitted = s.split("(?>=.)");
-        for (String a : splitted) {
-            System.out.println(a);
-        }
         if (args.length == 2) {
+            String argsexp = args[1];
             try {
-                f = Float.parseFloat(args[1]);
-            } catch (NumberFormatException exception) {
-                exception.printStackTrace(); // debug only
+                Float.parseFloat(argsexp);
+            } catch (NumberFormatException e) {
                 Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
                         "basicsmodule.commands.set.noint");
                 return true;
@@ -270,12 +272,15 @@ public class CommandSet implements IModularMSMFCommand {
                 Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basicsmodule.creative");
                 return true;
             }
+            Float f_val = Float.parseFloat(argsexp);
+            Float f;
+            f = f_val / 100;
             if ((f < 0)) {
                 Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
                         "basicsmodule.commands.set.nonnegative");
                 return true;
             }
-            if (f > 1) {
+            if (f > 100) {
                 Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
                         "basicsmodule.commands.set.toohigh");
                 return true;
@@ -286,17 +291,20 @@ public class CommandSet implements IModularMSMFCommand {
             return true;
         }
         if (args.length == 3) {
-            UUID target = null;
-            target = Utils.getPlayerUUIDByName(args[2]);
-            Player set = Bukkit.getPlayer(target);
+            String argsexp = args[1];
             try {
-                f = Float.parseFloat(args[1]);
-            } catch (NumberFormatException exception) {
-                exception.printStackTrace(); // debug only
+                Float.parseFloat(argsexp);
+            } catch (NumberFormatException e) {
                 Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
                         "basicsmodule.commands.set.noint");
                 return true;
             }
+            Float f_val = Float.valueOf(argsexp);
+            Float f;
+            f = f_val / 100;
+            UUID target = null;
+            target = Utils.getPlayerUUIDByName(args[2]);
+            Player set = Bukkit.getPlayer(target);
             if (set != null && set.getWorld().getDifficulty() == Difficulty.PEACEFUL) {
                 Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basicsmodule.peaceful");
                 return true;
@@ -310,7 +318,7 @@ public class CommandSet implements IModularMSMFCommand {
                         "basicsmodule.commands.set.nonnegative");
                 return true;
             }
-            if (f > 1) {
+            if (f > 100) {
                 Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
                         "basicsmodule.commands.set.toohigh");
                 return true;
@@ -337,7 +345,7 @@ public class CommandSet implements IModularMSMFCommand {
 
     private boolean setSaturation(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
             @NotNull String[] args) {
-        int i = 0;
+        int i;
         if (args.length == 2) {
             try {
                 i = Integer.parseInt(args[1]);
@@ -422,12 +430,11 @@ public class CommandSet implements IModularMSMFCommand {
 
     private boolean setFood(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
             @NotNull String[] args) {
-        int i = 0;
+        int i;
         if (args.length == 2) {
             try {
                 i = Integer.parseInt(args[1]);
-            } catch (NumberFormatException exception) {
-                exception.printStackTrace(); // debug only
+            } catch (NumberFormatException e) {
                 Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
                         "basicsmodule.commands.set.noint");
                 return true;
@@ -452,7 +459,7 @@ public class CommandSet implements IModularMSMFCommand {
             }
             ((Player) sender).setFoodLevel(i);
             Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
-                    "basicsmodule.commands.set.food.done");
+                    "basicsmodule.commands.set.food.done", "_args", args[1]);
             return true;
         }
         if (args.length == 3) {
@@ -488,7 +495,7 @@ public class CommandSet implements IModularMSMFCommand {
             if (set == sender) {
                 set.setFoodLevel(i);
                 Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
-                        "basicsmodule.commands.set.food.done");
+                        "basicsmodule.commands.set.food.done", "_args", args[1]);
                 return true;
             }
             if (target == null) {
@@ -497,9 +504,9 @@ public class CommandSet implements IModularMSMFCommand {
             } else {
                 set.setFoodLevel(i);
                 Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
-                        "basicsmodule.commands.set.food.others", "_player", args[2]);
+                        "basicsmodule.commands.set.food.others", "_player", args[2], "_args", args[1]);
                 Utils.sendMessageWithConfiguredLanguage(plugin, set, ChatFormat.SUCCESS,
-                        "basicsmodule.commands.set.food.done");
+                        "basicsmodule.commands.set.food.done", "_args", args[1]);
             }
             return true;
         }
@@ -508,12 +515,11 @@ public class CommandSet implements IModularMSMFCommand {
 
     private boolean setLife(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
             @NotNull String[] args) {
-        int i = 0;
+        int i;
         if (args.length == 2) {
             try {
                 i = Integer.parseInt(args[1]);
-            } catch (NumberFormatException exception) {
-                exception.printStackTrace(); // debug only
+            } catch (NumberFormatException e) {
                 Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
                         "basicsmodule.commands.set.noint");
                 return true;
@@ -552,8 +558,7 @@ public class CommandSet implements IModularMSMFCommand {
             Player set = Bukkit.getPlayer(target);
             try {
                 i = Integer.parseInt(args[1]);
-            } catch (NumberFormatException exception) {
-                exception.printStackTrace(); // debug only
+            } catch (NumberFormatException e) {
                 Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
                         "basicsmodule.commands.set.noint");
                 return true;
@@ -599,12 +604,6 @@ public class CommandSet implements IModularMSMFCommand {
             }
             return true;
         }
-        return true;
-    }
-
-    private boolean helpSet(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
-            @NotNull String[] args) {
-        sender.sendMessage("help set");
         return true;
     }
 
