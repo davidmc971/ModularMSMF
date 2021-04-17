@@ -37,8 +37,7 @@ public class CommandKill implements IModularMSMFCommand {
 			return true;
 		}
 		if (args.length == 0) {
-			Utils.sendMessageWithConfiguredLanguage(MMSMFCore, sender, ChatFormat.ERROR, "general.missingarguments");
-			return true;
+			return killHelp(sender,command,label,args);
 		}
 		switch (args[0].toLowerCase()) {
 		case "me":
@@ -48,6 +47,14 @@ public class CommandKill implements IModularMSMFCommand {
 		default:
 			return killDefault(sender, command, label, args);
 		}
+	}
+
+	private boolean killHelp(CommandSender sender, Command command, String label, String[] args) {
+		sender.sendMessage("/kill (me/all/<target>)");
+		sender.sendMessage("/kill me - suicide");
+		sender.sendMessage("/kill all - all players die");
+		sender.sendMessage("/kill <target> - <target> dies");
+		return false;
 	}
 
 	private boolean killMeSub(CommandSender sender, Command command, String label, String[] args) {
