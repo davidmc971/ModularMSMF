@@ -24,8 +24,8 @@ public class CommandListener implements Listener {
 	}
 
 	// here it will catch any command, which equals any string in file, if set
-	@EventHandler
-	public void onCommandEvent(PlayerCommandPreprocessEvent e) {
+//	@EventHandler
+//	public void onCommandEvent(PlayerCommandPreprocessEvent e) {
 /*		String commandName = e.getMessage().substring(1).split(" ")[0].toLowerCase();
 		Player p = e.getPlayer();
 		if (blockedCommands.commandIsBlocked(commandName)) {
@@ -33,5 +33,5 @@ public class CommandListener implements Listener {
 					commandName);
 			e.setCancelled(false);
 		}
-	*/	}
+		}*/
 }
