@@ -226,8 +226,12 @@ coremodule:
       report: Hilfe für das Report-System.
 #in basics-module de_DE file
 basicsmodule:
-  peaceful: Du bist im Friedlichmodus!
-  creative: Du bist im Kreativmodus!
+  peaceful:
+    self: Du bist im Friedlichmodus!
+    other: _player ist im Friedlichmodus!
+  creative:
+    self: Du bist im Kreativmodus!
+    other: _player ist im Kreativmodus!
   commands:
     arguments:
       missing: Bitte gib passende Argumente angeben!
