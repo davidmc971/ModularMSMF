@@ -413,7 +413,7 @@ public class CommandGet implements IModularMSMFCommand {
         UUID target = null;
         target = Utils.getPlayerUUIDByName(args[1]);
         Player player = Bukkit.getPlayer(target);
-        if (sender instanceof ConsoleCommandSender) {
+        if (sender instanceof ConsoleCommandSender) { //use /stats <name> instead - for langyaml
             Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "coremodule.noconsole");
             return true;
         }
@@ -444,7 +444,7 @@ public class CommandGet implements IModularMSMFCommand {
                 return true;
             }
             if (player.getWorld().getDifficulty() == Difficulty.PEACEFUL) {
-                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basicsmodule.peaceful.self");
+                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basicsmodule.peaceful.others", "_player", player.getName());
                 return true;
             } else {
                 Double d = player.getHealth();

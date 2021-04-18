@@ -44,13 +44,13 @@ public class CommandChannels implements IModularMSMFCommand {
             case "list":
                 return channelsList(sender, command, label, args);
             default:
-                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.invalidarguments");
+                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basicsmodule.commands.arguments.invalid");
                 break;
             }
             return true;
         } else {
             // return statement if no permission is given
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
+            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "coremodule.player.nopermission");
         }
         return true;
     }
@@ -78,7 +78,7 @@ public class CommandChannels implements IModularMSMFCommand {
 
     private boolean listAll(CommandSender sender, Command command, String label, String[] args) {
         if (!PermissionManager.checkPermission(sender, "channels_list_all")) {
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
+            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "coremodule.player.nopermission");
             return true;
         }
         channelsList.forEach(element -> {

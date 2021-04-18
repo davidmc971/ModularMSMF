@@ -37,7 +37,7 @@ public class CommandFeed implements IModularMSMFCommand {
 		case 1:
 			return feedOthers(sender, command, label, args);
 		default:
-			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.toomanyarguments");
+			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basicsmodule.commands.arguments.toomany");
 			break;
 		}
 		return true;
@@ -48,11 +48,11 @@ public class CommandFeed implements IModularMSMFCommand {
 		target = Utils.getPlayerUUIDByName(args[0]);
 		Player player = Bukkit.getPlayer(target);
 		if (!PermissionManager.checkPermission(sender, "feedothers")) {
-			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
+			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "coremodule.player.nopermission");
 			return true;
 		}
 		if (target == null) {
-			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.playernotfound");
+			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "coremodule.player.notfound");
 			return true;
 		}
 		if (player == sender) {
@@ -64,7 +64,7 @@ public class CommandFeed implements IModularMSMFCommand {
 				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basicsmodule.peaceful.self");
 				return true;
 			} else {
-				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.FEED, "commands.feed.feeded");
+				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.FEED, "basicsmodule.commands.feed.feeded");
 				((Player) sender).setFoodLevel(20);
 				return true;
 			}
@@ -79,9 +79,9 @@ public class CommandFeed implements IModularMSMFCommand {
 						"basicsmodule.peaceful.others", "_player", player.getName());
 				return true;
 			} else {
-				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.FEED, "commands.feed.feededperson",
+				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.FEED, "basicsmodule.commands.feed.feededperson",
 						"_player", player.getName());
-				Utils.sendMessageWithConfiguredLanguage(plugin, player, ChatFormat.FEED, "commands.feed.othersfeeded",
+				Utils.sendMessageWithConfiguredLanguage(plugin, player, ChatFormat.FEED, "basicsmodule.commands.feed.othersfeeded",
 						"_sender", sender.getName());
 				player.setFoodLevel(20);
 			}
@@ -91,7 +91,7 @@ public class CommandFeed implements IModularMSMFCommand {
 
 	private boolean feedSelf(CommandSender sender, Command command, String label, String[] args) {
 		if (sender instanceof ConsoleCommandSender) {
-			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "general.noconsole");
+			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "coremodule.noconsole");
 			return true;
 		}
 		if (((Player) sender).getWorld().getDifficulty() == Difficulty.PEACEFUL) {
@@ -103,10 +103,10 @@ public class CommandFeed implements IModularMSMFCommand {
 			return true;
 		}
 		if (PermissionManager.checkPermission(sender, "feedself")) {
-			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.FEED, "commands.feed.feeded");
+			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.FEED, "basicsmodule.commands.feed.feeded");
 			((Player) sender).setFoodLevel(20);
 		} else {
-			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
+			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "coremodule.player.nopermission");
 		}
 		return true;
 	}

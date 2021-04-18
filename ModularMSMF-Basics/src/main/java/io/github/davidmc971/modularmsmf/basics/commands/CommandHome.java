@@ -64,7 +64,8 @@ public class CommandHome implements IModularMSMFCommand {
 			if (PermissionManager.checkPermission(sender, "home_self")) {
 				boolean success = teleportToHome((Player) sender, sender.getName());
 				if (!success) {
-					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "commands.home.notset");
+					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+							"basicsmodule.commands.home.notset");
 				} else {
 					// TODO: teleport user to position where home is located
 				}
@@ -76,28 +77,31 @@ public class CommandHome implements IModularMSMFCommand {
 			if (args[0].equalsIgnoreCase("list")) {
 				if (PermissionManager.checkPermission(sender, "home_list")) {
 					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO,
-							"commands.home.list"/* , "_list", getHomeList() */); // TODO: config for list homes
+							"basicsmodule.commands.home.list"/* , "_list", getHomeList() */); // TODO: config for list
+																								// homes
 				}
 			}
 			if (args[0].equalsIgnoreCase("help")) {
 				if (PermissionManager.checkPermission(sender, "home_help")) {
 					// list home commands by permissions set for each node
 					if (PermissionManager.checkPermission(sender, "home_set")) { // shows the help for "home set"
-						helpHome(sender, "/home set", "commands.home.help.set", "general.component.set");
+						helpHome(sender, "/home set", "basicsmodule.commands.home.help.set",
+								"basicsmodule.commands.home.component.set");
 					}
 					if (PermissionManager.checkPermission(sender, "home_remove")) { // shows the help for "home remove"
-						helpHome(sender, "/home remove", "commands.home.help.remove", "general.component.remove");
+						helpHome(sender, "/home remove", "basicsmodule.commands.home.help.remove",
+								"basicsmodule.commands.home.component.remove");
 					}
 					if (PermissionManager.checkPermission(sender, "home_rtp")) { // shows the help for "home rtp" - rtp
 																					// = request to teleport (to
 																					// someone's home)
-						helpHome(sender, "/home rtp", "commands.home.help.rtp", "general.component.rtp");
+						helpHome(sender, "/home rtp", "basicsmodule.commands.home.help.rtp", "basicsmodule.commands.home.component.rtp");
 					}
 					if (PermissionManager.checkPermission(sender, "home_admin")) { // shows the help for "home admin"
-						helpHome(sender, "/home admin", "commands.home.help.admin", "general.component.admin");
+						helpHome(sender, "/home admin", "basicsmodule.commands.home.help.admin", "basicsmodule.commands.home.component.admin");
 					}
 				} else {
-					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
+					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "coremodule.player.nopermission");
 				}
 			}
 			if (args[0].equalsIgnoreCase("set")) {
@@ -105,7 +109,7 @@ public class CommandHome implements IModularMSMFCommand {
 				if (PermissionManager.checkPermission(sender, "home_set")) {
 
 				} else {
-					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
+					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "coremodule.player.nopermission");
 				}
 			}
 			if (args[0].equalsIgnoreCase("remove")) {
@@ -113,7 +117,7 @@ public class CommandHome implements IModularMSMFCommand {
 				if (PermissionManager.checkPermission(sender, "home_remove")) {
 
 				} else {
-					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
+					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "coremodule.player.nopermission");
 				}
 			}
 			if (args[0].equalsIgnoreCase("rtp")) {
@@ -121,16 +125,16 @@ public class CommandHome implements IModularMSMFCommand {
 				if (PermissionManager.checkPermission(sender, "home_rtp")) {
 					if (args.length == 0) {
 						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO,
-								"commands.home.rtp.noargument");
+								"basicsmodule.commands.home.rtp.noargument");
 					}
 					if (args.length == 1) {
 
 					} else {
 						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
-								"general.toomanyarguments");
+								"basicsmodule.commands.arguments.toomany");
 					}
 				} else {
-					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
+					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "coremodule.player.nopermission");
 				}
 			}
 			if (args[0].equalsIgnoreCase("admin")) {
@@ -138,7 +142,7 @@ public class CommandHome implements IModularMSMFCommand {
 				if (PermissionManager.checkPermission(sender, "home_admin")) {
 
 				} else {
-					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
+					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "coremodule.player.nopermission");
 				}
 			} else {
 				if (PermissionManager.checkPermission(sender, "home_help")) {
@@ -148,14 +152,14 @@ public class CommandHome implements IModularMSMFCommand {
 							|| args[0].equalsIgnoreCase("remove") || args[0].equalsIgnoreCase("rtp")
 							|| args[0].equalsIgnoreCase("admin"))) {
 						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
-								"commands.home.invalidargument");
+								"basicsmodule.commands.home.invalidargument");
 					} else {
 						// if(/** something that should match home name from args[0] */){
 
 						// }
 					}
 				} else {
-					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
+					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "coremodule.player.nopermission");
 				}
 			}
 			break;

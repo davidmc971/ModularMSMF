@@ -31,6 +31,7 @@ public class CommandFly implements IModularMSMFCommand {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
             @NotNull String[] args) {
+                //TODO: Change structure completely
         UUID target = null;
         // checks if command sender is a player or console
         if (sender instanceof Player) {
@@ -54,7 +55,7 @@ public class CommandFly implements IModularMSMFCommand {
                         // checks if player (target) is online
                         if (target == null) {
                             Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
-                                    "general.playernotfound");
+                                    "coremodule.player.notfound");
                         } else {
                             /*
                              * INSERT CODE HERE "code"
@@ -66,21 +67,21 @@ public class CommandFly implements IModularMSMFCommand {
                         }
                     } else {
                         Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM,
-                                "general.nopermission");
+                                "coremodule.player.nopermission");
                     }
                     break;
                 default:
                     Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
-                            "general.toomanyarguments");
+                            "basicsmodule.commands.arguments.toomany");
                     break;
                 }
             } else {
                 // denies if sender has no permission
-                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
+                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "coremodule.player.nopermission");
             }
         } else {
             // denies if command sender is console
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "general.noconsole");
+            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "coremodule.noconsole");
         }
         return true;
     }
