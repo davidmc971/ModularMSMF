@@ -27,7 +27,7 @@ public class CommandCmdBlckr implements IModularMSMFCommand {
              */
             switch (args.length) {
             default:
-                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.invalidarguments");
+                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "cmdblocker.commands.arguments.invalid");
                 // debug
                 sender.sendMessage("default, only command, invalid argument");
                 break;
@@ -35,7 +35,7 @@ public class CommandCmdBlckr implements IModularMSMFCommand {
                 switch (args[0].toLowerCase()) {
                 default:
                     Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
-                            "general.invalidarguments");
+                            "cmdblocker.commands.arguments.invalid");
                     // debug
                     sender.sendMessage("default, subcommand");
                     break;
@@ -52,7 +52,7 @@ public class CommandCmdBlckr implements IModularMSMFCommand {
                 break;
             }
         } else {
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
+            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "coremodule.player.nopermission");
             sender.sendMessage("no perm command");
         }
         return true;

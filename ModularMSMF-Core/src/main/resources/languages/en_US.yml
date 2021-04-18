@@ -1,200 +1,245 @@
 language:
   id: en_US
   name: English
-general: #PLEASE NEVER EDIT THIS LINE
-    test:
-      switch:
-        check: Checke, ob Switch funktioniert
-        checktrue: "True, switch"
-        checkfalse: "False, switch"
-        commandtest:
-          check: Checke, ob Case akzeptiert wird
-          checktrue: "True, case"
-          checkfalse: "False, case"
-      cfgisset:
-        check: Checke, ob String existiert
-        checktrue: "True, string"
-        checkfalse: "False, string"
-      cfgget:
-        substring:
-          check: Checke, ob cfgget gesetzt ist
-          checkfalse: "False, substring"
-          checktrue: "True, substring"
-    missing_playername: You have to specify a player.
-    playerunknown: This player has never been online before.
-    playernotfound: This player was not found.
-    playernotonline: This player is not online.
-    nopermission: You don't have permissions to do this.
-    toomanyarguments: Too many arguments.
-    invalidcustomlanguage: Invalid custom language ('_language') for player _player. Standard language will be used instead.
-    invalidarguments: Invalid arguments.
-    invalidcommand: Invalid command.
-    noconsole: Console is not permitted to use this command.
-    missingarguments: Please specify an argument!
-    couldnotcreatefile: File couldn't be created!
-    notimplementedyet: This command has not been implemented yet.
-    bukkitversion: 'The actual Bukkit version: _bukkitver'
-    commands_blocked: 'The command "_var" has been blocked.'
-    component: #PLEASE NEVER EDIT THIS LINE
-      set: Click on me to set a default home at your location!
-      remove: Click on me to remove your default home!
-      rtp: I will show you how to write it!
-      admin: It will show you administrative commands!
-event: #PLEASE NEVER EDIT THIS LINE
-  welcome: _var has joned the Server!
-  quit: _var has left the Server!
-  killed_player: _var's life has been taken away.
-  suicide: _var committed suicide.
-  homocide: Everyone got killed in a brutal homocide! What a sad occurrence.
-  banned: You got banned.
-  just_died: _var just died.
-commands: #PLEASE NEVER EDIT THIS LINE
-  slaughter: #PLEASE NEVER EDIT THIS LINE
-    success: All mobs have been killed around your sight.
-  ban: #PLEASE NEVER EDIT THIS LINE
-    defaultbanreason: You have been banned!
-    alreadybanned: This player is already banned.
-    playerbanned: 'Player _player has been banned. Reason: _reason'
-    youwerebanned: 'Banned. Reason: _reason'
-  unban: #PLEASE NEVER EDIT THIS LINE
-    notbanned: This player is not banned.
-    playerunbanned: You have unbanned _player.
-    unbanuuid: You have unbanned _player using UUID.
-    playernotfounduuid: The player with this UUID was not found.
-  banip:
-    missingname: You have to specify a playername!
-    help: #PLEASE NEVER EDIT THIS LINE
-      banip: You can specify an IP-Adress to ban. #PLEASE NEVER EDIT THIS LINE
-      name: You can specify a player's name to ban it's IP-Adress. #PLEASE NEVER EDIT THIS LINE
-  kick: #PLEASE NEVER EDIT THIS LINE
-    defaultkickreason: You were kicked from the server!
-    seekickedall: _player has been kicked from the Server!
-    seekickedallreason: '_player has been kicked of the following reason: _reason'
-  language: #PLEASE NEVER EDIT THIS LINE
-    commandnotforconsole: This command is not available for console.
-    activelanguage: 'Your active language: _language'
-    availablelanguages: 'Available languages: _var'
-    setsuccessplayer: Your language has been saved successfully.
-    notvalid: This is not a valid language.
-    setsuccessconsole: The standard language was changed successfully.
-    help: #PLEASE NEVER EDIT THIS LINE
-      help: This show's the help of language commands.
-      list: List's all available languages.
-      get: Show's the language another user is using.
-      set: Set's your default language.
-  money: #PLEASE NEVER EDIT THIS LINE
-    missingamountandplayer: Please specify an amount and a player!
-    missingamount: Please specify an amount!
-    amountonly: This should be a number!
-    invalidpayment: You cannot specify a negative amount!
-    nomoneyleft: You would run into debt!
-  feed: #PLEASE NEVER EDIT THIS LINE
-    feeded: You have satisfied yourself!
-    othersfeeded: _sender has satisfied you!
-    feededperson: You satisfied _player!
-    others: #PLEASE NEVER EDIT THIS LINE
-      console: Console can only feed others.
-  heal: #PLEASE NEVER EDIT THIS LINE
-    healself: You healed yorself!
-    healother: You healed _player!
-    gothealed: You were healed by _sender!
-  spawn: #PLEASE NEVER EDIT THIS LINE
-    nospawnset: No spawn has been set.
-    spawnset: Spawn has been set!
-    spawned: You were spawned!
-    others: You have spawned _player!
-    removed: You have removed the spawnpoint!
-    alreadyremoved: Spawn doesn't exist!
-  report: #PLEASE NEVER EDIT THIS LINE
-    repplayeradmin: Cannot report an Admin!
-    repplayersuccess: _player has been reported successfully!
-    repnodesc: Please write down the description!
-    rep: Thanks for your report! We will take action about this. 
-    repmissingcmd: Please write down the right report-level!
-  mmsmf: #PLEASE NEVER EDIT THIS LINE
-    reportsuccessful:
-    reportfailure:
-    discord: #PLEASE NEVER EDIT THIS LINE
-      discordsetup: It will show you if an link is set up.
-      link: 'Your invite to discord: _link'
-      linkmissing: There is no existing link for a Discord server.
-      click: It will show you the link!
-    teamspeak: #PLEASE NEVER EDIT THIS LINE
-      teamspeaksetup: It will show you if an IP is set up.
-      ip: 'Your IP adress to join: _ip'
-      ipmissing: There is no existing IP for a Teamspeak server.
-      click: It will show you the IP!
-    info: Click here to display info about this plugin.
-    report: Help for the reporting system.
-  eco: #PLEASE NEVER EDIT THIS LINE
-    balance: #PLEASE NEVER EDIT THIS LINE
-      self: Your balance is _value.
-      other: _target's balance is _value.
-    set: #PLEASE NEVER EDIT THIS LINE
-      self: #PLEASE NEVER EDIT THIS LINE
-        full: Your balance has been changed from _value_old to _value_new.
-        new: Your new balance is _value.
-        old: Your old balance was _value.
-      other:
-        full: _target's balance has been changed from _value_old to _value_new.
-        new: _target's new balance is _value.
-        old: _target's old balance was _value.
-      notify: _sender has changed your balance from _value_old to _value_new.
-    error:  #PLEASE NEVER EDIT THIS LINE
-      syntax: wrong syntax #TODO: missing amount and player, etc.
-      console: "Console has no money :P"
-    reset: Your balance has been reset.
-    addself:
-    forbiddenminus:
-    addothers:
-    addfromother:
-    takeself:
-    takeother:
-    takefromothers:
-    paytoothers:
-    payfromothers:
-    nodebt:
-  teleport: #PLEASE NEVER EDIT THIS LINE
-    success: You teleported to _target!
-  home: #PLEASE NEVER EDIT THIS LINE
-    invalidargument: Please do "/home help" for more information!
-    help: #PLEASE NEVER EDIT THIS LINE
-      set: 'How to use the set command:'
-      remove: 'How to use the remove command:'
-      rtp: Requests teleport to player's home.
-      admin: 'Use for administrative home-rights:'
-    notset: Your home has not been set yet.
-    list: 'Your homes: _list'
-    rtp: #PLEASE NEVER EDIT THIS LINE
-      noargument: You should specify a player.
-  back: #PLEASE NEVER EDIT THIS LINE
-    success: You got teleported to your last place!
-    error: There is no way to get back.
-  clear: #PLEASE NEVER EDIT THIS LINE
-    done: Successfully cleared the Chat!
-    target: Cleared _target's Chat!
-    gotcleared: Your chat got cleared!
-#### Lang-files for Basics
-basics:
-  nottoggledtrue: The command is not active.
-  missingconfig: #BITTE UNTER KEINEN UMSTÄNDEN DIESE LINE BEARBEITEN
-    mainstring: Missing mainstring - creating a new one...
-    substring: Missing substring - creating a new one...
+#for core-module en_US file
+coremodule:
+  player:
+    name: Please define a name.
+    unknown: User does not exist.
+    notfound: User has not been found.
+    notonline: User is not online.
+    nopermission: No permission.
+  noconsole: Console is not permitted for this command.
+  file:
+    creation:
+      failed: File couldn't be created!
+      done: File could be created!
+  notimplementedyet: Not implemented yet.
+  bukkitversion: "Bukkit version: _bukkitver."
   commands:
-    teleport:
-      error:
-        notonline: _player is not online.
-        samename: You cannot teleport to yourself
+    arguments:
+      missing: Please give matching arguments!
+      toomany: Too many arguments.
+      invalid: Wrong arguments!
+    report:
+      repplayeradmin: You cannot report an admin!
+      repplayersuccess: _player has been reported successfully!
+      repnodesc: Please describe a good explanation!
+      rep: We will take action about this!
+      repmissingcmd: Please choose the report level!
+    language:
+      invalidcustom: Unknown language ('_language') for _player. Basic language will be used.
+      active: "Your actual language: _language"
+      available: "Available languages: _var"
+      setsuccessplayer: Your language has been changed successfully.
+      notvalid: Invalid language.
+      setsuccessconsole: Basic language has been set successfully.
+      helpings:
+        help: Will list you the help of language.
+        list: Will list you all available languages.
+        get: Will show you the language of another player currently using.
+        set: Set's your language to chosen setting.
+    mmsmf:
+      discord:
+        discordsetup: Will show you if link is set up.
+        link: "Discord link: _link"
+        linkmissing: There is no link set up yet.
+        click: Will show you the link!
+      teamspeak:
+        teamspeaksetup: Will show you if IP is set up.
+        ip: "Teamspeak IP: _ip"
+        ipmissing: There's no teamspeak server set up yet.
+        click: Will show you the IP!
+      info: Click here for more information!
+      report: Help for the report-system.
+    cclear:
+      done: Cleared chat!
+      others: _target's chat has been cleared!
+#for basics-module en_US file
+basicsmodule:
+  peaceful:
+    self: You're currently in peaceful mode!
+    other: _player is currently in peaceful mode!
+  creative:
+    self: You're currently in creative mode!
+    other: _player is currently in creative mode!
+  events:
+    join: _var just left!
+    quit: _var has joined!
+    killed: _var's has been killed.
+    suicide: _var has begone suicide.
+    homocide: All players were killed by a brutal homocide!
+    banned: You got banned!
+    just_died: _var just died.
+  commands:
+    arguments:
+      missing: Please give matching arguments!
+      toomany: Too many arguments.
+      invalid: Wrong arguments!
+    invalid: Wrong command.
+    blocked: Command "_var" has been blocked.
+    slaughter:
+      success: All mobs in your place has been killed.
+    ban:
+      defaultreason: Banhammer has spoken!
+      already: Player is already banned.
+      player: "Player _player has been banned. Reason: _reason"
+      youwere: "You were banned. Reason: _reason"
+    unban:
+      notfound: User is not banned.
+      player: You have unbanned _player.
+      uuid: You have unbanned _player per UUID!
+      playernotfounduuid: User with specified UUID has not been found.
+    banip:
+      missingname: Please specify the player name!
+      help:
+        banip: You have to specify the IP adress to ban IP.
+        name: You even can enter the name of the player to ban it's IP adress
+    kick:
+      missingname: Please specify the player name!
+      defaultreason: You were kicked!
+      seeforall: _player has been kicked!
+      seeforallreason: "_player has been kicked: _reason"
+    feed:
+      feeded: You feeded yourself!
       others:
-        nooneonline: Neither _target1 nor _target2 is online!
-        target1: Only _target1 is online!
-        target2: Only _target2 is online!
-        toself: You may choose another person!
-      success:
-        toplayer: You teleported to _player!
-        toyou: _player teleported to you!
-  toggle:
-    setTrue: You can use _args now!
-    setFalse: _args has been disabled!
-    help: Used to toggle commands for use! (MMSMF only)
-    all-blocked: All commands has now been blocked (Basics-Module)
+        feeded: _sender has feeded you!
+        feededperson: Feeded _player!
+        all: You feeded everyone!
+      console: Console might feed someone else than itself.
+    heal:
+      self: You have healed yourself!
+      others:
+        healother: Healed _player!
+        gothealed: You have been healed by _sender!
+        all: You have healed everyone!
+      console: Console might heal someone else than itself.
+    spawn:
+      notset: No spawn set.
+      set: Spawn set!
+      spawned: Spawned!
+      others: Spawned _player!
+      removed: You removed the spawn point!
+      alreadyremoved: No spawn set!
+    home:
+      component:
+        set: Klick mich an um dein Home zu setzen!
+        remove: Klick mich an um dein Home zu löschen!
+        rtp: Ich zeig dir wie man das schreibt!
+        admin: Das zeigt dir alle administrativen Befehle an!
+      invalidargument: Please do "/home help" for more information!
+      help:
+        set: 'How to use the set command:'
+        remove: 'How to use the remove command:'
+        rtp: Requests teleport to player's home.
+        admin: 'Use for administrative home-rights:'
+      notset: Your home has not been set yet.
+      list: 'Your homes: _list'
+      rtp:
+        noargument: You should specify a player.
+    back:
+      success: Teleported back to last point!
+      error: There's no point to get back.
+    clear:
+      done: Successfully cleared the chat!
+      target: Cleared _target's chatlog!
+      gotcleared: Your chat has been cleared!
+    teleport:
+      force:
+        toplayer: You were teleported to _player!
+        toyou: You teleported _player to you!
+      success: You got teleported to _player!
+      notonline: _player is not online.
+      others:
+        toyou: _player has teleported to you!
+        nooneonline: Neither _player1 nor _player2 is online.
+        toself: Please specify another name!
+    set:
+      life:
+        done: Your life has been set to _args!
+        usage: "Set life: /set life <num> <name>"
+        others: You have set _player's life to _args!
+      food:
+        done: Dein Hungerlevel wurde auf _args gesetzt!
+        usage: "Hungerlevel setzen: /set food <num> <name>"
+        others: Du hast _player's Hungerlevel auf _args gesetzt!
+      saturation:
+        done: Dein Sättigungsgefühl wurde auf _args gesetzt!
+        usage: "Sättigungsgefühl setzen: /set (sat/saturation) <num> <name>"
+        others: Du hast _player's Sättigungsgefühl auf _args gesetzt!
+        upperlimit: Du darst nur bis max. 100 setzen!
+      exp:
+        done: "Deine EXP wurden auf _args% gesetzt!"
+        usage: "EXP setzen: /set exp (0.0-1.0) <name>"
+        others: "Du hast _player's EXP auf _args% gesetzt!"
+      level:
+        done: Dein Level wurde auf _args gesetzt!
+        usage: "Level setzen: /set (level/lvl) <num> <name>"
+        others: Du hast _player's Level auf _args gesetzt!
+      noint: Du musst eine Zahl angeben!
+      nonnegative: Du darfst keine negative Zahl benutzen!
+      nosuicide: Bitte nutze "/kill <me>" dafür!
+      upperlimit: Du darfst nur bis max. 20 setzen!
+      survivalonly: Du kannst nur im Überlebensmodus deine Leben setzen!
+      nokill: Du musst "/kill <name>" dafür benutzen!
+      toohigh: Dieser Wert ist zu hoch!
+    get:
+      life:
+        done: "Dein Leben: _value"
+        usage: "Leben eines anderen sehen: /get life <name>"
+        others: "_player's Leben: _value"
+      food:
+        done: "Dein Hungerlevel: _value"
+        usage: "Hungerlevel eines anderen sehen: /get food <name>"
+        others: "_player's Hungerlevel: _value"
+      saturation:
+        done: "Dein Sättigungslevel: _value"
+        usage: "Sättigungslevel eines anderen sehen: /get (sat/saturation) <name>"
+        others: "_player's Sättigungslevel: _value"
+      exp:
+        done: "Deine EXP: _value%"
+        usage: "EXP eines anderen sehen: /get exp <name>"
+        others: "_player's EXP: _value%"
+      level:
+        done: "Dein Level: _value"
+        usage: "Level eines anderen sehen: /get (lvl/level) <name>"
+        others: "_player's Level: _value"
+      ip:
+        done: "Deine IP-Adresse: _value"
+        usage: "IP-Adresse eines anderen sehen: /get ip <name>"
+        others: "_player's IP-Adresse: _value"
+#for economy-module en_US file
+economy-module:
+  commands:
+    money:
+      missingamountandplayer: Bitte gib einen Betrag sowie einen Spieler an!
+      missingamount: Bitte gib noch einen Betrag an!
+      amountonly: Bitte gib eine Zahl an!
+      invalidpayment: Du darfst keine Minusbeträge angeben!
+      nomoneyleft: Du würdest dich verschulden!
+    eco:
+      balance:
+        self: "Kontostand: _value."
+        other: "_target dessen Kontostand: _value."
+      set:
+        self:
+          full: Kontostand hat sich von _value_old auf _value_new korrigiert.
+          new: "Neuer Kontostand: _value."
+          old: "Alter Kontostand: _value."
+        other:
+          full: _target's balance has been changed from _value_old to _value_new.
+          new: _target's new balance is _value.
+          old: _target's old balance was _value.
+        notify: _sender has changed your balance from _value_old to _value_new.
+      error:
+        syntax: Falsche Syntax!
+        console: Console has no money :P
+      reset: Your balance has been reset.
+#for commandblocker-module en_US file
+cmdblocker:
+  commands:
+    arguments:
+      missing: Please give matching arguments!
+      toomany: Too many arguments.
+      invalid: Wrong arguments!
+    invalid: Wrong command.

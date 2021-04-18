@@ -1,174 +1,6 @@
 language:
   id: de_DE
   name: Deutsch
-general:
-  missing_playername: Du musst einen Spieler angeben.
-  playerunknown: Dieser Spieler existiert nicht.
-  playernotfound: Dieser Spieler wurde nicht gefunden.
-  playernotonline: Dieser Spieler ist nicht online.
-  nopermission: Du hast nicht die Berechtigung dies zu tun.
-  toomanyarguments: Zu viele Argumente.
-  invalidcustomlanguage: Ungütltige Standardsprache ('_language') für den Spieler _player. Standardsprache wird stattdessen verwendet.
-  invalidarguments: Ungültige Argumente.
-  invalidcommand: Ungültiger Befehl.
-  noconsole: Die Konsole darf diesen Befehl nicht nutzen.
-  missingarguments: Bitte gib passende Argumente an!
-  couldnotcreatefile: Die Datei konnte nicht erstellt werden!
-  notimplementedyet: Dieser Befehl existiert noch nicht.
-  bukkitversion: "Die aktuelle Bukkitversion: _bukkitver."
-  commands_blocked: Der Befehl "_var" wurde geblockt.
-  component:
-    set: Klick mich an um dein Home zu setzen!
-    remove: Klick mich an um dein Home zu löschen!
-    rtp: Ich zeig dir wie man das schreibt!
-    admin: Das zeigt dir alle administrativen Befehle an!
-event:
-  welcome: _var hat den Server betreten!
-  quit: _var hat den Server verlassen!
-  killed_player: _var's Leben wurde genommen.
-  suicide: _var hat Suizid begangen.
-  homocide: Alle Spieler wurden in einem brutalen Homozid niedergemetzelt!
-  banned: Du wurdest gebannt.
-  just_died: _var ist einfach gestorben.
-commands:
-  slaughter:
-    success: Alle Mobs in deiner Nähe wurden getötet.
-  ban:
-    defaultbanreason: Du wurdest gebannt!
-    alreadybanned: Dieser Spieler ist schon gebannt.
-    playerbanned: "Spieler _player wurde gebannt. Grund: _reason"
-    youwerebanned: "Gebannt. Grund: _reason"
-  unban:
-    notbanned: Dieser Spieler ist nicht gebannt.
-    playerunbanned: Du hast _player entbannt.
-    unbanuuid: Du hast _player per UUID entbannt!
-    playernotfounduuid: Der Spieler mit dieser UUID wurde nicht gefunden.
-  banip:
-    missingname: Du musst einen Spielernamen angeben!
-    help:
-      banip: Du gibst eine IP-Adresse an, um diese zu bannen.
-      name: Du kannst auch einen Namen angeben, um dessen IP-Adresse zu bannen.
-  kick:
-    defaultkickreason: Du wurdest vom Server gekickt!
-    seekickedall: _player wurde vom Server gekickt!
-    seekickedallreason: "_player wurde aus folgendem Grund gekickt: _reason"
-  language:
-    commandnotforconsole: Dieser Befehl ist nicht gültig für die Konsole.
-    activelanguage: "Deine aktuelle Sprache: _language"
-    availablelanguages: "Verfügbare Sprachen: _var"
-    setsuccessplayer: Deine Sprache wurde erfolgreich geändert.
-    notvalid: Das ist keine gütltige Sprache.
-    setsuccessconsole: Die Standardsprache wurde erfolgreich geändert.
-    help:
-      help: Zeigt dir die Hilfe des Sprache Befehls.
-      list: Listet dir die Sprachen auf, die existieren.
-      get: Zeigt dir die Sprache eines anderen Spielers an.
-      set: Setzt deine Sprache in eine andere Sprache.
-  money:
-    missingamountandplayer: Bitte gib einen Betrag sowie einen Spieler an!
-    missingamount: Bitte gib noch einen Betrag an!
-    amountonly: Bitte gib eine Zahl an!
-    invalidpayment: Du darfst keine Minusbeträge angeben!
-    nomoneyleft: Du würdest dich verschulden!
-  feed:
-    feeded: Du hast dich gefüttert!
-    othersfeeded: _sender hat dich gefüttert!
-    feededperson: Du hast _player gefüttert!
-    others:
-      console: Die Konsole darf nur andere füttern.
-  heal:
-    healself: Du hast dich selbst geheilt!
-    healother: Du hast _player geheilt!
-    gothealed: Du wurdest von _sender geheilt!
-  spawn:
-    nospawnset: Es wurde kein Spawn gesetzt.
-    spawnset: Der Spawn wurde gesetzt!
-    spawned: Du wurdest gespawnt!
-    others: Du hast _player gespawnt!
-    removed: Du hast den Spawnpunkt entfernt!
-    alreadyremoved: Der Spawnpunkt existiert nicht!
-  report:
-    repplayeradmin: Du kannst keinen Admin melden!
-    repplayersuccess: _player wurde erfolgreich gemeldet!
-    repnodesc: Bitte gib eine Beschreibung an!
-    rep: Wir kümmern uns um diese Angelegenheit!
-    repmissingcmd: Bitte gib das Report-Level an!
-  mmsmf:
-    discord:
-      discordsetup: Zeigt dir, ob ein Link gesetzt wurde.
-      link: "Der Link zum Server: _link"
-      linkmissing: Es gibt zurzeit keinen Discord Server.
-      click: Lässt dir den Link anzeigen!
-    teamspeak:
-      teamspeaksetup: Zeigt dir, ob eine IP gesetzt wurde.
-      ip: "Die IP zum joinen: _ip"
-      ipmissing: Es gibt zurzeit keinen Teamspeak Server.
-      click: Lässt dir die IP anzeigen!
-    info: Klick hier, um mehr Infos abzurufen.
-    report: Hilfe für das Report-System.
-  eco:
-    balance:
-      self: "Kontostand: _value."
-      other: "_target dessen Kontostand: _value."
-    set:
-      self:
-        full: Kontostand hat sich von _value_old auf _value_new korrigiert.
-        new: "Neür Kontostand: _value."
-        old: "Alter Kontostand: _value."
-      other:
-        full: _target's balance has been changed from _value_old to _value_new.
-        new: _target's new balance is _value.
-        old: _target's old balance was _value.
-      notify: _sender has changed your balance from _value_old to _value_new.
-    error:
-      syntax: Falsche Syntax!
-      console: Console has no money :P
-    reset: Your balance has been reset.
-  teleport:
-    success: You teleported to _target!
-  home:
-    invalidargument: Please do "/home help" for more information!
-    help:
-      set: "How to use the set command:"
-      remove: "How to use the remove command:"
-      rtp: Requests teleport to player's home.
-      admin: "Use for administrative home-rights:"
-    notset: Your home has not been set yet.
-    list: "Your homes: _list"
-    rtp:
-      noargument: You should specify a player.
-  back:
-    success: You got teleported to your last place!
-    error: There is no way to get back.
-  clear:
-    done: Erfolgreich den Chat geleert!
-    target: _target's Chat geleert!
-    gotcleared: Dein Chat wurde geleert!
-basics:
-  nottoggledtrue: Der Befehl ist nicht aktiv.
-  missingconfig:
-    mainstring: Fehlender mainstring - erstelle einen neuen...
-    substring: Fehlender substring - erstelle einen neuen...
-  commands:
-    teleport:
-      others:
-        nooneonline: Weder _target1 noch _target2 ist online!
-        target1: Nur _target1 ist online!
-        target2: Nur _target2 ist online!
-        toself: Du sollst einen anderen Spieler angeben!
-  toggle:
-    setTrue: Du kannst nun _args benutzen!
-    setFalse: _args wurde deaktiviert!
-    help: Nutzen, um Befehle zu togglen! (nur für MMSMF)
-    all-blocked: Alle Befehle wurden nun geblockt. (Basics-Module)
-
-###################################################
-#                                                 #
-#                                                 #
-#                   Beispiele                     #
-#                                                 #
-#                                                 #
-###################################################
 #in core-module de_DE file
 coremodule:
   player:
@@ -193,6 +25,10 @@ coremodule:
     banned: Du wurdest gebannt.
     just_died: _var ist einfach gestorben.
   commands:
+    arguments:
+      missing: Please give matching arguments!
+      toomany: Too many arguments.
+      invalid: Wrong arguments!
     report:
       repplayeradmin: Du kannst keinen Admin melden!
       repplayersuccess: _player wurde erfolgreich gemeldet!
@@ -224,6 +60,9 @@ coremodule:
         click: Lässt dir die IP anzeigen!
       info: Klick hier, um mehr Infos abzurufen.
       report: Hilfe für das Report-System.
+    cclear:
+      done: Dein Chat wurde geleert!
+      others: _target's Chat wurde geleert!
 #in basics-module de_DE file
 basicsmodule:
   peaceful:
@@ -333,7 +172,7 @@ basicsmodule:
         usage: "EXP setzen: /set exp (0.0-1.0) <name>"
         others: "Du hast _player's EXP auf _args% gesetzt!"
       level:
-        done: Dein Level wurden auf _args gesetzt!
+        done: Dein Level wurde auf _args gesetzt!
         usage: "Level setzen: /set (level/lvl) <num> <name>"
         others: Du hast _player's Level auf _args gesetzt!
       noint: Du musst eine Zahl angeben!

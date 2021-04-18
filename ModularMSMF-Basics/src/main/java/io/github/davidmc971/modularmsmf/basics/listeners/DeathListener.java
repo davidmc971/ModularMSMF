@@ -51,7 +51,7 @@ public class DeathListener implements Listener {
 			}
 		}
 		if (!temp) {
-			Utils.broadcastWithConfiguredLanguageEach(MMSMFCore, ChatFormat.DEATH, "event.just_died", "_var",
+			Utils.broadcastWithConfiguredLanguageEach(MMSMFCore, ChatFormat.DEATH, "basicsmodule.event.just_died", "_var",
 					event.getEntity().getName());
 		}
 	}
