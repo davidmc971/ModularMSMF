@@ -216,7 +216,7 @@ public class CommandGet implements IModularMSMFCommand {
         }
         if (player == sender) {
             Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
-                    "basicsmodule.commands.get.ip.done", "_value", player.getAddress().getAddress().toString());
+                    "basicsmodule.commands.get.ip.done", "_value", player.getAddress().getAddress().getHostAddress());
             return true;
         } else {
             Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
