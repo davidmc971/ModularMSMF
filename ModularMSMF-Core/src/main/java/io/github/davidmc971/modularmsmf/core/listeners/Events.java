@@ -50,7 +50,7 @@ public class Events implements Listener {
 	public void onPlayerJoin(PlayerJoinEvent event) throws IOException {
 		Player player = event.getPlayer();
 		event.joinMessage(Component.empty());
-		Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.WELCOME, "event.welcome", "_var",
+		Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.WELCOME, "coremodule.events.join", "_var",
 				player.getName());
 
 	}
@@ -66,16 +66,16 @@ public class Events implements Listener {
 			}
 		}
 		// if check if uuid is same and if yes cancel event and remove from list
-
+		//FIXME: should only run if basics-module is loaded
 		Player player = event.getPlayer();
 		FileConfiguration cfg = plugin.getDataManager().getPlayerCfg(player.getUniqueId());
 		String reason = cfg.getString("reason");
 		if (cfg.isBoolean("banned") == true) {
-			Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.BANNED, "commands.ban.playerbanned", "_player",
+			Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.BANNED, "basicsmodule.commands.ban.player", "_player",
 					player.getName(), "_reason", reason);
 			event.quitMessage(null);
 		} else {
-			Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.QUIT, "event.quit", "_var",
+			Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.QUIT, "coremodule.events.quit", "_var",
 					player.getName());
 			event.quitMessage(null);
 		}

@@ -33,7 +33,7 @@ public class CommandLanguage implements IModularMSMFCommand {
 
 		switch (args.length) {
 		case 0:
-			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO, "commands.language.activelanguage",
+			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO, "coremodule.commands.language.active",
 					"_language",
 					(language.getString("language.id") + " (" + language.getString("language.name") + ") "));
 			break;
@@ -50,9 +50,9 @@ public class CommandLanguage implements IModularMSMFCommand {
 				}
 				out += "]";
 				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.LANGUAGE,
-						"commands.language.availablelanguages", "_var", out);
+						"coremodule.commands.language.available", "_var", out);
 			} else {
-				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.invalidarguments");
+				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "coremodule.commands.arguments.missing");
 			}
 			break;
 		case 2:
@@ -69,18 +69,18 @@ public class CommandLanguage implements IModularMSMFCommand {
 					if (success) {
 						plugin.getDataManager().getPlayerCfg(((Player) sender).getUniqueId()).set("language", args[1]);
 						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
-								"commands.language.setsuccessplayer");
+								"coremodule.commands.language.setsuccessplayer");
 					} else {
 						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
-								"commands.language.notvalid");
+								"coremodule.commands.language.notvalid");
 					}
 				} else {
 					if (plugin.getLanguageManager().setStandardLanguage(args[1])) {
 						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
-								"commands.language.setsuccessconsole");
+								"coremodule.commands.language.setsuccessconsole");
 					} else {
 						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
-								"commands.language.notvalid");
+								"coremodule.commands.language.notvalid");
 					}
 				}
 			} else if (args[0].equalsIgnoreCase("get")) {
@@ -88,7 +88,7 @@ public class CommandLanguage implements IModularMSMFCommand {
 			}
 			break;
 		default:
-			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.invalidarguments");
+			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "coremodule.commands.arguments.invalid");
 			break;
 		}
 		return true;

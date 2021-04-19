@@ -234,3 +234,4 @@ economy-module:
         syntax: Falsche Syntax!
         console: Console has no money :P
       reset: Your balance has been reset.
+      helponly: helpings

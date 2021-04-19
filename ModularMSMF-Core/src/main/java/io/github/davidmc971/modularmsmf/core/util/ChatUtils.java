@@ -61,7 +61,7 @@ public class ChatUtils {
 			return (ChatColor.GOLD + "[" + ChatColor.LIGHT_PURPLE + "Spawn" + ChatColor.GOLD + "]" + ChatColor.DARK_AQUA
 					+ " ");
 		case FEED: // if someone uses feed-cmd
-			return (ChatColor.GOLD + "[" + ChatColor.GREEN + "Feed" + ChatColor.GOLD + "]" + ChatColor.RED + " ");
+			return (ChatColor.GOLD + "[" + ChatColor.GREEN + "Feed" + ChatColor.GOLD + "]" + ChatColor.GREEN + " ");
 		case HEAL: // if someone uses heal-cmd
 			return (ChatColor.GOLD + "[" + ChatColor.GREEN + "Heal" + ChatColor.GOLD + "]" + ChatColor.GREEN + " ");
 		case LANGUAGE: // if someone uses heal-cmd

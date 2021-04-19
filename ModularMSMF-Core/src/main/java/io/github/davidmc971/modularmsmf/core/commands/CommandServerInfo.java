@@ -29,7 +29,7 @@ public class CommandServerInfo implements IModularMSMFCommand {
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
 		if (PermissionManager.checkPermission(sender, "serverinfo")) {
-			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO, "general.bukkitversion",
+			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO, "coremodule.bukkitversion",
 					"_bukkitver", Bukkit.getBukkitVersion());
 		}
 		return true;

@@ -60,23 +60,23 @@ public class CommandModularMSMF implements IModularMSMFCommand {
 							.style(Style.empty().decorate(TextDecoration.BOLD))
 							.append(Component.text("info").color(TextColor.color(127, 127, 127))
 									.hoverEvent(net.kyori.adventure.text.event.HoverEvent
-											.showText(Component.text(language.getString("commands.mmsmf.info"))))
+											.showText(Component.text(language.getString("coremodule.commands.mmsmf.info"))))
 									.clickEvent(net.kyori.adventure.text.event.ClickEvent.runCommand("/mmsmf info")))
 							.append(Component.text(" "))
 							.append(Component.text("report a bug").color(TextColor.color(255, 127, 127))
 									.hoverEvent(net.kyori.adventure.text.event.HoverEvent
-											.showText(Component.text(language.getString("commands.mmsmf.report"))))
+											.showText(Component.text(language.getString("coremodule.commands.mmsmf.report"))))
 									.clickEvent(net.kyori.adventure.text.event.ClickEvent.runCommand("/mmsmf report")))
 							.append(Component.text(" "))
 							.append(Component.text("teamspeak").color(TextColor.color(127, 127, 127))
 									.hoverEvent(net.kyori.adventure.text.event.HoverEvent.showText(
-											Component.text(language.getString("commands.mmsmf.teamspeak.click"))))
+											Component.text(language.getString("coremodule.commands.mmsmf.teamspeak.click"))))
 									.clickEvent(
 											net.kyori.adventure.text.event.ClickEvent.runCommand("/mmsmf teamspeak")))
 							.append(Component.text(" "))
 							.append(Component.text("discord").color(TextColor.color(127, 127, 255))
 									.hoverEvent(net.kyori.adventure.text.event.HoverEvent.showText(
-											Component.text(language.getString("commands.mmsmf.discord.click"))))
+											Component.text(language.getString("coremodule.commands.mmsmf.discord.click"))))
 									.clickEvent(
 											net.kyori.adventure.text.event.ClickEvent.runCommand("/mmsmf discord")));
 
@@ -99,7 +99,7 @@ public class CommandModularMSMF implements IModularMSMFCommand {
 						 * TODO: will be implemented. otherwise discord/github for reporting bugs.
 						 */
 						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
-								"general.notimplementedyet");
+								"coremodule.notimplementedyet");
 						break;
 					case "teamspeak":
 						if (args.length == 1) {
@@ -111,12 +111,12 @@ public class CommandModularMSMF implements IModularMSMFCommand {
 									ts = true;
 									String teamspeakIP = cfg.getString("teamspeakIP");
 									Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO,
-											"commands.mmsmf.teamspeak", "_ip", teamspeakIP);
+											"coremodule.commands.mmsmf.teamspeak.ip", "_ip", teamspeakIP);
 								}
 							}
 							if (!ts)
 								Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
-										"commands.mmsmf.teamspeakmissing");
+										"coremodule.commands.mmsmf.teamspeak.ipmissing");
 						}
 						break;
 					case "discord":
@@ -129,26 +129,26 @@ public class CommandModularMSMF implements IModularMSMFCommand {
 									dc = true;
 									String discordID = cfg.getString("discordID");
 									Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO,
-											"commands.mmsmf.discord", "_link", discordID);
+											"coremodule.commands.mmsmf.discord.link", "_link", discordID);
 								}
 							}
 							if (!dc)
 								Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
-										"commands.mmsmf.discordmissing");
+										"coremodule.commands.mmsmf.discord.linkmissing");
 						}
 						break;
 					default:
 						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
-								"general.invalidarguments");
+								"coremodule.commands.arguments.invalid");
 					}
 				} else if (args.length >= 2) {
 					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
-							"general.toomanyarguments");
+							"coremodule.commands.arguments.toomany");
 				} else {
-					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
+					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "coremodule.player.nopermission");
 				}
 			} else {
-				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
+				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "coremodule.player.nopermission");
 			}
 		}
 		return true;
