@@ -17,13 +17,13 @@ coremodule:
   notimplementedyet: Not implemented yet.
   bukkitversion: "Bukkit version: _bukkitver."
   events:
-    join: _var hat den Server betreten!
-    quit: _var hat den Server verlassen!
-    killed: _var's Leben wurde genommen.
-    suicide: _var hat Suizid begangen.
-    homocide: Alle Spieler wurden in einem brutalen Homozid niedergemetzelt!
-    banned: Du wurdest gebannt.
-    just_died: _var ist einfach gestorben.
+    join: _var has joined!
+    quit: _var has left!
+    killed: _var has been killed.
+    suicide: _var begone suicide.
+    homocide: All players were killed by a brutal homocide!
+    banned: Ban hammer has spoken!
+    just_died: _var just died.
   commands:
     arguments:
       missing: Please give matching arguments!
