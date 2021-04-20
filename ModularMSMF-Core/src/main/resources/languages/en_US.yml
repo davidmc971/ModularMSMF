@@ -141,7 +141,7 @@ basicsmodule:
         remove: 'How to use the remove command:'
         rtp: Requests teleport to player's home.
         admin: 'Use for administrative home-rights:'
-      notset: Your home has not been set yet.
+      notset: No home set.
       list: 'Your homes: _list'
       rtp:
         noargument: You should specify a player.

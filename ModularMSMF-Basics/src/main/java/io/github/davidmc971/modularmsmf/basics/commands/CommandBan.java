@@ -74,7 +74,7 @@ public class CommandBan implements IModularMSMFCommand {
 			case 1: // if given playername
 				String reason = language.getString("event.banned");
 				UUID uuid = getPlayerUUIDByNameForBan(args[0]);
-				InetAddress ipAdress = PlayerData.getInetAddress();
+				Player player = Bukkit.getPlayer(uuid);
 				if (uuid == null) {
 					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
 							"basicsmodule.commands.banip.missingname");
@@ -85,7 +85,7 @@ public class CommandBan implements IModularMSMFCommand {
 						return true;
 					} else {
 						banPlayer(uuid, reason, language);
-						banPlayerIp(uuid, reason, language, ipAdress);
+						banPlayerIp(uuid, reason, language, player);
 					}
 				}
 				break;
@@ -148,13 +148,13 @@ public class CommandBan implements IModularMSMFCommand {
 	}
 
 	// bans an ip from a player
-	public void banPlayerIp(UUID uuid, String reason, FileConfiguration language, InetAddress playerIp) {
+	public void banPlayerIp(UUID uuid, String reason, FileConfiguration language, Player player) {
 		// TODO[epic=code needed,seq=19] need work on it
 		// Player ipAdress = ipAdress.getPlayer().getAddress();
 		FileConfiguration cfg = plugin.getDataManager().getPlayerCfg(uuid);
 		cfg.set("banned", true);
 		cfg.set("reason", reason);
-		cfg.set("ipAdress", playerIp); //TODO[epic=code needed,seq=16] still missing configuration to save ipadress
+		cfg.set("ipAdress", player.getAddress().getAddress().getHostAddress()); //TODO[epic=code needed,seq=16] still missing configuration to save ipadress
 	}
 
 	// bans playername / uuid
@@ -167,7 +167,7 @@ public class CommandBan implements IModularMSMFCommand {
 			// gets playername by args, if true
 			if (player.getUniqueId().toString().equals(uuid.toString())) {
 				// kickbans the player if all stated true
-				player.kick(Component.text(language.getString("event.banned").replaceAll("_reason", reason)));
+				player.kick(Component.text(language.getString("coremodule.events.banned").replaceAll("_reason", reason)));
 			}
 		}
 	}

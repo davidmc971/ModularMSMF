@@ -14,7 +14,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerLoginEvent.Result;
@@ -49,10 +48,16 @@ public class Events implements Listener {
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event) throws IOException {
 		Player player = event.getPlayer();
+		FileConfiguration cfg = plugin.getDataManager().getPlayerCfg(player.getUniqueId());
 		event.joinMessage(Component.empty());
 		Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.WELCOME, "coremodule.events.join", "_var",
 				player.getName());
-
+		if(!cfg.isSet("playername")){
+			cfg.set("playername", player.getName());
+		} else {
+			System.out.println("Name " + player.getName() + " is set");
+			cfg.getString("playername", player.getName());
+		}
 	}
 
 	@EventHandler
@@ -84,7 +89,7 @@ public class Events implements Listener {
 	@EventHandler
 	public void onLogin(PlayerLoginEvent event, FileConfiguration language, UUID uuid) {
 		FileConfiguration cfg = plugin.getDataManager().getPlayerCfg(uuid);
-		String reason = language.getString("event.banned");
+		String reason = language.getString("coremodule.events.banned");
 		cfg.set("players.ipAddress", event.getAddress());
 		if (cfg.isBoolean("banned") && cfg.getBoolean("banned")) {
 			if (cfg.isString("reason")) {
