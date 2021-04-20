@@ -1,5 +1,7 @@
 package io.github.davidmc971.modularmsmf.basics.commands;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
@@ -29,6 +31,8 @@ public class CommandSet implements IModularMSMFCommand {
     public CommandSet() {
         plugin = ModularMSMFCore.Instance();
     }
+
+    private static DecimalFormat df = new DecimalFormat("0.00");
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
@@ -273,8 +277,9 @@ public class CommandSet implements IModularMSMFCommand {
                 return true;
             }
             ((Player) sender).setExp(f);
+            df.setRoundingMode(RoundingMode.UP);
             Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
-                    "basicsmodule.commands.set.exp.done", "_args", args[1]);
+                    "basicsmodule.commands.set.exp.done", "_args", df.format(f_val));
             return true;
         }
         if (args.length == 3) {
@@ -312,9 +317,10 @@ public class CommandSet implements IModularMSMFCommand {
                             "basicsmodule.creative.self");
                     return true;
                 } else {
+                    df.setRoundingMode(RoundingMode.UP);
                     player.setExp(f);
                     Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
-                            "basicsmodule.commands.set.exp.done", "_args", args[1]);
+                            "basicsmodule.commands.set.exp.done", "_args", df.format(f_val));
                     return true;
                 }
             } else {
@@ -323,11 +329,12 @@ public class CommandSet implements IModularMSMFCommand {
                             "basicsmodule.creative.others", "_player", player.getName());
                     return true;
                 } else {
+                    df.setRoundingMode(RoundingMode.UP);
                     player.setExp(f);
                     Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
-                            "basicsmodule.commands.set.exp.others", "_args", args[1], "_player", player.getName());
+                            "basicsmodule.commands.set.exp.others", "_args", df.format(f_val), "_player", player.getName());
                     Utils.sendMessageWithConfiguredLanguage(plugin, player, ChatFormat.SUCCESS,
-                            "basicsmodule.commands.set.exp.done", "_args", args[1]);
+                            "basicsmodule.commands.set.exp.done", "_args", df.format(f_val));
                 }
             }
         }
@@ -341,7 +348,6 @@ public class CommandSet implements IModularMSMFCommand {
             try {
                 i = Integer.parseInt(args[1]);
             } catch (NumberFormatException exception) {
-                exception.printStackTrace(); // debug only
                 Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
                         "basicsmodule.commands.set.noint");
                 return true;
@@ -376,7 +382,6 @@ public class CommandSet implements IModularMSMFCommand {
             try {
                 i = Integer.parseInt(args[1]);
             } catch (NumberFormatException exception) {
-                exception.printStackTrace(); // debug only
                 Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
                         "basicsmodule.commands.set.noint");
                 return true;
