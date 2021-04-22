@@ -10,22 +10,21 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import io.github.davidmc971.modularmsmf.basics.util.KillType;
 import io.github.davidmc971.modularmsmf.basics.util.PlayerKillConfig;
 import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
-import io.github.davidmc971.modularmsmf.core.listeners.Events;
 import io.github.davidmc971.modularmsmf.core.util.Utils;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
 
 public class DeathListener implements Listener {
 	private ArrayList<PlayerKillConfig> killedPlayers = new ArrayList<PlayerKillConfig>();
-    private ModularMSMFCore MMSMFCore;
+    private ModularMSMFCore plugin;
 
     public DeathListener() {
-        this.MMSMFCore = ModularMSMFCore.Instance();
+        this.plugin = ModularMSMFCore.Instance();
     }
 
 	public void registerKilledPlayer(Player p, KillType kt) {
 		killedPlayers.add(new PlayerKillConfig(p, kt));
 	}
-    
+
     // FIXME[epic=code needed,seq=22] Replace deprecated methods
     @EventHandler
 	public void onDeath(PlayerDeathEvent event) {
@@ -51,7 +50,7 @@ public class DeathListener implements Listener {
 			}
 		}
 		if (!temp) {
-			Utils.broadcastWithConfiguredLanguageEach(MMSMFCore, ChatFormat.DEATH, "basicsmodule.event.just_died", "_var",
+			Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.DEATH, "basicsmodule.event.just_died", "_var",
 					event.getEntity().getName());
 		}
 	}

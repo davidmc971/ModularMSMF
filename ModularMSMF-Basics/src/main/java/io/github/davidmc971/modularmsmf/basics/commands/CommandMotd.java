@@ -4,7 +4,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
-import io.github.davidmc971.modularmsmf.basics.PermissionManager;
+//import io.github.davidmc971.modularmsmf.basics.PermissionManager;
 
 public class CommandMotd implements IModularMSMFCommand {
 
