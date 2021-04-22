@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -17,6 +18,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerLoginEvent.Result;
+import org.jetbrains.annotations.Nullable;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
@@ -27,7 +29,7 @@ import net.kyori.adventure.text.Component;
 import net.md_5.bungee.api.ChatColor;
 
 /**
- * 
+ *
  * @author Lightkeks, davidmc971
  */
 
@@ -52,7 +54,7 @@ public class Events implements Listener {
 		event.joinMessage(Component.empty());
 		Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.WELCOME, "coremodule.events.join", "_var",
 				player.getName());
-		if(!cfg.isSet("playername")){
+		if (!cfg.isSet("playername")) {
 			cfg.set("playername", player.getName());
 		} else {
 			System.out.println("Name " + player.getName() + " is set");
@@ -69,20 +71,8 @@ public class Events implements Listener {
 				kickedPlayers.remove(event.getPlayer().getUniqueId());
 				return;
 			}
-		}
-		// if check if uuid is same and if yes cancel event and remove from list
-		//FIXME: should only run if basics-module is loaded
-		Player player = event.getPlayer();
-		FileConfiguration cfg = plugin.getDataManager().getPlayerCfg(player.getUniqueId());
-		String reason = cfg.getString("reason");
-		if (cfg.isBoolean("banned") == true) {
-			Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.BANNED, "basicsmodule.commands.ban.player", "_player",
-					player.getName(), "_reason", reason);
-			event.quitMessage(null);
 		} else {
-			Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.QUIT, "coremodule.events.quit", "_var",
-					player.getName());
-			event.quitMessage(null);
+			
 		}
 	}
 
@@ -93,9 +83,9 @@ public class Events implements Listener {
 		cfg.set("players.ipAddress", event.getAddress());
 		if (cfg.isBoolean("banned") && cfg.getBoolean("banned")) {
 			if (cfg.isString("reason")) {
-				event.disallow(Result.KICK_BANNED, cfg.getString("reason"));
+				event.disallow(Result.KICK_BANNED, Component.text(cfg.getString("reason")));
 			} else {
-				event.disallow(Result.KICK_BANNED, reason);
+				event.disallow(Result.KICK_BANNED, Component.text(reason));
 			}
 		}
 	}

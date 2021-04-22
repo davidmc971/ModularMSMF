@@ -10,6 +10,7 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import io.github.davidmc971.modularmsmf.basics.util.KillType;
 import io.github.davidmc971.modularmsmf.basics.util.PlayerKillConfig;
 import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
+import io.github.davidmc971.modularmsmf.core.listeners.Events;
 import io.github.davidmc971.modularmsmf.core.util.Utils;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
 
@@ -25,7 +26,6 @@ public class DeathListener implements Listener {
 		killedPlayers.add(new PlayerKillConfig(p, kt));
 	}
 
-    // FIXME[epic=code needed,seq=22] Replace deprecated methods
     @EventHandler
 	public void onDeath(PlayerDeathEvent event) {
 		Player p = event.getEntity();

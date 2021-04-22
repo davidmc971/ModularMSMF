@@ -38,6 +38,8 @@ public class Utils {
 		for (Player p : Bukkit.getOnlinePlayers()) {
 			if (p.getName().equalsIgnoreCase(name)) {
 				return p.getUniqueId();
+			} else {
+				System.out.println("No player is online");
 			}
 		}
 		for (OfflinePlayer p : Bukkit.getOfflinePlayers()) {
@@ -84,7 +86,7 @@ public class Utils {
 		List<CommandSender> broadcastList = new ArrayList<CommandSender>();
 		broadcastList.add(Bukkit.getConsoleSender());
 		broadcastList.addAll(Bukkit.getOnlinePlayers());
-		broadcastList.forEach((subject) -> {
+		broadcastList.forEach((subject) -> { // FIXME: gives error
 			FileConfiguration language = configureCommandLanguage(subject, plugin);
 			String configuredMessage = prefix + language.getString(languageKey);
 			if(toReplace.length % 2 == 0) {
