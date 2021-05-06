@@ -38,8 +38,6 @@ public class Utils {
 		for (Player p : Bukkit.getOnlinePlayers()) {
 			if (p.getName().equalsIgnoreCase(name)) {
 				return p.getUniqueId();
-			} else {
-				System.out.println("No player is online");
 			}
 		}
 		for (OfflinePlayer p : Bukkit.getOfflinePlayers()) {

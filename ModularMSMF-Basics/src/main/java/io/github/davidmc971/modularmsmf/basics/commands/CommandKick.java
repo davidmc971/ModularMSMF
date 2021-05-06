@@ -53,7 +53,7 @@ public class CommandKick implements IModularMSMFCommand {
 				if (target == null) {
 					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.KICK, "coremodule.player.notfound");
 				} else {
-					if (args.length == 1) {
+					if (args.length == 0) {
 						kickPlayer(target, reason);
 						Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.KICKED,
 								"basicsmodule.commands.kick.seeforall", "_player", args[0]);
