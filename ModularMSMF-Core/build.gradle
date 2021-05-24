@@ -3,11 +3,14 @@ plugins {
 }
 
 dependencies {
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.2'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.3'
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-toml
+    implementation group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-toml', version: '2.12.3'
 }
 
 shadowJar {
     dependencies {
         include(dependency('com.fasterxml.jackson.core:.*'))
+        include(dependency('com.fasterxml.jackson.dataformat:.*'))
     }
 }
