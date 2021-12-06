@@ -20,7 +20,7 @@ public class ModularMSMFBasics extends JavaPlugin {
     public ModularMSMFBasics() {
         instance = this;
     }
-    
+
     private PluginManager plgman;
     private DeathListener deathListener;
 

@@ -117,7 +117,7 @@ public class CommandTeleport implements IModularMSMFCommand {
 
 	private boolean helpSub(CommandSender sender, Command command, String label, String[] args) {
 		Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.missing_playername");
-		sender.sendMessage("send help here"); // TODO[epic=help code] teleport help missing
+		sender.sendMessage("send help here"); // TODO[epic=help code] teleport help missing (help as file(json/toml/yml)? maybe better organization without the possibility to edit)
 		return true;
 	}
 
