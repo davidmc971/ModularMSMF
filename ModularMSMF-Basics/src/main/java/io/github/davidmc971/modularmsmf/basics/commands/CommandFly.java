@@ -3,9 +3,9 @@ package io.github.davidmc971.modularmsmf.basics.commands;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -29,76 +29,85 @@ public class CommandFly implements IModularMSMFCommand {
     }
 
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
-            @NotNull String[] args) {
-                //TODO: Change structure completely
-        UUID target = null;
-        // checks if command sender is a player or console
-        if (sender instanceof Player) {
-            // checks if sender has permission
-            if (PermissionManager.checkPermission(sender, "fly")) {
-                // Player p = (Player) sender;
-                // checks length of argument given
-                switch (args.length) {
-                // if 0, normally fly should be activated
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+        //TODO: Change structure completely
+        if(PermissionManager.checkPermission(sender, "fly_use")){
+            switch (args.length) {
                 case 0:
-                    /*
-                     * INSERT CODE HERE "code"
-                     */
-
-                    break;
-                // maybe someone else should get fly?
+                    return selfFlight(sender, command, label, args);
                 case 1:
-                    // checks if you have permissions to give other players fly
-                    if (PermissionManager.checkPermission(sender, "fly.others")) {
-                        target = Utils.getPlayerUUIDByName(args[0]);
-                        // checks if player (target) is online
-                        if (target == null) {
-                            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
-                                    "coremodule.player.notfound");
-                        } else {
-                            /*
-                             * INSERT CODE HERE "code"
-                             */
-
-                            // UUID target = null;
-                            target = Utils.getPlayerUUIDByName(args[0]);
-                            toggleFlight(target);
-                        }
-                    } else {
-                        Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM,
-                                "coremodule.player.nopermission");
-                    }
-                    break;
+                    return othersFlight(sender, command, label, args);
                 default:
-                    Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
-                            "basicsmodule.commands.arguments.toomany");
-                    break;
-                }
-            } else {
-                // denies if sender has no permission
-                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "coremodule.player.nopermission");
+                    Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basicsmodule.commands.arguments.toomany");
+                break;
             }
         } else {
-            // denies if command sender is console
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "coremodule.noconsole");
+            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "coremodule.player.nopermission");
         }
         return true;
     }
 
-    private boolean toggleFlight(UUID uuid) {
-        FileConfiguration cfg = plugin.getDataManager().getPlayerCfg(uuid);
-        Player player = Bukkit.getPlayer(uuid);
-        if (cfg.getBoolean("modes.flight")) {
-            // set allow flight to true for player
-            player.setAllowFlight(false);
-            cfg.set("modes.flight", false);
+    private boolean selfFlight(CommandSender sender, Command command, String label, String[] args){
+        if(PermissionManager.checkPermission(sender, "fly_self")){
+            if(((Player)sender).getGameMode() == GameMode.CREATIVE){
+                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basicsmodule.creative.self");
+                return true;
+            } else {
+                return toggleFlight(sender, command, label, args);
+            }
         } else {
-            // set allow flight to false for player
-            player.setAllowFlight(true);
-            cfg.set("modes.flight", true);
+            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "coremodule.player.nopermission");
         }
+        return true;
+    }
 
+    private boolean toggleFlight(CommandSender sender, Command command, String label, String[] args) {
+        if(((Player)sender).getAllowFlight() == true){ //check if status is true for flying
+            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basicsmodule.commands.fly.set_false");
+            ((Player)sender).setAllowFlight(false); //turns off flying if toggled true
+        } else {
+            ((Player)sender).setAllowFlight(true); //otherwise turns true if not flying
+            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS, "basicsmodule.commands.fly.set_true");
+            return true;
+        }
+        return true;
+    }
+
+    private boolean othersFlight(CommandSender sender, Command command, String label, String[] args){
+        UUID target = null;
+		target = Utils.getPlayerUUIDByName(args[0]);
+		Player player = Bukkit.getPlayer(target);
+
+        if(PermissionManager.checkPermission(sender, "fly_self")){
+            if (player == null) {
+                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "coremodule.player.notfound");
+                return true;
+            }
+            if (player == sender) {
+                if (player.getGameMode() == GameMode.CREATIVE) {
+                    Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basicsmodule.creative.self");
+                    return true;
+                }
+                return toggleFlight(sender, command, label, args);
+            } else {
+                if (player.getGameMode() == GameMode.CREATIVE) {
+                    Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basicsmodule.creative.others", "_player", player.getName());
+                    return true;
+                }
+                if(player.getAllowFlight() == true){ //check if status is true for flying
+                    Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basicsmodule.commands.fly.others.set_false", "_player", player.getName());
+                    Utils.sendMessageWithConfiguredLanguage(plugin, player, ChatFormat.ERROR, "basicsmodule.commands.fly.set_false");
+                    player.setAllowFlight(false); //turns off flying if toggled true
+                } else {
+                    Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS, "basicsmodule.commands.fly.others.set_true", "_player", player.getName());
+                    Utils.sendMessageWithConfiguredLanguage(plugin, player, ChatFormat.SUCCESS, "basicsmodule.commands.fly.set_true");
+                    player.setAllowFlight(true); //otherwise turns true if not flying
+                    return true;
+                }
+            }
+        } else {
+            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "coremodule.player.nopermission");
+        }
         return true;
     }
 

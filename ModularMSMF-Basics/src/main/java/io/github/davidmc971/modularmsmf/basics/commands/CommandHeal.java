@@ -77,7 +77,7 @@ public class CommandHeal implements IModularMSMFCommand {
 			}
 			if (player.getWorld().getDifficulty() == Difficulty.PEACEFUL) {
 				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basicsmodule.peaceful.others", "_player", player.getName());
-				return true;
+			return true;
 			} else {
 				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.HEAL,
 						"basicsmodule.commands.heal.others.healother", "_player", player.getName());

@@ -216,6 +216,12 @@ basicsmodule:
         done: "Deine IP-Adresse: _value"
         usage: "IP-Adresse eines anderen sehen: /get ip <name>"
         others: "_player's IP-Adresse: _value"
+    fly:
+      set_true: You are able to fly.
+      set_false: You are not able to fly anymore.
+      others:
+        set_true: _player is now able to fly.
+        set_false: _player is not able to fly anymore.
 #for economy-module en_US file
 economy-module:
   commands:

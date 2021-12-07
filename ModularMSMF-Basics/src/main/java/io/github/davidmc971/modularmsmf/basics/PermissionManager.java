@@ -71,8 +71,9 @@ public class PermissionManager {
 		put("channels_list_public", "modularmsmf.channels.list.public"); //anyone can see public channels, only if permission is set
 		put("channels_list_private", "modularmsmf.channels.list.private"); //mod/admin related
         //fly permissions
-		put("fly", "modularmsmf.fly");
-		put("fly.others", "modularmsmf.fly.others");
+		put("fly_use", "modularmsmf.fly"); //to use the command
+		put("fly_self", "modularmsmf.fly.self"); //for self activating fly
+		put("fly_others", "modularmsmf.fly.others"); //for others like /fly <name>
         }
 
     };
