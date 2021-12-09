@@ -39,6 +39,8 @@ public class CommandHome implements IModularMSMFCommand {
 		/**
 		 * Important notice: Home will be edited in some days. Thinking about the output
 		 * of sending messages
+		 * 
+		 * FIXME: changing structure for each subcommand
 		 */
 
 		/**

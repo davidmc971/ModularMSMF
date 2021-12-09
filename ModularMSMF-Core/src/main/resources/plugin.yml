@@ -10,17 +10,17 @@ main: io.github.davidmc971.modularmsmf.core.ModularMSMFCore
 
 commands:
   report:
-    description: Eine Meldung verfassen.
+    description: Reporting something.
     usage: /<command> <args>
-  mmsmf:
-    description: Zeigt Infos und mehr an.
+  modularmsmf:
+    description: Shows informations and more.
     usage: /<command> <args>
-    aliases: [modularmsmf]
+    aliases: [mmsmf]
   playershell:
     description: Enables console to act as a virtual player.
     usage: /<command> <playername>
   serverinfo:
-    description: Gibt die Serversoftware an.
+    description: Shows running server software.
     usage: /<command>
   language:
     description: Choose your language.
