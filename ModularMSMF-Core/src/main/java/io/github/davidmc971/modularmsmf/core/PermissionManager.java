@@ -37,6 +37,10 @@ public class PermissionManager {
 		put("report_player", "modularmsmf.report.player");
 		put("report_bug", "modularmsmf.report.bug");
 		put("report_other", "modularmsmf.report.other");
+		//list permissions
+		put("list_players_online", "modularmsmf.list.players.online");
+		put("list_players_offline", "modularmsmf.list.players.offline");
+		put("list_all_players", "modularmsmf.list.allplayers");
 	}};
 
 	public static boolean checkPermission(CommandSender sender, String permission) {

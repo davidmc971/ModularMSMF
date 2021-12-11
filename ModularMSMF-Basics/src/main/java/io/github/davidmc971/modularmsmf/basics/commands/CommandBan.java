@@ -45,25 +45,20 @@ public class CommandBan implements IModularMSMFCommand {
 	}
 
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
-		/*FileConfiguration cfg = plugin.getDataManager().settingsyaml;
-		if (cfg.get("toggle.commands.ban").toString().equals("true")) {
-		*/	// if arg is equal to one of them, returns command
-			switch (commandLabel.toLowerCase()) {
+			switch (commandLabel.toLowerCase()) { // if arg is equal to one of them, returns command
 			case "ban":
 				return banCommand(sender, cmd, commandLabel, args);
 			case "unban":
 				return unbanCommand(sender, cmd, commandLabel, args);
 			case "ban-ip":
-				return banIpCommand(sender, cmd, commandLabel, args); // TODO[epic=code needed,seq=27] still not on working list
+				return banIpCommand(sender, cmd, commandLabel, args); // TODO: still not on working list
 			}
-		/*} else {
-			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basics.nottoggledtrue");
-		}*/
 		return true;
 	}
 
 	private boolean banIpCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
-		// TODO[epic=code needed,seq=15] code stuff in here for banip
+		// TODO: code stuff in here for banip
+		//FIXME: subcommand does not work 
 		FileConfiguration language = Utils.configureCommandLanguage(sender, plugin);
 		if (PermissionManager.checkPermission(sender, "banip")) {
 			switch (args.length) {

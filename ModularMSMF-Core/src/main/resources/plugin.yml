@@ -29,3 +29,7 @@ commands:
     description: Clears the chat completely
     usage: /<command>
     aliases: [cc, clr, clear, cls]
+  list:
+    description: Lists players
+    usage: /<command>
+    aliases: [listall]

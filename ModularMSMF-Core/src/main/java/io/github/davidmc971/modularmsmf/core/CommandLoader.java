@@ -80,7 +80,7 @@ public class CommandLoader {
 	}
 
 	private ArrayList<IModularMSMFCommand> loadCommandsFallback() {
-		//Reflections reflections = new Reflections("com.mycompany");    
+		//Reflections reflections = new Reflections("com.mycompany");
 		//Set<Class<? extends MyInterface>> classes = reflections.getSubTypesOf(MyInterface.class);
 		ArrayList<IModularMSMFCommand> commandList = new ArrayList<IModularMSMFCommand>();
 		
@@ -92,6 +92,7 @@ public class CommandLoader {
 				new CommandServerInfo(),
 				new CommandClearChat(),
 				new CommandConfigure(),
+				new CommandListPlayers(),
 			}) {
 			commandList.add(cmd);
 		}
