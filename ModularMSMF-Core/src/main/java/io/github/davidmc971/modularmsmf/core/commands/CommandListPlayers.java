@@ -1,8 +1,15 @@
 package io.github.davidmc971.modularmsmf.core.commands;
 
+import java.util.Set;
+
+import com.google.common.collect.Sets;
+
+import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
@@ -26,8 +33,8 @@ public class CommandListPlayers implements IModularMSMFCommand {
 		plugin = ModularMSMFCore.Instance();
 	}
 
-    String[] offline = {"offline", "off"};
     //String[] adjustedList = cfg.get(); //only some idea - maybe good or not - Array?
+    final Set<OfflinePlayer> offplayers = Sets.newHashSet();
 
 	@Override
 	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
@@ -49,7 +56,11 @@ public class CommandListPlayers implements IModularMSMFCommand {
          */
 
         if(sender.hasPermission(PermissionManager.getPermission("list_all_players"))){
-
+            for (final Player player : Bukkit.getOnlinePlayers()) {
+                sender.sendMessage("Online: " + player.getName());
+            }
+            sender.sendMessage("Offline: " + offplayers);
+            return true;
         } else {
             Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "coremodule.player.nopermission");
         }
@@ -62,15 +73,23 @@ public class CommandListPlayers implements IModularMSMFCommand {
              */
             case 0:
                 if(sender instanceof ConsoleCommandSender){ //shows all players even without args
-
+                    for (final Player player : Bukkit.getOnlinePlayers()) {
+                        sender.sendMessage("Online: " + player.getName());
+                    }
+                    sender.sendMessage("Offline: " + offplayers);
                     return true;
                 }
                 if((sender.isOp()) || (sender.hasPermission(PermissionManager.getPermission("list_all_players")))){ //shows all players if sender is op or has permission for it
-
+                    for (final Player player : Bukkit.getOnlinePlayers()) {
+                        sender.sendMessage("Online: " + player.getName());
+                    }
+                    sender.sendMessage("Offline: " + offplayers);
                     return true;
                 }
                 if(!sender.isOp() && sender.hasPermission(PermissionManager.getPermission("list_players_online"))){ //shows players which are online
-
+                    for (final Player player : Bukkit.getOnlinePlayers()) {
+                        sender.sendMessage("Online: " + player.getName());
+                    }
                     return true;
                 } else {
                     Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "coremodule.player.nopermission");
@@ -83,9 +102,9 @@ public class CommandListPlayers implements IModularMSMFCommand {
                      */
                     return true;
                 }
-                if(args.equals(offline)){ //checks string[] offline if one of these strings equals the argument
-                    if(sender.hasPermission(PermissionManager.getPermission("list_players_offine"))){
-
+                if(args[0].equalsIgnoreCase("offline") || args[0].equalsIgnoreCase("off")){
+                    if(sender.hasPermission(PermissionManager.getPermission("list_players_offline"))){
+                        sender.sendMessage("Offline: " + offplayers);
                         return true;
                     } else {
                         Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "coremodule.player.nopermission");
@@ -95,6 +114,7 @@ public class CommandListPlayers implements IModularMSMFCommand {
                     /**
                      * here will be the adjustable code for lists like moderator/admin/etc. (online and offline)
                      */
+                    sender.sendMessage("nope"); //only for testing purposes
                 }
                 break;
             default:
