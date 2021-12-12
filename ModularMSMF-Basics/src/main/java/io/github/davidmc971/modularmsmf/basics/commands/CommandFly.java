@@ -69,21 +69,24 @@ public class CommandFly implements IModularMSMFCommand {
     }
 
     private boolean toggleFlight(CommandSender sender, Command command, String label, String[] args) {
-        UUID uuid = null;
+        if(!(sender instanceof Player)) return false;
+        Player p = (Player) sender;
+        
+        UUID uuid = p.getUniqueId();
         // FIXME: can be null for existing player
         MemoryConfiguration cfg = plugin.getDataManager().getPlayerCfg(uuid);
 
         // check if status is true for flying
-        if (((Player) sender).getAllowFlight()) {
+        if (p.getAllowFlight()) {
             Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.FLY_OFF,
                     "basicsmodule.commands.fly.set_false");
             // turns off flying if toggled true
-            ((Player) sender).setAllowFlight(false);
+            p.setAllowFlight(false);
 
             // Maintain config section
             cfg.set("flying", false);
         } else {
-            ((Player) sender).setAllowFlight(true); // otherwise turns true if not flying
+            p.setAllowFlight(true); // otherwise turns true if not flying
             Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.FLY_ON,
                     "basicsmodule.commands.fly.set_true");
             /*
