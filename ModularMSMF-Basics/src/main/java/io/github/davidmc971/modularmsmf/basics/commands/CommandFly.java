@@ -4,9 +4,11 @@ import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -62,12 +64,30 @@ public class CommandFly implements IModularMSMFCommand {
     }
 
     private boolean toggleFlight(CommandSender sender, Command command, String label, String[] args) {
+        UUID uuid = null;
+        FileConfiguration cfg = plugin.getDataManager().getPlayerCfg(uuid);
         if(((Player)sender).getAllowFlight() == true){ //check if status is true for flying
             Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.FLY_OFF, "basicsmodule.commands.fly.set_false");
             ((Player)sender).setAllowFlight(false); //turns off flying if toggled true
+            //cfg.set("players.flying", false); //FIXME: cfg will not be set cause strings missing in "players"-folder - NullPointerException
         } else {
             ((Player)sender).setAllowFlight(true); //otherwise turns true if not flying
             Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.FLY_ON, "basicsmodule.commands.fly.set_true");
+            /*Player p = (Player) sender;
+			Location loc = p.getLocation();
+			double x = loc.getX();
+			double y = loc.getY();
+			double z = loc.getZ();
+			double yaw = loc.getYaw();
+			double pitch = loc.getPitch();
+			String worldname = loc.getWorld().getName();
+			cfg.set("players.position.x", x); //FIXME: cfg will not be set cause strings missing in "players"-folder - NullPointerException
+			cfg.set("players.position.y", y);
+			cfg.set("players.position.z", z);
+			cfg.set("players.position.yaw", yaw);
+			cfg.set("players.position.pitch", pitch);
+			cfg.set("players.position.world", worldname);
+            cfg.set("players.flying", true); //boolean for event*/
             return true;
         }
         return true;

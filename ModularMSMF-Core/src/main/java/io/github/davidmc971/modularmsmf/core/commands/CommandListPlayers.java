@@ -1,7 +1,6 @@
 package io.github.davidmc971.modularmsmf.core.commands;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.bukkit.Bukkit;
@@ -57,7 +56,7 @@ public class CommandListPlayers implements IModularMSMFCommand {
          * likely shortcut for all
          */
 
-        if(sender.hasPermission(PermissionManager.getPermission("list_all_players"))){
+        if(PermissionManager.checkPermission(sender, "list_all_players")){
             sender.sendMessage("Online: " + playerListOnline);
             sender.sendMessage("Offline: " + playerListOffline);
             playerListOnline.clear();
@@ -89,14 +88,14 @@ public class CommandListPlayers implements IModularMSMFCommand {
                     playerListOffline.clear();
                     return true;
                 }
-                if((sender.isOp()) || (sender.hasPermission(PermissionManager.getPermission("list_all_players")))){ //shows all players if sender is op or has permission for it
+                if((sender.isOp()) || ((PermissionManager.checkPermission(sender, "list_all_players")))){ //shows all players if sender is op or has permission for it
                     sender.sendMessage("Online: " + playerListOnline);
                     sender.sendMessage("Offline: " + playerListOffline);
                     playerListOnline.clear();
                     playerListOffline.clear();
                     return true;
                 }
-                if(!sender.isOp() && sender.hasPermission(PermissionManager.getPermission("list_players_online"))){ //shows players which are online
+                if(!sender.isOp() && PermissionManager.checkPermission(sender, "list_players_online")){ //shows players which are online
                     sender.sendMessage("Online: " + playerListOnline);
                     playerListOnline.clear();
                     return true;
@@ -112,7 +111,7 @@ public class CommandListPlayers implements IModularMSMFCommand {
                     return true;
                 }
                 if(args[0].equalsIgnoreCase("offline") || args[0].equalsIgnoreCase("off")){
-                    if(sender.hasPermission(PermissionManager.getPermission("list_players_offline"))){
+                    if(PermissionManager.checkPermission(sender, "list_players_offline")){
                         sender.sendMessage("Offline: " + playerListOffline);
                         playerListOffline.clear();
                         return true;

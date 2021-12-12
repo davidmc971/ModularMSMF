@@ -228,6 +228,14 @@ public class DataManager implements Listener {
 	private void initDefaultUserdata() {
 		defaultUserdata.clear();
 		defaultUserdata.put("economy.money", settingsyaml.get("economy.money"));
+		/** FIXME: strings will not be written in "players"-configs - returns NullPointerException in CommandFly, lines 72 & 84
+		defaultUserdata.put("players.position.x", null);
+		defaultUserdata.put("players.position.y", null);
+		defaultUserdata.put("players.position.z", null);
+		defaultUserdata.put("players.position.yaw", null);
+		defaultUserdata.put("players.position.pitch", null);
+		defaultUserdata.put("players.position.world", null);
+		*/
 		// defaultUserdata.put("economyalex.money", settingsyaml.get("economy.money"));
 		defaultUserdata.put("language", null);
 		for (Entry<String, Object> e : defaultUserdata.entrySet()) {
