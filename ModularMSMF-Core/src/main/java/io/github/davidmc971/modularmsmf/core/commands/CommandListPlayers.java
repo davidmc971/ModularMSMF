@@ -1,8 +1,8 @@
 package io.github.davidmc971.modularmsmf.core.commands;
 
-import java.util.Set;
-
-import com.google.common.collect.Sets;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -34,7 +34,9 @@ public class CommandListPlayers implements IModularMSMFCommand {
 	}
 
     //String[] adjustedList = cfg.get(); //only some idea - maybe good or not - Array?
-    final Set<OfflinePlayer> offplayers = Sets.newHashSet();
+    final List<Player> playerListOnline = new ArrayList<>();
+    final List<Player> playerListOffline = new ArrayList<>();
+    final List<Player> playerListMixed = new ArrayList<>();
 
 	@Override
 	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
@@ -56,10 +58,10 @@ public class CommandListPlayers implements IModularMSMFCommand {
          */
 
         if(sender.hasPermission(PermissionManager.getPermission("list_all_players"))){
-            for (final Player player : Bukkit.getOnlinePlayers()) {
-                sender.sendMessage("Online: " + player.getName());
-            }
-            sender.sendMessage("Offline: " + offplayers);
+            sender.sendMessage("Online: " + playerListOnline);
+            sender.sendMessage("Offline: " + playerListOffline);
+            playerListOnline.clear();
+            playerListOffline.clear();
             return true;
         } else {
             Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "coremodule.player.nopermission");
@@ -67,29 +69,36 @@ public class CommandListPlayers implements IModularMSMFCommand {
         return true;
     }
     private boolean listPlayers(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+
+        for (final Player player : Bukkit.getOnlinePlayers()) {
+            playerListOnline.add(player);
+        }
+        for (final OfflinePlayer player : Bukkit.getOfflinePlayers()) { //FIXME: needs to put all offline players in a list (likely for moderator and higher ranks)
+            //playerListOffline.add(player);
+        }
+
         switch(args.length){
             /**
              * TODO: list can be adjusted later with configs to even show groups like admin/moderator/etc. (online and offline)
              */
             case 0:
                 if(sender instanceof ConsoleCommandSender){ //shows all players even without args
-                    for (final Player player : Bukkit.getOnlinePlayers()) {
-                        sender.sendMessage("Online: " + player.getName());
-                    }
-                    sender.sendMessage("Offline: " + offplayers);
+                    sender.sendMessage("Online: " + playerListOnline);
+                    sender.sendMessage("Offline: " + playerListOffline);
+                    playerListOnline.clear();
+                    playerListOffline.clear();
                     return true;
                 }
                 if((sender.isOp()) || (sender.hasPermission(PermissionManager.getPermission("list_all_players")))){ //shows all players if sender is op or has permission for it
-                    for (final Player player : Bukkit.getOnlinePlayers()) {
-                        sender.sendMessage("Online: " + player.getName());
-                    }
-                    sender.sendMessage("Offline: " + offplayers);
+                    sender.sendMessage("Online: " + playerListOnline);
+                    sender.sendMessage("Offline: " + playerListOffline);
+                    playerListOnline.clear();
+                    playerListOffline.clear();
                     return true;
                 }
                 if(!sender.isOp() && sender.hasPermission(PermissionManager.getPermission("list_players_online"))){ //shows players which are online
-                    for (final Player player : Bukkit.getOnlinePlayers()) {
-                        sender.sendMessage("Online: " + player.getName());
-                    }
+                    sender.sendMessage("Online: " + playerListOnline);
+                    playerListOnline.clear();
                     return true;
                 } else {
                     Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "coremodule.player.nopermission");
@@ -104,7 +113,8 @@ public class CommandListPlayers implements IModularMSMFCommand {
                 }
                 if(args[0].equalsIgnoreCase("offline") || args[0].equalsIgnoreCase("off")){
                     if(sender.hasPermission(PermissionManager.getPermission("list_players_offline"))){
-                        sender.sendMessage("Offline: " + offplayers);
+                        sender.sendMessage("Offline: " + playerListOffline);
+                        playerListOffline.clear();
                         return true;
                     } else {
                         Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "coremodule.player.nopermission");
