@@ -19,6 +19,7 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.Style;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
+import net.md_5.bungee.api.ChatColor;
 
 /**
  *
@@ -34,9 +35,9 @@ public class CommandModularMSMF implements IModularMSMFCommand {
 		plugin = ModularMSMFCore.Instance();
 	}
 
-	private String infoPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.INFO);
+	private final String infoPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.INFO);
 	//private String errorPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.ERROR);
-	//private String debugPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.DEBUG);
+	private final String debugPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.DEBUG);
 
 	@Override
 	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
@@ -64,8 +65,15 @@ public class CommandModularMSMF implements IModularMSMFCommand {
 
 			FileConfiguration language = Utils.configureCommandLanguage(sender, plugin); //get the language string for selected language files
 
-			sender.sendMessage("test");
-			sender.sendMessage(infoPrefix + " Plugin enabled on: " + Bukkit.getName());
+			// FIXME: Just put this back here temporarily for easy insight into relevant development information.
+			sender.sendMessage(infoPrefix + "Server Type: " + Bukkit.getName());
+			sender.sendMessage(infoPrefix + "Plugin Version: " + ChatColor.GREEN + plugin.pluginver);
+			sender.sendMessage(
+					infoPrefix + "Server Version: " + ChatColor.YELLOW + Bukkit.getVersion());
+			sender.sendMessage(infoPrefix + "Developers: " + ChatColor.LIGHT_PURPLE + plugin.authors);
+			sender.sendMessage(
+					debugPrefix + "Build Timestamp: " + ChatColor.YELLOW + plugin.getDebugTimestamp());
+
 			Component testComponent = Component.text(infoPrefix + "More help: ").style(Style.empty().decorate(TextDecoration.BOLD))
 			.append(Component.text("info").color(TextColor.color(127, 127, 127)).hoverEvent(net.kyori.adventure.text.event.HoverEvent.showText(Component.text(language.getString("coremodule.commands.mmsmf.info")))).clickEvent(net.kyori.adventure.text.event.ClickEvent.runCommand("/mmsmf info"))) //clickable event for "info"
 			.append(Component.text(" ")) //space in text
@@ -74,7 +82,6 @@ public class CommandModularMSMF implements IModularMSMFCommand {
 			.append(Component.text("teamspeak").color(TextColor.color(127, 127, 127)).hoverEvent(net.kyori.adventure.text.event.HoverEvent.showText(Component.text(language.getString("coremodule.commands.mmsmf.teamspeak.click")))).clickEvent(net.kyori.adventure.text.event.ClickEvent.runCommand("/mmsmf teamspeak"))) //clickable event for "teamspeak"
 			.append(Component.text(" ")) //space in text
 			.append(Component.text("discord").color(TextColor.color(127, 127, 255)).hoverEvent(net.kyori.adventure.text.event.HoverEvent.showText(Component.text(language.getString("coremodule.commands.mmsmf.discord.click")))).clickEvent(net.kyori.adventure.text.event.ClickEvent.runCommand("/mmsmf discord"))); //clickable event for "discord"
-
 			sender.sendMessage(Identity.nil(), testComponent, MessageType.SYSTEM);
 			return true;
 		}
