@@ -35,7 +35,6 @@ public class CommandListPlayers implements IModularMSMFCommand {
     //String[] adjustedList = cfg.get(); //only some idea - maybe good or not - Array?
     final List<Player> playerListOnline = new ArrayList<>();
     final List<Player> playerListOffline = new ArrayList<>();
-    final List<Player> playerListMixed = new ArrayList<>();
 
 	@Override
 	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
@@ -72,8 +71,8 @@ public class CommandListPlayers implements IModularMSMFCommand {
         for (final Player player : Bukkit.getOnlinePlayers()) {
             playerListOnline.add(player);
         }
-        for (final OfflinePlayer player : Bukkit.getOfflinePlayers()) { //FIXME: needs to put all offline players in a list (likely for moderator and higher ranks)
-            //playerListOffline.add(player);
+        for (OfflinePlayer player : Bukkit.getOfflinePlayers()) { //FIXME: needs to put all offline players in a list (likely for moderator and higher ranks)
+            //playerListOffline.add(player); //FIXME
         }
 
         switch(args.length){
