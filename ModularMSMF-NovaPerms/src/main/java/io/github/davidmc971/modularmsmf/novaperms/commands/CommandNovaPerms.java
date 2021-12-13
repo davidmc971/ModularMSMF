@@ -71,6 +71,7 @@ public class CommandNovaPerms implements IModularMSMFCommand {
             novaperms_delete(sender, command, label, args);
             break;
         default:
+        Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "nperms.unknown");
             // unknown subcommand
             return false;
         }

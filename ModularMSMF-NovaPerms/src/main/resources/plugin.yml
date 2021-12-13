@@ -15,3 +15,6 @@ commands:
   asdasdasdasdasdasd:
     description: asdasdasdasdasd
     usage: /<command> <args>
+  novaperms:
+    description: Manage perms for groups and users
+    usage: /<command> <args>
