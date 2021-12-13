@@ -129,22 +129,22 @@ basicsmodule:
       others: Spawned _player!
       removed: You removed the spawn point!
       alreadyremoved: No spawn set!
-    home:
-      component:
-        set: Klick mich an um dein Home zu setzen!
-        remove: Klick mich an um dein Home zu löschen!
-        rtp: Ich zeig dir wie man das schreibt!
-        admin: Das zeigt dir alle administrativen Befehle an!
-      invalidargument: Please do "/home help" for more information!
-      help:
-        set: 'How to use the set command:'
-        remove: 'How to use the remove command:'
-        rtp: Requests teleport to player's home.
-        admin: 'Use for administrative home-rights:'
-      notset: No home set.
-      list: 'Your homes: _list'
-      rtp:
-        noargument: You should specify a player.
+    #home:
+    # component:
+    #   set: Klick mich an um dein Home zu setzen!
+    #   remove: Klick mich an um dein Home zu löschen!
+    #   rtp: Ich zeig dir wie man das schreibt!
+    #   admin: Das zeigt dir alle administrativen Befehle an!
+    #  invalidargument: Please do "/home help" for more information!
+    #  help:
+    #    set: 'How to use the set command:'
+    #    remove: 'How to use the remove command:'
+    #    rtp: Requests teleport to player's home.
+    #    admin: 'Use for administrative home-rights:'
+    #  notset: Your home has not been set yet.
+    #  list: 'Your homes: _list'
+    #  rtp:
+    #    noargument: You should specify a player.
     back:
       success: Teleported back to last point!
       error: There's no point to get back.
@@ -249,6 +249,7 @@ economy-module:
         syntax: Falsche Syntax!
         console: Console has no money :P
       reset: Your balance has been reset.
+      helponly: helpings
 #for commandblocker-module en_US file
 cmdblocker:
   commands:
@@ -257,3 +258,23 @@ cmdblocker:
       toomany: Too many arguments.
       invalid: Wrong arguments!
     invalid: Wrong command.
+#for nperms-module en_US file
+nperms-module:
+  commands:
+    groups:
+    # Substrings for groups (list groups)
+    inspect:
+    # Substrings for inspect (group / player specific)
+    assign:
+    # Substrings for assign (player)
+    permit:
+    # Substrings for permit (permission)
+    create:
+    # Substrings for create (group)
+    prefix:
+    # Substrings for prefix (user / group specific)
+    remove:
+    # Substrings for remove (a permission or from a group)
+    delete:
+    # Substrings for delete (a user from groups or delete a group)
+  unknown: Unknown subcommand!
