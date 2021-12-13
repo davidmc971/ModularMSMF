@@ -31,7 +31,7 @@ public class CommandSpawn implements IModularMSMFCommand {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        
+
             switch (args.length) {
             case 0:
                 if (sender instanceof ConsoleCommandSender) {

@@ -29,21 +29,21 @@ public class CommandSetSpawn implements IModularMSMFCommand {
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		FileConfiguration cfg = plugin.getDataManager().settingsyaml;
 		if (!PermissionManager.checkPermission(sender, "setspawn")) {
-			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
+			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "coremodule.player.nopermission");
 			return true;
 		}
 		if (sender instanceof ConsoleCommandSender) {
-			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "general.noconsole");
+			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "coremodule.noconsole");
 			return true;
 		}
 		if (args.length == 0) {
 			Player p = (Player) sender;
 			Location loc = p.getLocation();
-			double x = loc.getX();
-			double y = loc.getY();
-			double z = loc.getZ();
-			double yaw = loc.getYaw();
-			double pitch = loc.getPitch();
+			double x = (int)loc.getX();
+			double y = (int)loc.getY();
+			double z = (int)loc.getZ();
+			double yaw = (int)loc.getYaw();
+			double pitch = (int)loc.getPitch();
 			String worldname = loc.getWorld().getName();
 			cfg.set("worldspawn.coordinates.X", x);
 			cfg.set("worldspawn.coordinates.Y", y);
@@ -52,9 +52,9 @@ public class CommandSetSpawn implements IModularMSMFCommand {
 			cfg.set("worldspawn.coordinates.Pitch", pitch);
 			cfg.set("worldspawn.world", worldname);
 			cfg.set("worldspawn.isTrue", "true");
-			Utils.sendMessageWithConfiguredLanguage(plugin, p, ChatFormat.SPAWN, "commands.spawn.spawnset");
+			Utils.sendMessageWithConfiguredLanguage(plugin, p, ChatFormat.SPAWN, "basicsmodule.commands.spawn.set");
 		} else {
-			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.toomanyarguments");
+			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basicsmodule.commands.arguments.toomany");
 		}
 		return true;
 	}
