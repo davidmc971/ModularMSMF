@@ -38,6 +38,12 @@ public class CommandModularMSMF implements IModularMSMFCommand {
 		plugin = ModularMSMFCore.Instance();
 	}
 
+	private String getBukkitVersion = Bukkit.getBukkitVersion();
+	private String getName = Bukkit.getName();
+	private String getVersion = Bukkit.getVersion();
+	private String getMinecraftVersion = Bukkit.getMinecraftVersion();
+	private int getMaxPlayers = Bukkit.getMaxPlayers();
+
 	private final String infoPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.INFO);
 	//private String errorPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.ERROR);
 	private final String debugPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.DEBUG);
@@ -69,13 +75,14 @@ public class CommandModularMSMF implements IModularMSMFCommand {
 		FileConfiguration language = Utils.configureCommandLanguage(sender, plugin); //get the language string for selected language files
 
 		// FIXME: Just put this back here temporarily for easy insight into relevant development information.
-		sender.sendMessage(infoPrefix + "Server Type: " + Bukkit.getName());
+		sender.sendMessage(infoPrefix + "Server Type: " + getName);
 		sender.sendMessage(infoPrefix + "Plugin Version: " + ChatColor.GREEN + plugin.pluginver);
 		sender.sendMessage(
-				infoPrefix + "Server Version: " + ChatColor.YELLOW + Bukkit.getVersion());
+				infoPrefix + "Server Version: " + ChatColor.YELLOW + getBukkitVersion);
 		sender.sendMessage(infoPrefix + "Developers: " + ChatColor.LIGHT_PURPLE + plugin.authors);
 		sender.sendMessage(
 				debugPrefix + "Build Timestamp: " + ChatColor.YELLOW + plugin.getDebugTimestamp());
+		sender.sendMessage("Test: " + getName + " <-- getName , " + getBukkitVersion + " <-- getBukkitVersion , " + getVersion + " <-- getVersion , " + getMinecraftVersion + " <-- getMinecraftVersion , " + getMaxPlayers + " <-- getMaxPlayers(int) , ");
 
 		Component testComponent = Component.text(infoPrefix + "More help: ").style(Style.empty().decorate(TextDecoration.BOLD))
 		.append(Component.text("info").color(TextColor.color(127, 127, 127)).hoverEvent(net.kyori.adventure.text.event.HoverEvent.showText(Component.text(language.getString("coremodule.commands.mmsmf.info")))).clickEvent(net.kyori.adventure.text.event.ClickEvent.runCommand("/mmsmf info"))) //clickable event for "info"
