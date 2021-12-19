@@ -37,6 +37,11 @@ public class CommandHome implements IModularMSMFCommand {
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
 		/**
+		 * TODO: FIXME:
+		 * Complete Rewrite
+		 */
+
+		/**
 		 * Important notice: Home will be edited in some days. Thinking about the output
 		 * of sending messages
 		 * 
