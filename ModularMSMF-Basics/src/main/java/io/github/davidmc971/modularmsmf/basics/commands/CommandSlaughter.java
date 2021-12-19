@@ -30,11 +30,11 @@ public class CommandSlaughter implements IModularMSMFCommand {
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (!PermissionManager.checkPermission(sender, "slaughter")) {
-			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "general.nopermission");
+			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "coremodule.player.nopermission");
 			return true;
 		}
 		if (sender instanceof ConsoleCommandSender) {
-			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "general.noconsole");
+			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "coremodule.noconsole");
 			return true;
 		}
 		if (args.length == 0) {
@@ -42,7 +42,7 @@ public class CommandSlaughter implements IModularMSMFCommand {
 			for (Entity e : ((Player) sender).getWorld().getNearbyEntities(playerloc, 500, 500, 500)) {
 				if (!(e instanceof Player) && (e instanceof Monster))
 					e.remove();
-					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS, "commands.slaughter.success");
+					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS, "basicsmodule.commands.slaughter.success");
 					return true;
 			}
 		}
@@ -51,11 +51,11 @@ public class CommandSlaughter implements IModularMSMFCommand {
 			for (Entity e : ((Player) sender).getWorld().getNearbyEntities(playerloc, 500, 500, 500)) {
 				if (!(e instanceof Player) && (e instanceof Animals))
 					e.remove();
-					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS, "commands.slaughter.success");
+					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS, "basicsmodule.commands.slaughter.success");
 					return true;
 			}
 		} if(args.length >=2) {
-			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.toomanyarguments");
+			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "coremodule.commands.arguments.toomany");
 		}
 		return true;
 	}
