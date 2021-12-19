@@ -14,6 +14,7 @@ import org.jetbrains.annotations.NotNull;
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.basics.PermissionManager;
 import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
+import io.github.davidmc971.modularmsmf.core.util.ChatUtils;
 import io.github.davidmc971.modularmsmf.core.util.Utils;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
 
@@ -35,8 +36,7 @@ public class CommandGet implements IModularMSMFCommand {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
             @NotNull String[] args) {
         if (!PermissionManager.checkPermission(sender, "get_use")) {
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM,
-                    "coremodule.player.nopermission");
+            ChatUtils.sendMsgNoPerm(sender);
             return true;
         }
         if (args.length == 0) {
@@ -79,8 +79,7 @@ public class CommandGet implements IModularMSMFCommand {
         if (args[0].equalsIgnoreCase("life")) {
             // set life
             if (!PermissionManager.checkPermission(sender, "get_use_life")) {
-                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
-                        "coremodule.player.nopermission");
+                ChatUtils.sendMsgNoPerm(sender);
                 return true;
             }
             if (args.length == 1) {
@@ -99,8 +98,7 @@ public class CommandGet implements IModularMSMFCommand {
         }
         if (args[0].equalsIgnoreCase("food")) {
             if (!PermissionManager.checkPermission(sender, "get_use_food")) {
-                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
-                        "coremodule.player.nopermission");
+                ChatUtils.sendMsgNoPerm(sender);
                 return true;
             }
             if (args.length == 1) {
@@ -119,8 +117,7 @@ public class CommandGet implements IModularMSMFCommand {
         }
         if (args[0].equalsIgnoreCase("sat") || args[0].equalsIgnoreCase("saturation")) {
             if (!PermissionManager.checkPermission(sender, "get_use_saturation")) {
-                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
-                        "coremodule.player.nopermission");
+                ChatUtils.sendMsgNoPerm(sender);
                 return true;
             }
             if (args.length == 1) {
@@ -139,8 +136,7 @@ public class CommandGet implements IModularMSMFCommand {
         }
         if (args[0].equalsIgnoreCase("exp")) {
             if (!PermissionManager.checkPermission(sender, "get_use_exp")) {
-                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
-                        "coremodule.player.nopermission");
+                ChatUtils.sendMsgNoPerm(sender);
                 return true;
             }
             if (args.length == 1) {
@@ -159,8 +155,7 @@ public class CommandGet implements IModularMSMFCommand {
         }
         if (args[0].equalsIgnoreCase("level") || args[0].equalsIgnoreCase("lvl")) {
             if (!PermissionManager.checkPermission(sender, "get_use_level")) {
-                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
-                        "coremodule.player.nopermission");
+                ChatUtils.sendMsgNoPerm(sender);
                 return true;
             }
             if (args.length == 1) {
@@ -179,8 +174,7 @@ public class CommandGet implements IModularMSMFCommand {
         }
         if (args[0].equalsIgnoreCase("ip")) {
             if (!PermissionManager.checkPermission(sender, "get_use_ip")) {
-                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
-                        "coremodule.player.nopermission");
+                ChatUtils.sendMsgNoPerm(sender);
                 return true;
             }
             if (args.length == 1) {
@@ -206,7 +200,7 @@ public class CommandGet implements IModularMSMFCommand {
         target = Utils.getPlayerUUIDByName(args[1]);
         Player player = Bukkit.getPlayer(target);
         if (sender instanceof ConsoleCommandSender) {
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "coremodule.noconsole");
+            ChatUtils.sendMsgNoPerm(sender);
             return true;
         }
         if (player == null) {
@@ -231,7 +225,7 @@ public class CommandGet implements IModularMSMFCommand {
         target = Utils.getPlayerUUIDByName(args[1]);
         Player player = Bukkit.getPlayer(target);
         if (sender instanceof ConsoleCommandSender) {
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "coremodule.noconsole");
+            ChatUtils.sendMsgNoPerm(sender);
             return true;
         }
         if (player == null) {
@@ -269,7 +263,7 @@ public class CommandGet implements IModularMSMFCommand {
         target = Utils.getPlayerUUIDByName(args[1]);
         Player player = Bukkit.getPlayer(target);
         if (sender instanceof ConsoleCommandSender) {
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "coremodule.noconsole");
+            ChatUtils.sendMsgNoPerm(sender);
             return true;
         }
         if (player == null) {
@@ -318,7 +312,7 @@ public class CommandGet implements IModularMSMFCommand {
         target = Utils.getPlayerUUIDByName(args[1]);
         Player player = Bukkit.getPlayer(target);
         if (sender instanceof ConsoleCommandSender) {
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "coremodule.noconsole");
+            ChatUtils.sendMsgNoPerm(sender);
             return true;
         }
         if (player == null) {
@@ -366,7 +360,7 @@ public class CommandGet implements IModularMSMFCommand {
         target = Utils.getPlayerUUIDByName(args[1]);
         Player player = Bukkit.getPlayer(target);
         if (sender instanceof ConsoleCommandSender) {
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "coremodule.noconsole");
+            ChatUtils.sendMsgNoPerm(sender);
             return true;
         }
         if (player == null) {
@@ -413,7 +407,7 @@ public class CommandGet implements IModularMSMFCommand {
         target = Utils.getPlayerUUIDByName(args[1]);
         Player player = Bukkit.getPlayer(target);
         if (sender instanceof ConsoleCommandSender) { //use /stats <name> instead - for langyaml
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "coremodule.noconsole");
+            ChatUtils.sendMsgNoPerm(sender);
             return true;
         }
         if (player == null) {

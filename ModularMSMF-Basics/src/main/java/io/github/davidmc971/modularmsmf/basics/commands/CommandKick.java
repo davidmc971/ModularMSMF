@@ -12,6 +12,7 @@ import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.basics.PermissionManager;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
 import net.kyori.adventure.text.Component;
+import io.github.davidmc971.modularmsmf.core.util.ChatUtils;
 import io.github.davidmc971.modularmsmf.core.util.Utils;
 
 /**
@@ -42,9 +43,10 @@ public class CommandKick implements IModularMSMFCommand {
 		switch (args.length) {
 		case 0:
 			if (PermissionManager.checkPermission(sender, "kickplayer")) {
-				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.KICK, "basicsmodule.commands.kick.missingname");
+				ChatUtils.sendMsgNoPerm(sender);
+				return true;
 			} else {
-				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.KICK, "coremodule.player.nopermission");
+				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.KICK, "basicsmodule.commands.kick.missingname");
 			}
 			break;
 		default:
@@ -69,7 +71,7 @@ public class CommandKick implements IModularMSMFCommand {
 					}
 				}
 			} else {
-				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.KICK, "coremodule.player.nopermission");
+				ChatUtils.sendMsgNoPerm(sender);
 			}
 		}
 		return true;

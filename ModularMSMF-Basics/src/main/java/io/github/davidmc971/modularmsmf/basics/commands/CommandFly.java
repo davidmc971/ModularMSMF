@@ -8,13 +8,14 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.MemoryConfiguration;
-import org.bukkit.configuration.file.FileConfiguration;
+//import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.basics.PermissionManager;
+import io.github.davidmc971.modularmsmf.core.util.ChatUtils;
 import io.github.davidmc971.modularmsmf.core.util.Utils;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
 
@@ -32,6 +33,10 @@ public class CommandFly implements IModularMSMFCommand {
         if (PermissionManager.checkPermission(sender, "fly_use")) {
             switch (args.length) {
                 case 0:
+                    if(sender instanceof ConsoleCommandSender){
+                        ChatUtils.sendMsgNoPerm(sender);
+                        return true;
+                    }
                     return selfFlight(sender, command, label, args);
                 case 1:
                     return othersFlight(sender, command, label, args);
@@ -41,17 +46,12 @@ public class CommandFly implements IModularMSMFCommand {
                     break;
             }
         } else {
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM,
-                    "coremodule.player.nopermission");
+            ChatUtils.sendMsgNoPerm(sender);
         }
         return true;
     }
 
     private boolean selfFlight(CommandSender sender, Command command, String label, String[] args) {
-        if (sender instanceof ConsoleCommandSender) {
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "coremodule.noconsole");
-            return true;
-        } else {
             if (PermissionManager.checkPermission(sender, "fly_self")) {
                 if (((Player) sender).getGameMode() == GameMode.CREATIVE) {
                     Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
@@ -61,15 +61,16 @@ public class CommandFly implements IModularMSMFCommand {
                     return toggleFlight(sender, command, label, args);
                 }
             } else {
-                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM,
-                        "coremodule.player.nopermission");
+                ChatUtils.sendMsgNoPerm(sender);
             }
+            return true;
         }
-        return true;
-    }
 
     private boolean toggleFlight(CommandSender sender, Command command, String label, String[] args) {
-        if(!(sender instanceof Player)) return false;
+        if(!(sender instanceof Player)) {
+            ChatUtils.sendMsgNoPerm(sender);
+            return true;
+        }
         Player p = (Player) sender;
         
         UUID uuid = p.getUniqueId();
@@ -151,8 +152,7 @@ public class CommandFly implements IModularMSMFCommand {
                 }
             }
         } else {
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM,
-                    "coremodule.player.nopermission");
+            ChatUtils.sendMsgNoPerm(sender); //sends message which displays no permission
         }
         return true;
     }

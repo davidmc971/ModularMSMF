@@ -8,6 +8,7 @@ import org.bukkit.command.CommandSender;
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
 import io.github.davidmc971.modularmsmf.basics.PermissionManager;
+import io.github.davidmc971.modularmsmf.core.util.ChatUtils;
 import io.github.davidmc971.modularmsmf.core.util.Utils;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
 
@@ -28,11 +29,14 @@ public class CommandChannels implements IModularMSMFCommand {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         // checks permission
         if (PermissionManager.checkPermission(sender, "channels_use")) {
-            if (args.length == 0) { // same as return channelsHelp
-                // help for "/channel"
-                return channelsHelp(sender, command, label, args);
-            }
-            switch (args[1].toLowerCase()) {
+            ChatUtils.sendMsgNoPerm(sender);
+            return true;
+        }
+        if (args.length == 0) { // same as return channelsHelp
+            // help for "/channel"
+            return channelsHelp(sender, command, label, args);
+        }
+        switch (args[1].toLowerCase()) {
             case "help":
                 return channelsHelp(sender, command, label, args); // same as args[0]
             case "set":
@@ -44,27 +48,23 @@ public class CommandChannels implements IModularMSMFCommand {
             case "list":
                 return channelsList(sender, command, label, args);
             default:
-                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basicsmodule.commands.arguments.invalid");
+                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+                        "basicsmodule.commands.arguments.invalid");
                 break;
-            }
-            return true;
-        } else {
-            // return statement if no permission is given
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "coremodule.player.nopermission");
         }
         return true;
     }
 
     private boolean channelsList(CommandSender sender, Command command, String label, String[] args) {
         switch (args.length < 1 ? "all" : args[0].toLowerCase()) {
-        case "public":
-            return listPublic(sender, command, label, args);
-        case "private":
-            return listPrivate(sender, command, label, args);
-        case "all":
-            return listAll(sender, command, label, args);
-        default:
-            return listAll(sender, command, label, args);
+            case "public":
+                return listPublic(sender, command, label, args);
+            case "private":
+                return listPrivate(sender, command, label, args);
+            case "all":
+                return listAll(sender, command, label, args);
+            default:
+                return listAll(sender, command, label, args);
         }
     }
 
@@ -78,7 +78,7 @@ public class CommandChannels implements IModularMSMFCommand {
 
     private boolean listAll(CommandSender sender, Command command, String label, String[] args) {
         if (!PermissionManager.checkPermission(sender, "channels_list_all")) {
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "coremodule.player.nopermission");
+            ChatUtils.sendMsgNoPerm(sender);
             return true;
         }
         channelsList.forEach(element -> {
@@ -107,7 +107,8 @@ public class CommandChannels implements IModularMSMFCommand {
     }
 
     private boolean channelsCreate(CommandSender sender, Command command, String label, String[] args) {
-        // FIXME[epic=code needed,seq=18] creates a channel and moves you in automatically
+        // FIXME[epic=code needed,seq=18] creates a channel and moves you in
+        // automatically
         if (args.length == 0) {
             sender.sendMessage("test");
             return true;
@@ -127,7 +128,8 @@ public class CommandChannels implements IModularMSMFCommand {
     }
 
     private boolean channelsSet(CommandSender sender, Command command, String label, String[] args) {
-        // FIXME[epic=code needed,seq=17] Set the channel type youre currently in to chosen type
+        // FIXME[epic=code needed,seq=17] Set the channel type youre currently in to
+        // chosen type
         // ENUM: PUBLIC, PRIVATE, ADMIN, MOD, SUPPORT
         return true;
     }

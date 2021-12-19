@@ -13,6 +13,7 @@ import org.bukkit.entity.Player;
 import io.github.davidmc971.modularmsmf.basics.PermissionManager;
 import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
+import io.github.davidmc971.modularmsmf.core.util.ChatUtils;
 import io.github.davidmc971.modularmsmf.core.util.Utils;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
 
@@ -48,8 +49,7 @@ public class CommandHeal implements IModularMSMFCommand {
 		target = Utils.getPlayerUUIDByName(args[0]);
 		Player player = Bukkit.getPlayer(target);
 		if (!PermissionManager.checkPermission(sender, "healother")) {
-			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM,
-					"coremodule.player.nopermission");
+			ChatUtils.sendMsgNoPerm(sender);
 			return true;
 		}
 		if (player == null) {
@@ -90,13 +90,8 @@ public class CommandHeal implements IModularMSMFCommand {
 	}
 
 	private boolean healSelf(CommandSender sender, Command command, String label, String[] args) {
-		if (sender instanceof ConsoleCommandSender) {
-			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "coremodule.noconsole");
-			return true;
-		}
-		if (!PermissionManager.checkPermission(sender, "healself")) {
-			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM,
-					"coremodule.player.nopermission");
+		if (sender instanceof ConsoleCommandSender || !PermissionManager.checkPermission(sender, "healself")) {
+			ChatUtils.sendMsgNoPerm(sender);
 			return true;
 		}
 		if (((Player) sender).getWorld().getDifficulty() == Difficulty.PEACEFUL) {

@@ -13,6 +13,7 @@ import org.bukkit.entity.Player;
 import io.github.davidmc971.modularmsmf.basics.PermissionManager;
 import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
+import io.github.davidmc971.modularmsmf.core.util.ChatUtils;
 import io.github.davidmc971.modularmsmf.core.util.Utils;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
 
@@ -48,7 +49,7 @@ public class CommandFeed implements IModularMSMFCommand {
 		target = Utils.getPlayerUUIDByName(args[0]);
 		Player player = Bukkit.getPlayer(target);
 		if (!PermissionManager.checkPermission(sender, "feedothers")) {
-			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "coremodule.player.nopermission");
+			ChatUtils.sendMsgNoPerm(sender);
 			return true;
 		}
 		if (target == null) {
@@ -91,7 +92,7 @@ public class CommandFeed implements IModularMSMFCommand {
 
 	private boolean feedSelf(CommandSender sender, Command command, String label, String[] args) {
 		if (sender instanceof ConsoleCommandSender) {
-			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "coremodule.noconsole");
+			ChatUtils.sendMsgNoPerm(sender);
 			return true;
 		}
 		if (((Player) sender).getWorld().getDifficulty() == Difficulty.PEACEFUL) {
@@ -106,7 +107,7 @@ public class CommandFeed implements IModularMSMFCommand {
 			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.FEED, "basicsmodule.commands.feed.feeded");
 			((Player) sender).setFoodLevel(20);
 		} else {
-			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "coremodule.player.nopermission");
+			ChatUtils.sendMsgNoPerm(sender);
 		}
 		return true;
 	}
