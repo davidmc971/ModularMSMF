@@ -13,6 +13,7 @@ import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.basics.PermissionManager;
 import io.github.davidmc971.modularmsmf.core.listeners.Events;
+import io.github.davidmc971.modularmsmf.core.util.ChatUtils;
 import io.github.davidmc971.modularmsmf.core.util.Utils;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
 
@@ -29,24 +30,46 @@ public class CommandBack implements IModularMSMFCommand {
      *         any user back to the last location
      */
 
-    @Override
+/*   @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         switch (args.length) {
-        case 0:
-            return backSub(sender, command, label, args);
-        case 1:
-            return backOthersSub(sender, command, label, args);
-        default:
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basicsmodule.commands.arguments.toomany");
-            break;
+            case 0:
+                return backCmd(sender, command, label, args);
+            case 1:
+                return backCmdSub(sender, command, label, args);
+            default:
+                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+                        "basicsmodule.commands.arguments.toomany");
+                break;
+        }
+        return true;
+    }
+*/
+    @Override
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        if (args.length == 0) {
+            return backCmd(sender, command, label, args);
+        }
+        switch (args[0].toLowerCase()) {
+            case "help":
+            case "user":
+            case "admin":
+                return backCmdSub(sender, command, label, args);
+            default:
+                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+                        "basicsmodule.commands.arguments.toomany");
+                break;
         }
         return true;
     }
 
-    private boolean backOthersSub(CommandSender sender, Command command, String label, String[] args) {
-        if (!PermissionManager.checkPermission(sender, "back_others")) {
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "coremodule.player.nopermission");
+    private boolean backCmdSub(CommandSender sender, Command command, String label, String[] args) {
+        if (!PermissionManager.checkPermission(sender, "back_others") || !PermissionManager.checkPermission(sender, "back_admin")) {
+            ChatUtils.sendMsgNoPerm(sender);
             return true;
+        }
+        if(args[0].equalsIgnoreCase("help")){
+            return backHelp(sender, command, label, args);
         }
         UUID target = null;
         target = Utils.getPlayerUUIDByName(args[0]);
@@ -85,20 +108,19 @@ public class CommandBack implements IModularMSMFCommand {
         return true;
     }
 
-    private boolean backSub(CommandSender sender, Command command, String label, String[] args) {
-        if (sender instanceof ConsoleCommandSender) {
-            return backHelp(sender, command, label, args);
-        }
-        if (!PermissionManager.checkPermission(sender, "back")) {
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "coremodule.player.nopermission");
+    private boolean backCmd(CommandSender sender, Command command, String label, String[] args) {
+        if (!PermissionManager.checkPermission(sender, "back") || sender instanceof ConsoleCommandSender) {
+            ChatUtils.sendMsgNoPerm(sender);
             return true;
         }
         if (Events.lastLocation.containsKey(sender.getName())) {
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS, "basicsmodule.commands.back.success");
+            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
+                    "basicsmodule.commands.back.success");
             ((Entity) sender).teleport(Events.lastLocation.get(sender.getName()));
             return true;
         } else {
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basicsmodule.commands.back.error");
+            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+                    "basicsmodule.commands.back.error");
         }
         return true;
     }
