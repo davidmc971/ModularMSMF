@@ -63,6 +63,8 @@ coremodule:
     cclear:
       done: Cleared chat!
       others: _target's chat has been cleared!
+    list:
+      all: 'Online: _players'
 #for basics-module en_US file
 basicsmodule:
   peaceful:

@@ -63,6 +63,8 @@ coremodule:
     cclear:
       done: Dein Chat wurde geleert!
       others: _target's Chat wurde geleert!
+    list:
+      all: 'Online: _players'
 #for basics-module de_DE file
 basicsmodule:
   peaceful:
