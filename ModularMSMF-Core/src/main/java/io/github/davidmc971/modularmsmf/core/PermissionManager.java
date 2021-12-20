@@ -38,9 +38,11 @@ public class PermissionManager {
 		put("report_bug", "modularmsmf.report.bug");
 		put("report_other", "modularmsmf.report.other");
 		//list permissions
-		put("list_players_online", "modularmsmf.list.players.online");
-		put("list_players_offline", "modularmsmf.list.players.offline");
-		put("list_all_players", "modularmsmf.list.allplayers");
+		put("list_use", "modularmsmf.list.use");
+		put("list_use_groups", "modularmsmf.list.use.groups");
+		put("list_players", "modularmsmf.list.players");
+		put("list_admin_settings", "modularmsmf.list.admin.settings");
+		put("list_all", "modularmsmf.list.allplayers");
 	}};
 
 	public static boolean checkPermission(CommandSender sender, String permission) {
@@ -48,6 +50,6 @@ public class PermissionManager {
 	}
 
 	public static String getPermission(String name) {
-			return permissions.get(name);
+		return permissions.get(name);
 	}
 }
