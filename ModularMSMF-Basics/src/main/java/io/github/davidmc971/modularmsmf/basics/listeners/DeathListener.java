@@ -16,33 +16,33 @@ import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
 
 public class DeathListener implements Listener {
 	private ArrayList<PlayerKillConfig> killedPlayers = new ArrayList<PlayerKillConfig>();
-    private ModularMSMFCore plugin;
+	private ModularMSMFCore plugin;
 
-    public DeathListener() {
-        this.plugin = ModularMSMFCore.Instance();
-    }
+	public DeathListener() {
+		this.plugin = ModularMSMFCore.Instance();
+	}
 
 	public void registerKilledPlayer(Player p, KillType kt) {
 		killedPlayers.add(new PlayerKillConfig(p, kt));
 	}
 
-    @EventHandler
+	@EventHandler
 	public void onDeath(PlayerDeathEvent event) {
-		Player p = event.getEntity();
+		Player p = event.getEntity().getPlayer();
 		Events.lastLocation.put(p.getName(), p.getLocation());
 		boolean temp = false;
 		for (PlayerKillConfig pkf : killedPlayers) {
 			if (pkf.getP().getName().equals(event.getEntity().getName())) {
 				switch (pkf.getKt()) {
-				case KILL:
-					event.deathMessage(null);
-					break;
-				case SUICIDE:
-					event.deathMessage(null);
-					break;
-				case HOMOCIDE:
-					event.deathMessage(null);
-					break;
+					case KILL:
+						event.deathMessage().asComponent();
+						break;
+					case SUICIDE:
+						event.deathMessage().asComponent();
+						break;
+					case HOMOCIDE:
+						event.deathMessage().asComponent();
+						break;
 				}
 				killedPlayers.remove(pkf);
 				temp = true;
@@ -50,8 +50,7 @@ public class DeathListener implements Listener {
 			}
 		}
 		if (!temp) {
-			Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.DEATH, "basicsmodule.event.just_died", "_var",
-					event.getEntity().getName());
+			Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.DEATH, "coremodule.event.just_died", "_var", p.getName());
 		}
 	}
 }
