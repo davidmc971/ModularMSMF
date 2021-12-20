@@ -20,6 +20,7 @@ import org.bukkit.event.player.PlayerLoginEvent.Result;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
+import io.github.davidmc971.modularmsmf.core.commands.CommandListPlayers;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
 import io.papermc.paper.event.player.AsyncChatEvent;
 import io.github.davidmc971.modularmsmf.core.util.Utils;
@@ -70,7 +71,7 @@ public class Events implements Listener {
 				return;
 			}
 		} else {
-			//still thinking...
+			// still thinking...
 		}
 	}
 
@@ -79,25 +80,29 @@ public class Events implements Listener {
 		FileConfiguration cfg = plugin.getDataManager().getPlayerCfg(uuid);
 
 		/**
-		 * check if player was flying while leaving and will teleport player to the gorund & turn off flight
+		 * check if player was flying while leaving and will teleport player to the
+		 * gorund & turn off flight
 		 */
-		if(cfg.getBoolean("players.flying", true)){ //FIXME: cfg will not be loaded cause strings missing in "players"-folder - NullPointerException (in CommandFly)
-			/*Player spawned = event.getPlayer();
-			double x = cfg.getDouble("players.position.X");
-			double y = cfg.getDouble("players.position.Y");
-			double z = cfg.getDouble("players.position.Z");
-			double yaw = cfg.getDouble("players.position.Yaw");
-			double pitch = cfg.getDouble("players.position.Pitch");
-			String worldname = cfg.getString("players.position.world");
-			World world = Bukkit.getWorld(worldname);
-            Location loc = spawned.getLocation();
-            loc.setX(x);
-            loc.setY(y);
-            loc.setZ(z);
-            loc.setYaw((float) yaw);
-            loc.setPitch((float) pitch);
-            loc.setWorld(world);
-            spawned.teleport(loc);*/
+		if (cfg.getBoolean("players.flying", true)) { // FIXME: cfg will not be loaded cause strings missing in
+														// "players"-folder - NullPointerException (in CommandFly)
+			/*
+			 * Player spawned = event.getPlayer();
+			 * double x = cfg.getDouble("players.position.X");
+			 * double y = cfg.getDouble("players.position.Y");
+			 * double z = cfg.getDouble("players.position.Z");
+			 * double yaw = cfg.getDouble("players.position.Yaw");
+			 * double pitch = cfg.getDouble("players.position.Pitch");
+			 * String worldname = cfg.getString("players.position.world");
+			 * World world = Bukkit.getWorld(worldname);
+			 * Location loc = spawned.getLocation();
+			 * loc.setX(x);
+			 * loc.setY(y);
+			 * loc.setZ(z);
+			 * loc.setYaw((float) yaw);
+			 * loc.setPitch((float) pitch);
+			 * loc.setWorld(world);
+			 * spawned.teleport(loc);
+			 */
 		}
 
 		/**
