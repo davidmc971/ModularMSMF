@@ -36,10 +36,11 @@ public class Events implements Listener {
 	public ModularMSMFCore plugin;
 	private ArrayList<UUID> kickedPlayers = new ArrayList<UUID>();
 
-	// TODO: Yeet away the yanky issues regarding concurrency.
 	public final HashMap<UUID,String> onlineWithoutSpecialCon = new HashMap<UUID, String>();
 	public final HashMap<UUID,String> onlineWithSpecialCon = new HashMap<UUID, String>();
-	public final HashMap<String, Location> lastLocation = new HashMap<>();
+	
+	// TODO: Yeet away the yanky issues regarding concurrency.
+	public final static HashMap<String, Location> lastLocation = new HashMap<>();
 	public final static ArrayList<String> blacklistedExpressions = new ArrayList<String>();
 
 	public Events(ModularMSMFCore plugin) {
