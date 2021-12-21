@@ -22,6 +22,12 @@ import io.github.davidmc971.modularmsmf.core.data.PlayerData;
  * 
  */
 public class PlayerManager {
+
+	// TODO: Dependency incjection / annotations
+	// @PlayerStorage("player.ipAddress")
+	// private PlayerSetting ipAddress;
+
+
 	private MemoryConfiguration defaultPlayerConfig() {
 		MemoryConfiguration temp = new MemoryConfiguration();
 		temp.addDefaults(new LinkedHashMap<String, Object>() {
