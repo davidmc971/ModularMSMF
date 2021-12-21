@@ -80,6 +80,7 @@ public class CommandListPlayers implements IModularMSMFCommand {
                 return listAllPlayers(sender, command, label, args);
             } else {
                 //sender.sendMessage("Online: " + onlineWithoutSpecialCon); //TODO
+                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ONLINE, "languageKey", "_players"/*, */);
             }
             return true;
         }
