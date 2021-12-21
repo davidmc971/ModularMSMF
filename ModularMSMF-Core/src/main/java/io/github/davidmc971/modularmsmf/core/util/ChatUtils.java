@@ -19,7 +19,7 @@ public class ChatUtils {
 
 	public enum ChatFormat {
 		SUCCESS, INFO, ERROR, MSG, BROADCAST, STANDARD, RAINBOW, NOPERM, WELCOME, QUIT, DEATH, MONEY, CONSOLE, KICKED,
-		HOME_LIST, HOME, BANNED, KICK, BAN, UNBAN, REPORT, SPAWN, FEED, HEAL, LANGUAGE, DEBUG, WARN, FLY_ON, FLY_OFF
+		HOME_LIST, HOME, BANNED, KICK, BAN, UNBAN, REPORT, SPAWN, FEED, HEAL, LANGUAGE, DEBUG, WARN, FLY_ON, FLY_OFF, ONLINE
 	}
 
 	public static String getFormattedPrefix(ChatFormat format) {
@@ -85,6 +85,8 @@ public class ChatUtils {
 						+ " ");
 			case FLY_OFF: // related to flight turning on
 				return (ChatColor.GOLD + "[" + ChatColor.RED + "Flight" + ChatColor.GOLD + "]" + ChatColor.WHITE + " ");
+			case ONLINE: //related for list command
+				return (ChatColor.BLACK + "[" + ChatColor.BOLD + ChatColor.UNDERLINE + ChatColor.LIGHT_PURPLE + " Online " + ChatColor.RESET + ChatColor.BLACK + "]" + ChatColor.GRAY + " ");
 			default: // if no enum has been set which doesnt work
 				return "[ModularMSMF] ";
 		}
