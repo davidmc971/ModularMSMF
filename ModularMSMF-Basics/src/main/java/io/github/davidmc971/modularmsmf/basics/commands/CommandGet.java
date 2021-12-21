@@ -22,9 +22,10 @@ public class CommandGet implements IModularMSMFCommand {
 
     /**
      * @author Lightkeks
+     *
+     * testing purposes atm
+     * Showing up statistics about a player, if needed
      */
-    // TODO[epic=code needed] coding stuff here - get setting values like exp,
-    // foodlevel, saturation, life etc.
 
     ModularMSMFCore plugin;
 
