@@ -11,6 +11,7 @@ import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.core.PermissionManager;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
+import io.github.davidmc971.modularmsmf.core.util.ChatUtils;
 import io.github.davidmc971.modularmsmf.core.util.Utils;
 
 public class CommandClearChat implements IModularMSMFCommand {
@@ -22,26 +23,30 @@ public class CommandClearChat implements IModularMSMFCommand {
     }
 
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
-        // checks if player has permission
-        if (PermissionManager.checkPermission(sender, "clear_command")) {
-            switch (args.length) {
-            default:
-                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "coremodule.commands.arguments.toomany");
-                break;
-            case 0:
-                return clearSelf(sender, cmd, commandLabel, args);
-            case 1:
-            return clearOthers(sender, cmd, commandLabel, args);
-            }
+        if (!PermissionManager.checkPermission(sender, "clear_command")) {
+            ChatUtils.sendMsgNoPerm(sender);
+            return true;
         } else {
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "coremodule.player.nopermission");
+            switch (args.length) {
+                default:
+                    Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+                            "coremodule.commands.arguments.toomany");
+                    break;
+                case 0:
+                    return clearSelf(sender, cmd, commandLabel, args);
+                case 1:
+                    return clearOthers(sender, cmd, commandLabel, args);
+            }
         }
         return true;
     }
 
     private boolean clearOthers(CommandSender sender, Command cmd, String commandLabel, String[] args) {
         UUID target = null;
-        if (PermissionManager.checkPermission(sender, "clear_target")) {
+        if (!PermissionManager.checkPermission(sender, "clear_target")) {
+            ChatUtils.sendMsgNoPerm(sender);
+            return true;
+        } else {
             int count = 0;
             target = Utils.getPlayerUUIDByName(args[0]);
             if (target == null) {
@@ -50,32 +55,33 @@ public class CommandClearChat implements IModularMSMFCommand {
             } else {
                 for (Player p : Bukkit.getOnlinePlayers()) {
                     if (p.getUniqueId().toString().equalsIgnoreCase(target.toString())) {
-                        Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS, "coremodule.commands.cclear.others", "_target", p.getName());
+                        Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
+                                "coremodule.commands.cclear.others", "_target", p.getName());
                         while (count <= 99) {
                             count++;
                             p.sendMessage("");
                         }
-                        Utils.sendMessageWithConfiguredLanguage(plugin, p, ChatFormat.SUCCESS, "coremodule.commands.cclear.done");
+                        Utils.sendMessageWithConfiguredLanguage(plugin, p, ChatFormat.SUCCESS,
+                                "coremodule.commands.cclear.done");
                         return true;
                     }
                 }
             }
-        } else {
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "coremodule.player.nopermission");
         }
         return true;
     }
 
     private boolean clearSelf(CommandSender sender, Command cmd, String commandLabel, String[] args) {
-        if (PermissionManager.checkPermission(sender, "clear_all")) {
+        if (!PermissionManager.checkPermission(sender, "clear_all")) {
+            ChatUtils.sendMsgNoPerm(sender);
+            return true;
+        } else {
             int count = 0;
             while (count != 99) {
                 count++;
                 Bukkit.getOnlinePlayers().forEach((plr) -> plr.sendMessage(""));
             }
             Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.SUCCESS, "coremodule.commands.cclear.done");
-        } else {
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "coremodule.player.nopermission");
         }
         return true;
     }
