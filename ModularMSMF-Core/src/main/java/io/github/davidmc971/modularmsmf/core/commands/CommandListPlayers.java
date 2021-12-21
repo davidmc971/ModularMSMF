@@ -39,35 +39,15 @@ public class CommandListPlayers implements IModularMSMFCommand {
          * Only working if sender has permission
          */
         for (Player player : Bukkit.getOnlinePlayers()) {
+            onlineWithoutSpecialCon.clear();
             onlineWithoutSpecialCon.add(player.getName());
         }
         if (!PermissionManager.checkPermission(sender, "list_use")) {
             ChatUtils.sendMsgNoPerm(sender);
             return true;
         }
-        switch (label.toLowerCase()) {
-            case "list":
-                /**
-                 * This will show up players without vanished or being in spectator.
-                 * Special conditions are given if sender has permission or is op to see even
-                 * vanished or spectator in list.
-                 * Only working if sender has permission
-                 */
-                if (!PermissionManager.checkPermission(sender, "list_players")) {
-                    ChatUtils.sendMsgNoPerm(sender);
-                    return true;
-                }
-                return listPlayers(sender, command, label, args);
-            case "listall":
-                /**
-                 * This command will only "work" if sender has permission or is op to see every
-                 * player online on the server regardless of the special conditions given
-                 */
-                if (!PermissionManager.checkPermission(sender, "list_all") | !sender.isOp()) {
-                    ChatUtils.sendMsgNoPerm(sender);
-                    return true;
-                }
-                return listAllPlayers(sender, command, label, args);
+        if (args.length == 0) {
+            return listPlayers(sender, command, label, args);
         }
         return true;
     }
@@ -77,7 +57,7 @@ public class CommandListPlayers implements IModularMSMFCommand {
 
     private boolean listAllPlayers(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
             @NotNull String[] args) {
-        return false;
+        return true;
     }
 
     private boolean listPlayers(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
@@ -88,8 +68,9 @@ public class CommandListPlayers implements IModularMSMFCommand {
          */
         if (args.length == 0) {
             if (sender.isOp() || PermissionManager.checkPermission(sender, "list_all")) {
-                sender.sendMessage("Online: " + onlineWithSpecialCon + onlineWithoutSpecialCon);
-                ;
+                sender.sendMessage("Online: " + onlineWithSpecialCon + onlineWithoutSpecialCon); // testing purposes
+                                                                                                 // only
+                return listAllPlayers(sender, command, label, args);
             } else {
                 sender.sendMessage("Online: " + onlineWithoutSpecialCon);
             }
@@ -108,6 +89,7 @@ public class CommandListPlayers implements IModularMSMFCommand {
                 break;
             case "help":
             case "group":
+            case "all":
                 /**
                  * here you can show up like other arguments or groups to list in chat
                  */
@@ -129,7 +111,8 @@ public class CommandListPlayers implements IModularMSMFCommand {
     private boolean useAsAdmin(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
             @NotNull String[] args) {
         // TODO: have to write stuff down here
-        return false;
+
+        return true;
     }
 
     private boolean useAsPlayer(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
@@ -138,17 +121,29 @@ public class CommandListPlayers implements IModularMSMFCommand {
             ChatUtils.sendMsgNoPerm(sender);
             return true;
         } else {
-            if (args[1].equalsIgnoreCase("help")) {
+            if (args[0].equalsIgnoreCase("help")) {
                 sender.sendMessage("/list");
                 sender.sendMessage("/list help");
                 sender.sendMessage("/list group");
-                sender.sendMessage("/list settings" + ChatColor.GRAY + " [admin/op only]");
+                sender.sendMessage("/list all");
+                if (PermissionManager.checkPermission(sender, "list_admin_settings")) {
+                    sender.sendMessage("/list settings" + ChatColor.GRAY + " [admin/op only]");
+                    return true;
+                } else {
+                    ChatUtils.sendMsgNoPerm(sender);
+                }
+                return true;
             }
-            if (args[1].equalsIgnoreCase("group")) {
+            if (args[0].equalsIgnoreCase("group")) {
 
+                return true;
+            }
+            if (args[0].equalsIgnoreCase("all")) {
+
+                return true;
             }
         }
-        return false;
+        return true;
     }
 
     @Override

@@ -32,4 +32,4 @@ commands:
   list:
     description: Lists players
     usage: /<command>
-    aliases: [listall]
+    #aliases: [listall]
