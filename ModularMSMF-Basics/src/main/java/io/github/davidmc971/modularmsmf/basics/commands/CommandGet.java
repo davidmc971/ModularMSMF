@@ -43,21 +43,21 @@ public class CommandGet implements IModularMSMFCommand {
             return helpGet(sender, command, label, args);
         }
         switch (args[0].toLowerCase()) {
-        case "help":
-            return helpGet(sender, command, label, args);
-        case "life":
-        case "food":
-        case "saturation":
-        case "sat":
-        case "exp":
-        case "level":
-        case "lvl":
-        case "ip":
-            return subGet(sender, command, label, args);
-        default:
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
-                    "basicsmodule.commands.arguments.invalid");
-            break;
+            case "help":
+                return helpGet(sender, command, label, args);
+            case "life":
+            case "food":
+            case "saturation":
+            case "sat":
+            case "exp":
+            case "level":
+            case "lvl":
+            case "ip":
+                return subGet(sender, command, label, args);
+            default:
+                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+                        "basicsmodule.commands.arguments.invalid");
+                break;
         }
         return true;
     }
@@ -406,7 +406,7 @@ public class CommandGet implements IModularMSMFCommand {
         UUID target = null;
         target = Utils.getPlayerUUIDByName(args[1]);
         Player player = Bukkit.getPlayer(target);
-        if (sender instanceof ConsoleCommandSender) { //use /stats <name> instead - for langyaml
+        if (sender instanceof ConsoleCommandSender) { // use /stats <name> instead - for langyaml
             ChatUtils.sendMsgNoPerm(sender);
             return true;
         }
@@ -437,7 +437,8 @@ public class CommandGet implements IModularMSMFCommand {
                 return true;
             }
             if (player.getWorld().getDifficulty() == Difficulty.PEACEFUL) {
-                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basicsmodule.peaceful.others", "_player", player.getName());
+                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+                        "basicsmodule.peaceful.others", "_player", player.getName());
                 return true;
             } else {
                 Double d = player.getHealth();
