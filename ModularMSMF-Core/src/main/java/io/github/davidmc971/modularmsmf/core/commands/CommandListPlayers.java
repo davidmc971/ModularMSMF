@@ -1,6 +1,7 @@
 package io.github.davidmc971.modularmsmf.core.commands;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -11,6 +12,7 @@ import org.jetbrains.annotations.NotNull;
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
 import io.github.davidmc971.modularmsmf.core.PermissionManager;
+import io.github.davidmc971.modularmsmf.core.listeners.Events;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils;
 import io.github.davidmc971.modularmsmf.core.util.Utils;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
@@ -29,6 +31,11 @@ public class CommandListPlayers implements IModularMSMFCommand {
         plugin = ModularMSMFCore.Instance();
     }
 
+    private void getListFromEvent(UUID uuid, Player player){
+        plugin.getMainEvents().registerJoinedPlayers(uuid, player);
+        //FIXME: Please fix
+    }
+
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
             @NotNull String[] args) {
@@ -39,8 +46,8 @@ public class CommandListPlayers implements IModularMSMFCommand {
          * Only working if sender has permission
          */
         for (Player player : Bukkit.getOnlinePlayers()) {
-            onlineWithoutSpecialCon.clear();
-            onlineWithoutSpecialCon.add(player.getName());
+            //onlineWithoutSpecialCon.clear(); //TODO
+            //onlineWithoutSpecialCon.add(player.getName()); //TODO
         }
         if (!PermissionManager.checkPermission(sender, "list_use")) {
             ChatUtils.sendMsgNoPerm(sender);
@@ -52,8 +59,8 @@ public class CommandListPlayers implements IModularMSMFCommand {
         return true;
     }
 
-    final ArrayList<String> onlineWithoutSpecialCon = new ArrayList<String>();
-    final ArrayList<String> onlineWithSpecialCon = new ArrayList<String>();
+    //final ArrayList<String> onlineWithoutSpecialCon = new ArrayList<String>();
+    //final ArrayList<String> onlineWithSpecialCon = new ArrayList<String>();
 
     private boolean listAllPlayers(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
             @NotNull String[] args) {
@@ -68,11 +75,11 @@ public class CommandListPlayers implements IModularMSMFCommand {
          */
         if (args.length == 0) {
             if (sender.isOp() || PermissionManager.checkPermission(sender, "list_all")) {
-                sender.sendMessage("Online: " + onlineWithSpecialCon + onlineWithoutSpecialCon); // testing purposes
+                //sender.sendMessage("Online: " + getListFromEvent(uuid, player); // TODO testing purposes
                                                                                                  // only
                 return listAllPlayers(sender, command, label, args);
             } else {
-                sender.sendMessage("Online: " + onlineWithoutSpecialCon);
+                //sender.sendMessage("Online: " + onlineWithoutSpecialCon); //TODO
             }
             return true;
         }

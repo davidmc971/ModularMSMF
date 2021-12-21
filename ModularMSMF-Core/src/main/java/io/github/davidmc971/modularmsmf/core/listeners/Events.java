@@ -20,7 +20,6 @@ import org.bukkit.event.player.PlayerLoginEvent.Result;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
-import io.github.davidmc971.modularmsmf.core.commands.CommandListPlayers;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
 import io.papermc.paper.event.player.AsyncChatEvent;
 import io.github.davidmc971.modularmsmf.core.util.Utils;
@@ -36,6 +35,8 @@ public class Events implements Listener {
 
 	public ModularMSMFCore plugin;
 	private ArrayList<UUID> kickedPlayers = new ArrayList<UUID>();
+	public final HashMap<UUID,String> onlineWithoutSpecialCon = new HashMap<UUID, String>();
+	public final HashMap<UUID,String> onlineWithSpecialCon = new HashMap<UUID, String>();
 	public static HashMap<String, Location> lastLocation = new HashMap<>();
 	public static ArrayList<String> blacklistedExpressions = new ArrayList<String>();
 
@@ -46,10 +47,22 @@ public class Events implements Listener {
 		blacklistedExpressions.add("hacker");
 	}
 
+	public void registerJoinedPlayers(UUID uuid, Player player){
+		UUID key = player.getPlayer().getUniqueId();
+		String value = player.getName();
+		onlineWithoutSpecialCon.put(key, value);
+	}
+
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event) throws IOException {
 		Player player = event.getPlayer();
 		FileConfiguration cfg = plugin.getDataManager().getPlayerCfg(player.getUniqueId());
+
+		UUID key = event.getPlayer().getUniqueId();
+		String value = player.getName();
+
+		onlineWithoutSpecialCon.put(key, value);
+
 		event.joinMessage(Component.empty());
 		Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.WELCOME, "coremodule.events.join", "_var",
 				player.getName());
@@ -62,7 +75,14 @@ public class Events implements Listener {
 	}
 
 	@EventHandler
-	public void onQuit(PlayerQuitEvent event) throws IOException {
+	public void onQuit(PlayerQuitEvent event, Player player) throws IOException {
+
+		UUID key = event.getPlayer().getUniqueId();
+		String value = player.getName();
+
+		onlineWithoutSpecialCon.remove(key, value);
+		onlineWithSpecialCon.remove(key, value);
+
 		// check if kicked players are still to be processed
 		if (!kickedPlayers.isEmpty()) {
 			if (kickedPlayers.contains(event.getPlayer().getUniqueId())) {
