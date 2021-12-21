@@ -29,7 +29,7 @@ public class DeathListener implements Listener {
 	@EventHandler
 	public void onDeath(PlayerDeathEvent event) {
 		Player p = event.getEntity().getPlayer();
-		// FIXME: Events.lastLocation.put(p.getName(), p.getLocation());
+		Events.lastLocation.put(p.getName(), p.getLocation());
 		boolean temp = false;
 		for (PlayerKillConfig pkf : killedPlayers) {
 			if (pkf.getP().getName().equals(event.getEntity().getName())) {
