@@ -14,6 +14,7 @@ import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
  *
  */
 
+ // TODO: Dependency injection via annotations?
 public class CommandLoader {
 	ModularMSMFCore plugin;
 	
