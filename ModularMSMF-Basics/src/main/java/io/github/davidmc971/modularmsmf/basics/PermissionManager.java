@@ -53,10 +53,15 @@ public class PermissionManager {
 		//set permissions
 		put("set_use","modularmsmf.set.use");
 		put("set_use_life","modularmsmf.set.use.life");
+		put("set_use_life_others", "modularmsmf.set.use.life.others");
 		put("set_use_food","modularmsmf.set.use.food");
+		put("set_use_food_others", "modularmsmf.set.use.food.others");
 		put("set_use_saturation","modularmsmf.set.use.saturation");
+		put("set_use_saturation_others","modularmsmf.set.use.saturation.others");
 		put("set_use_exp","modularmsmf.set.use.exp");
+		put("set_use_exp_others","modularmsmf.set.use.exp.others");
 		put("set_use_level","modularmsmf.set.use.level");
+		put("set_use_level_others","modularmsmf.set.use.level.others");
 		//get permissions
 		put("get_use","modularmsmf.get.use");
 		put("get_use_life","modularmsmf.get.use.life");
