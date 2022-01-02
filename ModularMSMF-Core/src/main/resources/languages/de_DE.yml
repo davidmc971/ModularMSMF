@@ -1,3 +1,6 @@
+###
+# Übersetzung nicht vollständig
+###
 language:
   id: de_DE
   name: Deutsch
@@ -67,9 +70,10 @@ coremodule:
       all: 'Online: _players'
 #for basics-module de_DE file
 basicsmodule:
-  peaceful:
-    self: Du bist im Friedlichmodus!
-    other: _player ist im Friedlichmodus!
+  spectator:
+    self: Du bist im Beobachtungsmodus!
+    others: _player ist im Beobachtungsmodus!
+  peaceful: Die Welt ist im Friedlichmodus, also nicht noetig!
   creative:
     self: Du bist im Kreativmodus!
     other: _player ist im Kreativmodus!

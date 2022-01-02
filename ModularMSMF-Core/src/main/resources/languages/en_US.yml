@@ -1,3 +1,6 @@
+###
+# Translation not fully completed
+###
 language:
   id: en_US
   name: English
@@ -67,9 +70,10 @@ coremodule:
       all: 'Online: _players'
 #for basics-module en_US file
 basicsmodule:
-  peaceful:
-    self: You're currently in peaceful mode!
-    other: _player is currently in peaceful mode!
+  spectator:
+    self: You're currently in spectator mode!
+    others: _player is currently in spectator mode!
+  peaceful: This world is set as peaceful, so no need to use!
   creative:
     self: You're currently in creative mode!
     other: _player is currently in creative mode!
