@@ -40,7 +40,6 @@ public class CommandSet implements IModularMSMFCommand {
     private static DecimalFormat df = new DecimalFormat("0.00");
     private int i;
     private float f;
-    // private double d;
     private boolean value = false;
     private boolean emptyvalue = false;
 
@@ -58,20 +57,14 @@ public class CommandSet implements IModularMSMFCommand {
         }
         switch (args[0].toLowerCase()) {
             case "help":
-                // return setHelp(sender, command, label, args); // works
             case "life":
             case "health":
-                // return setLife(sender, command, label, args); // works
             case "food":
-                // return setFood(sender, command, label, args); // works
             case "saturation":
             case "sat":
-                // return setSaturation(sender, command, label, args); // works
             case "exp":
-                // return setExp(sender, command, label, args); // works
             case "level":
             case "lvl":
-                // return setLevel(sender, command, label, args); // works
                 return setArgs(sender, command, label, args);
             default:
                 Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
