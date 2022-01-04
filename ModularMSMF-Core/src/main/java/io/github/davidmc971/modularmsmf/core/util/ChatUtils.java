@@ -17,6 +17,11 @@ import net.md_5.bungee.api.ChatColor;
 
 public class ChatUtils {
 
+	static ChatColor bold = ChatColor.BOLD;
+	static ChatColor gold = ChatColor.GOLD;
+	static ChatColor reset = ChatColor.RESET;
+	static ChatColor dark_red = ChatColor.DARK_RED;
+
 	public enum ChatFormat {
 		SUCCESS, INFO, ERROR, MSG, BROADCAST, STANDARD, RAINBOW, NOPERM, WELCOME, QUIT, DEATH, MONEY, CONSOLE, KICKED,
 		HOME_LIST, HOME, BANNED, KICK, BAN, UNBAN, REPORT, SPAWN, FEED, HEAL, LANGUAGE, DEBUG, WARN, FLY_ON, FLY_OFF, ONLINE
@@ -25,8 +30,7 @@ public class ChatUtils {
 	public static String getFormattedPrefix(ChatFormat format) {
 		switch (format) {
 			case CONSOLE: // if console tries a command but fails
-				return (ChatColor.GOLD + "[" + ChatColor.DARK_RED + "Console" + ChatColor.GOLD + "]"
-						+ ChatColor.DARK_RED + " ");
+				return (/*bold +*/ gold + "[" + reset + dark_red + "Console" + gold + bold + "]" + reset + dark_red + " ");
 			case INFO: // if nothing special happens, just informational
 				return (ChatColor.GOLD + "[" + ChatColor.GRAY + "Info" + ChatColor.GOLD + "]" + ChatColor.GRAY + " ");
 			case DEBUG: // used in debug builds
