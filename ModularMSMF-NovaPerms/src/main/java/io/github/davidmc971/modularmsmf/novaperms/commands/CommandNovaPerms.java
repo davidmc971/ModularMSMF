@@ -6,6 +6,7 @@ import org.jetbrains.annotations.NotNull;
 
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
+import io.github.davidmc971.modularmsmf.core.util.ChatUtils;
 import io.github.davidmc971.modularmsmf.core.util.Utils;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
 import io.github.davidmc971.modularmsmf.novaperms.PermissionManager;
@@ -19,7 +20,7 @@ public class CommandNovaPerms implements IModularMSMFCommand {
             @NotNull String[] args) {
         if (!PermissionManager.checkPermission(sender, "novaperms_use")) {
             // TODO: allow a user to see their own info?
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "coremodule.player.nopermission");
+            ChatUtils.sendMsgNoPerm(sender);
             return true;
         }
         // switch for subcommands
