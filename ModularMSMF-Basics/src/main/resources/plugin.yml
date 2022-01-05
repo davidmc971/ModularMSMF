@@ -33,6 +33,9 @@ commands:
   heal:
     description: Heilt Spieler.
     usage: /<command> <target>
+  healall:
+    description: heal all players
+    usage: /<command>
   feed:
     description: Saettigt den Spieler.
     usage: /<command> <player>

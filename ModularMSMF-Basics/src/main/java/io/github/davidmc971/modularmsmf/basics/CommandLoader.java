@@ -22,7 +22,8 @@ public class CommandLoader {
 				new CommandFly(),
 				new CommandChannels(),
 				new CommandSet(),
-				new CommandGet()
+				new CommandGet(),
+				new CommandHealAll()
         }) {
             plugin.getCommand(cmd.Label()).setExecutor(cmd);
         }

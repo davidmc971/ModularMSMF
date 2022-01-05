@@ -18,9 +18,12 @@ public class PermissionManager {
 		//kicking permissions
 		put("kickplayer", "modularmsmf.kick.kickplayer");
 		//heal permissions
+		put("heal_use", "modularmsmf.heal");
 		put("healself", "modularmsmf.heal.healself");
 		put("healother", "modularmsmf.heal.healother");
+		put("healall_use", "modularmsmf.healall");
 		//feed permissions
+		put("feed_use", "modularmsmf.feed");
 		put("feedself", "modularmsmf.feed.feedself");
 		put("feedothers", "modularmsmf.feed.feedothers");
 		//home permissions
