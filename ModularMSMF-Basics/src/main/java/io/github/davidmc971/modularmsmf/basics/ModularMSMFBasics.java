@@ -6,7 +6,7 @@ import java.util.Map;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import io.github.davidmc971.modularmsmf.basics.listeners.DeathListener;
+import io.github.davidmc971.modularmsmf.basics.listeners.BasicEvents;
 import io.github.davidmc971.modularmsmf.core.configuration.AbstractConfigurationLoader;
 import io.github.davidmc971.modularmsmf.core.configuration.JSONConfigurationLoader;
 import io.github.davidmc971.modularmsmf.core.configuration.YamlConfigurationLoader;
@@ -22,17 +22,17 @@ public class ModularMSMFBasics extends JavaPlugin {
     }
 
     private PluginManager plgman;
-    private DeathListener deathListener;
+    private BasicEvents basicEvents;
 
     @Override
     public void onLoad() {
-        deathListener = new DeathListener();
+        basicEvents = new BasicEvents();
     }
 
     @Override
     public void onEnable() {
         this.plgman = getServer().getPluginManager();
-        plgman.registerEvents(deathListener, this);
+        plgman.registerEvents(basicEvents, this);
         CommandLoader.registerCommands(this);
     }
 
@@ -60,7 +60,7 @@ public class ModularMSMFBasics extends JavaPlugin {
 		return configLoaders;
 	}
 
-    public DeathListener getDeathListener() {
-        return deathListener;
+    public BasicEvents getBasicEvents() {
+        return basicEvents;
     }
 }

@@ -23,7 +23,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import io.github.davidmc971.modularmsmf.core.configuration.AbstractConfigurationLoader;
-import io.github.davidmc971.modularmsmf.core.listeners.Events;
+import io.github.davidmc971.modularmsmf.core.listeners.CoreEvents;
 
 /**
  * @author David Alexander Pfeiffer (davidmc971)
@@ -197,7 +197,7 @@ public class DataManager implements Listener {
 			Scanner s = new Scanner(file);
 
 			while (s.hasNextLine()) {
-				Events.blacklistedExpressions.add(s.nextLine());
+				CoreEvents.blacklistedExpressions.add(s.nextLine());
 			}
 			s.close();
 		} catch (FileNotFoundException e) {

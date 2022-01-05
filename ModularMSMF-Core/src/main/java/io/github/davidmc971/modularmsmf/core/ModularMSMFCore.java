@@ -20,7 +20,7 @@ import io.github.davidmc971.modularmsmf.core.configuration.AbstractConfiguration
 import io.github.davidmc971.modularmsmf.core.configuration.JSONConfigurationLoader;
 import io.github.davidmc971.modularmsmf.core.configuration.YamlConfigurationLoader;
 import io.github.davidmc971.modularmsmf.core.listeners.CommandPreprocessor;
-import io.github.davidmc971.modularmsmf.core.listeners.Events;
+import io.github.davidmc971.modularmsmf.core.listeners.CoreEvents;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
 
@@ -77,10 +77,10 @@ public class ModularMSMFCore extends JavaPlugin {
 		return debugTimestamp;
 	}
 
-	private Events mainEvents;
+	private CoreEvents coreEvents;
 
-	public Events getMainEvents() {
-		return mainEvents;
+	public CoreEvents getMainEvents() {
+		return coreEvents;
 	}
 
 	public String pluginver = this.getDescription().getVersion();
@@ -105,8 +105,8 @@ public class ModularMSMFCore extends JavaPlugin {
 		//motd.load();
 
 		getLogger().info("Loading events...");
-		mainEvents = new Events(this);
-		pluginManager.registerEvents(mainEvents, this);
+		coreEvents = new CoreEvents(this);
+		pluginManager.registerEvents(coreEvents, this);
 		//this.getServer().getPluginManager().registerEvents(ecoSys, this);
 		pluginManager.registerEvents(CommandPreprocessor.Instance(), this);
 		

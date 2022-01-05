@@ -10,15 +10,15 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import io.github.davidmc971.modularmsmf.basics.util.KillType;
 import io.github.davidmc971.modularmsmf.basics.util.PlayerKillConfig;
 import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
-import io.github.davidmc971.modularmsmf.core.listeners.Events;
+import io.github.davidmc971.modularmsmf.core.listeners.CoreEvents;
 import io.github.davidmc971.modularmsmf.core.util.Utils;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
 
-public class DeathListener implements Listener {
+public class BasicEvents implements Listener {
 	private ArrayList<PlayerKillConfig> killedPlayers = new ArrayList<PlayerKillConfig>();
 	private ModularMSMFCore plugin;
 
-	public DeathListener() {
+	public BasicEvents() {
 		this.plugin = ModularMSMFCore.Instance();
 	}
 
@@ -29,7 +29,7 @@ public class DeathListener implements Listener {
 	@EventHandler
 	public void onDeath(PlayerDeathEvent event) {
 		Player p = event.getEntity().getPlayer();
-		Events.lastLocation.put(p.getName(), p.getLocation());
+		CoreEvents.lastLocation.put(p.getName(), p.getLocation());
 		boolean temp = false;
 		for (PlayerKillConfig pkf : killedPlayers) {
 			if (pkf.getP().getName().equals(event.getEntity().getName())) {

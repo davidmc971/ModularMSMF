@@ -7,11 +7,11 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
 import io.github.davidmc971.modularmsmf.basics.PermissionManager;
+import io.github.davidmc971.modularmsmf.basics.listeners.BasicEvents;
 import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils;
 import io.github.davidmc971.modularmsmf.basics.ModularMSMFBasics;
-import io.github.davidmc971.modularmsmf.basics.listeners.DeathListener;
 import io.github.davidmc971.modularmsmf.basics.util.KillType;
 import io.github.davidmc971.modularmsmf.core.util.Utils;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
@@ -23,11 +23,11 @@ import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
 public class CommandKill implements IModularMSMFCommand {
 
 	private ModularMSMFCore plugin;
-	private DeathListener deathListener;
+	private BasicEvents basicEvents;
 
 	public CommandKill() {
 		plugin = ModularMSMFCore.Instance();
-		deathListener = ModularMSMFBasics.Instance().getDeathListener();
+		basicEvents = ModularMSMFBasics.Instance().getBasicEvents();
 	}
 
 	@Override
@@ -63,7 +63,7 @@ public class CommandKill implements IModularMSMFCommand {
 			return true;
 		}
 		Player player = ((Player) sender);
-		deathListener.registerKilledPlayer(player, KillType.SUICIDE);
+		basicEvents.registerKilledPlayer(player, KillType.SUICIDE);
 		Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.DEATH, "basicsmodule.events.suicide", "_var",
 				player.getName());
 		player.setHealth(0);
@@ -76,7 +76,7 @@ public class CommandKill implements IModularMSMFCommand {
 			return true;
 		}
 		for (Player player : Bukkit.getOnlinePlayers()) {
-			deathListener.registerKilledPlayer(player, KillType.HOMOCIDE);
+			basicEvents.registerKilledPlayer(player, KillType.HOMOCIDE);
 			player.setHealth(0);
 		}
 		Utils.broadcastWithConfiguredLanguageEach(plugin, ChatUtils.ChatFormat.DEATH, "basicsmodule.events.homocide");
@@ -87,7 +87,7 @@ public class CommandKill implements IModularMSMFCommand {
 		boolean temp = false;
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			if (args[0].toLowerCase().equals(player.getName().toLowerCase())) {
-				deathListener.registerKilledPlayer(player, KillType.KILL);
+				basicEvents.registerKilledPlayer(player, KillType.KILL);
 				Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.DEATH, "basicsmodule.events.killed",
 						"_var", player.getName());
 				player.setHealth(0);

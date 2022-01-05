@@ -31,7 +31,7 @@ import net.md_5.bungee.api.ChatColor;
  * @author Lightkeks, davidmc971
  */
 
-public class Events implements Listener {
+public class CoreEvents implements Listener {
 
 	public ModularMSMFCore plugin;
 	private ArrayList<UUID> kickedPlayers = new ArrayList<UUID>();
@@ -43,7 +43,7 @@ public class Events implements Listener {
 	public final static HashMap<String, Location> lastLocation = new HashMap<>();
 	public final static ArrayList<String> blacklistedExpressions = new ArrayList<String>();
 
-	public Events(ModularMSMFCore plugin) {
+	public CoreEvents(ModularMSMFCore plugin) {
 		this.plugin = plugin;
 		// currently an ArrayList containing words to be filtered
 		// to be loaded from a configuration file later on

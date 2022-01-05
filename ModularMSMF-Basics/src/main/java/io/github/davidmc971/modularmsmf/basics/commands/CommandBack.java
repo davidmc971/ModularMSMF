@@ -12,7 +12,7 @@ import org.bukkit.entity.Player;
 import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.basics.PermissionManager;
-import io.github.davidmc971.modularmsmf.core.listeners.Events;
+import io.github.davidmc971.modularmsmf.core.listeners.CoreEvents;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils;
 import io.github.davidmc971.modularmsmf.core.util.Utils;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
@@ -80,20 +80,20 @@ public class CommandBack implements IModularMSMFCommand {
             for (Player p : Bukkit.getOnlinePlayers()) {
                 if (p.getUniqueId().toString().equalsIgnoreCase(target.toString())) {
                     if (sender == p) {
-                        if (Events.lastLocation.containsKey(sender.getName())) {
+                        if (CoreEvents.lastLocation.containsKey(sender.getName())) {
                             Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
                                     "basicsmodule.commands.back.success");
-                            ((Entity) sender).teleport(Events.lastLocation.get(sender.getName()));
+                            ((Entity) sender).teleport(CoreEvents.lastLocation.get(sender.getName()));
                             return true;
                         } else {
                             Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
                                     "basicsmodule.commands.back.error");
                         }
                     } else {
-                        if (Events.lastLocation.containsKey(p.getName())) {
+                        if (CoreEvents.lastLocation.containsKey(p.getName())) {
                             Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
                                     "basicsmodule.commands.back.success");
-                            p.teleport(Events.lastLocation.get(p.getName()));
+                            p.teleport(CoreEvents.lastLocation.get(p.getName()));
                             return true;
                         } else {
                             Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
@@ -113,10 +113,10 @@ public class CommandBack implements IModularMSMFCommand {
             ChatUtils.sendMsgNoPerm(sender);
             return true;
         }
-        if (Events.lastLocation.containsKey(sender.getName())) {
+        if (CoreEvents.lastLocation.containsKey(sender.getName())) {
             Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
                     "basicsmodule.commands.back.success");
-            ((Entity) sender).teleport(Events.lastLocation.get(sender.getName()));
+            ((Entity) sender).teleport(CoreEvents.lastLocation.get(sender.getName()));
             return true;
         } else {
             Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
