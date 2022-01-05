@@ -6,14 +6,13 @@ import java.util.UUID;
 
 import org.jetbrains.annotations.NotNull;
 import org.bukkit.Bukkit;
-import org.bukkit.Difficulty;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.basics.PermissionManager;
+import io.github.davidmc971.modularmsmf.basics.util.CommandUtil;
 import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils;
 import io.github.davidmc971.modularmsmf.core.util.Utils;
@@ -182,7 +181,7 @@ public class CommandSet implements IModularMSMFCommand {
             return true;
         }
         if (args.length == 2) {
-            if (!isSenderEligible(sender)) {
+            if (!CommandUtil.isSenderEligible(sender)) {
                 return false;
             }
             ((Player) sender).setHealth(i);
@@ -198,7 +197,7 @@ public class CommandSet implements IModularMSMFCommand {
                 ChatUtils.sendMsgNoPerm(sender);
                 return true;
             }
-            if (!isPlayerEligible(sender, player)) {
+            if (!CommandUtil.isPlayerEligible(sender, player)) {
                 return false;
             }
             if (player == sender) {
@@ -238,7 +237,7 @@ public class CommandSet implements IModularMSMFCommand {
             return true;
         }
         if (args.length == 2) {
-            if (!isSenderEligible(sender)) {
+            if (!CommandUtil.isSenderEligible(sender)) {
                 return false;
             }
             ((Player) sender).setFoodLevel(i);
@@ -254,7 +253,7 @@ public class CommandSet implements IModularMSMFCommand {
                 ChatUtils.sendMsgNoPerm(sender);
                 return true;
             }
-            if (!isPlayerEligible(sender, player)) {
+            if (!CommandUtil.isPlayerEligible(sender, player)) {
                 return false;
             }
             if (player == sender) {
@@ -294,7 +293,7 @@ public class CommandSet implements IModularMSMFCommand {
             return true;
         }
         if (args.length == 2) {
-            if (!isSenderEligible(sender)) {
+            if (!CommandUtil.isSenderEligible(sender)) {
                 return false;
             }
             ((Player) sender).setSaturation(i);
@@ -310,7 +309,7 @@ public class CommandSet implements IModularMSMFCommand {
                 ChatUtils.sendMsgNoPerm(sender);
                 return true;
             }
-            if (!isPlayerEligible(sender, player)) {
+            if (!CommandUtil.isPlayerEligible(sender, player)) {
                 return false;
             }
             if (player == sender) {
@@ -353,7 +352,7 @@ public class CommandSet implements IModularMSMFCommand {
             return true;
         }
         if (args.length == 2) {
-            if (!isSenderEligible(sender)) {
+            if (!CommandUtil.isSenderEligible(sender)) {
                 return false;
             }
             ((Player) sender).setExp(f);
@@ -370,7 +369,7 @@ public class CommandSet implements IModularMSMFCommand {
                 ChatUtils.sendMsgNoPerm(sender);
                 return true;
             }
-            if (!isPlayerEligible(sender, player)) {
+            if (!CommandUtil.isPlayerEligible(sender, player)) {
                 return false;
             }
             if (player == sender) {
@@ -412,7 +411,7 @@ public class CommandSet implements IModularMSMFCommand {
             return true;
         }
         if (args.length == 2) {
-            if (!isSenderEligible(sender)) {
+            if (!CommandUtil.isSenderEligible(sender)) {
                 return false;
             }
             ((Player) sender).setLevel(i);
@@ -428,7 +427,7 @@ public class CommandSet implements IModularMSMFCommand {
                 ChatUtils.sendMsgNoPerm(sender);
                 return true;
             }
-            if (!isPlayerEligible(sender, player)) {
+            if (!CommandUtil.isPlayerEligible(sender, player)) {
                 return false;
             }
             if (player == sender) {
@@ -443,59 +442,6 @@ public class CommandSet implements IModularMSMFCommand {
             Utils.sendMessageWithConfiguredLanguage(plugin, player, ChatFormat.SUCCESS,
                     "basicsmodule.commands.set.level.done", "_args", args[1]);
             return true;
-        }
-        return true;
-    }
-
-    private boolean isPlayerEligible(@NotNull CommandSender sender, @NotNull Player player) {
-        if (player == sender)
-            return isSenderEligible(sender);
-        for (Player plron : Bukkit.getOnlinePlayers()) {
-            if (plron == player) {
-                switch (player.getGameMode()) {
-                    case CREATIVE:
-                        Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
-                                "basicsmodule.creative.others",
-                                "_player", player.getName());
-                        return false;
-                    case SPECTATOR:
-                        Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
-                                "basicsmodule.spectator.others",
-                                "_player", player.getName());
-                        return false;
-                    default:
-                        break;
-                }
-                return true;
-            }
-        }
-        Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
-                "coremodule.player.notonline");
-        return false;
-    }
-
-    private boolean isSenderEligible(@NotNull CommandSender sender) {
-        if (sender instanceof Player) {
-            switch (((Player) sender).getGameMode()) {
-                case CREATIVE:
-                    Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
-                            "basicsmodule.creative.self");
-                    return false;
-                case SPECTATOR:
-                    Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
-                            "basicsmodule.spectator.self");
-                    return false;
-                default:
-                    break;
-            }
-            if (((Player) sender).getWorld().getDifficulty() == Difficulty.PEACEFUL) {
-                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basicsmodule.peaceful");
-                return false;
-            }
-        }
-        if (sender instanceof ConsoleCommandSender) {
-            ChatUtils.sendMsgNoPerm(sender);
-            return false;
         }
         return true;
     }
