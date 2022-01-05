@@ -1,19 +1,13 @@
 package io.github.davidmc971.modularmsmf.basics.commands;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.basics.PermissionManager;
-import io.github.davidmc971.modularmsmf.basics.util.CommandUtil;
 import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils;
 import io.github.davidmc971.modularmsmf.core.util.Utils;
@@ -37,6 +31,7 @@ public class CommandHealAll implements IModularMSMFCommand {
         switch (args.length) {
             case 0:
                 handlePlayers(sender, command, label, args);
+                break;
             default:
                 Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
                         "basicsmodule.commands.arguments.toomany");
@@ -51,7 +46,6 @@ public class CommandHealAll implements IModularMSMFCommand {
             Utils.sendMessageWithConfiguredLanguage(plugin, p, ChatFormat.SUCCESS, "basicsmodule.commands.heal.others.gothealed", "_sender", sender.getName());
             p.setHealth(20);
         }
-        //Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS, "basicsmodule.commands.heal.all");
     }
 
     @Override
