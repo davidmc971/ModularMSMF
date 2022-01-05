@@ -123,11 +123,10 @@ basicsmodule:
       console: Console might feed someone else than itself.
     heal:
       self: You have healed yourself!
+      all: You have healed everyone!
       others:
         healother: Healed _player!
         gothealed: You have been healed by _sender!
-        all: You have healed everyone!
-      console: Console might heal someone else than itself.
     spawn:
       notset: No spawn set.
       set: Spawn set!

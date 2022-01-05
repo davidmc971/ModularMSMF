@@ -123,11 +123,10 @@ basicsmodule:
       console: Die Konsole darf nur andere füttern.
     heal:
       self: Du hast dich selbst geheilt!
+      all: Du hast alle auf dem Server geheilt!
       others:
         healother: Du hast _player geheilt!
         gothealed: Du wurdest von _sender geheilt!
-        all: Du hast alle auf dem Server geheilt!
-      console: Die Konsole darf nur andere heilen.
     spawn:
       notset: Es wurde kein Spawn gesetzt.
       set: Der Spawn wurde gesetzt!
