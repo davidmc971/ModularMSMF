@@ -32,6 +32,9 @@ public class CommandHealAll implements IModularMSMFCommand {
             case 0:
                 handlePlayers(sender, command, label, args);
                 break;
+            case 1:
+                handleArgs(sender, command, label, args);
+                break;
             default:
                 Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
                         "basicsmodule.commands.arguments.toomany");
@@ -40,10 +43,32 @@ public class CommandHealAll implements IModularMSMFCommand {
         return true;
     }
 
+    private void handleArgs(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
+            @NotNull String[] args) {
+        if (args[0].equalsIgnoreCase("toggle")) {
+            setToggle(sender, command, label, args);
+        } else {
+            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basicsmodule.arguments.invalid");
+        }
+    }
+
+    private boolean setToggle(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
+            @NotNull String[] args) {
+        /**
+         * toggleable ingame and writes into config
+         */
+        if (!PermissionManager.checkPermission(sender, "toggle_healall")) {
+            ChatUtils.sendMsgNoPerm(sender);
+            return true;
+        }
+        return true;
+    }
+
     private void handlePlayers(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
             @NotNull String[] args) {
         for (Player p : Bukkit.getOnlinePlayers()) {
-            Utils.sendMessageWithConfiguredLanguage(plugin, p, ChatFormat.SUCCESS, "basicsmodule.commands.heal.others.gothealed", "_sender", sender.getName());
+            Utils.sendMessageWithConfiguredLanguage(plugin, p, ChatFormat.SUCCESS,
+                    "basicsmodule.commands.heal.others.gothealed", "_sender", sender.getName());
             p.setHealth(20);
         }
     }

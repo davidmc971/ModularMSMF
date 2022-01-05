@@ -22,21 +22,22 @@ public class CommandClearChat implements IModularMSMFCommand {
         plugin = ModularMSMFCore.Instance();
     }
 
+    int count = 0;
+
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
         if (!PermissionManager.checkPermission(sender, "clear_command")) {
             ChatUtils.sendMsgNoPerm(sender);
             return true;
-        } else {
-            switch (args.length) {
-                default:
-                    Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
-                            "coremodule.commands.arguments.toomany");
-                    break;
-                case 0:
-                    return clearSelf(sender, cmd, commandLabel, args);
-                case 1:
-                    return clearOthers(sender, cmd, commandLabel, args);
-            }
+        }
+        switch (args.length) {
+            default:
+                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+                        "coremodule.commands.arguments.toomany");
+                break;
+            case 0:
+                return clearSelf(sender, cmd, commandLabel, args);
+            case 1:
+                return clearOthers(sender, cmd, commandLabel, args);
         }
         return true;
     }
@@ -47,7 +48,6 @@ public class CommandClearChat implements IModularMSMFCommand {
             ChatUtils.sendMsgNoPerm(sender);
             return true;
         } else {
-            int count = 0;
             target = Utils.getPlayerUUIDByName(args[0]);
             if (target == null) {
                 Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "coremodule.player.notfound");
@@ -57,12 +57,13 @@ public class CommandClearChat implements IModularMSMFCommand {
                     if (p.getUniqueId().toString().equalsIgnoreCase(target.toString())) {
                         Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
                                 "coremodule.commands.cclear.others", "_target", p.getName());
-                        while (count <= 99) {
+                        while (count != 99) {
                             count++;
                             p.sendMessage("");
                         }
                         Utils.sendMessageWithConfiguredLanguage(plugin, p, ChatFormat.SUCCESS,
                                 "coremodule.commands.cclear.done");
+                        count = 0;
                         return true;
                     }
                 }
@@ -76,12 +77,12 @@ public class CommandClearChat implements IModularMSMFCommand {
             ChatUtils.sendMsgNoPerm(sender);
             return true;
         } else {
-            int count = 0;
             while (count != 99) {
                 count++;
                 Bukkit.getOnlinePlayers().forEach((plr) -> plr.sendMessage(""));
             }
             Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.SUCCESS, "coremodule.commands.cclear.done");
+            count = 0;
         }
         return true;
     }

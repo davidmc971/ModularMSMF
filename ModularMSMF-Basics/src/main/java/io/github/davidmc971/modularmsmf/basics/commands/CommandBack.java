@@ -30,46 +30,23 @@ public class CommandBack implements IModularMSMFCommand {
      *         any user back to the last location
      */
 
-/*   @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        switch (args.length) {
-            case 0:
-                return backCmd(sender, command, label, args);
-            case 1:
-                return backCmdSub(sender, command, label, args);
-            default:
-                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
-                        "basicsmodule.commands.arguments.toomany");
-                break;
-        }
-        return true;
-    }
-*/
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length == 0) {
             return backCmd(sender, command, label, args);
         }
-        switch (args[0].toLowerCase()) {
-            case "help":
-            case "user":
-            case "admin":
-                return backCmdSub(sender, command, label, args);
-            default:
-                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
-                        "basicsmodule.commands.arguments.toomany");
-                break;
+        if (args.length == 1) {
+            return backCmdSub(sender, command, label, args);
+        } else {
+            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basicsmodule.commands.arguments.toomany");
         }
         return true;
     }
 
     private boolean backCmdSub(CommandSender sender, Command command, String label, String[] args) {
-        if (!PermissionManager.checkPermission(sender, "back_others") || !PermissionManager.checkPermission(sender, "back_admin")) {
+        if (!PermissionManager.checkPermission(sender, "back_others")) {
             ChatUtils.sendMsgNoPerm(sender);
             return true;
-        }
-        if(args[0].equalsIgnoreCase("help")){
-            return backHelp(sender, command, label, args);
         }
         UUID target = null;
         target = Utils.getPlayerUUIDByName(args[0]);
@@ -122,11 +99,6 @@ public class CommandBack implements IModularMSMFCommand {
             Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
                     "basicsmodule.commands.back.error");
         }
-        return true;
-    }
-
-    private boolean backHelp(CommandSender sender, Command command, String label, String[] args) {
-        sender.sendMessage("enter help here"); // TODO[epic=code needed,seq=31] help programming
         return true;
     }
 
