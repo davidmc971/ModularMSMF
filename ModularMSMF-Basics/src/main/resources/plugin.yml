@@ -54,6 +54,12 @@ commands:
   kill:
     description: Killt einen Spieler.
     usage: /<command> <args>
+  killall:
+    description: Killt alle
+    usage: /<command>
+  killme:
+    description: Killt sich selbst
+    usage: /<command>
   mute:
     description: Mutet einen Spieler.
     usage: /<command> <player>

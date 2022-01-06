@@ -13,6 +13,8 @@ public class CommandLoader {
 				new CommandHome(),
 				new CommandKick(),
 				new CommandKill(),
+				new CommandKillAll(),
+				new CommandKillMe(),
 				new CommandMotd(),
 				new CommandMute(),
 				new CommandSetSpawn(),
