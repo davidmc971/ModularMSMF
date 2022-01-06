@@ -1,6 +1,7 @@
 package io.github.davidmc971.modularmsmf.basics.commands;
 
 import org.bukkit.Bukkit;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -12,6 +13,12 @@ import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils;
 import io.github.davidmc971.modularmsmf.core.util.Utils;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
+
+/**
+ * @author Lightkeks
+ * 
+ *         FIXME health to fill for higher scale than 20
+ */
 
 public class CommandHealAll implements IModularMSMFCommand {
 
@@ -69,7 +76,8 @@ public class CommandHealAll implements IModularMSMFCommand {
         for (Player p : Bukkit.getOnlinePlayers()) {
             Utils.sendMessageWithConfiguredLanguage(plugin, p, ChatFormat.SUCCESS,
                     "basicsmodule.commands.heal.others.gothealed", "_sender", sender.getName());
-            p.setHealth(20);
+            double maxHealth = p.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue();
+            p.setHealth(maxHealth);
         }
     }
 

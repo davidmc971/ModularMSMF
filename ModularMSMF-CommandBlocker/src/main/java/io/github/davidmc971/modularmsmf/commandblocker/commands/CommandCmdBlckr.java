@@ -53,7 +53,6 @@ public class CommandCmdBlckr implements IModularMSMFCommand {
             }
         } else {
             Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "coremodule.player.nopermission");
-            sender.sendMessage("no perm command");
         }
         return true;
     }

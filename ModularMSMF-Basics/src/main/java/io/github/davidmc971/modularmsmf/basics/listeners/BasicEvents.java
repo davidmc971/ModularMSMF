@@ -13,6 +13,7 @@ import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
 import io.github.davidmc971.modularmsmf.core.listeners.CoreEvents;
 import io.github.davidmc971.modularmsmf.core.util.Utils;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
+import net.kyori.adventure.text.Component;
 
 public class BasicEvents implements Listener {
 	private ArrayList<PlayerKillConfig> killedPlayers = new ArrayList<PlayerKillConfig>();
@@ -35,13 +36,13 @@ public class BasicEvents implements Listener {
 			if (pkf.getP().getName().equals(event.getEntity().getName())) {
 				switch (pkf.getKt()) {
 					case KILL:
-						event.deathMessage().asComponent();
+						event.deathMessage(Component.empty());
 						break;
 					case SUICIDE:
-						event.deathMessage().asComponent();
+						event.deathMessage(Component.empty());
 						break;
 					case HOMOCIDE:
-						event.deathMessage().asComponent();
+						event.deathMessage(Component.empty());
 						break;
 				}
 				killedPlayers.remove(pkf);
@@ -50,7 +51,7 @@ public class BasicEvents implements Listener {
 			}
 		}
 		if (!temp) {
-			Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.DEATH, "coremodule.event.just_died", "_var", p.getName());
+			Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.DEATH, "coremodule.events.just_died", "_var", p.getName());
 		}
 	}
 }

@@ -23,12 +23,12 @@ public class CommandUtil {
                 switch (player.getGameMode()) {
                     case CREATIVE:
                         Utils.sendMessageWithConfiguredLanguage(ModularMSMFCore.Instance(), sender, ChatFormat.ERROR,
-                                "basicsmodule.creative.others",
+                                "basicsmodule.creative.other",
                                 "_player", player.getName());
                         return false;
                     case SPECTATOR:
                         Utils.sendMessageWithConfiguredLanguage(ModularMSMFCore.Instance(), sender, ChatFormat.ERROR,
-                                "basicsmodule.spectator.others",
+                                "basicsmodule.spectator.other",
                                 "_player", player.getName());
                         return false;
                     default:

@@ -1,7 +1,7 @@
 package io.github.davidmc971.modularmsmf.core.commands;
 
 import java.util.ArrayList;
-import java.util.UUID;
+import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -30,86 +30,40 @@ public class CommandListPlayers implements IModularMSMFCommand {
         plugin = ModularMSMFCore.Instance();
     }
 
-    private void getListFromEvent(UUID uuid, Player player){
-        plugin.getMainEvents().registerJoinedPlayers(uuid, player);
-        //FIXME: Please fix
-    }
+    private static List<String> playerlist = new ArrayList<String>();
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
             @NotNull String[] args) {
-        /**
-         * This command is written to show up players if they're online or not.
-         * It can be customized to show up even groups like moderators or admins or
-         * whatever group has been made via NovaPerms.
-         * Only working if sender has permission
-         */
         for (Player player : Bukkit.getOnlinePlayers()) {
-            //onlineWithoutSpecialCon.clear(); //TODO
-            //onlineWithoutSpecialCon.add(player.getName()); //TODO
+            playerlist.add(player.getName());
         }
         if (!PermissionManager.checkPermission(sender, "list_use")) {
             ChatUtils.sendMsgNoPerm(sender);
             return true;
         }
-        if (args.length == 0) {
-            return listPlayers(sender, command, label, args);
-        }
-        return true;
-    }
-
-    //final ArrayList<String> onlineWithoutSpecialCon = new ArrayList<String>();
-    //final ArrayList<String> onlineWithSpecialCon = new ArrayList<String>();
-
-    private boolean listAllPlayers(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
-            @NotNull String[] args) {
-        return true;
-    }
-
-    private boolean listPlayers(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
-            @NotNull String[] args) {
-        /**
-         * Here you will see all players without any special conditions if no arguments
-         * are given
-         */
-        if (args.length == 0) {
-            if (sender.isOp() || PermissionManager.checkPermission(sender, "list_all")) {
-                //sender.sendMessage("Online: " + getListFromEvent(uuid, player); // TODO testing purposes
-                                                                                                 // only
-                return listAllPlayers(sender, command, label, args);
-            } else {
-                //sender.sendMessage("Online: " + onlineWithoutSpecialCon); //TODO
-                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ONLINE, "languageKey", "_players"/*, */);
-            }
-            return true;
-        }
-        /**
-         * Here it will ask for the arguments to have more functions to each argument
-         */
-        switch (args[0].toLowerCase()) {
-            default:
-                /**
-                 * Will return an invalid argument if nothing matches any cases down below
-                 */
-                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
-                        "coremodule.commands.arguments.invalid");
+        switch (args.length) {
+            case 0:
+                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ONLINE, "languageKey", "_players",
+                        playerlist.toString());
                 break;
-            case "help":
-            case "group":
-            case "all":
-                /**
-                 * here you can show up like other arguments or groups to list in chat
-                 */
-                return useAsPlayer(sender, command, label, args);
-            case "settings":
-                /**
-                 * only useful in combination with other modules which work together
-                 */
-                if (!PermissionManager.checkPermission(sender, "list_admin_settings") || !sender.isOp()) {
-                    ChatUtils.sendMsgNoPerm(sender);
-                    return true;
-                } else {
-                    return useAsAdmin(sender, command, label, args);
+            case 1:
+                switch (args[0].toLowerCase()) {
+                    default:
+                        Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+                                "coremodule.commands.arguments.invalid");
+                        break;
+                    case "help":
+                    case "group":
+                    case "all":
+                        return useAsPlayer(sender, command, label, args);
+                    case "settings":
+                        if (!PermissionManager.checkPermission(sender, "list_admin_settings") || !sender.isOp()) {
+                            ChatUtils.sendMsgNoPerm(sender);
+                            return true;
+                        } else {
+                            return useAsAdmin(sender, command, label, args);
+                        }
                 }
         }
         return true;
