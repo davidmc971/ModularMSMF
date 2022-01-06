@@ -17,7 +17,7 @@ import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
 
 /**
  * @author Lightkeks
- *         Feed players with /feed
+ *         Feed players
  */
 
 public class CommandFeed implements IModularMSMFCommand {
@@ -57,7 +57,7 @@ public class CommandFeed implements IModularMSMFCommand {
 			ChatUtils.sendMsgNoPerm(sender);
 			return true;
 		}
-		if (!CommandUtil.isSenderEligible(sender)) {
+		if (!CommandUtil.isSenderEligible(sender, command)) {
 			return false;
 		}
 		Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.FEED, "basicsmodule.commands.feed.feeded");
@@ -73,7 +73,7 @@ public class CommandFeed implements IModularMSMFCommand {
 			ChatUtils.sendMsgNoPerm(sender);
 			return true;
 		}
-		if (!CommandUtil.isPlayerEligible(sender, player)) {
+		if (!CommandUtil.isPlayerEligible(sender, player, command)) {
 			return false;
 		}
 		if (sender == player) {

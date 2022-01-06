@@ -2,6 +2,7 @@ package io.github.davidmc971.modularmsmf.basics.util;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Difficulty;
+import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
@@ -13,9 +14,9 @@ import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
 
 public class CommandUtil {
 
-    public static boolean isPlayerEligible(CommandSender sender, Player player) {
+    public static boolean isPlayerEligible(CommandSender sender, Player player, Command command) {
         if (player == sender) {
-            return isSenderEligible(sender);
+            return isSenderEligible(sender, command);
         }
         for (Player plron : Bukkit.getOnlinePlayers()) {
             if (plron == player) {
@@ -33,6 +34,17 @@ public class CommandUtil {
                     default:
                         break;
                 }
+                switch (command.getLabel().toLowerCase()) {
+                    case "fly":
+                        break;
+                    default:
+                        if (((Player) sender).getWorld().getDifficulty() == Difficulty.PEACEFUL) {
+                            Utils.sendMessageWithConfiguredLanguage(ModularMSMFCore.Instance(), sender,
+                                    ChatFormat.ERROR,
+                                    "basicsmodule.peaceful");
+                            return false;
+                        }
+                }
                 return true;
             }
         }
@@ -41,7 +53,7 @@ public class CommandUtil {
         return false;
     }
 
-    public static boolean isSenderEligible(CommandSender sender) {
+    public static boolean isSenderEligible(CommandSender sender, Command command) {
         if (sender instanceof Player) {
             switch (((Player) sender).getGameMode()) {
                 case CREATIVE:
@@ -55,10 +67,15 @@ public class CommandUtil {
                 default:
                     break;
             }
-            if (((Player) sender).getWorld().getDifficulty() == Difficulty.PEACEFUL) {
-                Utils.sendMessageWithConfiguredLanguage(ModularMSMFCore.Instance(), sender, ChatFormat.ERROR,
-                        "basicsmodule.peaceful");
-                return false;
+            switch (command.getLabel().toLowerCase()) {
+                case "fly":
+                    break;
+                default:
+                    if (((Player) sender).getWorld().getDifficulty() == Difficulty.PEACEFUL) {
+                        Utils.sendMessageWithConfiguredLanguage(ModularMSMFCore.Instance(), sender, ChatFormat.ERROR,
+                                "basicsmodule.peaceful");
+                        return false;
+                    }
             }
         }
         if (sender instanceof ConsoleCommandSender) {
