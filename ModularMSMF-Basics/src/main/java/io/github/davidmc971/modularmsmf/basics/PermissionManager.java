@@ -11,6 +11,8 @@ public class PermissionManager {
 		*/
 		private static final long serialVersionUID = 2685763426239L;
         {
+		//all toggleable permissions
+		put("toggle_commands", "modularmsmf.toggle.commands");
 		//banning permissions
 		put("banplayer", "modularmsmf.ban.banplayer");
 		put("banip", "modularmsmf.ban.banip");
@@ -82,6 +84,10 @@ public class PermissionManager {
 		put("fly_use", "modularmsmf.fly"); //to use the command
 		put("fly_self", "modularmsmf.fly.self"); //for self activating fly
 		put("fly_others", "modularmsmf.fly.others"); //for others like /fly <name>
+		//clearinv permissions
+		put("clearinv_use","modularmsmf.clearinventory.use");
+		put("clearinv_self", "modularmsmf.clearinventory.self");
+		put("clearinv_others", "modularmsmf.clearinventory.others");
         }
 
     };

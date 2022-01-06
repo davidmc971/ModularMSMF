@@ -4,9 +4,9 @@ import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.basics.commands.*;
 
 public class CommandLoader {
-    public static void registerCommands(ModularMSMFBasics plugin) {
-        for (IModularMSMFCommand cmd : new IModularMSMFCommand[] {
-                new CommandBan(),
+	public static void registerCommands(ModularMSMFBasics plugin) {
+		for (IModularMSMFCommand cmd : new IModularMSMFCommand[] {
+				new CommandBan(),
 				new CommandBack(),
 				new CommandFeed(),
 				new CommandHeal(),
@@ -23,9 +23,10 @@ public class CommandLoader {
 				new CommandChannels(),
 				new CommandSet(),
 				new CommandGet(),
-				new CommandHealAll()
-        }) {
-            plugin.getCommand(cmd.Label()).setExecutor(cmd);
-        }
-    }
+				new CommandHealAll(),
+				new CommandClearInventory()
+		}) {
+			plugin.getCommand(cmd.Label()).setExecutor(cmd);
+		}
+	}
 }

@@ -44,7 +44,7 @@ commands:
     usage: /<command> <player>
   unban:
     description: Entbannt einen Spieler.
-    usage: /<command> <player> <args>
+    usage: /<command> <player>
   ban-ip:
     description: Bans a player by IP.
     usage: /<command> <args>
@@ -78,3 +78,7 @@ commands:
   fly:
     description: Let the player fly
     usage: /<command> <args>
+  clearinventory:
+    description: Clear's inventory of an player
+    usage: /<command> <name>
+    aliases: [ci, clearinv]

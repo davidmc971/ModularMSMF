@@ -24,7 +24,7 @@ coremodule:
     quit: _var has left!
     killed: _var has been killed.
     suicide: _var begone suicide.
-    homocide: All players were killed by a brutal homocide!
+    homocide: All players were killed in a brutal homocide!
     banned: Ban hammer has spoken!
     just_died: _var just died.
   commands:
@@ -67,7 +67,7 @@ coremodule:
       done: Cleared chat!
       others: _target's chat has been cleared!
     list:
-      all: 'Online: _players'
+      all: "Online: _players"
 #for basics-module en_US file
 basicsmodule:
   spectator:
@@ -80,9 +80,9 @@ basicsmodule:
   events:
     join: _var just left!
     quit: _var has joined!
-    killed: _var's has been killed.
+    killed: _var has been killed.
     suicide: _var has begone suicide.
-    homocide: All players were killed by a brutal homocide!
+    homocide: All players were killed in a brutal homocide!
     banned: You got banned!
     just_died: _var just died.
   commands:
@@ -227,6 +227,13 @@ basicsmodule:
       others:
         set_true: _player is now able to fly.
         set_false: _player is not able to fly anymore.
+    clearinv:
+      isEmpty:
+        self: Your inventory is empty.
+        others: _player's inventory is empty.
+      gotEmptied:
+        self: Your inventory got cleared!
+        others: _player's inventory got cleared!
 #for economy-module en_US file
 economy-module:
   commands:
