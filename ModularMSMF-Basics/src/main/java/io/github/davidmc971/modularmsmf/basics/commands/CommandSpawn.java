@@ -31,7 +31,6 @@ public class CommandSpawn implements IModularMSMFCommand {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-
             switch (args.length) {
             case 0:
                 if (sender instanceof ConsoleCommandSender) {
@@ -41,6 +40,7 @@ public class CommandSpawn implements IModularMSMFCommand {
                     return spawnSub(sender, command, label, args);
                 }
             case 1:
+            //method: handleSpawn(sender, command, label, args); TODO
                 return spawnOthersSub(sender, command, label, args);
             default:
                 Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basicsmodule.commands.arguments.toomany");

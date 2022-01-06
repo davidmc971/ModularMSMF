@@ -40,7 +40,7 @@ public class CommandKillMe implements IModularMSMFCommand {
             ((Player) sender).setHealth(0);
             return true;
         }
-        if(args.length < 1){
+        if(args.length <= 1){
             Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basicsmodule.arguments.toomany");
             return true;
         }

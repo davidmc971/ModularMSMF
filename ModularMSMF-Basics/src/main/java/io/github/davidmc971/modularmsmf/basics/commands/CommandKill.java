@@ -55,7 +55,7 @@ public class CommandKill implements IModularMSMFCommand {
 			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "coremodule.player.notfound");
 			return true;
 		}
-		if (args.length < 2) {
+		if (args.length <= 2) {
 			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basicsmodule.arguments.toomany");
 			return true;
 		}

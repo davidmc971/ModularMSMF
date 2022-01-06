@@ -42,7 +42,7 @@ public class CommandKillAll implements IModularMSMFCommand {
                     "basicsmodule.events.homocide");
             return true;
         }
-        if (args.length < 1) {
+        if (args.length <= 1) {
             Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basicsmodule.arguments.toomany");
             return true;
         }

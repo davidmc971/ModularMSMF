@@ -30,7 +30,7 @@ public class ChatUtils {
 	public static String getFormattedPrefix(ChatFormat format) {
 		switch (format) {
 			case CONSOLE: // if console tries a command but fails
-				return (/*bold +*/ gold + "[" + reset + dark_red + "Console" + gold + bold + "]" + reset + dark_red + " ");
+				return (gold + "[" + reset + dark_red + "Console" + gold + "]" + reset + dark_red + " ");
 			case INFO: // if nothing special happens, just informational
 				return (ChatColor.GOLD + "[" + ChatColor.GRAY + "Info" + ChatColor.GOLD + "]" + ChatColor.GRAY + " ");
 			case DEBUG: // used in debug builds
