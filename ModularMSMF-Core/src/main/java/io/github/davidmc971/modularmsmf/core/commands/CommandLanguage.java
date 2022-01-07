@@ -6,6 +6,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
+import io.github.davidmc971.modularmsmf.core.CommandRegistry;
 import io.github.davidmc971.modularmsmf.core.LanguageManager;
 import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
@@ -19,6 +20,7 @@ import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
  *
  */
 
+ @CommandRegistry
 public class CommandLanguage implements IModularMSMFCommand {
 
 	private ModularMSMFCore plugin;
