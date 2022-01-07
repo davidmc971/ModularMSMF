@@ -12,5 +12,6 @@ shadowJar {
     dependencies {
         include(dependency('com.fasterxml.jackson.core:.*'))
         include(dependency('com.fasterxml.jackson.dataformat:.*'))
+        include(dependency('com.iridium:IridiumColorAPI:.*'))
     }
 }
