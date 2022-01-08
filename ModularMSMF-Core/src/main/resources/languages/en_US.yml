@@ -221,10 +221,6 @@ basicsmodule:
         done: "Deine IP-Adresse: _value"
         usage: "IP-Adresse eines anderen sehen: /get ip <name>"
         others: "_player's IP-Adresse: _value"
-      inventory:
-        usage: "Show inventory of someone: /get inventory <name>"
-        done: "Opened your inventory"
-        others: "Opened _value's inventory"
     fly:
       set_true: You are able to fly.
       set_false: You are not able to fly anymore.

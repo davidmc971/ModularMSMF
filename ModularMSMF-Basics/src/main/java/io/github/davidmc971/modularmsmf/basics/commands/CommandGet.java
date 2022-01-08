@@ -38,48 +38,38 @@ public class CommandGet implements IModularMSMFCommand {
             ChatUtils.sendMsgNoPerm(sender);
             return true;
         }
-        switch (args.length) {
-            case 0:
-                return helpGet(sender, command, label, args);
-            case 1:
-            case 2:
-                switch (args[0].toLowerCase()) {
-                    case "help":
-                        helpGet(sender, command, label, args);
-                        break;
-                    case "life":
-                    case "health":
-                        handleLife(sender, command, label, args);
-                        break;
-                    case "food":
-                        handleFood(sender, command, label, args);
-                        break;
-                    case "saturation":
-                    case "sat":
-                        handleSaturation(sender, command, label, args);
-                        break;
-                    case "exp":
-                        handleExp(sender, command, label, args);
-                        break;
-                    case "level":
-                    case "lvl":
-                        handleLevel(sender, command, label, args);
-                        break;
-                    case "ip":
-                        handleIp(sender, command, label, args);
-                        break;
-                    default:
-                        Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
-                                "basicsmodule.commands.arguments.invalid");
-                        break;
-                }
+        if (args.length == 0) {
+            return helpGet(sender, command, label, args);
+        }
+        switch (args[0].toLowerCase()) {
+            case "help":
+                helpGet(sender, command, label, args);
+                break;
+            case "life":
+            case "health":
+                handleLife(sender, command, label, args);
+                break;
+            case "food":
+                handleFood(sender, command, label, args);
+                break;
+            case "saturation":
+            case "sat":
+                handleSaturation(sender, command, label, args);
+                break;
+            case "exp":
+                handleExp(sender, command, label, args);
+                break;
+            case "level":
+            case "lvl":
+                handleLevel(sender, command, label, args);
+                break;
+            case "ip":
+                handleIp(sender, command, label, args);
                 break;
             default:
                 Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                         "basicsmodule.commands.arguments.invalid");
                 break;
-                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
-                        "basicsmodule.commands.arguments.toomany");
         }
         return true;
     }
