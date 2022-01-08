@@ -7,7 +7,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.core.PermissionManager;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
@@ -15,12 +14,6 @@ import io.github.davidmc971.modularmsmf.core.util.ChatUtils;
 import io.github.davidmc971.modularmsmf.core.util.Utils;
 
 public class CommandClearChat implements IModularMSMFCommand {
-
-    private ModularMSMFCore plugin;
-
-    public CommandClearChat() {
-        plugin = ModularMSMFCore.Instance();
-    }
 
     int count = 0;
 
@@ -31,7 +24,7 @@ public class CommandClearChat implements IModularMSMFCommand {
         }
         switch (args.length) {
             default:
-                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+                Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                         "coremodule.commands.arguments.toomany");
                 break;
             case 0:
@@ -50,18 +43,18 @@ public class CommandClearChat implements IModularMSMFCommand {
         } else {
             target = Utils.getPlayerUUIDByName(args[0]);
             if (target == null) {
-                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "coremodule.player.notfound");
+                Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "coremodule.player.notfound");
                 return true;
             } else {
                 for (Player p : Bukkit.getOnlinePlayers()) {
                     if (p.getUniqueId().toString().equalsIgnoreCase(target.toString())) {
-                        Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
+                        Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
                                 "coremodule.commands.cclear.others", "_target", p.getName());
                         while (count != 99) {
                             count++;
                             p.sendMessage("");
                         }
-                        Utils.sendMessageWithConfiguredLanguage(plugin, p, ChatFormat.SUCCESS,
+                        Utils.sendMessageWithConfiguredLanguage(p, ChatFormat.SUCCESS,
                                 "coremodule.commands.cclear.done");
                         count = 0;
                         return true;
@@ -81,7 +74,7 @@ public class CommandClearChat implements IModularMSMFCommand {
                 count++;
                 Bukkit.getOnlinePlayers().forEach((plr) -> plr.sendMessage(""));
             }
-            Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.SUCCESS, "coremodule.commands.cclear.done");
+            Utils.broadcastWithConfiguredLanguageEach(ChatFormat.SUCCESS, "coremodule.commands.cclear.done");
             count = 0;
         }
         return true;

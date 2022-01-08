@@ -51,7 +51,7 @@ public class CommandModularMSMF implements IModularMSMFCommand {
 	@Override
 	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
 		if(sender instanceof ConsoleCommandSender){
-			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "coremodule.noconsole");
+			Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.CONSOLE, "coremodule.noconsole");
 			return true;
 		}
 		if (PermissionManager.checkPermission(sender, "mmsmf")) {
@@ -61,18 +61,18 @@ public class CommandModularMSMF implements IModularMSMFCommand {
 				case 1:
 					return mmsmfCmdMore(sender, command, label, args);
 				default:
-					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "coremodule.commands.arguments.toomany");
+					Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "coremodule.commands.arguments.toomany");
 				break;
 			}
 		} else {
-			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "coremodule.player.nopermission");
+			Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.NOPERM, "coremodule.player.nopermission");
 		}
 		return true;
 	}
 
 	private boolean mmsmfCmd(CommandSender sender, Command command, String label, String[] args) {
 
-		FileConfiguration language = Utils.configureCommandLanguage(sender, plugin); //get the language string for selected language files
+		FileConfiguration language = Utils.configureCommandLanguage(sender); //get the language string for selected language files
 
 		// FIXME: Just put this back here temporarily for easy insight into relevant development information.
 		sender.sendMessage(infoPrefix + "Server Type: " + getName);
@@ -107,7 +107,7 @@ public class CommandModularMSMF implements IModularMSMFCommand {
 			case "teamspeak":
 				return mmsmfTeamspeak(sender, command, label, args);
 			default:
-				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "coremodule.commands.arguments.invalid");
+				Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "coremodule.commands.arguments.invalid");
 				break;
 		}
 		return true;
@@ -120,7 +120,7 @@ public class CommandModularMSMF implements IModularMSMFCommand {
 			sender.sendMessage(infoPrefix + "Developer: " + ChatColor.LIGHT_PURPLE + plugin.authors);
 			sender.sendMessage(debugPrefix + "Build Timestamp: " + ChatColor.YELLOW + plugin.getDebugTimestamp());
 			} else {
-				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "coremodule.commands.arguments.toomany");
+				Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "coremodule.commands.arguments.toomany");
 			}
 		return true;
 		}
@@ -129,7 +129,7 @@ public class CommandModularMSMF implements IModularMSMFCommand {
 		/**
 		* TODO: will be implemented. otherwise discord/github for reporting bugs.
 		*/
-		Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "coremodule.notimplementedyet");
+		Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "coremodule.notimplementedyet");
 		return true;
 		}
 
@@ -140,16 +140,16 @@ public class CommandModularMSMF implements IModularMSMFCommand {
 				YamlConfiguration cfg = YamlConfiguration.loadConfiguration(file);
 				if (cfg.contains("discordID") && !cfg.getString("discordID").equals("")) {
 					String discordID = cfg.getString("discordID");
-					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO, "coremodule.commands.mmsmf.discord.link", "_link", discordID);
+					Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.INFO, "coremodule.commands.mmsmf.discord.link", "_link", discordID);
 					return true;
 				} else {
-					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "coremodule.commands.mmsmf.discord.linkmissing");
+					Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "coremodule.commands.mmsmf.discord.linkmissing");
 				}
 			} else {
 				sender.sendMessage(ChatColor.DARK_RED + "file should be created!"); //TODO: only for testing purposes
 			}
 		} else {
-			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "coremodule.commands.arguments.toomany");
+			Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "coremodule.commands.arguments.toomany");
 		}
 			return true;
 		}
@@ -161,15 +161,15 @@ public class CommandModularMSMF implements IModularMSMFCommand {
 				YamlConfiguration cfg = YamlConfiguration.loadConfiguration(file);
 				if (cfg.contains("teamspeakIP") && !cfg.getString("teamspeakIP").equals("")) {
 					String teamspeakIP = cfg.getString("teamspeakIP");
-					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO, "coremodule.commands.mmsmf.teamspeak.ip", "_ip", teamspeakIP);
+					Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.INFO, "coremodule.commands.mmsmf.teamspeak.ip", "_ip", teamspeakIP);
 				} else {
-					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "coremodule.commands.mmsmf.teamspeak.ipmissing");
+					Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "coremodule.commands.mmsmf.teamspeak.ipmissing");
 				}
 			} else {
 				sender.sendMessage(ChatColor.DARK_RED + "file should be created!"); //TODO: only for testing purposes
 			}
 		} else {
-			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "coremodule.commands.arguments.toomany");
+			Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "coremodule.commands.arguments.toomany");
 		}
 		return true;
 	}

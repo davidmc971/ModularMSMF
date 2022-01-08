@@ -42,12 +42,12 @@ public class CommandMute implements IModularMSMFCommand {
 				UUID target = null;
 				target = Utils.getPlayerUUIDByName(args[0]);
 				toggleMute(target);
-				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "coremodule.notimplementedyet");
+				Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "coremodule.notimplementedyet");
 			} else {
-				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "coremodule.player.nopermission");
+				Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.NOPERM, "coremodule.player.nopermission");
 			}
 		} else {
-			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "coremodule.noconsole");
+			Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.CONSOLE, "coremodule.noconsole");
 		}
 		return true;
 

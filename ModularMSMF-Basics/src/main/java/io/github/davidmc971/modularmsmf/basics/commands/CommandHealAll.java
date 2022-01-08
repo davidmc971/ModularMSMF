@@ -9,7 +9,6 @@ import org.jetbrains.annotations.NotNull;
 
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.basics.PermissionManager;
-import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils;
 import io.github.davidmc971.modularmsmf.core.util.Utils;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
@@ -21,12 +20,6 @@ import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
  */
 
 public class CommandHealAll implements IModularMSMFCommand {
-
-    private ModularMSMFCore plugin;
-
-    public CommandHealAll() {
-        plugin = ModularMSMFCore.Instance();
-    }
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
@@ -43,7 +36,7 @@ public class CommandHealAll implements IModularMSMFCommand {
                 handleArgs(sender, command, label, args);
                 break;
             default:
-                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+                Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                         "basicsmodule.commands.arguments.toomany");
                 break;
         }
@@ -55,7 +48,7 @@ public class CommandHealAll implements IModularMSMFCommand {
         if (args[0].equalsIgnoreCase("toggle")) {
             setToggle(sender, command, label, args);
         } else {
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basicsmodule.arguments.invalid");
+            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "basicsmodule.arguments.invalid");
         }
     }
 
@@ -74,7 +67,7 @@ public class CommandHealAll implements IModularMSMFCommand {
     private void handlePlayers(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
             @NotNull String[] args) {
         for (Player p : Bukkit.getOnlinePlayers()) {
-            Utils.sendMessageWithConfiguredLanguage(plugin, p, ChatFormat.SUCCESS,
+            Utils.sendMessageWithConfiguredLanguage(p, ChatFormat.SUCCESS,
                     "basicsmodule.commands.heal.others.gothealed", "_sender", sender.getName());
             double maxHealth = p.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue();
             p.setHealth(maxHealth);

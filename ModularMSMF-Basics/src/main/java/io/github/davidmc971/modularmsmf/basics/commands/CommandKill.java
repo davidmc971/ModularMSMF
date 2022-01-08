@@ -8,7 +8,6 @@ import org.bukkit.entity.Player;
 
 import io.github.davidmc971.modularmsmf.basics.PermissionManager;
 import io.github.davidmc971.modularmsmf.basics.listeners.BasicEvents;
-import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils;
 import io.github.davidmc971.modularmsmf.basics.ModularMSMFBasics;
@@ -22,11 +21,9 @@ import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
 
 public class CommandKill implements IModularMSMFCommand {
 
-	private ModularMSMFCore plugin;
 	private BasicEvents basicEvents;
 
 	public CommandKill() {
-		plugin = ModularMSMFCore.Instance();
 		basicEvents = ModularMSMFBasics.Instance().getBasicEvents();
 	}
 
@@ -46,17 +43,17 @@ public class CommandKill implements IModularMSMFCommand {
 				}
 				if (args[0].toLowerCase().equals(player.getName().toLowerCase())) {
 					basicEvents.registerKilledPlayer(player, KillType.KILL);
-					Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.DEATH, "basicsmodule.events.killed",
+					Utils.broadcastWithConfiguredLanguageEach(ChatFormat.DEATH, "basicsmodule.events.killed",
 							"_var", player.getName());
 					player.setHealth(0);
 					return true;
 				}
 			}
-			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "coremodule.player.notfound");
+			Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "coremodule.player.notfound");
 			return true;
 		}
 		if (args.length <= 2) {
-			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basicsmodule.arguments.toomany");
+			Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "basicsmodule.arguments.toomany");
 			return true;
 		}
 		return true;
@@ -76,7 +73,7 @@ public class CommandKill implements IModularMSMFCommand {
 			return true;
 		}
 		basicEvents.registerKilledPlayer(((Player) sender), KillType.SUICIDE);
-		Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.DEATH, "basicsmodule.events.suicide", "_var",
+		Utils.broadcastWithConfiguredLanguageEach(ChatFormat.DEATH, "basicsmodule.events.suicide", "_var",
 				sender.getName());
 		((Player) sender).setHealth(0);
 		return true;

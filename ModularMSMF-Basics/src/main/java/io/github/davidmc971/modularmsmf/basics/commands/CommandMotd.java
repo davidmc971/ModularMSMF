@@ -7,7 +7,6 @@ import org.bukkit.command.CommandSender;
 
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.basics.PermissionManager;
-import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils;
 import io.github.davidmc971.modularmsmf.core.util.Utils;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
@@ -16,15 +15,8 @@ public class CommandMotd implements IModularMSMFCommand {
 
 	/**
 	 * @TODO onplayerjoinevent und normal zum abrufen
-	 * @param plugin
 	 * @author Lightkeks
 	 */
-
-	private ModularMSMFCore plugin;
-
-	public CommandMotd() {
-		plugin = ModularMSMFCore.Instance();
-	}
 
 	// private File dataStore = new File("plugins/ModularMSMF/motd.txt");
 
@@ -55,7 +47,7 @@ public class CommandMotd implements IModularMSMFCommand {
 			case 1:
 				return subMotd(sender, command, label, args);
 			default:
-				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+				Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
 						"coremodule.commands.arguments.toomany");
 		}
 		return true;
@@ -74,7 +66,7 @@ public class CommandMotd implements IModularMSMFCommand {
 					ChatUtils.sendMsgNoPerm(sender);
 				}
 			default:
-				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+				Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
 						"coremodule.commands.invalid");
 				break;
 		}

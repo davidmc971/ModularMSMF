@@ -53,7 +53,7 @@ public class CommandReport implements IModularMSMFCommand {
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-		FileConfiguration language = Utils.configureCommandLanguage(sender, plugin);
+		FileConfiguration language = Utils.configureCommandLanguage(sender);
 
 		if (args.length == 0) {
 			// no arguments, plain /report command
@@ -78,27 +78,27 @@ public class CommandReport implements IModularMSMFCommand {
 				if (PermissionManager.checkPermission(sender, "report_player")) {
 					reportPlayer(sender, args, plugin, language);
 				} else {
-					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.REPORT, "coremodule.player.nopermission");
+					Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.REPORT, "coremodule.player.nopermission");
 				}
 				break;
 			case "bug":
 				if (PermissionManager.checkPermission(sender, "report_bug")) {
 					reportBug(sender, args, plugin, language);
 				} else {
-					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.REPORT, "coremodule.player.nopermission");
+					Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.REPORT, "coremodule.player.nopermission");
 				}
 				break;
 			case "other":
 				if (PermissionManager.checkPermission(sender, "report_other")) {
 					reportOther(sender, args, plugin, language);
 				} else {
-					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.REPORT, "coremodule.player.nopermission");
+					Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.REPORT, "coremodule.player.nopermission");
 				}
 				break;
 			default:
 				// non valid category
 				// DONE: send error and prompt user to use /report for description
-				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.REPORT, "coremodule.commands.report.help");
+				Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.REPORT, "coremodule.commands.report.help");
 				break;
 			}
 		}

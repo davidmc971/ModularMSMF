@@ -10,7 +10,6 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
-import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
 import io.github.davidmc971.modularmsmf.core.PermissionManager;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils;
 import io.github.davidmc971.modularmsmf.core.util.Utils;
@@ -23,12 +22,6 @@ import net.md_5.bungee.api.ChatColor;
  */
 
 public class CommandListPlayers implements IModularMSMFCommand {
-
-    private ModularMSMFCore plugin;
-
-    public CommandListPlayers() {
-        plugin = ModularMSMFCore.Instance();
-    }
 
     private static List<String> playerlist = new ArrayList<String>();
 
@@ -44,13 +37,13 @@ public class CommandListPlayers implements IModularMSMFCommand {
         }
         switch (args.length) {
             case 0:
-                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ONLINE, "languageKey", "_players",
+                Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ONLINE, "languageKey", "_players",
                         playerlist.toString());
                 break;
             case 1:
                 switch (args[0].toLowerCase()) {
                     default:
-                        Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+                        Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                                 "coremodule.commands.arguments.invalid");
                         break;
                     case "help":

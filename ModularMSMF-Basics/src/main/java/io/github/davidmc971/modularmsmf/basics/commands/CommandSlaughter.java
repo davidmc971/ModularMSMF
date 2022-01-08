@@ -8,7 +8,6 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
 
-import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.basics.PermissionManager;
 import io.github.davidmc971.modularmsmf.basics.util.CommandUtil;
@@ -22,12 +21,6 @@ import io.github.davidmc971.modularmsmf.core.util.Utils;
 
 public class CommandSlaughter implements IModularMSMFCommand {
 
-	private ModularMSMFCore plugin;
-
-	public CommandSlaughter() {
-		plugin = ModularMSMFCore.Instance();
-	}
-
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (!PermissionManager.checkPermission(sender, "slaughter") || !CommandUtil.isSenderEligible(sender, command)) {
@@ -39,7 +32,7 @@ public class CommandSlaughter implements IModularMSMFCommand {
 			for (Entity e : ((Player) sender).getWorld().getNearbyEntities(playerloc, 500, 500, 500)) {
 				if (!(e instanceof Player) && (e instanceof Monster)) {
 					e.remove();
-					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
+					Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
 							"basicsmodule.commands.slaughter.success");
 				}
 			}
@@ -50,14 +43,14 @@ public class CommandSlaughter implements IModularMSMFCommand {
 			for (Entity e : ((Player) sender).getWorld().getNearbyEntities(playerloc, 500, 500, 500)) {
 				if (!(e instanceof Player) && (e instanceof Animals)) {
 					e.remove();
-					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
+					Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
 							"basicsmodule.commands.slaughter.success");
 				}
 			}
 			return true;
 		}
 		if (args.length <= 2) {
-			Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+			Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
 					"coremodule.commands.arguments.toomany");
 			return true;
 		}

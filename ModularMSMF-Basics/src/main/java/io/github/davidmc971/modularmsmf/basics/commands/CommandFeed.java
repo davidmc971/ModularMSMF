@@ -9,7 +9,6 @@ import org.bukkit.entity.Player;
 
 import io.github.davidmc971.modularmsmf.basics.PermissionManager;
 import io.github.davidmc971.modularmsmf.basics.util.CommandUtil;
-import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils;
 import io.github.davidmc971.modularmsmf.core.util.Utils;
@@ -22,12 +21,6 @@ import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
 
 public class CommandFeed implements IModularMSMFCommand {
 
-	private ModularMSMFCore plugin;
-
-	public CommandFeed() {
-		plugin = ModularMSMFCore.Instance();
-	}
-
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		switch (args.length) {
@@ -36,7 +29,7 @@ public class CommandFeed implements IModularMSMFCommand {
 				handlePlayers(sender, command, label, args);
 				break;
 			default:
-				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+				Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
 						"basicsmodule.commands.arguments.toomany");
 				break;
 		}
@@ -60,7 +53,7 @@ public class CommandFeed implements IModularMSMFCommand {
 		if (!CommandUtil.isSenderEligible(sender, command)) {
 			return false;
 		}
-		Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.FEED, "basicsmodule.commands.feed.feeded");
+		Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.FEED, "basicsmodule.commands.feed.feeded");
 		((Player) sender).setFoodLevel(20);
 		return true;
 	}
@@ -79,9 +72,9 @@ public class CommandFeed implements IModularMSMFCommand {
 		if (sender == player) {
 			return feedSelf(sender, command, label, args);
 		}
-		Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.FEED,
+		Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.FEED,
 				"basicsmodule.commands.feed.feededperson", "_player", player.getName());
-		Utils.sendMessageWithConfiguredLanguage(plugin, player, ChatFormat.FEED,
+		Utils.sendMessageWithConfiguredLanguage(player, ChatFormat.FEED,
 				"basicsmodule.commands.feed.othersfeeded", "_sender", sender.getName());
 		player.setFoodLevel(20);
 		return true;

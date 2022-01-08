@@ -34,7 +34,7 @@ public class CommandKick implements IModularMSMFCommand {
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
 		// getting settings from settings.yml
-		FileConfiguration language = Utils.configureCommandLanguage(sender, plugin);
+		FileConfiguration language = Utils.configureCommandLanguage(sender);
 		// searching string from settings.yml
 		String reason = language.getString("basicsmodule.commands.kick.defaultkickreason");
 		// target is always null unless target is online
@@ -46,18 +46,18 @@ public class CommandKick implements IModularMSMFCommand {
 				ChatUtils.sendMsgNoPerm(sender);
 				return true;
 			} else {
-				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.KICK, "basicsmodule.commands.kick.missingname");
+				Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.KICK, "basicsmodule.commands.kick.missingname");
 			}
 			break;
 		default:
 			if (PermissionManager.checkPermission(sender, "kickplayer")) {
 				target = Utils.getPlayerUUIDByName(args[0]);
 				if (target == null) {
-					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.KICK, "coremodule.player.notfound");
+					Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.KICK, "coremodule.player.notfound");
 				} else {
 					if (args.length == 0) {
 						kickPlayer(target, reason);
-						Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.KICKED,
+						Utils.broadcastWithConfiguredLanguageEach(ChatFormat.KICKED,
 								"basicsmodule.commands.kick.seeforall", "_player", args[0]);
 					} else {
 						// adding custom reason for kick
@@ -66,7 +66,7 @@ public class CommandKick implements IModularMSMFCommand {
 							reason += args[i] + " ";
 						}
 						kickPlayer(target, reason);
-						Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.KICKED,
+						Utils.broadcastWithConfiguredLanguageEach(ChatFormat.KICKED,
 								"basicsmodule.commands.kick.seeforallreason", "_reason", reason, "_player", args[0]);
 					}
 				}

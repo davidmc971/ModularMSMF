@@ -69,7 +69,7 @@ public class CommandSet implements IModularMSMFCommand {
                 handleLevel(sender, command, label, args);
                 break;
             default:
-                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+                Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                         "basicsmodule.commands.arguments.invalid");
                 break;
         }
@@ -82,12 +82,12 @@ public class CommandSet implements IModularMSMFCommand {
             ChatUtils.sendMsgNoPerm(sender);
         }
         if (args.length == 1) {
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO,
+            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.INFO,
                     "basicsmodule.commands.set.level.usage");
         } else if (args.length <= 3) {
             setLevel(sender, command, label, args);
         } else {
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                     "basicsmodule.commands.arguments.toomany");
         }
     }
@@ -98,12 +98,12 @@ public class CommandSet implements IModularMSMFCommand {
             ChatUtils.sendMsgNoPerm(sender);
         }
         if (args.length == 1) {
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO,
+            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.INFO,
                     "basicsmodule.commands.set.exp.usage");
         } else if (args.length <= 3) {
             setExp(sender, command, label, args);
         } else {
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                     "basicsmodule.commands.arguments.toomany");
         }
     }
@@ -114,12 +114,12 @@ public class CommandSet implements IModularMSMFCommand {
             ChatUtils.sendMsgNoPerm(sender);
         }
         if (args.length == 1) {
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO,
+            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.INFO,
                     "basicsmodule.commands.set.saturation.usage");
         } else if (args.length <= 3) {
             setSaturation(sender, command, label, args);
         } else {
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                     "basicsmodule.commands.arguments.toomany");
         }
     }
@@ -130,12 +130,12 @@ public class CommandSet implements IModularMSMFCommand {
             ChatUtils.sendMsgNoPerm(sender);
         }
         if (args.length == 1) {
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO,
+            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.INFO,
                     "basicsmodule.commands.set.food.usage");
         } else if (args.length <= 3) {
             setFood(sender, command, label, args);
         } else {
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                     "basicsmodule.commands.arguments.toomany");
         }
     }
@@ -145,12 +145,12 @@ public class CommandSet implements IModularMSMFCommand {
             ChatUtils.sendMsgNoPerm(sender);
         }
         if (args.length == 1) {
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO,
+            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.INFO,
                     "basicsmodule.commands.set.life.usage");
         } else if (args.length <= 3) {
             setLife(sender, command, label, args);
         } else {
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                     "basicsmodule.commands.arguments.toomany");
         }
     }
@@ -161,17 +161,17 @@ public class CommandSet implements IModularMSMFCommand {
         try {
             d = Double.parseDouble(args[1]);
         } catch (NumberFormatException e) {
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                     "basicsmodule.commands.set.noint");
             return true;
         }
         if (d == 0) {
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                     "basicsmodule.commands.set.nosuicide");
             return true;
         }
         if (d < 0) {
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                     "basicsmodule.commands.set.nonnegative");
             return true;
         }
@@ -180,7 +180,7 @@ public class CommandSet implements IModularMSMFCommand {
                 return false;
             }
             ((Player) sender).getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(d);
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
+            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
                     "basicsmodule.commands.set.life.done", "_args", args[1]);
             return true;
         }
@@ -197,15 +197,15 @@ public class CommandSet implements IModularMSMFCommand {
             }
             if (player == sender) {
                 ((Player) sender).getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(d);
-                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
+                Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
                         "basicsmodule.commands.set.life.done", "_args", args[1]);
                 return true;
             }
             player.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(d);
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
+            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
                     "basicsmodule.commands.set.life.others", "_args", args[1], "_player",
                     player.getName());
-            Utils.sendMessageWithConfiguredLanguage(plugin, player, ChatFormat.SUCCESS,
+            Utils.sendMessageWithConfiguredLanguage(player, ChatFormat.SUCCESS,
                     "basicsmodule.commands.set.life.done", "_args", args[1]);
             return true;
         }
@@ -218,17 +218,17 @@ public class CommandSet implements IModularMSMFCommand {
         try {
             i = Integer.parseInt(args[1]);
         } catch (NumberFormatException e) {
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                     "basicsmodule.commands.set.noint");
             return true;
         }
         if (i < 0) {
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                     "basicsmodule.commands.set.nonnegative");
             return true;
         }
         if (i >= 21) {
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                     "basicsmodule.commands.set.upperlimit");
             return true;
         }
@@ -237,7 +237,7 @@ public class CommandSet implements IModularMSMFCommand {
                 return false;
             }
             ((Player) sender).setFoodLevel(i);
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
+            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
                     "basicsmodule.commands.set.food.done", "_args", args[1]);
             return true;
         }
@@ -254,15 +254,15 @@ public class CommandSet implements IModularMSMFCommand {
             }
             if (player == sender) {
                 player.setFoodLevel(i);
-                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
+                Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
                         "basicsmodule.commands.set.food.done", "_args", args[1]);
                 return true;
             }
             player.setFoodLevel(i);
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
+            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
                     "basicsmodule.commands.set.food.others", "_args", args[1], "_player",
                     player.getName());
-            Utils.sendMessageWithConfiguredLanguage(plugin, player, ChatFormat.SUCCESS,
+            Utils.sendMessageWithConfiguredLanguage(player, ChatFormat.SUCCESS,
                     "basicsmodule.commands.set.food.done", "_args", args[1]);
             return true;
         }
@@ -275,17 +275,17 @@ public class CommandSet implements IModularMSMFCommand {
         try {
             f = Float.parseFloat(args[1]);
         } catch (NumberFormatException e) {
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                     "basicsmodule.commands.set.noint");
             return true;
         }
         if (f < 0) {
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                     "basicsmodule.commands.set.nonnegative");
             return true;
         }
         if (f >= 81) {
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                     "basicsmodule.commands.set.toohigh");
             return true;
         }
@@ -294,7 +294,7 @@ public class CommandSet implements IModularMSMFCommand {
                 return false;
             }
             ((Player) sender).setSaturation(f);
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
+            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
                     "basicsmodule.commands.set.saturation.done", "_args", args[1]);
             return true;
         }
@@ -311,15 +311,15 @@ public class CommandSet implements IModularMSMFCommand {
             }
             if (player == sender) {
                 ((Player) sender).setSaturation(f);
-                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
+                Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
                         "basicsmodule.commands.set.saturation.done", "_args", args[1]);
                 return true;
             }
             player.setSaturation(f);
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
+            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
                     "basicsmodule.commands.set.saturation.others", "_args", args[1], "_player",
                     player.getName());
-            Utils.sendMessageWithConfiguredLanguage(plugin, player, ChatFormat.SUCCESS,
+            Utils.sendMessageWithConfiguredLanguage(player, ChatFormat.SUCCESS,
                     "basicsmodule.commands.set.saturation.done", "_args", args[1]);
             return true;
         }
@@ -333,19 +333,19 @@ public class CommandSet implements IModularMSMFCommand {
         try {
             Float.parseFloat(f_exp);
         } catch (NumberFormatException e) {
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                     "basicsmodule.commands.set.noint");
             return true;
         }
         Float f_val = Float.parseFloat(f_exp);
         f = f_val / 100;
         if (f < 0) {
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                     "basicsmodule.commands.set.nonnegative");
             return true;
         }
         if (f > 100) {
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                     "basicsmodule.commands.set.toohigh");
             return true;
         }
@@ -355,7 +355,7 @@ public class CommandSet implements IModularMSMFCommand {
             }
             ((Player) sender).setExp(f);
             df.setRoundingMode(RoundingMode.UP);
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
+            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
                     "basicsmodule.commands.set.exp.done", "_args", df.format(f_val));
             return true;
         }
@@ -373,16 +373,16 @@ public class CommandSet implements IModularMSMFCommand {
             if (player == sender) {
                 ((Player) sender).setExp(f);
                 df.setRoundingMode(RoundingMode.UP);
-                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
+                Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
                         "basicsmodule.commands.set.exp.done", "_args", df.format(f_val));
                 return true;
             }
             df.setRoundingMode(RoundingMode.UP);
             player.setExp(f);
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
+            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
                     "basicsmodule.commands.set.exp.others", "_args", df.format(f_val), "_player",
                     player.getName());
-            Utils.sendMessageWithConfiguredLanguage(plugin, player, ChatFormat.SUCCESS,
+            Utils.sendMessageWithConfiguredLanguage(player, ChatFormat.SUCCESS,
                     "basicsmodule.commands.set.exp.done", "_args", df.format(f_val));
             return true;
         }
@@ -395,17 +395,17 @@ public class CommandSet implements IModularMSMFCommand {
         try {
             i = Integer.parseInt(args[1]);
         } catch (NumberFormatException e) {
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                     "basicsmodule.commands.set.noint");
             return true;
         }
         if (i < 0) {
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                     "basicsmodule.commands.set.nonnegative");
             return true;
         }
         if (i >= 101) {
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                     "basicsmodule.commands.set.toohigh");
             return true;
         }
@@ -414,7 +414,7 @@ public class CommandSet implements IModularMSMFCommand {
                 return false;
             }
             ((Player) sender).setLevel(i);
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
+            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
                     "basicsmodule.commands.set.level.done", "_args", args[1]);
             return true;
         }
@@ -431,14 +431,14 @@ public class CommandSet implements IModularMSMFCommand {
             }
             if (player == sender) {
                 ((Player) sender).setLevel(i);
-                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
+                Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
                         "basicsmodule.commands.set.level.done", "_args", args[1]);
                 return true;
             }
             player.setLevel(i);
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
+            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
                     "basicsmodule.commands.set.level.others", "_args", args[1], "_player", player.getName());
-            Utils.sendMessageWithConfiguredLanguage(plugin, player, ChatFormat.SUCCESS,
+            Utils.sendMessageWithConfiguredLanguage(player, ChatFormat.SUCCESS,
                     "basicsmodule.commands.set.level.done", "_args", args[1]);
             return true;
         }

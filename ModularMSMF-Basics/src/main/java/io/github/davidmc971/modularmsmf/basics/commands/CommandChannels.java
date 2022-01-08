@@ -6,7 +6,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
-import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
 import io.github.davidmc971.modularmsmf.basics.PermissionManager;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils;
 import io.github.davidmc971.modularmsmf.core.util.Utils;
@@ -19,11 +18,6 @@ import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
  */
 
 public class CommandChannels implements IModularMSMFCommand {
-    private ModularMSMFCore plugin;
-
-    public CommandChannels() {
-        plugin = ModularMSMFCore.Instance();
-    }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -48,7 +42,7 @@ public class CommandChannels implements IModularMSMFCommand {
             case "list":
                 return channelsList(sender, command, label, args);
             default:
-                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+                Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                         "basicsmodule.commands.arguments.invalid");
                 break;
         }

@@ -49,10 +49,10 @@ public class CommandSetSpawn implements IModularMSMFCommand {
 			cfg.set("worldspawn.coordinates.Pitch", pitch);
 			cfg.set("worldspawn.world", worldname);
 			cfg.set("worldspawn.isTrue", "true");
-			Utils.sendMessageWithConfiguredLanguage(plugin, p, ChatFormat.SPAWN, "basicsmodule.commands.spawn.set");
+			Utils.sendMessageWithConfiguredLanguage(p, ChatFormat.SPAWN, "basicsmodule.commands.spawn.set");
 			return true;
 		}
-		Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+		Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
 				"basicsmodule.commands.arguments.toomany");
 		return true;
 	}

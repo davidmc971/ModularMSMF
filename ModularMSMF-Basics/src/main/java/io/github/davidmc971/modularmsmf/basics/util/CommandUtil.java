@@ -7,7 +7,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
-import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils;
 import io.github.davidmc971.modularmsmf.core.util.Utils;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
@@ -22,12 +21,12 @@ public class CommandUtil {
             if (plron == player) {
                 switch (player.getGameMode()) {
                     case CREATIVE:
-                        Utils.sendMessageWithConfiguredLanguage(ModularMSMFCore.Instance(), sender, ChatFormat.ERROR,
+                        Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                                 "basicsmodule.creative.other",
                                 "_player", player.getName());
                         return false;
                     case SPECTATOR:
-                        Utils.sendMessageWithConfiguredLanguage(ModularMSMFCore.Instance(), sender, ChatFormat.ERROR,
+                        Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                                 "basicsmodule.spectator.other",
                                 "_player", player.getName());
                         return false;
@@ -39,7 +38,7 @@ public class CommandUtil {
                         break;
                     default:
                         if (((Player) sender).getWorld().getDifficulty() == Difficulty.PEACEFUL) {
-                            Utils.sendMessageWithConfiguredLanguage(ModularMSMFCore.Instance(), sender,
+                            Utils.sendMessageWithConfiguredLanguage(sender,
                                     ChatFormat.ERROR,
                                     "basicsmodule.peaceful");
                             return false;
@@ -48,7 +47,7 @@ public class CommandUtil {
                 return true;
             }
         }
-        Utils.sendMessageWithConfiguredLanguage(ModularMSMFCore.Instance(), sender, ChatFormat.ERROR,
+        Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                 "coremodule.player.notonline");
         return false;
     }
@@ -57,11 +56,11 @@ public class CommandUtil {
         if (sender instanceof Player) {
             switch (((Player) sender).getGameMode()) {
                 case CREATIVE:
-                    Utils.sendMessageWithConfiguredLanguage(ModularMSMFCore.Instance(), sender, ChatFormat.ERROR,
+                    Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                             "basicsmodule.creative.self");
                     return false;
                 case SPECTATOR:
-                    Utils.sendMessageWithConfiguredLanguage(ModularMSMFCore.Instance(), sender, ChatFormat.ERROR,
+                    Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                             "basicsmodule.spectator.self");
                     return false;
                 default:
@@ -72,7 +71,7 @@ public class CommandUtil {
                     break;
                 default:
                     if (((Player) sender).getWorld().getDifficulty() == Difficulty.PEACEFUL) {
-                        Utils.sendMessageWithConfiguredLanguage(ModularMSMFCore.Instance(), sender, ChatFormat.ERROR,
+                        Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                                 "basicsmodule.peaceful");
                         return false;
                     }

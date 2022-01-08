@@ -71,7 +71,7 @@ public class CommandHome implements IModularMSMFCommand {
 			if (PermissionManager.checkPermission(sender, "home_self")) {
 				boolean success = teleportToHome((Player) sender, sender.getName());
 				if (!success) {
-					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+					Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
 							"basicsmodule.commands.home.notset");
 				} else {
 					// TODO: teleport user to position where home is located
@@ -83,7 +83,7 @@ public class CommandHome implements IModularMSMFCommand {
 			// TODO: check if user uses args like "help" or home name
 			if (args[0].equalsIgnoreCase("list")) {
 				if (PermissionManager.checkPermission(sender, "home_list")) {
-					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO,
+					Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.INFO,
 							"basicsmodule.commands.home.list"/* , "_list", getHomeList() */); // TODO: config for list
 																								// homes
 				}
@@ -108,7 +108,7 @@ public class CommandHome implements IModularMSMFCommand {
 						helpHome(sender, "/home admin", "basicsmodule.commands.home.help.admin", "basicsmodule.commands.home.component.admin");
 					}
 				} else {
-					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "coremodule.player.nopermission");
+					Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.NOPERM, "coremodule.player.nopermission");
 				}
 			}
 			if (args[0].equalsIgnoreCase("set")) {
@@ -116,7 +116,7 @@ public class CommandHome implements IModularMSMFCommand {
 				if (PermissionManager.checkPermission(sender, "home_set")) {
 
 				} else {
-					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "coremodule.player.nopermission");
+					Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.NOPERM, "coremodule.player.nopermission");
 				}
 			}
 			if (args[0].equalsIgnoreCase("remove")) {
@@ -124,24 +124,24 @@ public class CommandHome implements IModularMSMFCommand {
 				if (PermissionManager.checkPermission(sender, "home_remove")) {
 
 				} else {
-					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "coremodule.player.nopermission");
+					Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.NOPERM, "coremodule.player.nopermission");
 				}
 			}
 			if (args[0].equalsIgnoreCase("rtp")) {
 				// command for "home rtp"
 				if (PermissionManager.checkPermission(sender, "home_rtp")) {
 					if (args.length == 0) {
-						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.INFO,
+						Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.INFO,
 								"basicsmodule.commands.home.rtp.noargument");
 					}
 					if (args.length == 1) {
 
 					} else {
-						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+						Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
 								"basicsmodule.commands.arguments.toomany");
 					}
 				} else {
-					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "coremodule.player.nopermission");
+					Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.NOPERM, "coremodule.player.nopermission");
 				}
 			}
 			if (args[0].equalsIgnoreCase("admin")) {
@@ -149,7 +149,7 @@ public class CommandHome implements IModularMSMFCommand {
 				if (PermissionManager.checkPermission(sender, "home_admin")) {
 
 				} else {
-					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "coremodule.player.nopermission");
+					Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.NOPERM, "coremodule.player.nopermission");
 				}
 			} else {
 				if (PermissionManager.checkPermission(sender, "home_help")) {
@@ -158,7 +158,7 @@ public class CommandHome implements IModularMSMFCommand {
 							|| args[0].equalsIgnoreCase("help") || args[0].equalsIgnoreCase("set")
 							|| args[0].equalsIgnoreCase("remove") || args[0].equalsIgnoreCase("rtp")
 							|| args[0].equalsIgnoreCase("admin"))) {
-						Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+						Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
 								"basicsmodule.commands.home.invalidargument");
 					} else {
 						// if(/** something that should match home name from args[0] */){
@@ -166,7 +166,7 @@ public class CommandHome implements IModularMSMFCommand {
 						// }
 					}
 				} else {
-					Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "coremodule.player.nopermission");
+					Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.NOPERM, "coremodule.player.nopermission");
 				}
 			}
 			break;
@@ -197,7 +197,7 @@ public class CommandHome implements IModularMSMFCommand {
 		 * TODO: cache language objects per language and generate mappings to players to
 		 * improve performance
 		 */
-		FileConfiguration language = Utils.configureCommandLanguage(sender, plugin);
+		FileConfiguration language = Utils.configureCommandLanguage(sender);
 
 		// FIXME: first send description of command where you can then execute it
 		Component message = Component.text(ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.INFO))

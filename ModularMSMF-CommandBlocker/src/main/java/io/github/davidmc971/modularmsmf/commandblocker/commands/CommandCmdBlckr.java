@@ -4,18 +4,11 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
-import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
 import io.github.davidmc971.modularmsmf.commandblocker.PermissionManager;
 import io.github.davidmc971.modularmsmf.core.util.Utils;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
 
 public class CommandCmdBlckr implements IModularMSMFCommand {
-
-	private ModularMSMFCore plugin;
-
-	public CommandCmdBlckr() {
-		plugin = ModularMSMFCore.Instance();
-	}
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -27,14 +20,14 @@ public class CommandCmdBlckr implements IModularMSMFCommand {
              */
             switch (args.length) {
             default:
-                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "cmdblocker.commands.arguments.invalid");
+                Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "cmdblocker.commands.arguments.invalid");
                 // debug
                 sender.sendMessage("default, only command, invalid argument");
                 break;
             case 1:
                 switch (args[0].toLowerCase()) {
                 default:
-                    Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+                    Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                             "cmdblocker.commands.arguments.invalid");
                     // debug
                     sender.sendMessage("default, subcommand");
@@ -52,7 +45,7 @@ public class CommandCmdBlckr implements IModularMSMFCommand {
                 break;
             }
         } else {
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "coremodule.player.nopermission");
+            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.NOPERM, "coremodule.player.nopermission");
         }
         return true;
     }

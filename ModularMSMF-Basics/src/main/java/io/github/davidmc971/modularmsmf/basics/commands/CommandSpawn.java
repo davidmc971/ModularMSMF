@@ -34,7 +34,7 @@ public class CommandSpawn implements IModularMSMFCommand {
             switch (args.length) {
             case 0:
                 if (sender instanceof ConsoleCommandSender) {
-                    Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "coremodule.noconsole");
+                    Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.CONSOLE, "coremodule.noconsole");
                     return true;
                 } else {
                     return spawnSub(sender, command, label, args);
@@ -43,7 +43,7 @@ public class CommandSpawn implements IModularMSMFCommand {
             //method: handleSpawn(sender, command, label, args); TODO
                 return spawnOthersSub(sender, command, label, args);
             default:
-                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basicsmodule.commands.arguments.toomany");
+                Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "basicsmodule.commands.arguments.toomany");
                 break;
             }
             return true;
@@ -64,15 +64,15 @@ public class CommandSpawn implements IModularMSMFCommand {
             return spawnRemoveSub(sender, command, label, args);
         }
         if (!PermissionManager.checkPermission(sender, "spawn_others")) {
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "coremodule.player.nopermission");
+            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.NOPERM, "coremodule.player.nopermission");
             return true;
         }
         if (target == null) {
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "coremodule.player.notfound");
+            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "coremodule.player.notfound");
             return true;
         }
         if (!cfg.get("worldspawn.isTrue").toString().equals("true")) {
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basicsmodule.commands.spawn.notset");
+            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "basicsmodule.commands.spawn.notset");
             return true;
         }
         if (spawned == sender) {
@@ -85,8 +85,8 @@ public class CommandSpawn implements IModularMSMFCommand {
             loc.setPitch((float) pitch);
             loc.setWorld(welt);
             spawned.teleport(loc);
-            Utils.sendMessageWithConfiguredLanguage(plugin, spawned, ChatFormat.SPAWN, "basicsmodule.commands.spawn.spawned");
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS, "basicsmodule.commands.spawn.others", "_player", spawned.getName());
+            Utils.sendMessageWithConfiguredLanguage(spawned, ChatFormat.SPAWN, "basicsmodule.commands.spawn.spawned");
+            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS, "basicsmodule.commands.spawn.others", "_player", spawned.getName());
             return true;
         } else {
             World welt = Bukkit.getWorld(worldname);
@@ -98,8 +98,8 @@ public class CommandSpawn implements IModularMSMFCommand {
             loc.setPitch((float) pitch);
             loc.setWorld(welt);
             spawned.teleport(loc);
-            Utils.sendMessageWithConfiguredLanguage(plugin, spawned, ChatFormat.SPAWN, "basicsmodule.commands.spawn.spawned");
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS, "basicsmodule.commands.spawn.others", "_player", spawned.getName());
+            Utils.sendMessageWithConfiguredLanguage(spawned, ChatFormat.SPAWN, "basicsmodule.commands.spawn.spawned");
+            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS, "basicsmodule.commands.spawn.others", "_player", spawned.getName());
         }
         return true;
     }
@@ -107,16 +107,16 @@ public class CommandSpawn implements IModularMSMFCommand {
     private boolean spawnRemoveSub(CommandSender sender, Command command, String label, String[] args) {
         FileConfiguration cfg = plugin.getDataManager().settingsyaml;
         if (!PermissionManager.checkPermission(sender, "spawn_remove")) {
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.NOPERM, "coremodule.player.nopermission");
+            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.NOPERM, "coremodule.player.nopermission");
             return true;
         }
         if (cfg.get("worldspawn.isTrue").toString().equals("true")) {
             cfg.set("worldspawn", null);
             cfg.set("worldspawn.isTrue", "false");
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS, "basicsmodule.commands.spawn.removed");
+            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS, "basicsmodule.commands.spawn.removed");
             return true;
         } else {
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basicsmodule.commands.spawn.alreadyremoved");
+            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "basicsmodule.commands.spawn.alreadyremoved");
         }
         return true;
     }
@@ -133,13 +133,13 @@ public class CommandSpawn implements IModularMSMFCommand {
 
         if (!(PermissionManager.checkPermission(sender, "spawn"))) {
             Player p = (Player) sender;
-            Utils.sendMessageWithConfiguredLanguage(plugin, p, ChatFormat.NOPERM, "coremodule.player.nopermission");
+            Utils.sendMessageWithConfiguredLanguage(p, ChatFormat.NOPERM, "coremodule.player.nopermission");
         } else {
             if (sender instanceof ConsoleCommandSender) {
-                Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.CONSOLE, "coremodule.noconsole");
+                Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.CONSOLE, "coremodule.noconsole");
             } else {
                 if (cfg.get("worldspawn.isTrue").toString().equals("false")) {
-                    Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basicsmodule.commands.spawn.notset");
+                    Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "basicsmodule.commands.spawn.notset");
                 } else {
                     Player p = (Player) sender;
                     World welt = Bukkit.getWorld(worldname);
@@ -151,7 +151,7 @@ public class CommandSpawn implements IModularMSMFCommand {
                     loc.setPitch((float) pitch);
                     loc.setWorld(welt);
                     p.teleport(loc);
-                    Utils.sendMessageWithConfiguredLanguage(plugin, p, ChatFormat.SPAWN, "basicsmodule.commands.spawn.spawned");
+                    Utils.sendMessageWithConfiguredLanguage(p, ChatFormat.SPAWN, "basicsmodule.commands.spawn.spawned");
                 }
             }
         }

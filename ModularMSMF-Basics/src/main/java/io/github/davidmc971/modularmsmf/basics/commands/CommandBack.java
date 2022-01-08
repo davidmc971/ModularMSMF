@@ -9,7 +9,6 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
-import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.basics.PermissionManager;
 import io.github.davidmc971.modularmsmf.core.listeners.CoreEvents;
@@ -18,12 +17,6 @@ import io.github.davidmc971.modularmsmf.core.util.Utils;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
 
 public class CommandBack implements IModularMSMFCommand {
-
-    private ModularMSMFCore plugin;
-
-    public CommandBack() {
-        plugin = ModularMSMFCore.Instance();
-    }
 
     /**
      * @author Lightkeks Fully working command You can teleport back and teleport
@@ -38,7 +31,7 @@ public class CommandBack implements IModularMSMFCommand {
         if (args.length == 1) {
             return backCmdSub(sender, command, label, args);
         } else {
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "basicsmodule.commands.arguments.toomany");
+            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "basicsmodule.commands.arguments.toomany");
         }
         return true;
     }
@@ -51,34 +44,34 @@ public class CommandBack implements IModularMSMFCommand {
         UUID target = null;
         target = Utils.getPlayerUUIDByName(args[0]);
         if (target == null) {
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "coremodule.player.notfound");
+            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "coremodule.player.notfound");
             return true;
         } else
             for (Player p : Bukkit.getOnlinePlayers()) {
                 if (p.getUniqueId().toString().equalsIgnoreCase(target.toString())) {
                     if (sender == p) {
                         if (CoreEvents.lastLocation.containsKey(sender.getName())) {
-                            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
+                            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
                                     "basicsmodule.commands.back.success");
                             ((Entity) sender).teleport(CoreEvents.lastLocation.get(sender.getName()));
                             return true;
                         } else {
-                            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+                            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                                     "basicsmodule.commands.back.error");
                         }
                     } else {
                         if (CoreEvents.lastLocation.containsKey(p.getName())) {
-                            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
+                            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
                                     "basicsmodule.commands.back.success");
                             p.teleport(CoreEvents.lastLocation.get(p.getName()));
                             return true;
                         } else {
-                            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+                            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                                     "basicsmodule.commands.back.error");
                         }
                     }
                 } else {
-                    Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+                    Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                             "coremodule.player.notonline");
                 }
             }
@@ -91,12 +84,12 @@ public class CommandBack implements IModularMSMFCommand {
             return true;
         }
         if (CoreEvents.lastLocation.containsKey(sender.getName())) {
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
+            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
                     "basicsmodule.commands.back.success");
             ((Entity) sender).teleport(CoreEvents.lastLocation.get(sender.getName()));
             return true;
         } else {
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                     "basicsmodule.commands.back.error");
         }
         return true;

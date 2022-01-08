@@ -6,7 +6,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
-import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
 import net.md_5.bungee.api.ChatColor;
 
 /**
@@ -98,11 +97,11 @@ public class ChatUtils {
 
 	public static void sendMsgNoPerm(CommandSender sender) {
 		if (sender instanceof Player) {
-			Utils.sendMessageWithConfiguredLanguage(ModularMSMFCore.Instance(), sender, ChatFormat.NOPERM,
+			Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.NOPERM,
 					"coremodule.player.nopermission");
 		}
 		if (sender instanceof ConsoleCommandSender) {
-			Utils.sendMessageWithConfiguredLanguage(ModularMSMFCore.Instance(), sender, ChatFormat.CONSOLE, "coremodule.noconsole");
+			Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.CONSOLE, "coremodule.noconsole");
 		}
 	}
 }

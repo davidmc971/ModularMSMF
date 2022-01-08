@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
-import java.util.regex.Pattern;
 
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
@@ -67,7 +66,7 @@ public class CoreEvents implements Listener {
 		onlineWithoutSpecialCon.put(key, value);
 
 		event.joinMessage(Component.empty());
-		Utils.broadcastWithConfiguredLanguageEach(plugin, ChatFormat.WELCOME, "coremodule.events.join", "_var",
+		Utils.broadcastWithConfiguredLanguageEach(ChatFormat.WELCOME, "coremodule.events.join", "_var",
 				player.getName());
 		if (!cfg.isSet("playername")) {
 			cfg.set("playername", player.getName());
@@ -161,22 +160,23 @@ public class CoreEvents implements Listener {
 		}
 	}
 
-	private String filterMessage(String msg, List<String> blacklist, CommandSender cmdsnd) {
-		for (String expr : blacklist) {
-			expr = expr.toLowerCase();
-			// cmdsnd.sendMessage("Checking for expression: " + expr);
-			if (msg.toLowerCase().contains(expr)) {
-				// cmdsnd.sendMessage("Found match for expression: " + expr);
-				String replacement = "";
-				for (int i = 0; i < expr.length(); i++) {
-					replacement += "*";
-				}
-				// cmdsnd.sendMessage("Replacement text: " + replacement);
-				msg = msg.replaceAll("(?i)" + Pattern.quote(expr), replacement);
-			}
-		}
-		return msg;
-	}
+	// TODO:
+	// private String filterMessage(String msg, List<String> blacklist, CommandSender cmdsnd) {
+	// 	for (String expr : blacklist) {
+	// 		expr = expr.toLowerCase();
+	// 		// cmdsnd.sendMessage("Checking for expression: " + expr);
+	// 		if (msg.toLowerCase().contains(expr)) {
+	// 			// cmdsnd.sendMessage("Found match for expression: " + expr);
+	// 			String replacement = "";
+	// 			for (int i = 0; i < expr.length(); i++) {
+	// 				replacement += "*";
+	// 			}
+	// 			// cmdsnd.sendMessage("Replacement text: " + replacement);
+	// 			msg = msg.replaceAll("(?i)" + Pattern.quote(expr), replacement);
+	// 		}
+	// 	}
+	// 	return msg;
+	// }
 
 	private Component filterMessage(Component msg, List<String> blacklist, CommandSender cmdsnd) {
 		for (String expr : blacklist) {

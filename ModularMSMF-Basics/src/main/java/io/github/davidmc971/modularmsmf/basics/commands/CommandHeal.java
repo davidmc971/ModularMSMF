@@ -10,7 +10,6 @@ import org.bukkit.entity.Player;
 
 import io.github.davidmc971.modularmsmf.basics.PermissionManager;
 import io.github.davidmc971.modularmsmf.basics.util.CommandUtil;
-import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils;
 import io.github.davidmc971.modularmsmf.core.util.Utils;
@@ -23,12 +22,6 @@ import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
 
 public class CommandHeal implements IModularMSMFCommand {
 
-	private ModularMSMFCore plugin;
-
-	public CommandHeal() {
-		plugin = ModularMSMFCore.Instance();
-	}
-
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (!PermissionManager.checkPermission(sender, "heal_use")) {
@@ -40,7 +33,7 @@ public class CommandHeal implements IModularMSMFCommand {
 				handlePlayers(sender, command, label, args);
 				break;
 			default:
-				Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+				Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
 						"basicsmodule.commands.arguments.toomany");
 				break;
 		}
@@ -70,9 +63,9 @@ public class CommandHeal implements IModularMSMFCommand {
 		if (sender == player) {
 			return healSelf(sender, command, label, args);
 		}
-		Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.HEAL,
+		Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.HEAL,
 				"basicsmodule.commands.heal.healother", "_player", player.getName());
-		Utils.sendMessageWithConfiguredLanguage(plugin, player, ChatFormat.HEAL,
+		Utils.sendMessageWithConfiguredLanguage(player, ChatFormat.HEAL,
 				"basicsmodule.commands.heal.gothealed", "_sender", sender.getName());
 		double maxHealth = player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue();
 		player.setHealth(maxHealth);
@@ -87,7 +80,7 @@ public class CommandHeal implements IModularMSMFCommand {
 		if (!CommandUtil.isSenderEligible(sender, command)) {
 			return false;
 		}
-		Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.HEAL, "basicsmodule.commands.heal.self");
+		Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.HEAL, "basicsmodule.commands.heal.self");
 		double maxHealth = ((Player) sender).getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue();
 		((Player) sender).setHealth(maxHealth);
 		return true;

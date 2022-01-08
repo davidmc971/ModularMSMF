@@ -38,7 +38,7 @@ public class CommandClearInventory implements IModularMSMFCommand {
             clearPlayer(sender, command, label, args);
             return true;
         }
-        Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+        Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                 "coremodule.commands.arguments.toomany");
         return true;
     }
@@ -50,12 +50,12 @@ public class CommandClearInventory implements IModularMSMFCommand {
             return false;
         }
         if (((Player) sender).getInventory().isEmpty()) {
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                     "basicsmodule.commands.clearinv.isEmpty.self");
             return true;
         }
         ((Player) sender).getInventory().clear();
-        Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
+        Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
                 "basicsmodule.commands.clearinv.gotEmptied.self");
         return true;
     }
@@ -73,14 +73,14 @@ public class CommandClearInventory implements IModularMSMFCommand {
             return clearSender(sender, command, label, args);
         }
         if (player.getInventory().isEmpty()) {
-            Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                     "basicsmodule.commands.clearinv.isEmpty.others", "_player", player.getName());
             return true;
         }
         player.getInventory().clear();
-        Utils.sendMessageWithConfiguredLanguage(plugin, player, ChatFormat.SUCCESS,
+        Utils.sendMessageWithConfiguredLanguage(player, ChatFormat.SUCCESS,
                 "basicsmodule.commands.clearinv.gotEmptied.self", "_player", player.getName());
-        Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.SUCCESS,
+        Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
                 "basicsmodule.commands.clearinv.gotEmptied.others", "_player", player.getName());
         return true;
     }
