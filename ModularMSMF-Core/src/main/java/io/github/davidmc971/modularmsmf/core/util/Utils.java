@@ -48,7 +48,8 @@ public class Utils {
 		return null;
 	}
 
-	public static FileConfiguration configureCommandLanguage(CommandSender sender, ModularMSMFCore plugin){
+	public static FileConfiguration configureCommandLanguage(CommandSender sender){
+		ModularMSMFCore plugin = ModularMSMFCore.Instance();
 		LanguageManager languageManager = plugin.getLanguageManager();
 		FileConfiguration language = languageManager.getStandardLanguage();
 		if(sender instanceof Player){
@@ -71,7 +72,6 @@ public class Utils {
 	/**
 	 * Broadcasts to every player in their respective language (including console).
 	 * 
-	 * @param plugin the plugin to access different instances
 	 * @param format the <code>ChatFormat</code> which sets the prefix of the sent messages
 	 * @param languageKey the key for the localized string from a language's <code>FileConfiguration</code>
 	 * @param toReplace	optional pairs of strings to use in
@@ -79,13 +79,14 @@ public class Utils {
 	 *  Can be empty.
 	 * @return 
 	 */
-	public static void broadcastWithConfiguredLanguageEach(ModularMSMFCore plugin, ChatUtils.ChatFormat format, String languageKey, String... toReplace) {
+	public static void broadcastWithConfiguredLanguageEach(ChatUtils.ChatFormat format, String languageKey, String... toReplace) {
+		ModularMSMFCore plugin = ModularMSMFCore.Instance();
 		String prefix = ChatUtils.getFormattedPrefix(format);
 		List<CommandSender> broadcastList = new ArrayList<CommandSender>();
 		broadcastList.add(Bukkit.getConsoleSender());
 		broadcastList.addAll(Bukkit.getOnlinePlayers());
 		broadcastList.forEach((subject) -> { // FIXME: gives error
-			FileConfiguration language = configureCommandLanguage(subject, plugin);
+			FileConfiguration language = configureCommandLanguage(subject);
 			String configuredMessage = prefix + language.getString(languageKey);
 			if(toReplace.length % 2 == 0) {
 				for(int i = 0; i < toReplace.length; i += 2) {
@@ -102,7 +103,6 @@ public class Utils {
 	/**
 	 * Sends a message to <code>CommandSender</code> in their respective language.
 	 * 
-	 * @param plugin the plugin to access different instances
 	 * @param subject the <code>CommandSender</code> to send the message to
 	 * @param format the <code>ChatFormat</code> which sets the prefix of the sent message
 	 * @param languageKey the key for the localized string from a language's <code>FileConfiguration</code>
@@ -110,9 +110,10 @@ public class Utils {
 	 *  <code>replaceAll()</code> of the output string.
 	 *  Can be empty.
 	 */
-	public static void sendMessageWithConfiguredLanguage(ModularMSMFCore plugin, CommandSender subject, ChatUtils.ChatFormat format, String languageKey, String... toReplace) {
+	public static void sendMessageWithConfiguredLanguage(CommandSender subject, ChatUtils.ChatFormat format, String languageKey, String... toReplace) {
+		ModularMSMFCore plugin = ModularMSMFCore.Instance();
 		String prefix = ChatUtils.getFormattedPrefix(format);
-		FileConfiguration language = configureCommandLanguage(subject, plugin);
+		FileConfiguration language = configureCommandLanguage(subject);
 		String configuredMessage = prefix + language.getString(languageKey);
 		if(toReplace.length % 2 == 0) {
 			for(int i = 0; i < toReplace.length; i += 2) {
