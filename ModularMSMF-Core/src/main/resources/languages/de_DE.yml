@@ -14,7 +14,7 @@ coremodule:
             failed: Die Datei konnte nicht erstellt werden!
             done: Die Datei konnte erstellt werden!
     notimplementedyet: Dieser Befehl existiert noch nicht.
-    bukkitversion: "Die aktuelle Bukkitversion: _bukkitver."
+    bukkitversion: "Die aktuelle Bukkitversion: _bukkitver"
     events:
         join: _var hat den Server betreten!
         quit: _var hat den Server verlassen!

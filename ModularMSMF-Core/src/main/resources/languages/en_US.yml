@@ -18,7 +18,7 @@ coremodule:
       failed: File couldn't be created!
       done: File could be created!
   notimplementedyet: Not implemented yet.
-  bukkitversion: "Bukkit version: _bukkitver."
+  bukkitversion: "Bukkit version: _bukkitver"
   events:
     join: _var has joined!
     quit: _var has left!
