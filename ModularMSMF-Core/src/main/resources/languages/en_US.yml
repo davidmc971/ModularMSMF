@@ -234,6 +234,10 @@ basicsmodule:
       gotEmptied:
         self: Your inventory got cleared!
         others: _player's inventory got cleared!
+    inventory:
+      usage: "Show inventory of someone: /get inventory <name>"
+      done: "Opened your inventory"
+      others: "Opened _value's inventory"
 #for economy-module en_US file
 economy-module:
   commands:
