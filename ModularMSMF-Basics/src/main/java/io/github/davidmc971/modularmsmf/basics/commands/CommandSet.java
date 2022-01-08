@@ -62,8 +62,10 @@ public class CommandSet implements IModularMSMFCommand {
             case "saturation":
             case "sat":
                 handleSaturation(sender, command, label, args);
+                break;
             case "exp":
                 handleExp(sender, command, label, args);
+                break;
             case "level":
             case "lvl":
                 handleLevel(sender, command, label, args);

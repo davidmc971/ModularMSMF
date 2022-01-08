@@ -43,10 +43,15 @@ public class CommandHeal implements IModularMSMFCommand {
 	private void handlePlayers(CommandSender sender, Command command, String label, String[] args) {
 		if (args.length == 0) {
 			healSelf(sender, command, label, args);
+			return true;
 		}
 		if (args.length == 1) {
 			healOthers(sender, command, label, args);
+			return true;
 		}
+		Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+				"basicsmodule.commands.arguments.toomany");
+		return true;
 	}
 
 	private boolean healOthers(CommandSender sender, Command command, String label, String[] args) {
@@ -55,7 +60,7 @@ public class CommandHeal implements IModularMSMFCommand {
 		Player player = Bukkit.getPlayer(target);
 		if (!PermissionManager.checkPermission(sender, "healother")) {
 			ChatUtils.sendMsgNoPerm(sender);
-			return true;
+			return false;
 		}
 		if (!CommandUtil.isPlayerEligible(sender, player, command)) {
 			return false;
