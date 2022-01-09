@@ -41,12 +41,15 @@ subprojects {
         maven {
             url = uri('https://nexus.iridiumdevelopment.net/repository/maven-releases/')
         }
+        // VaultAPI maven repo
+        maven { url 'https://jitpack.io' }
     }
 
     dependencies {
         testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.5.2'
         implementation 'com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT'
         implementation 'com.iridium:IridiumColorAPI:1.0.6'
+        compileOnly "com.github.MilkBowl:VaultAPI:1.7"
     }
 
     // Swap placeholders in resources with values
