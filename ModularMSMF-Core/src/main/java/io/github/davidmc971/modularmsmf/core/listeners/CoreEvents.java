@@ -14,8 +14,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerLoginEvent;
-import org.bukkit.event.player.PlayerLoginEvent.Result;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
@@ -94,50 +92,6 @@ public class CoreEvents implements Listener {
 			}
 		} else {
 			// still thinking...
-		}
-	}
-
-	@EventHandler
-	public void onLogin(PlayerLoginEvent event, FileConfiguration language, UUID uuid) {
-		FileConfiguration cfg = plugin.getDataManager().getPlayerCfg(uuid);
-
-		/**
-		 * check if player was flying while leaving and will teleport player to the
-		 * gorund & turn off flight
-		 */
-		if (cfg.getBoolean("players.flying", true)) { // FIXME: cfg will not be loaded cause strings missing in
-														// "players"-folder - NullPointerException (in CommandFly)
-			/*
-			 * Player spawned = event.getPlayer();
-			 * double x = cfg.getDouble("players.position.X");
-			 * double y = cfg.getDouble("players.position.Y");
-			 * double z = cfg.getDouble("players.position.Z");
-			 * double yaw = cfg.getDouble("players.position.Yaw");
-			 * double pitch = cfg.getDouble("players.position.Pitch");
-			 * String worldname = cfg.getString("players.position.world");
-			 * World world = Bukkit.getWorld(worldname);
-			 * Location loc = spawned.getLocation();
-			 * loc.setX(x);
-			 * loc.setY(y);
-			 * loc.setZ(z);
-			 * loc.setYaw((float) yaw);
-			 * loc.setPitch((float) pitch);
-			 * loc.setWorld(world);
-			 * spawned.teleport(loc);
-			 */
-		}
-
-		/**
-		 * check if player has been banned and will kick player if true
-		 */
-		String reason = language.getString("coremodule.events.banned");
-		cfg.set("players.ipAddress", event.getAddress());
-		if (cfg.isBoolean("banned") && cfg.getBoolean("banned")) {
-			if (cfg.isString("reason")) {
-				event.disallow(Result.KICK_BANNED, Component.text(cfg.getString("reason")));
-			} else {
-				event.disallow(Result.KICK_BANNED, Component.text(reason));
-			}
 		}
 	}
 
