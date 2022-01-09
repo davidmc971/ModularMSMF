@@ -133,7 +133,11 @@ basicsmodule:
             alreadyremoved: Der Spawnpunkt existiert nicht!
         back:
             success: Du hast dich zum letzten Punkt teleportiert!
-            error: Es gibt keinen Punkt zum teleportieren.
+            error: Es gibt keinen Punkt zum zurück teleportieren.
+            other:
+                success: Du hast _player erfolgreich zurück teleportiert!
+                done: Du wurdest zurück teleportiert!
+                error: _player hat keinen Punkt zum zurück teleportieren!
         clear:
             done: Erfolgreich den Chat geleert!
             target: _target's Chat geleert!

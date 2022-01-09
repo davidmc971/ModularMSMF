@@ -153,6 +153,10 @@ basicsmodule:
     back:
       success: Teleported back to last point!
       error: There's no point to get back.
+      other:
+        success: You teleported _player successfully back!
+        done: You got teleported back!
+        error: _player has no point to get back!
     clear:
       done: Successfully cleared the chat!
       target: Cleared _target's chatlog!
