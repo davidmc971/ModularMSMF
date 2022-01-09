@@ -29,6 +29,7 @@ public class CommandHeal implements IModularMSMFCommand {
 			return true;
 		}
 		switch (args.length) {
+			case 0:
 			case 1:
 				handlePlayers(sender, command, label, args);
 				break;
@@ -55,7 +56,7 @@ public class CommandHeal implements IModularMSMFCommand {
 		Player player = Bukkit.getPlayer(target);
 		if (!PermissionManager.checkPermission(sender, "healother")) {
 			ChatUtils.sendMsgNoPerm(sender);
-			return true;
+			return false;
 		}
 		if (!CommandUtil.isPlayerEligible(sender, player, command)) {
 			return false;

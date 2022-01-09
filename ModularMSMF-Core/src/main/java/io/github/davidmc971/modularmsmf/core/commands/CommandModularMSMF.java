@@ -40,15 +40,13 @@ public class CommandModularMSMF implements IModularMSMFCommand {
 		plugin = ModularMSMFCore.Instance();
 	}
 
-	private String bukkitVersion = Bukkit.getBukkitVersion();
-	private String name = Bukkit.getName();
-	private String version = Bukkit.getVersion();
-	private String mcversion = Bukkit.getMinecraftVersion();
-	private int maxplayers = Bukkit.getMaxPlayers();
+	private final String bukkitVersion = Bukkit.getBukkitVersion();
+	private final String name = Bukkit.getName();
+	private final String version = Bukkit.getVersion();
+	private final String mcversion = Bukkit.getMinecraftVersion();
+	private final int maxplayers = Bukkit.getMaxPlayers();
 
 	private final String infoPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.INFO);
-	// private String errorPrefix =
-	// ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.ERROR);
 	private final String debugPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.DEBUG);
 
 	@Override

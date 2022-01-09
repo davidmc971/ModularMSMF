@@ -17,18 +17,12 @@ import io.github.davidmc971.modularmsmf.core.util.Utils;
 
 /**
  * 
- * @authors Lightkeks, davidmc971
- * TODO rewrite
+ * @author Lightkeks, davidmc971
+ *         TODO rewrite
  *
  */
 
 public class CommandKick implements IModularMSMFCommand {
-
-	private ModularMSMFCore plugin;
-
-	public CommandKick() {
-		plugin = ModularMSMFCore.Instance();
-	}
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -41,44 +35,46 @@ public class CommandKick implements IModularMSMFCommand {
 		UUID target = null;
 
 		switch (args.length) {
-		case 0:
-			if (PermissionManager.checkPermission(sender, "kickplayer")) {
-				ChatUtils.sendMsgNoPerm(sender);
-				return true;
-			} else {
-				Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.KICK, "basicsmodule.commands.kick.missingname");
-			}
-			break;
-		default:
-			if (PermissionManager.checkPermission(sender, "kickplayer")) {
-				target = Utils.getPlayerUUIDByName(args[0]);
-				if (target == null) {
-					Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.KICK, "coremodule.player.notfound");
+			case 0:
+				if (!PermissionManager.checkPermission(sender, "kickplayer")) {
+					ChatUtils.sendMsgNoPerm(sender);
+					return true;
 				} else {
-					if (args.length == 0) {
-						kickPlayer(target, reason);
-						Utils.broadcastWithConfiguredLanguageEach(ChatFormat.KICKED,
-								"basicsmodule.commands.kick.seeforall", "_player", args[0]);
-					} else {
-						// adding custom reason for kick
-						reason = "";
-						for (int i = 1; i < args.length; i++) {
-							reason += args[i] + " ";
-						}
-						kickPlayer(target, reason);
-						Utils.broadcastWithConfiguredLanguageEach(ChatFormat.KICKED,
-								"basicsmodule.commands.kick.seeforallreason", "_reason", reason, "_player", args[0]);
-					}
+					Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.KICK,
+							"basicsmodule.commands.kick.missingname");
 				}
-			} else {
-				ChatUtils.sendMsgNoPerm(sender);
-			}
+				break;
+			default:
+				if (PermissionManager.checkPermission(sender, "kickplayer")) {
+					target = Utils.getPlayerUUIDByName(args[0]);
+					if (target == null) {
+						Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.KICK, "coremodule.player.notfound");
+					} else {
+						if (args.length == 0) {
+							kickPlayer(target, reason);
+							Utils.broadcastWithConfiguredLanguageEach(ChatFormat.KICKED,
+									"basicsmodule.commands.kick.seeforall", "_player", args[0]);
+						} else {
+							// adding custom reason for kick
+							reason = "";
+							for (int i = 1; i < args.length; i++) {
+								reason += args[i] + " ";
+							}
+							kickPlayer(target, reason);
+							Utils.broadcastWithConfiguredLanguageEach(ChatFormat.KICKED,
+									"basicsmodule.commands.kick.seeforallreason", "_reason", reason, "_player",
+									args[0]);
+						}
+					}
+				} else {
+					ChatUtils.sendMsgNoPerm(sender);
+				}
 		}
 		return true;
 	}
 
 	private void kickPlayer(UUID target, String reason) {
-		plugin.getMainEvents().registerKickedPlayer(target);
+		ModularMSMFCore.Instance().getMainEvents().registerKickedPlayer(target);
 		Bukkit.getPlayer(target).kick(Component.text(reason));
 	}
 

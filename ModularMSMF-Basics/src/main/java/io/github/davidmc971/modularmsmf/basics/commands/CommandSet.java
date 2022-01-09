@@ -14,7 +14,6 @@ import org.bukkit.entity.Player;
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.basics.PermissionManager;
 import io.github.davidmc971.modularmsmf.basics.util.CommandUtil;
-import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils;
 import io.github.davidmc971.modularmsmf.core.util.Utils;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
@@ -29,12 +28,6 @@ import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
  */
 @NotNull
 public class CommandSet implements IModularMSMFCommand {
-
-    ModularMSMFCore plugin;
-
-    public CommandSet() {
-        plugin = ModularMSMFCore.Instance();
-    }
 
     private final static DecimalFormat df = new DecimalFormat("0.00");
 
@@ -62,8 +55,10 @@ public class CommandSet implements IModularMSMFCommand {
             case "saturation":
             case "sat":
                 handleSaturation(sender, command, label, args);
+                break;
             case "exp":
                 handleExp(sender, command, label, args);
+                break;
             case "level":
             case "lvl":
                 handleLevel(sender, command, label, args);

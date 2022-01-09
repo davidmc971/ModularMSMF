@@ -5,6 +5,7 @@ import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -45,7 +46,7 @@ public class CommandClearInventory implements IModularMSMFCommand {
 
     private boolean clearSender(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
             @NotNull String[] args) {
-        if (!PermissionManager.checkPermission(sender, "clearinv_self")) {
+        if (!PermissionManager.checkPermission(sender, "clearinv_self") || sender instanceof ConsoleCommandSender) {
             ChatUtils.sendMsgNoPerm(sender);
             return false;
         }
