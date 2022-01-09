@@ -15,7 +15,7 @@ import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
 
 /**
  * @author Lightkeks
- * 
+ *
  *         FIXME health to fill for higher scale than 20
  */
 
@@ -28,39 +28,12 @@ public class CommandHealAll implements IModularMSMFCommand {
             ChatUtils.sendMsgNoPerm(sender);
             return true;
         }
-        switch (args.length) {
-            case 0:
-                handlePlayers(sender, command, label, args);
-                break;
-            case 1:
-                handleArgs(sender, command, label, args);
-                break;
-            default:
-                Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
-                        "basicsmodule.commands.arguments.toomany");
-                break;
-        }
-        return true;
-    }
-
-    private void handleArgs(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
-            @NotNull String[] args) {
-        if (args[0].equalsIgnoreCase("toggle")) {
-            setToggle(sender, command, label, args);
-        } else {
-            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "basicsmodule.arguments.invalid");
-        }
-    }
-
-    private boolean setToggle(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
-            @NotNull String[] args) {
-        /**
-         * toggleable ingame and writes into config
-         */
-        if (!PermissionManager.checkPermission(sender, "toggle_healall")) {
-            ChatUtils.sendMsgNoPerm(sender);
+        if (args.length == 0) {
+            handlePlayers(sender, command, label, args);
             return true;
         }
+        Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
+                "basicsmodule.commands.arguments.toomany");
         return true;
     }
 
