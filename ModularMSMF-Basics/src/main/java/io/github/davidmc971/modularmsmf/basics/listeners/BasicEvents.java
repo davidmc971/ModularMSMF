@@ -56,7 +56,7 @@ public class BasicEvents implements Listener {
 	}
 
 	@EventHandler
-	public void onLogin(PlayerLoginEvent event, FileConfiguration language, UUID uuid) {
+	public void onLogin(PlayerLoginEvent event, FileConfiguration language, UUID uuid) { //TODO: move event PlayerLoginEvent to early loading
 		FileConfiguration cfg = ModularMSMFCore.Instance().getDataManager().getPlayerCfg(uuid);
 		if (cfg.getBoolean("players.flying", true)) {
 		}
