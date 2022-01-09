@@ -4,10 +4,10 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 
-import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.core.PermissionManager;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
+import io.github.davidmc971.modularmsmf.core.util.ChatUtils;
 import io.github.davidmc971.modularmsmf.core.util.Utils;
 
 public class CommandReport implements IModularMSMFCommand {
@@ -15,12 +15,6 @@ public class CommandReport implements IModularMSMFCommand {
 	// public static HashMap<Player, String[]/**Ansammlung von mehreren argumenten
 	// in einem string? */> reportList = new HashMap<>(); //TODO: @david, kann man
 	// das so lassen?
-
-	private ModularMSMFCore plugin;
-
-	public CommandReport() {
-		plugin = ModularMSMFCore.Instance();
-	}
 
 	/**
 	 * The "/report" command. There are different categories of reports: player -
@@ -53,72 +47,58 @@ public class CommandReport implements IModularMSMFCommand {
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
+		if (!PermissionManager.checkPermission(sender, "report_use")) {
+			ChatUtils.sendMsgNoPerm(sender);
+			return true;
+		}
+
 		FileConfiguration language = Utils.configureCommandLanguage(sender);
 
 		if (args.length == 0) {
-			// no arguments, plain /report command
-			// TODO: send description of command, in player's language
-			// sender.sendMessage(infoPrefix + "Report system for reporting players, bugs
-			// and other stuff.");
-			// sender.sendMessage(infoPrefix + "Level's you are allowed to use:");
-			if (PermissionManager.checkPermission(sender, "report_player")) {
-				// sender.sendMessage(infoPrefix + "/report player <playername> <reason>");
-			}
-			if (PermissionManager.checkPermission(sender, "report_bug")) {
-				// sender.sendMessage(infoPrefix + "/report bug <description of finding>");
-			}
-			if (PermissionManager.checkPermission(sender, "report_other")) {
-				// sender.sendMessage(infoPrefix + "/report other <describe your idea>");
-			}
-		} else {
-			// at least one argument
-			switch (args[0].toLowerCase()) {
-			// let's check for the category and if it's valid, as well as permission for use
+			reportHelp(sender);
+			return true;
+		}
+		switch (args[0].toLowerCase()) {
 			case "player":
-				if (PermissionManager.checkPermission(sender, "report_player")) {
-					reportPlayer(sender, args, plugin, language);
-				} else {
-					Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.REPORT, "coremodule.player.nopermission");
-				}
+				reportPlayer(sender, args, language);
 				break;
 			case "bug":
-				if (PermissionManager.checkPermission(sender, "report_bug")) {
-					reportBug(sender, args, plugin, language);
-				} else {
-					Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.REPORT, "coremodule.player.nopermission");
-				}
+				reportBug(sender, args, language);
 				break;
 			case "other":
-				if (PermissionManager.checkPermission(sender, "report_other")) {
-					reportOther(sender, args, plugin, language);
-				} else {
-					Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.REPORT, "coremodule.player.nopermission");
-				}
+				reportOther(sender, args, language);
 				break;
 			default:
-				// non valid category
-				// DONE: send error and prompt user to use /report for description
-				Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.REPORT, "coremodule.commands.report.help");
+				Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.REPORT,
+						"coremodule.commands.report.help");
 				break;
-			}
 		}
 		return true;
 	}
 
-	private static void reportPlayer(CommandSender sender, String[] args, ModularMSMFCore plugin,
-			FileConfiguration language) {
-		// TODO: incomplete
+	private void reportHelp(CommandSender sender) {
 
 	}
 
-	private static void reportBug(CommandSender sender, String[] args, ModularMSMFCore plugin,
-			FileConfiguration language) {
-		// TODO: incomplete
+	private void reportPlayer(CommandSender sender, String[] args, FileConfiguration language) {
+		if (!PermissionManager.checkPermission(sender, "report_player")) {
+			ChatUtils.sendMsgNoPerm(sender);
+		}
+
 	}
 
-	private static void reportOther(CommandSender sender, String[] args, ModularMSMFCore plugin,
-			FileConfiguration language) {
-		// TODO: incomplete
+	private void reportBug(CommandSender sender, String[] args, FileConfiguration language) {
+		if (!PermissionManager.checkPermission(sender, "report_bug")) {
+			ChatUtils.sendMsgNoPerm(sender);
+		}
+
+	}
+
+	private void reportOther(CommandSender sender, String[] args, FileConfiguration language) {
+		if (!PermissionManager.checkPermission(sender, "report_other")) {
+			ChatUtils.sendMsgNoPerm(sender);
+		}
+
 	}
 
 	@Override
