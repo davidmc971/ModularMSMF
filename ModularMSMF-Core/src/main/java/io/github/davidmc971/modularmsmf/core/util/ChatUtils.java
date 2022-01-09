@@ -1,8 +1,6 @@
 package io.github.davidmc971.modularmsmf.core.util;
 
-import com.iridium.iridiumcolorapi.IridiumColorAPI;
-
-//import java.util.UUID;
+//import com.iridium.iridiumcolorapi.IridiumColorAPI;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
