@@ -1,5 +1,7 @@
 package io.github.davidmc971.modularmsmf.core.util;
 
+import com.iridium.iridiumcolorapi.IridiumColorAPI;
+
 //import java.util.UUID;
 
 import org.bukkit.command.CommandSender;
@@ -16,20 +18,25 @@ import net.md_5.bungee.api.ChatColor;
 
 public class ChatUtils {
 
-	static ChatColor bold = ChatColor.BOLD;
 	static ChatColor gold = ChatColor.GOLD;
 	static ChatColor reset = ChatColor.RESET;
 	static ChatColor dark_red = ChatColor.DARK_RED;
 
+	// static String hex_8200FF = IridiumColorAPI.process("<SOLID:8200FF>");
+	// static String hex_FFD700 = IridiumColorAPI.process("<SOLID:FFD700>");
+	// static String hex_FF0000 = IridiumColorAPI.process("<SOLID:FF0000>");
+
 	public enum ChatFormat {
 		SUCCESS, INFO, ERROR, MSG, BROADCAST, STANDARD, RAINBOW, NOPERM, WELCOME, QUIT, DEATH, MONEY, CONSOLE, KICKED,
-		HOME_LIST, HOME, BANNED, KICK, BAN, UNBAN, REPORT, SPAWN, FEED, HEAL, LANGUAGE, DEBUG, WARN, FLY_ON, FLY_OFF, ONLINE
+		HOME_LIST, HOME, BANNED, KICK, BAN, UNBAN, REPORT, SPAWN, FEED, HEAL, LANGUAGE, DEBUG, WARN, FLY_ON, FLY_OFF,
+		ONLINE
 	}
 
 	public static String getFormattedPrefix(ChatFormat format) {
 		switch (format) {
 			case CONSOLE: // if console tries a command but fails
-				return (gold + "[" + reset + dark_red + "Console" + gold + "]" + reset + dark_red + " ");
+				return ("" + ChatColor.BOLD + gold + "[" + reset + dark_red + "Console" + gold + "]" + reset
+						+ dark_red + " ");
 			case INFO: // if nothing special happens, just informational
 				return (ChatColor.GOLD + "[" + ChatColor.GRAY + "Info" + ChatColor.GOLD + "]" + ChatColor.GRAY + " ");
 			case DEBUG: // used in debug builds
@@ -88,8 +95,9 @@ public class ChatUtils {
 						+ " ");
 			case FLY_OFF: // related to flight turning on
 				return (ChatColor.GOLD + "[" + ChatColor.RED + "Flight" + ChatColor.GOLD + "]" + ChatColor.WHITE + " ");
-			case ONLINE: //related for list command
-				return (ChatColor.BLACK + "[" + ChatColor.BOLD + ChatColor.UNDERLINE + ChatColor.LIGHT_PURPLE + " Online " + ChatColor.RESET + ChatColor.BLACK + "]" + ChatColor.GRAY + " ");
+			case ONLINE: // related for list command
+				return (ChatColor.BLACK + "[" + ChatColor.BOLD + ChatColor.UNDERLINE + ChatColor.LIGHT_PURPLE
+						+ " Online " + ChatColor.RESET + ChatColor.BLACK + "]" + ChatColor.GRAY + " ");
 			default: // if no enum has been set which doesnt work
 				return "[ModularMSMF] ";
 		}
