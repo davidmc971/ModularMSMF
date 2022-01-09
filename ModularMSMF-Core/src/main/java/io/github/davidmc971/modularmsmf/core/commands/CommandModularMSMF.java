@@ -7,7 +7,6 @@ import com.iridium.iridiumcolorapi.IridiumColorAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.jetbrains.annotations.NotNull;
@@ -52,7 +51,7 @@ public class CommandModularMSMF implements IModularMSMFCommand {
 	@Override
 	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
 			@NotNull String[] args) {
-		if (!PermissionManager.checkPermission(sender, "mmsmf") || sender instanceof ConsoleCommandSender) {
+		if (!PermissionManager.checkPermission(sender, "mmsmf")) {
 			ChatUtils.sendMsgNoPerm(sender);
 			return true;
 		}
