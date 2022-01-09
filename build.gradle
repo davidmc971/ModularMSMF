@@ -16,7 +16,7 @@ allprojects {
 
     ext {
         url = 'https://github.com/davidmc971/ModularMSMF'
-        build_timestamp = new Date().format('yyyy-MM-dd\'T\'HH:mm:ss\'Z\'z')
+        build_timestamp = new Date().format('yyyy-MM-dd\'T\'HH:mm:ss\'Z\'z', TimeZone.getTimeZone('UTC'))
     }
 }
 
