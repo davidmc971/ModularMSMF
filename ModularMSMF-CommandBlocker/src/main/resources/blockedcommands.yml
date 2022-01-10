@@ -1,5 +1,5 @@
 # This file should have the following structure:
-# 
+#
 BlockedCommands:
   - god
   - op
