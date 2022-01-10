@@ -33,7 +33,7 @@ public class CommandBan implements IModularMSMFCommand {
 		switch (commandLabel.toLowerCase()) {
 			case "ban":
 				return banCommand(sender, cmd, commandLabel, args);
-			case "unban": //FIXME: does not work - new command?
+			case "unban": // FIXME: does not work - new command?
 				return unbanCommand(sender, cmd, commandLabel, args);
 			case "ban-ip":
 				return banIpCommand(sender, cmd, commandLabel, args);
@@ -66,7 +66,7 @@ public class CommandBan implements IModularMSMFCommand {
 					} else {
 						FileConfiguration language = Utils.configureCommandLanguage(sender);
 						String reason = language.getString("event.banned");
-						banPlayer(uuid, reason, language);
+						banPlayer(sender, uuid, reason, language);
 						Player player = Bukkit.getPlayer(uuid);
 						banPlayerIp(uuid, reason, language, player);
 					}
@@ -86,30 +86,35 @@ public class CommandBan implements IModularMSMFCommand {
 			return true;
 		}
 		if (args.length == 0) {
-			Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "coremodule.player.name");
+			Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.BAN, "coremodule.player.name");
 			return true;
 		}
 		UUID uuid = getPlayerUUIDByNameForBan(args[0]);
 		if (uuid == null) {
-			Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "coremodule.player.unknown");
-			return true;
-		} else if (ModularMSMFCore.Instance().getDataManager().getPlayerCfg(uuid).getBoolean("banned")) {
-			Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
-					"basicsmodule.commands.ban.alreadybanned");
+			Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.BAN, "coremodule.player.unknown");
 			return true;
 		}
+		if (ModularMSMFCore.Instance().getDataManager().getPlayerCfg(uuid).getBoolean("banned")) {
+			Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.BAN,
+					"basicsmodule.commands.ban.already");
+			return true;
+		}
+		Player player = Bukkit.getPlayer(uuid);
+		if (!player.getUniqueId().toString().equals(uuid.toString())) {
+			Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.BAN, "coremodule.player.notonline");
+		}
 		FileConfiguration language = Utils.configureCommandLanguage(sender);
-		String reason = language.getString("event.banned");
+		String reason = language.getString("coremodule.event.banned");
 		switch (args.length) {
 			case 1:
-				banPlayer(uuid, reason, language);
+				banPlayer(sender, uuid, reason, language);
 				break;
 			default:
 				reason = "";
 				for (int i = 1; i < args.length; i++) {
 					reason += args[i] + " ";
 				}
-				banPlayer(uuid, reason, language);
+				banPlayer(sender, uuid, reason, language);
 				break;
 		}
 		return true;
@@ -122,16 +127,17 @@ public class CommandBan implements IModularMSMFCommand {
 		cfg.set("ipAdress", player.getAddress().getAddress().getHostAddress());
 	}
 
-	public void banPlayer(UUID uuid, String reason, FileConfiguration language) {
-		FileConfiguration cfg = ModularMSMFCore.Instance().getDataManager().getPlayerCfg(uuid);
-		cfg.set("banned", true);
-		cfg.set("reason", reason);
+	public void banPlayer(CommandSender sender, UUID uuid, String reason, FileConfiguration language) {
 		for (Player player : Bukkit.getServer().getOnlinePlayers()) {
+			FileConfiguration cfg = ModularMSMFCore.Instance().getDataManager().getPlayerCfg(uuid);
+			cfg.set("banned", true);
+			cfg.set("reason", reason);
 			if (player.getUniqueId().toString().equals(uuid.toString())) {
 				player.kick(
 						Component.text(language.getString("coremodule.events.banned").replaceAll("_reason", reason)));
 			}
 		}
+
 	}
 
 	private UUID getPlayerUUIDByNameForBan(String name) {
@@ -157,7 +163,7 @@ public class CommandBan implements IModularMSMFCommand {
 			case 0:
 				Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "coremodule.player.name");
 				break;
-			case 1: //FIXME: unban does not work - new command?
+			case 1: // FIXME: unban does not work - new command?
 				for (OfflinePlayer p : Bukkit.getOfflinePlayers()) {
 					if (p.getName().equalsIgnoreCase(args[0])) {
 						UUID uuid = null;
