@@ -1,0 +1,35 @@
+###################################
+# Language file for EconomyModule #
+###################################
+
+#TODO: needs rewrite
+language:
+  id: de_DE
+  name: Deutsch
+#FIXME: most will say null for beginning
+commands:
+  money:
+    missingamountandplayer: Bitte gib einen Betrag sowie einen Spieler an!
+    missingamount: Bitte gib noch einen Betrag an!
+    amountonly: Bitte gib eine Zahl an!
+    invalidpayment: Du darfst keine Minusbeträge angeben!
+    nomoneyleft: Du würdest dich verschulden!
+  eco:
+    balance:
+      self: "Kontostand: _value."
+      other: "_target dessen Kontostand: _value."
+    set:
+      self:
+        full: Kontostand hat sich von _value_old auf _value_new korrigiert.
+        new: "Neuer Kontostand: _value."
+        old: "Alter Kontostand: _value."
+      other:
+        full: _target's balance has been changed from _value_old to _value_new.
+        new: _target's new balance is _value.
+        old: _target's old balance was _value.
+      notify: _sender has changed your balance from _value_old to _value_new.
+    error:
+      syntax: Falsche Syntax!
+      console: Console has no money :P
+    reset: Your balance has been reset.
+    helponly: helpings

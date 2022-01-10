@@ -1,0 +1,27 @@
+#####################################
+# Language file for NovaPermsModule #
+#####################################
+
+#TODO: needs rewrite
+language:
+  id: en_US
+  name: English
+#FIXME: most will say null for beginning
+commands:
+  groups:
+  # Substrings for groups (list groups)
+  inspect:
+  # Substrings for inspect (group / player specific)
+  assign:
+  # Substrings for assign (player)
+  permit:
+  # Substrings for permit (permission)
+  create:
+  # Substrings for create (group)
+  prefix:
+  # Substrings for prefix (user / group specific)
+  remove:
+  # Substrings for remove (a permission or from a group)
+  delete:
+  # Substrings for delete (a user from groups or delete a group)
+unknown: Unknown subcommand!

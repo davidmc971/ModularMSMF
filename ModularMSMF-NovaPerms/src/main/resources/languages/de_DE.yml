@@ -1,0 +1,19 @@
+#####################################
+# Language file for NovaPermsModule #
+#####################################
+
+#TODO: needs rewrite
+language:
+  id: de_DE
+  name: Deutsch
+#FIXME: most will say null for beginning
+commands:
+  groups:
+  inspect:
+  assign:
+  permit:
+  create:
+  prefix:
+  remove:
+  delete:
+unknown: Unknown subcommand!

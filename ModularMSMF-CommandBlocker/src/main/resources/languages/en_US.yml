@@ -1,0 +1,15 @@
+##########################################
+# Language file for CommandBlockerModule #
+##########################################
+
+#TODO: needs rewrite
+language:
+  id: en_US
+  name: English
+#FIXME: most will say null for beginning
+commands:
+  arguments:
+    missing: Please give matching arguments!
+    toomany: Too many arguments.
+    invalid: Wrong arguments!
+  invalid: Wrong command.
