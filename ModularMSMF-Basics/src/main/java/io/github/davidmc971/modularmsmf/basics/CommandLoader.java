@@ -6,7 +6,10 @@ import io.github.davidmc971.modularmsmf.basics.commands.*;
 public class CommandLoader {
 	public static void registerCommands(ModularMSMFBasics plugin) {
 		for (IModularMSMFCommand cmd : new IModularMSMFCommand[] {
-				new CommandBan(),
+				new CommandBanPlayer(),
+				new CommandBanIP(),
+				new CommandUnbanPlayer(),
+				new CommandUnbanIP(),
 				new CommandBack(),
 				new CommandFeed(),
 				new CommandHeal(),

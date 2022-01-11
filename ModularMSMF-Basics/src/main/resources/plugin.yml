@@ -45,8 +45,11 @@ commands:
   unban:
     description: Entbannt einen Spieler.
     usage: /<command> <player>
-  ban-ip:
+  banip:
     description: Bans a player by IP.
+    usage: /<command> <args>
+  unbanip:
+    description: Unbans a player's IP.
     usage: /<command> <args>
   kick:
     description: Kickt einen Spieler.

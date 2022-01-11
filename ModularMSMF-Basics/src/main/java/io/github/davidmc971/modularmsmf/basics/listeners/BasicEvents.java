@@ -56,14 +56,15 @@ public class BasicEvents implements Listener {
 	}
 
 	@EventHandler
-	public void onLogin(PlayerLoginEvent event, FileConfiguration language, UUID uuid) { //TODO: move event PlayerLoginEvent to early loading
+	public void onLogin(PlayerLoginEvent event, FileConfiguration language, UUID uuid) {
+		// TODO: move event PlayerLoginEvent to early loading
 		FileConfiguration cfg = ModularMSMFCore.Instance().getDataManager().getPlayerCfg(uuid);
 		if (cfg.getBoolean("players.flying", true)) {
 		}
 
-		//FIXME: Player connect even banned - config broken?
+		// FIXME: Player connect even banned - config broken?
 		String reason = language.getString("coremodule.events.banned");
-		cfg.set("players.ipAddress", event.getAddress().getHostAddress());
+		// cfg.set("players.ipAddress", event.getAddress().getHostAddress());
 		if (cfg.isBoolean("banned") && cfg.getBoolean("banned", true)) {
 			if (cfg.isString("reason")) {
 				event.disallow(Result.KICK_BANNED, Component.text(cfg.getString("reason")));
