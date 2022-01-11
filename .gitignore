@@ -30,3 +30,4 @@ gradle-app.setting
 build
 # compilation output
 jars/
+testserver/README.md

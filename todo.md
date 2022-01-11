@@ -1,7 +1,7 @@
 (A) Core Module +ModularMSMFCore
-  (A) API Overview +ModularMSMFCoreAPI
+  (A) API Overview +ModularMSMFCoreAPI {c}
     (F) - review files and rewrite if neccessary
-  (A) Command Overview +ModularMSMFCore +CoreCommands
+  (A) Command Overview +ModularMSMFCore +CoreCommands {c}
     (B) - report command:
       - write bug report into file/db #important
       - write player report into file/db #important
@@ -29,7 +29,7 @@
       - add structure for command #new
     (F) - clearchat command:
       - review command and maybe optimize if neccessary
-  (A) File Configuration Overview +ModularMSMFCore +CoreFileConfiguration
+  (A) File Configuration Overview +ModularMSMFCore +CoreFileConfiguration {c}
     (A) - review files of core and rewrite if neccessary
       (A) - review files of configuration and rewrite if neccessary #important
       (A) - review files of data and rewrite if neccessary #important
@@ -40,7 +40,6 @@
 
 (A) Basics Module +ModularMSMFBasics
   (A) - review all commands and rewrite if neccessary
-    - commands to watch:
       - back
       - ban
       - channels

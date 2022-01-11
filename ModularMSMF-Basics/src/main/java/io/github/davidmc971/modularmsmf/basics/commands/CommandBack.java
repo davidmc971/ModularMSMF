@@ -26,16 +26,16 @@ public class CommandBack implements IModularMSMFCommand {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length == 0) {
-            return backSelf(sender, command, label, args);
+            return backSender(sender, command, label, args);
         }
         if (args.length == 1) {
-            return backOthers(sender, command, label, args);
+            return backPlayer(sender, command, label, args);
         }
         Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "basicsmodule.commands.arguments.toomany");
         return true;
     }
 
-    private boolean backOthers(CommandSender sender, Command command, String label, String[] args) {
+    private boolean backPlayer(CommandSender sender, Command command, String label, String[] args) {
         if (!PermissionManager.checkPermission(sender, "back_others")) {
             ChatUtils.sendMsgNoPerm(sender);
             return true;
@@ -77,7 +77,7 @@ public class CommandBack implements IModularMSMFCommand {
         return true;
     }
 
-    private boolean backSelf(CommandSender sender, Command command, String label, String[] args) {
+    private boolean backSender(CommandSender sender, Command command, String label, String[] args) {
         if (!PermissionManager.checkPermission(sender, "back") || sender instanceof ConsoleCommandSender) {
             ChatUtils.sendMsgNoPerm(sender);
             return true;
