@@ -16,10 +16,10 @@ import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
 
 public class BanHandler {
 	public enum STDBanReason {
-		DEFAULT("banreason.default"), // FIXME: add string to lang file to remove null
-		HACKING("banreason.hacking"), // FIXME: add string to lang file to remove null
-		VERBAL("banreason.verbal"), // FIXME: add string to lang file to remove null
-		GRIEFING("banreason.griefing"); // FIXME: add string to lang file to remove null
+		DEFAULT("banreason.default"),
+		HACKING("banreason.hacking"),
+		VERBAL("banreason.verbal"),
+		GRIEFING("banreason.griefing");
 
 		private String reason;
 

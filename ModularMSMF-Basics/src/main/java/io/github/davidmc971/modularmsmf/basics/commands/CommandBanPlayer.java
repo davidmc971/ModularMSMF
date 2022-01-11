@@ -28,52 +28,57 @@ public class CommandBanPlayer implements IModularMSMFCommand {
 			ChatUtils.sendMsgNoPerm(sender);
 			return true;
 		}
-		if (args.length == 0) { // FIXME: add string to lang file to remove null
-			Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.BAN, "coremodule.player.name");
-			return true;
-		}
-		UUID uuid = getPlayerUUIDByNameForBan(args[0]);
-		if (uuid == null) { // FIXME: add string to lang file to remove null
-			Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.BAN, "coremodule.player.unknown");
-			return true;
-		}
-		if (ModularMSMFCore.Instance().getDataManager().getPlayerCfg(uuid).getBoolean("banned")) {
-			Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.BAN,
-					"basicsmodule.commands.ban.already"); // FIXME: add string to lang file to remove null
-			return true;
-		}
-		Player player = Bukkit.getPlayer(uuid);
-		if (!player.getUniqueId().toString().equals(uuid.toString())) { // FIXME: add string to lang file to remove null
-			Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.BAN, "coremodule.player.notonline");
-		}
 		FileConfiguration language = Utils.configureCommandLanguage(sender);
-		String reason = language.getString("coremodule.event.banned"); // FIXME: add string to lang file to remove null
+		String reason = language.getString("reason.banned_noreason");
 		switch (args.length) {
+			case 0:
+				Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.BAN, "arguments.missingname");
+				break;
 			case 1:
-				banPlayer(sender, uuid, reason, language);
+				banPlayer(sender, reason, language, args);
 				break;
 			default:
 				reason = "";
 				for (int i = 1; i < args.length; i++) {
 					reason += args[i] + " ";
 				}
-				banPlayer(sender, uuid, reason, language);
+				banPlayer(sender, reason, language, args);
 				break;
 		}
 		return true;
 	}
 
-	public static void banPlayer(CommandSender sender, UUID uuid, String reason, FileConfiguration language) {
+	public void banPlayer(CommandSender sender, String reason, FileConfiguration language, String[] args) {
+		UUID uuid = getPlayerUUIDByNameForBan(args[0]);
+		if (ModularMSMFCore.Instance().getDataManager().getPlayerCfg(uuid).getBoolean("banned")) {
+			Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.BAN,
+					"commands.ban.already");
+		}
 		for (Player player : Bukkit.getServer().getOnlinePlayers()) {
 			FileConfiguration cfg = ModularMSMFCore.Instance().getDataManager().getPlayerCfg(uuid);
 			cfg.set("banned", true);
 			cfg.set("reason", reason);
 			if (player.getUniqueId().toString().equals(uuid.toString())) {
-				player.kick( // FIXME: add string to lang file to remove null
-						Component.text(language.getString("coremodule.events.banned").replaceAll("_reason", reason)));
+				if (!reason.equals("")) {
+					Utils.broadcastWithConfiguredLanguageEach(ChatFormat.BAN, "events.banned_reason", "_player",
+							player.getName(), "_reason", reason);
+					player.kick(
+							Component.text(language.getString("events.banned_reason").replaceAll("_reason", reason)));
+				}
+				Utils.broadcastWithConfiguredLanguageEach(ChatFormat.BAN, "events.banned", "_player", player.getName());
+			}
+			Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.BAN, "player.offline", "_player",
+					player.getName());
+		}
+		for (OfflinePlayer player : Bukkit.getOfflinePlayers()) {
+			FileConfiguration cfg = ModularMSMFCore.Instance().getDataManager().getPlayerCfg(uuid);
+			cfg.set("banned", true);
+			cfg.set("reason", reason);
+			if (player.getUniqueId().toString().equals(uuid.toString())) {
+				Utils.broadcastWithConfiguredLanguageEach(ChatFormat.BAN, "events.banned_reason", "_player",
+						player.getName(), "_reason", reason);
 			}
 		}
-
 	}
 
 	private UUID getPlayerUUIDByNameForBan(String name) {

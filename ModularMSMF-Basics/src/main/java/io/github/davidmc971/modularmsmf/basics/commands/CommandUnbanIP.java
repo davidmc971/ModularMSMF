@@ -30,7 +30,7 @@ public class CommandUnbanIP implements IModularMSMFCommand {
             return true;
         }
         if (args.length == 0) {
-            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.UNBAN, "player.missingname");
+            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.UNBAN, "arguments.missingname");
             return true;
         }
         if (args.length == 1) {
@@ -38,8 +38,7 @@ public class CommandUnbanIP implements IModularMSMFCommand {
             return true;
         }
         Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.UNBAN,
-                "commands.arguments.toomany");
-        // FIXME: add string to lang file to remove null
+                "arguments.toomany");
         return true;
     }
 
@@ -48,18 +47,18 @@ public class CommandUnbanIP implements IModularMSMFCommand {
             if (p.getName().equalsIgnoreCase(args[0])) {
                 UUID uuid = null;
                 FileConfiguration cfg = ModularMSMFCore.Instance().getDataManager().getPlayerCfg(uuid);
-                if (cfg.getBoolean("banned")) {
+                if (cfg.getBoolean("banned") && cfg.isBoolean("banned")) {
                     cfg.set("banned", false);
                     cfg.set("reason", false);
                     cfg.set("ipAdress", false);
                     Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.UNBAN,
-                            "commands.unban.done", "_player", p.getName());
-                } // FIXME: add string to lang file to remove null
-                Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.UNBAN, "commands.unban.player.notbanned",
+                            "commands.unban.player", "_player", p.getName());
+                }
+                Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.UNBAN, "commands.unban.notfound",
                         "_player", p.getName());
-            } // FIXME: add string to lang file to remove null
+            }
             Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.UNBAN,
-                    "commands.unban.player.notfound");
+                    "player.nonexistant");
         }
     }
 
