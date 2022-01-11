@@ -22,12 +22,12 @@ public class CommandUtil {
                 switch (player.getGameMode()) {
                     case CREATIVE:
                         Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
-                                "basicsmodule.creative.other",
+                                "player.creative.others",
                                 "_player", player.getName());
                         return false;
                     case SPECTATOR:
                         Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
-                                "basicsmodule.spectator.other",
+                                "player.spectator.others",
                                 "_player", player.getName());
                         return false;
                     default:
@@ -40,7 +40,7 @@ public class CommandUtil {
                         if (((Player) sender).getWorld().getDifficulty() == Difficulty.PEACEFUL) {
                             Utils.sendMessageWithConfiguredLanguage(sender,
                                     ChatFormat.ERROR,
-                                    "basicsmodule.peaceful");
+                                    "player.peaceful");
                             return false;
                         }
                 }
@@ -48,7 +48,7 @@ public class CommandUtil {
             }
         }
         Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
-                "coremodule.player.notonline");
+                "player.offline");
         return false;
     }
 
@@ -57,11 +57,11 @@ public class CommandUtil {
             switch (((Player) sender).getGameMode()) {
                 case CREATIVE:
                     Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
-                            "basicsmodule.creative.self");
+                            "player.creative.self");
                     return false;
                 case SPECTATOR:
                     Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
-                            "basicsmodule.spectator.self");
+                            "player.spectator.self");
                     return false;
                 default:
                     break;
@@ -72,7 +72,7 @@ public class CommandUtil {
                 default:
                     if (((Player) sender).getWorld().getDifficulty() == Difficulty.PEACEFUL) {
                         Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
-                                "basicsmodule.peaceful");
+                                "player.peaceful", "_worldname", Bukkit.getServer().getWorldContainer().toString());
                         return false;
                     }
             }

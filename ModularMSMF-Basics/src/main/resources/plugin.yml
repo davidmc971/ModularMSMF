@@ -1,3 +1,4 @@
+#whole documentation will be in english
 name: ModularMSMF-Basics
 version: ${version}
 description: Basic commands to enhance user experience and ease management
@@ -14,60 +15,60 @@ main: io.github.davidmc971.modularmsmf.basics.ModularMSMFBasics
 # TODO: load at runtime with our secret haxx
 commands:
   get:
-    description: get values
+    description: Get specific values from players.
     usage: /<command> <args> <player>
   set:
-    description: set values
+    description: Set specific values for players.
     usage: /<command> <args> <int> <player>
   channel:
-    description: channels
+    description: Set, create, change or remove channels.
     usage: /<command> <label> <args>
   #  toggle:
   #    description: toggle cmds
   #    usage: /<command> <args>
   #    aliases: [tog]
   teleport:
-    description: teleportation zu einem Spieler.
+    description: Teleport players.
     usage: /<command> <target>
     aliases: [tp, tele]
   heal:
-    description: Heilt Spieler.
+    description: Heals player.
     usage: /<command> <target>
   healall:
-    description: heal all players
+    description: Heal all players.
     usage: /<command>
   feed:
-    description: Saettigt den Spieler.
+    description: Feed player.
     usage: /<command> <player>
   ban:
-    description: Bannt einen Spieler.
-    usage: /<command> <player>
+    description: Banning players optional with reason.
+    usage: /<command> <player> <args>
   unban:
-    description: Entbannt einen Spieler.
+    description: Unban a player.
     usage: /<command> <player>
   banip:
-    description: Bans a player by IP.
-    usage: /<command> <args>
+    description: Bans a player by IP with optional reason.
+    usage: /<command> <player> <args>
   unbanip:
     description: Unbans a player's IP.
     usage: /<command> <args>
   kick:
-    description: Kickt einen Spieler.
-    usage: /<command> <player>
+    description: Kick player with optional reason
+    usage: /<command> <player> <args>
   kill:
-    description: Killt einen Spieler.
+    description: Kill player.
     usage: /<command> <args>
   killall:
-    description: Killt alle
+    description: Kill everyone.
     usage: /<command>
   killme:
-    description: Killt sich selbst
+    description: Do suicide.
     usage: /<command>
   mute:
-    description: Mutet einen Spieler.
+    description: Mute a player.
     usage: /<command> <player>
   motd:
-    description: Message Of The Day.
+    description: Message-Of-The-Day.
     usage: /<command> <args>
   slaughter:
     description: Destroy entities.
@@ -76,18 +77,18 @@ commands:
     description: Teleports you home. Optionally specify a home name. Also sets homes.
     usage: /<command> <args>
   setspawn:
-    description: Set the spawn
+    description: Set the spawn.
     usage: /<command>
   spawn:
-    description: Spawns the player
+    description: Spawns the player.
     usage: /<command>
   back:
-    description: Gets back the player to the last position
+    description: Gets back the player to the last position.
     usage: /<command>
   fly:
-    description: Let the player fly
+    description: Let the player fly.
     usage: /<command> <args>
   clearinventory:
-    description: Clear's inventory of an player
+    description: Clear's inventory of an player.
     usage: /<command> <name>
     aliases: [ci, clearinv]

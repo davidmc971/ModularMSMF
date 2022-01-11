@@ -30,7 +30,7 @@ public class CommandFeed implements IModularMSMFCommand {
 				break;
 			default:
 				Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
-						"basicsmodule.commands.arguments.toomany");
+						"commands.arguments.toomany");
 				break;
 		}
 		return true;
@@ -53,7 +53,7 @@ public class CommandFeed implements IModularMSMFCommand {
 		if (!CommandUtil.isSenderEligible(sender, command)) {
 			return false;
 		}
-		Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.FEED, "basicsmodule.commands.feed.feeded");
+		Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.FEED, "commands.feed.feeded");
 		((Player) sender).setFoodLevel(20);
 		return true;
 	}

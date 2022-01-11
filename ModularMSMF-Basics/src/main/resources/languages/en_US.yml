@@ -7,135 +7,128 @@ language:
   id: en_US
   name: English
 #FIXME: most will say null for beginning
-spectator:
-  self: You're currently in spectator mode!
-  others: _player is currently in spectator mode!
-peaceful: This world is set as peaceful, so no need to use!
-creative:
-  self: You're currently in creative mode!
-  other: _player is currently in creative mode!
+player:
+  spectator:
+    self: You're spectating!
+    others: _player is currently spectating!
+  peaceful: _worldname is currently in peaceful mode!
+  creative:
+    self: You're in creative!
+    others: _player is in creative!
+  offline: _player is currently offline!
+  nonexistant: This player was never here before!
+#Arguments specific language strings
+arguments:
+  missing_name: You have to specify a player name!
+  invalid: Wrong argument!
+  toomany: Too many arguments!
+#Reason specific language strings
+reasons:
+  console: _command is not allowed in console:!
+  banned_reason: "You got banned because: _reason"
+  kick_reason: "You got kicked because: _reason"
+  banned_noreason: Banhammer has spoken!
+  kick_noreason: You got kicked!
+  broadcast:
+    banned_reason: "_player got banned because: _reason"
+    unban_reason: "_player got unbanned because: _reason"
+    kick_reason: "_player got kicked because: _reason"
+    banned_noreason: _player got banned!
+    unban_noreason: _player got unbanned!
+    kick_noreason: _player got kicked!
+#Events specific language strings
 events:
-  join: _var just left!
-  quit: _var has joined!
-  killed: _var has been killed.
-  suicide: _var has begone suicide.
-  homocide: All players were killed in a brutal homocide!
-  banned: You got banned!
-  just_died: _var just died.
+  join: _player has joined!
+  quit: _player has left _servername!
+  killed: _player got killed.
+  suicide: _player begun suicide.
+  homocide: Everyone got killed by a homicide!
+  banned: _player got banned!
+  banned_reason: "_player got banned. Reason: _reason"
+  kick: _player got kicked!
+  kick_reason: "_player got kicked. Reason: _reason"
+  just_died: _player just died.
+#Commands specific language strings
 commands:
-  arguments:
-    missing: Please give matching arguments!
-    toomany: Too many arguments.
-    invalid: Wrong arguments!
   invalid: Wrong command.
-  blocked: Command "_var" has been blocked.
   slaughter:
-    success: All mobs in your place has been killed.
+    success: All mobs got killed.
   ban:
-    defaultreason: Banhammer has spoken!
-    already: Player is already banned.
-    player: "Player _player has been banned. Reason: _reason"
-    youwere: "You were banned. Reason: _reason"
+    already: This player got banned already.
+    cant: You cannot ban _player!
   unban:
-    notfound: User is not banned.
-    player: You have unbanned _player.
-    uuid: You have unbanned _player per UUID!
-    playernotfounduuid: User with specified UUID has not been found.
+    notfound: _player is not banned.
+    player: You unbanned _player.
   banip:
-    missingname: Please specify the player name!
-    help:
-      banip: You have to specify the IP adress to ban IP.
-      name: You even can enter the name of the player to ban it's IP adress
-  kick:
-    missingname: Please specify the player name!
-    defaultreason: You were kicked!
-    seeforall: _player has been kicked!
-    seeforallreason: "_player has been kicked: _reason"
+    use: You have to specify the IP-adress of the player to ban.
+    name: Alternatively you can ban player IP's by name.
   feed:
     feeded: You feeded yourself!
     others:
-      feeded: _sender has feeded you!
-      feededperson: Feeded _player!
+      feeded: _sender feeded you!
+      feededperson: You feeded _player!
       all: You feeded everyone!
-    console: Console might feed someone else than itself.
   heal:
-    self: You have healed yourself!
-    all: You have healed everyone!
+    self: You got healed!
+    all: You healed everyone!
     others:
-      healother: Healed _player!
-      gothealed: You have been healed by _sender!
+      healother: You healed _player!
+      gothealed: You got healed by _sender!
   spawn:
-    notset: No spawn set.
-    set: Spawn set!
-    spawned: Spawned!
-    others: Spawned _player!
-    removed: You removed the spawn point!
-    alreadyremoved: No spawn set!
-  #home:
-  # component:
-  #   set: Klick mich an um dein Home zu setzen!
-  #   remove: Klick mich an um dein Home zu löschen!
-  #   rtp: Ich zeig dir wie man das schreibt!
-  #   admin: Das zeigt dir alle administrativen Befehle an!
-  #  invalidargument: Please do "/home help" for more information!
-  #  help:
-  #    set: 'How to use the set command:'
-  #    remove: 'How to use the remove command:'
-  #    rtp: Requests teleport to player's home.
-  #    admin: 'Use for administrative home-rights:'
-  #  notset: Your home has not been set yet.
-  #  list: 'Your homes: _list'
-  #  rtp:
-  #    noargument: You should specify a player.
+    notset: No spawn has been set.
+    set: Spawn has been set!
+    spawned: You got spawned!
+    others: You spawned _player!
+    removed: Spawnpoint has been removed!
+    alreadyremoved: Spawnpoint doesn't exist!
   back:
-    success: Teleported back to last point!
-    error: There's no point to get back.
+    success: You teleported back!
+    error: There's no place to get back.
     other:
-      success: You teleported _player successfully back!
+      success: You teleported _player back successfully!
       done: You got teleported back!
-      error: _player has no point to get back!
+      error: _player has no place to get back!
   clear:
-    done: Successfully cleared the chat!
-    target: Cleared _target's chatlog!
-    gotcleared: Your chat has been cleared!
+    done: Successfully cleaned the chat!
+    target: Cleaned _target's chat!
+    gotcleared: Your chat has been cleaned!
   teleport:
     force:
-      toplayer: You were teleported to _player!
+      toplayer: You got teleported by _player!
       toyou: You teleported _player to you!
-    success: You got teleported to _player!
-    notonline: _player is not online.
+    success: You teleported to _player!
     others:
       toyou: _player has teleported to you!
-      nooneonline: Neither _player1 nor _player2 is online.
-      toself: Please specify another name!
+      nooneonline: Neither _player1 nor _player2 are online.
+      toself: You cannot teleport to yourself! You have to specify another player!
   set:
     life:
       done: Your life has been set to _args!
       usage: "Set life: /set life <num> <name>"
       others: You have set _player's life to _args!
+      nosuicide: Please use "/kill <me>" instead!
+      nokill: You should use "/kill <name>" instead!
     food:
       done: Dein Hungerlevel wurde auf _args gesetzt!
-      usage: "Hungerlevel setzen: /set food <num> <name>"
-      others: Du hast _player's Hungerlevel auf _args gesetzt!
+      usage: "Set foodlevel: /set food <num> <name>"
+      others: You have set _player's foodlevel to _args!
     saturation:
-      done: Dein Sättigungsgefühl wurde auf _args gesetzt!
-      usage: "Sättigungsgefühl setzen: /set (sat/saturation) <num> <name>"
-      others: Du hast _player's Sättigungsgefühl auf _args gesetzt!
-      upperlimit: Du darst nur bis max. 100 setzen!
+      done: Your saturation has been set to _args!
+      usage: "Set saturation: /set (sat/saturation) <num> <name>"
+      others: You have set _player's saturation to _args!
+      upperlimit: You can only set to max. 100!
     exp:
-      done: "Deine EXP wurden auf _args% gesetzt!"
-      usage: "EXP setzen: /set exp (0.0-1.0) <name>"
-      others: "Du hast _player's EXP auf _args% gesetzt!"
+      done: Your EXP-bar has been set to _args%!
+      usage: "Set EXP-bar: /set exp (0.0-1.0) <name>"
+      others: You have set _player's EXP-bar to _args%!
     level:
-      done: Dein Level wurde auf _args gesetzt!
-      usage: "Level setzen: /set (level/lvl) <num> <name>"
-      others: Du hast _player's Level auf _args gesetzt!
+      done: Your level has been set to _args!
+      usage: "Set level: /set (level/lvl) <num> <name>"
+      others: You have set _player's level to _args!
     noint: Du musst eine Zahl angeben!
     nonnegative: Du darfst keine negative Zahl benutzen!
-    nosuicide: Bitte nutze "/kill <me>" dafür!
-    upperlimit: Du darfst nur bis max. 20 setzen!
-    survivalonly: Du kannst nur im Überlebensmodus deine Leben setzen!
-    nokill: Du musst "/kill <name>" dafür benutzen!
+    upperlimit: Du darfst nur bis max. 20 setzen! #TODO: could get removed
+    survivalonly: Du kannst nur im Überlebensmodus deine Leben setzen! #TODO: could get removed
     toohigh: Dieser Wert ist zu hoch!
   get:
     life:
@@ -163,11 +156,11 @@ commands:
       usage: "IP-Adresse eines anderen sehen: /get ip <name>"
       others: "_player's IP-Adresse: _value"
   fly:
-    set_true: You are able to fly.
-    set_false: You are not able to fly anymore.
+    set_true: Du kannst nun fliegen.
+    set_false: Du kannst nun nicht mehr fliegen.
     others:
-      set_true: _player is now able to fly.
-      set_false: _player is not able to fly anymore.
+      set_true: _player kann jetzt fliegen.
+      set_false: _player kann jetzt nicht mehr fliegen.
   clearinv:
     isEmpty:
       self: Your inventory is empty.
@@ -175,7 +168,7 @@ commands:
     gotEmptied:
       self: Your inventory got cleared!
       others: _player's inventory got cleared!
-  inventory:
+  openinv:
     usage: "Show inventory of someone: /get inventory <name>"
     done: "Opened your inventory"
     others: "Opened _value's inventory"
