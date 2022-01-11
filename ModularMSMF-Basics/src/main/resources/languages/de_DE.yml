@@ -7,57 +7,70 @@ language:
   id: de_DE
   name: Deutsch
 #FIXME: most will say null for beginning
-spectator:
-  self: Du bist im Beobachtungsmodus!
-  others: _player ist im Beobachtungsmodus!
-peaceful: Die Welt ist im Friedlichmodus, also nicht noetig!
-creative:
-  self: Du bist im Kreativmodus!
-  other: _player ist im Kreativmodus!
+#Player specific language strings
+player:
+  spectator:
+    self: Du bist im Beobachtungsmodus!
+    others: _player ist im Beobachtungsmodus!
+  peaceful: Die Welt ist im Friedlichmodus, also nicht noetig!
+  creative:
+    self: Du bist im Kreativmodus!
+    other: _player ist im Kreativmodus!
+  offline: _player ist momentan offline!
+  nonexistant: Dieser Spieler existiert nicht!
+#Arguments specific language strings
+arguments:
+  missing_name: Du musst einen Spielernamen angeben!
+  invalid: Bitte gib passende Argumente angeben!
+  toomany: Zu viele Argumente.
+#Reason specific language strings
+reasons:
+  console: Hier darf der Befehl _command nicht angewendet werden!
+  banned_reason: "Du wurdest aus folgendem Grund gebannt: _reason"
+  kick_reason: "Du wurdest aus folgendem Grund gekickt: _reason"
+  banned_noreason: Du wurdest gebannt!
+  kick_noreason: Du wurdest vom Server gekickt!
+  broadcast:
+    banned_reason: "_player wurdest aus folgendem Grund gebannt: _reason"
+    unban_reason: "_player wurde aus folgendem Grund wieder entbannt: _reason"
+    kick_reason: "_player wurde aus folgendem Grund gekickt: _reason"
+    banned_noreason: _player wurde gebannt!
+    unban_noreason: _player wurde entbannt!
+    kick_noreason: _player wurde vom Server gekickt!
+#Events specific language strings
 events:
-  join: _var just left!
-  quit: _var has joined!
-  killed: _var has been killed.
-  suicide: _var has begone suicide.
-  homocide: All players were killed by a brutal homocide!
-  banned: You got banned!
-  just_died: _var just died.
+  join: _player ist beigetreten!
+  quit: _player hat _servername verlassen!
+  killed: _player wurde getötet.
+  suicide: _player hat Selbstmord begangen.
+  homocide: Alle Spieler wurden durch einen brutalen Homizid getötet!
+  banned: _player wurde gebannt!
+  banned_reason: "Spieler _player wurde gebannt. Grund: _reason"
+  kick: _player wurde vom Server gekickt!
+  kick_reason: "Spieler _player wurde gekickt. Grund: _reason"
+  just_died: _player just died.
+#Commands specific language strings
 commands:
-  arguments:
-    missing: Bitte gib passende Argumente angeben!
-    toomany: Zu viele Argumente.
-    invalid: Falsche Argumente!
   invalid: Falscher Befehl.
-  blocked: Der Befehl "_var" wurde geblockt.
   slaughter:
     success: Alle Mobs in deiner Nähe wurden getötet.
   ban:
-    defaultreason: Du wurdest gebannt!
     already: Dieser Spieler ist schon gebannt.
-    player: "Spieler _player wurde gebannt. Grund: _reason"
-    youwere: "Du wurdest gebannt. Grund ist folgender: _reason"
+    cant: Du kannst _player nicht bannen!
   unban:
-    notfound: Dieser Spieler ist nicht gebannt.
+    notfound: _player ist nicht gebannt.
     player: Du hast _player entbannt.
-    uuid: Du hast _player per UUID entbannt!
-    playernotfounduuid: Der Spieler mit dieser UUID wurde nicht gefunden.
+    #uuid: Du hast _player per UUID entbannt!
+    #playernotfounduuid: Der Spieler mit dieser UUID wurde nicht gefunden.
   banip:
-    missingname: Du musst einen Spielernamen angeben!
-    help:
-      banip: Du musst eine IP-Adresse angeben, um diese zu bannen.
-      name: Du kannst auch einen Namen angeben, um dessen IP-Adresse zu bannen.
-  kick:
-    missingname: Please specify the player name!
-    defaultreason: Du wurdest vom Server gekickt!
-    seeforall: _player wurde vom Server gekickt!
-    seeforallreason: "_player wurde aus folgendem Grund gekickt: _reason"
+    use: Du musst eine IP-Adresse angeben, um diese zu bannen.
+    name: Du kannst auch einen Namen angeben, um dessen IP-Adresse zu bannen.
   feed:
     feeded: Du hast dich gefüttert!
     others:
       feeded: _sender hat dich gefüttert!
       feededperson: Du hast _player gefüttert!
       all: Du hast alle auf dem Server gefüttert!
-    console: Die Konsole darf nur andere füttern.
   heal:
     self: Du hast dich selbst geheilt!
     all: Du hast alle auf dem Server geheilt!
@@ -87,16 +100,17 @@ commands:
       toplayer: Du wurdest von _player teleportiert!
       toyou: Du hast _player zu dir teleportiert!
     success: Du hast dich zu _player teleportiert!
-    notonline: _player ist nicht online.
     others:
       toyou: _player hat sich zu dir teleportiert!
-      nooneonline: Weder _player1 noch _player2 ist online.
-      toself: Du sollst einen anderen Spieler angeben!
+      nooneonline: Weder _player1 noch _player2 ist online. #TODO: change for players string above?
+      toself: Du musst einen anderen Spieler angeben!
   set:
     life:
       done: Dein Leben wurde auf _args gesetzt!
       usage: "Leben setzen: /set life <num> <name>"
       others: Du hast _player's Leben auf _args gesetzt!
+      nosuicide: Bitte nutze "/kill <me>" dafür!
+      nokill: Du musst "/kill <name>" dafür benutzen!
     food:
       done: Dein Hungerlevel wurde auf _args gesetzt!
       usage: "Hungerlevel setzen: /set food <num> <name>"
@@ -108,7 +122,7 @@ commands:
       upperlimit: Du darst nur bis max. 100 setzen!
     exp:
       done: Deine EXP wurden auf _args% gesetzt!
-      usage: "EXP setzen: /set exp (0.0-1.0) <name>"
+      usage: "EXP-Leiste setzen: /set exp (0.0-1.0) <name>"
       others: Du hast _player's EXP auf _args% gesetzt!
     level:
       done: Dein Level wurde auf _args gesetzt!
@@ -116,10 +130,8 @@ commands:
       others: Du hast _player's Level auf _args gesetzt!
     noint: Du musst eine Zahl angeben!
     nonnegative: Du darfst keine negative Zahl benutzen!
-    nosuicide: Bitte nutze "/kill <me>" dafür!
-    upperlimit: Du darfst nur bis max. 20 setzen!
-    survivalonly: Du kannst nur im Überlebensmodus deine Leben setzen!
-    nokill: Du musst "/kill <name>" dafür benutzen!
+    upperlimit: Du darfst nur bis max. 20 setzen! #TODO: could get removed
+    survivalonly: Du kannst nur im Überlebensmodus deine Leben setzen! #TODO: could get removed
     toohigh: Dieser Wert ist zu hoch!
   get:
     life:

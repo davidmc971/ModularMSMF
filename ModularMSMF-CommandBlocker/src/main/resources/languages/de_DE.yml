@@ -13,3 +13,4 @@ commands:
     toomany: Too many arguments.
     invalid: Wrong arguments!
   invalid: Wrong command.
+  blocked: Der Befehl "_var" wurde geblockt.
