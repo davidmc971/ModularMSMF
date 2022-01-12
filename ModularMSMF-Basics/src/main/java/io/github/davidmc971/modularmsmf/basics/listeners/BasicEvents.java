@@ -9,13 +9,14 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
+import org.bukkit.event.player.PlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerLoginEvent.Result;
 
 import io.github.davidmc971.modularmsmf.basics.util.KillType;
 import io.github.davidmc971.modularmsmf.basics.util.PlayerKillConfig;
-import io.github.davidmc971.modularmsmf.core.LanguageManager;
 import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
 import io.github.davidmc971.modularmsmf.core.listeners.CoreEvents;
 import io.github.davidmc971.modularmsmf.core.util.Utils;
@@ -59,19 +60,57 @@ public class BasicEvents implements Listener {
 	}
 
 	@EventHandler
+	public void onLogin(PlayerPreLoginEvent event, UUID uuid) {
+		// TODO: move event PlayerLoginEvent to early loading
+		FileConfiguration cfg = ModularMSMFCore.Instance().getDataManager().getPlayerCfg(uuid);
+		if (cfg.getBoolean("player.flying", true)) {
+		}
+		System.out.println(cfg.getString("banned") + ": Lightkeks" + " -> PlayerPreLoginEvent");
+		System.out.println(cfg.getBoolean("banned") + ": Lightkeks" + " -> PlayerPreLoginEvent");
+		// TODO: working on disallow login
+		// cfg.set("players.ipAddress", event.getAddress().getHostAddress());
+		if (cfg.isSet("banned") && cfg.getBoolean("banned", true)) {
+			System.out.println(cfg.getString("banned") + " should be set" + " -> PlayerPreLoginEvent");
+			System.out.println(cfg.isBoolean("banned") + " should be true" + " -> PlayerPreLoginEvent");
+			// event.disallow(Result.KICK_BANNED, Component.text(cfg.getString("reason")));
+			event.kickMessage(Component.empty());
+		}
+	}
+
+	@EventHandler
 	public void onLogin(PlayerLoginEvent event, UUID uuid) {
 		// TODO: move event PlayerLoginEvent to early loading
 		FileConfiguration cfg = ModularMSMFCore.Instance().getDataManager().getPlayerCfg(uuid);
 		if (cfg.getBoolean("player.flying", true)) {
 		}
-		//TODO: working on disallow login
-		String reason = cfg.getString("reason");
+		System.out.println(cfg.getString("banned") + ": Lightkeks" + " -> PlayerLoginEvent");
+		System.out.println(cfg.getBoolean("banned") + ": Lightkeks" + " -> PlayerLoginEvent");
+		// TODO: working on disallow login
 		// cfg.set("players.ipAddress", event.getAddress().getHostAddress());
-		if (cfg.contains("banned", true)) {
-			if (cfg.getString("reason").contains(/* getReason */"")) {
-				event.disallow(Result.KICK_BANNED, Component.text(reason));
-			}
+		if (cfg.isSet("banned") && cfg.getBoolean("banned", true)) {
+			System.out.println(cfg.getString("banned") + " should be set" + " -> PlayerLoginEvent");
+			System.out.println(cfg.isBoolean("banned") + " should be true" + " -> PlayerLoginEvent");
 			event.disallow(Result.KICK_BANNED, Component.text(cfg.getString("reason")));
+			event.kickMessage(Component.empty());
+		}
+	}
+
+	@EventHandler
+	public void onLogin(AsyncPlayerPreLoginEvent event, UUID uuid) {
+		// TODO: move event PlayerLoginEvent to early loading
+		FileConfiguration cfg = ModularMSMFCore.Instance().getDataManager().getPlayerCfg(uuid);
+		if (cfg.getBoolean("player.flying", true)) {
+		}
+		System.out.println(cfg.getString("banned") + ": Lightkeks" + " -> AsyncPlayerPreLoginEvent");
+		System.out.println(cfg.getBoolean("banned") + ": Lightkeks" + " -> AsyncPlayerPreLoginEvent");
+		// TODO: working on disallow login
+		// cfg.set("players.ipAddress", event.getAddress().getHostAddress());
+		if (cfg.isSet("banned") && cfg.getBoolean("banned", true)) {
+			System.out.println(cfg.getString("banned") + " should be set" + " -> AsyncPlayerPreLoginEvent");
+			System.out.println(cfg.isBoolean("banned") + " should be true" + " -> AsyncPlayerPreLoginEvent");
+			event.disallow(org.bukkit.event.player.AsyncPlayerPreLoginEvent.Result.KICK_BANNED,
+					Component.text(cfg.getString("reason")));
+			event.kickMessage(Component.empty());
 		}
 	}
 
