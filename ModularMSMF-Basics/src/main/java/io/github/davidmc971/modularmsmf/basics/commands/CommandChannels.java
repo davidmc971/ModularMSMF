@@ -1,9 +1,10 @@
 package io.github.davidmc971.modularmsmf.basics.commands;
 
-import java.util.HashSet;
+import java.util.HashMap;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.basics.PermissionManager;
@@ -12,17 +13,18 @@ import io.github.davidmc971.modularmsmf.core.util.Utils;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
 
 /**
- * @author Lightkeks Defines channels for users, which want private
- *         conversations or admin-related channels/ moderator-related channels/
- *         etc.
+ * @author Lightkeks
  */
 
 public class CommandChannels implements IModularMSMFCommand {
 
+    public static final HashMap<String, String> channelsList = new HashMap<String, String>();
+    public static final HashMap<String, String> channelsUse = new HashMap<String, String>();
+
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         // checks permission
-        if (PermissionManager.checkPermission(sender, "channels_use")) {
+        if (!PermissionManager.checkPermission(sender, "channels_use")) {
             ChatUtils.sendMsgNoPerm(sender);
             return true;
         }
@@ -30,7 +32,7 @@ public class CommandChannels implements IModularMSMFCommand {
             // help for "/channel"
             return channelsHelp(sender, command, label, args);
         }
-        switch (args[1].toLowerCase()) {
+        switch (args[0].toLowerCase()) {
             case "help":
                 return channelsHelp(sender, command, label, args); // same as args[0]
             case "set":
@@ -43,7 +45,7 @@ public class CommandChannels implements IModularMSMFCommand {
                 return channelsList(sender, command, label, args);
             default:
                 Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
-                        "basicsmodule.commands.arguments.invalid");
+                        "commands.arguments.invalid");
                 break;
         }
         return true;
@@ -75,9 +77,7 @@ public class CommandChannels implements IModularMSMFCommand {
             ChatUtils.sendMsgNoPerm(sender);
             return true;
         }
-        channelsList.forEach(element -> {
-            sender.sendMessage(element);
-        });
+        sender.sendMessage("List of all channels: " + channelsList.toString());
         return true;
     }
 
@@ -90,49 +90,72 @@ public class CommandChannels implements IModularMSMFCommand {
             sender.sendMessage("eig. zum channel namen löschen");
             return true;
         }
-        if (channelsList.contains(args[1])) {
+        if (channelsList.containsKey(args[1])) {
             sender.sendMessage(args[1] + " has been removed");
             channelsList.remove(args[1]);
-        } else {
-            sender.sendMessage(args[1] + " does not exist");
+            return true;
         }
+        sender.sendMessage(args[1] + " does not exist");
         // removes created channels
         return true;
     }
 
     private boolean channelsCreate(CommandSender sender, Command command, String label, String[] args) {
-        // FIXME[epic=code needed,seq=18] creates a channel and moves you in
-        // automatically
-        if (args.length == 0) {
-            sender.sendMessage("test");
-            return true;
-        }
         if (args.length == 1) {
             sender.sendMessage("eig. zum channel namen erstellen");
             return true;
         }
-        if (!channelsList.contains(args[1])) {
-            sender.sendMessage(args[1] + " has been created");
-            channelsList.add(args[1]);
-        } else {
-            sender.sendMessage(args[1] + " is already created");
+        if (args.length == 2) {
+            sender.sendMessage("status channel? private oder public!");
+            return true;
         }
-        channelsList.add(args[1]);
+        if (args[2].equalsIgnoreCase("private") || args[2].equalsIgnoreCase("public")) {
+            if (!channelsList.containsValue(args[1])) {
+                sender.sendMessage(args[1] + " has been created");
+                channelsList.put(args[1], args[2]);
+                sender.sendMessage("channeldebug: " + channelsList.toString()/* .split("[\\]")[0] */);
+                return true;
+            }
+            sender.sendMessage(args[1] + " is already created as " + channelsList.values().contains(args[1]));
+            return true;
+        }
+        sender.sendMessage("nope, only private or public");
         return true;
     }
 
     private boolean channelsSet(CommandSender sender, Command command, String label, String[] args) {
-        // FIXME[epic=code needed,seq=17] Set the channel type youre currently in to
-        // chosen type
-        // ENUM: PUBLIC, PRIVATE, ADMIN, MOD, SUPPORT
+        String prefix = channelsUse.get(((Player) sender).getName().toString());
+        if (args.length == 1) {
+            sender.sendMessage("pls help");
+            return true;
+        }
+        if (args.length == 2) {
+            if (args[1].equalsIgnoreCase(channelsUse.get((((Player) sender).getName().toString())))) {
+                sender.sendMessage("before putting you into list");
+                sender.sendMessage("list: " + channelsUse.get(((Player) sender).getName().toString())
+                        + " <-- key/username/sender");
+                sender.sendMessage(
+                        "list: " + channelsUse.containsValue(channelsUse.get(((Player) sender).getName()).toString())
+                                + " <-- value/channelname");
+                channelsUse.put(((Player) sender).getName().toString(), channelsList.get(args[1]));
+                sender.sendMessage(prefix + " done putting sender to channel "
+                        + channelsUse.containsValue(channelsUse.get(((Player) sender).getName().toString())));
+                return true;
+            }
+            if(args[1].equals(channelsList.containsValue(channelsList.get(args[1])))){
+                sender.sendMessage("is private");
+                return true;
+            }
+            sender.sendMessage("channel not existant or private");
+            return true;
+        }
+        sender.sendMessage("too many args");
         return true;
     }
 
     private boolean channelsHelp(CommandSender sender, Command command, String label, String[] args) {
         return true;
     }
-
-    public HashSet<String> channelsList = new HashSet<String>();
 
     @Override
     public String Label() {

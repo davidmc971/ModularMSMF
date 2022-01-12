@@ -16,4 +16,7 @@ public class ChannelConfig {
             add("moderator"); /* /channel set moderator */
         }
     };
+    public static enum ChannelState {
+        PRIVATE, PUBLIC
+    }
 }
