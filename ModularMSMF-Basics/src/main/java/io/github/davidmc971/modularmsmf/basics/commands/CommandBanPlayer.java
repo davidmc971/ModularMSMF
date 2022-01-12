@@ -14,7 +14,7 @@ import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils;
 import io.github.davidmc971.modularmsmf.core.util.Utils;
-import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
+// import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
 import net.kyori.adventure.text.Component;
 
 /**
@@ -29,56 +29,72 @@ public class CommandBanPlayer implements IModularMSMFCommand {
 			return true;
 		}
 		FileConfiguration language = Utils.configureCommandLanguage(sender);
-		String reason = language.getString("reason.banned_noreason");
+		// String reason = language.getString("reason.banned_noreason");
 		switch (args.length) {
 			case 0:
-				Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.BAN, "arguments.missingname");
+				// Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.BAN,
+				// "arguments.missingname");
+				sender.sendMessage("help no name");
 				break;
 			case 1:
-				banPlayer(sender, reason, language, args);
-				break;
+				return banPlayer(sender, /* reason, */ language, args);
 			default:
-				reason = "";
-				for (int i = 1; i < args.length; i++) {
-					reason += args[i] + " ";
-				}
-				banPlayer(sender, reason, language, args);
-				break;
+				return banPlayer(sender, /* reason, */ language, args);
 		}
 		return true;
 	}
 
-	public void banPlayer(CommandSender sender, String reason, FileConfiguration language, String[] args) {
+	public boolean banPlayer(CommandSender sender, /* String reason, */ FileConfiguration language, String[] args) {
 		UUID uuid = getPlayerUUIDByNameForBan(args[0]);
 		if (ModularMSMFCore.Instance().getDataManager().getPlayerCfg(uuid).getBoolean("banned")) {
-			Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.BAN,
-					"commands.ban.already");
+			// Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.BAN,
+			// "commands.ban.already");
+			sender.sendMessage("already banned");
+			return true;
+		}
+		String reason = "";
+		for (int i = 1; i < args.length; i++) {
+			reason += args[i] + " ";
 		}
 		for (Player player : Bukkit.getServer().getOnlinePlayers()) {
 			FileConfiguration cfg = ModularMSMFCore.Instance().getDataManager().getPlayerCfg(uuid);
-			cfg.set("banned", true);
-			cfg.set("reason", reason);
 			if (player.getUniqueId().toString().equals(uuid.toString())) {
-				if (!reason.equals("")) {
-					Utils.broadcastWithConfiguredLanguageEach(ChatFormat.BAN, "events.banned_reason", "_player",
-							player.getName(), "_reason", reason);
+				cfg.set("banned", true);
+				cfg.set("reason", reason);
+				if (!reason.contains("")) {
+					// Utils.broadcastWithConfiguredLanguageEach(ChatFormat.BAN,
+					// "events.banned_reason", "_player",
+					// player.getName(), "_reason", reason);
 					player.kick(
-							Component.text(language.getString("events.banned_reason").replaceAll("_reason", reason)));
+							Component.text(/*
+											 * language.getString("events.banned_reason").replaceAll("_reason", reason))
+											 */"banned " + player.getName() + " becuz " + reason));
+					return true;
 				}
-				Utils.broadcastWithConfiguredLanguageEach(ChatFormat.BAN, "events.banned", "_player", player.getName());
+				// Utils.broadcastWithConfiguredLanguageEach(ChatFormat.BAN, "events.banned",
+				// "_player", player.getName());
+				sender.sendMessage("banned " + player.getName());
+				player.kick(Component.text("banned " + player.getName() + " becuz " + reason));
+				return true;
 			}
-			Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.BAN, "player.offline", "_player",
-					player.getName());
+			// Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.BAN,
+			// "player.offline", "_player",
+			// player.getName());
+			sender.sendMessage("offline");
 		}
 		for (OfflinePlayer player : Bukkit.getOfflinePlayers()) {
 			FileConfiguration cfg = ModularMSMFCore.Instance().getDataManager().getPlayerCfg(uuid);
 			cfg.set("banned", true);
 			cfg.set("reason", reason);
 			if (player.getUniqueId().toString().equals(uuid.toString())) {
-				Utils.broadcastWithConfiguredLanguageEach(ChatFormat.BAN, "events.banned_reason", "_player",
-						player.getName(), "_reason", reason);
+				// Utils.broadcastWithConfiguredLanguageEach(ChatFormat.BAN,
+				// "events.banned_reason", "_player",
+				// player.getName(), "_reason", reason);
+				sender.sendMessage("banned " + player.getName());
+				return true;
 			}
 		}
+		return true;
 	}
 
 	private UUID getPlayerUUIDByNameForBan(String name) {

@@ -18,11 +18,6 @@ import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
 
 public class CommandBack implements IModularMSMFCommand {
 
-    /**
-     * @author Lightkeks Fully working command You can teleport back and teleport
-     *         any user back to the last location
-     */
-
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length == 0) {
