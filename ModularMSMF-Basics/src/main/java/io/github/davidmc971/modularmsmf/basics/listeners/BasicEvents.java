@@ -21,6 +21,7 @@ import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
 import io.github.davidmc971.modularmsmf.core.listeners.CoreEvents;
 import io.github.davidmc971.modularmsmf.core.util.Utils;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
+import io.papermc.paper.event.player.AsyncChatEvent;
 import net.kyori.adventure.text.Component;
 
 public class BasicEvents implements Listener {
@@ -118,5 +119,10 @@ public class BasicEvents implements Listener {
 	public void onQuit(PlayerQuitEvent event) {
 		Utils.broadcastWithConfiguredLanguageEach(ChatFormat.QUIT, "events.quit", "_player",
 				event.getPlayer().getName(), "_servername", Bukkit.getServer().getName());
+	}
+
+	@EventHandler
+	public void onChat(AsyncChatEvent e){
+		
 	}
 }
