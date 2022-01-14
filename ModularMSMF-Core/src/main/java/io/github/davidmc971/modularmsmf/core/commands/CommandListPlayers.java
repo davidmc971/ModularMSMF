@@ -1,7 +1,6 @@
 package io.github.davidmc971.modularmsmf.core.commands;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -23,7 +22,7 @@ import net.md_5.bungee.api.ChatColor;
 
 public class CommandListPlayers implements IModularMSMFCommand {
 
-    private static List<String> playerlist = new ArrayList<String>();
+    public static final HashSet<String> playerlist = new HashSet<String>();
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
@@ -37,6 +36,7 @@ public class CommandListPlayers implements IModularMSMFCommand {
         }
         switch (args.length) {
             case 0:
+                sender.sendMessage("Online: " + ChatUtils.printSet(playerlist));
                 Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ONLINE, "languageKey", "_players",
                         playerlist.toString());
                 break;
@@ -49,28 +49,26 @@ public class CommandListPlayers implements IModularMSMFCommand {
                     case "help":
                     case "group":
                     case "all":
-                        return useAsPlayer(sender, command, label, args);
+                        return useAsPlayer(sender, args);
                     case "settings":
                         if (!PermissionManager.checkPermission(sender, "list_admin_settings") || !sender.isOp()) {
                             ChatUtils.sendMsgNoPerm(sender);
                             return true;
                         } else {
-                            return useAsAdmin(sender, command, label, args);
+                            return useAsAdmin(sender, args);
                         }
                 }
         }
         return true;
     }
 
-    private boolean useAsAdmin(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
-            @NotNull String[] args) {
+    private boolean useAsAdmin(@NotNull CommandSender sender, @NotNull String[] args) {
         // TODO: have to write stuff down here
 
         return true;
     }
 
-    private boolean useAsPlayer(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
-            @NotNull String[] args) {
+    private boolean useAsPlayer(@NotNull CommandSender sender, @NotNull String[] args) {
         if (!PermissionManager.checkPermission(sender, "list_use_groups")) {
             ChatUtils.sendMsgNoPerm(sender);
             return true;
@@ -83,8 +81,6 @@ public class CommandListPlayers implements IModularMSMFCommand {
                 if (PermissionManager.checkPermission(sender, "list_admin_settings")) {
                     sender.sendMessage("/list settings" + ChatColor.GRAY + " [admin/op only]");
                     return true;
-                } else {
-                    ChatUtils.sendMsgNoPerm(sender);
                 }
                 return true;
             }

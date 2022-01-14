@@ -1,5 +1,7 @@
 package io.github.davidmc971.modularmsmf.core.util;
 
+import java.util.HashSet;
+
 //import com.iridium.iridiumcolorapi.IridiumColorAPI;
 
 import org.bukkit.command.CommandSender;
@@ -109,5 +111,16 @@ public class ChatUtils {
 		if (sender instanceof ConsoleCommandSender) {
 			Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.CONSOLE, "coremodule.noconsole");
 		}
+	}
+
+	public static String printSet(HashSet<String> playerlist) {
+		String result = new String();
+		for (String str : playerlist) {
+			result = result.concat(str.concat(", "));
+		}
+		if (result.isBlank()) {
+			return result;
+		}
+		return result.substring(0, result.length() - 2);
 	}
 }
