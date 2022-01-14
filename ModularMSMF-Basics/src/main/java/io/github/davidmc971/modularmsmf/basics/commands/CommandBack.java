@@ -21,16 +21,16 @@ public class CommandBack implements IModularMSMFCommand {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length == 0) {
-            return backSender(sender, command, label, args);
+            return backSender(sender, args);
         }
         if (args.length == 1) {
-            return backPlayer(sender, command, label, args);
+            return backPlayer(sender, args);
         }
         Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "basicsmodule.commands.arguments.toomany");
         return true;
     }
 
-    private boolean backPlayer(CommandSender sender, Command command, String label, String[] args) {
+    private boolean backPlayer(CommandSender sender, String[] args) {
         if (!PermissionManager.checkPermission(sender, "back_others")) {
             ChatUtils.sendMsgNoPerm(sender);
             return true;
@@ -38,21 +38,14 @@ public class CommandBack implements IModularMSMFCommand {
         UUID target = null;
         target = Utils.getPlayerUUIDByName(args[0]);
         if (target == null) {
-            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "coremodule.player.notfound");
+            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "player.notfound"); // TODO: get string
+                                                                                                  // exact
             return true;
         }
         for (Player p : Bukkit.getOnlinePlayers()) {
             if (p.getUniqueId().toString().equalsIgnoreCase(target.toString())) {
                 if (sender == p) {
-                    if (CoreEvents.lastLocation.containsKey(sender.getName())) {
-                        Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
-                                "basicsmodule.commands.back.success.self");
-                        ((Entity) sender).teleport(CoreEvents.lastLocation.get(sender.getName()));
-                        return true;
-                    }
-                    Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
-                            "basicsmodule.commands.back.error");
-                    return true;
+                    return backSender(sender, args);
                 }
                 if (CoreEvents.lastLocation.containsKey(p.getName())) {
                     Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
@@ -72,7 +65,7 @@ public class CommandBack implements IModularMSMFCommand {
         return true;
     }
 
-    private boolean backSender(CommandSender sender, Command command, String label, String[] args) {
+    private boolean backSender(CommandSender sender, String[] args) {
         if (!PermissionManager.checkPermission(sender, "back") || sender instanceof ConsoleCommandSender) {
             ChatUtils.sendMsgNoPerm(sender);
             return true;
