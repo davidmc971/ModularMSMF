@@ -1,36 +1,47 @@
 package io.github.davidmc971.modularmsmf.basics.listeners;
 
 import java.util.ArrayList;
-import java.util.UUID;
 
 import org.bukkit.Bukkit;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
-import org.bukkit.event.player.PlayerLoginEvent;
-import org.bukkit.event.player.PlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.event.player.PlayerLoginEvent.Result;
 
 import io.github.davidmc971.modularmsmf.basics.util.KillType;
 import io.github.davidmc971.modularmsmf.basics.util.PlayerKillConfig;
-import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
 import io.github.davidmc971.modularmsmf.core.listeners.CoreEvents;
 import io.github.davidmc971.modularmsmf.core.util.Utils;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
 import io.papermc.paper.event.player.AsyncChatEvent;
 import net.kyori.adventure.text.Component;
 
+/**
+ * Events in this class are valid for all states which complies to the BasicsModule.
+ * @author Lightkeks
+ * @since 0.3
+ * @version 0.1
+ */
 public class BasicEvents implements Listener {
 	private ArrayList<PlayerKillConfig> killedPlayers = new ArrayList<PlayerKillConfig>();
 
+	
+	/**
+	 * Register any player who got killed and return the Player <code>p</code> their KillType <code>kt</code>
+	 * @param p Player which got killed
+	 * @param kt Player how it got killed
+	 */
 	public void registerKilledPlayer(Player p, KillType kt) {
 		killedPlayers.add(new PlayerKillConfig(p, kt));
 	}
 
+	
+	/**
+	 * EventHandler which show's the type of kill the player gone through
+	 * @param event Player who died
+	 */
 	@EventHandler
 	public void onDeath(PlayerDeathEvent event) {
 		Player p = event.getEntity().getPlayer();
@@ -60,68 +71,23 @@ public class BasicEvents implements Listener {
 		}
 	}
 
-	@EventHandler
-	public void onLogin(PlayerPreLoginEvent event, UUID uuid) {
-		// TODO: move event PlayerLoginEvent to early loading
-		FileConfiguration cfg = ModularMSMFCore.Instance().getDataManager().getPlayerCfg(uuid);
-		if (cfg.getBoolean("player.flying", true)) {
-		}
-		System.out.println(cfg.getString("banned") + ": Lightkeks" + " -> PlayerPreLoginEvent");
-		System.out.println(cfg.getBoolean("banned") + ": Lightkeks" + " -> PlayerPreLoginEvent");
-		// TODO: working on disallow login
-		// cfg.set("players.ipAddress", event.getAddress().getHostAddress());
-		if (cfg.isSet("banned") && cfg.getBoolean("banned", true)) {
-			System.out.println(cfg.getString("banned") + " should be set" + " -> PlayerPreLoginEvent");
-			System.out.println(cfg.isBoolean("banned") + " should be true" + " -> PlayerPreLoginEvent");
-			// event.disallow(Result.KICK_BANNED, Component.text(cfg.getString("reason")));
-			event.kickMessage(Component.empty());
-		}
-	}
-
-	@EventHandler
-	public void onLogin(PlayerLoginEvent event, UUID uuid) {
-		// TODO: move event PlayerLoginEvent to early loading
-		FileConfiguration cfg = ModularMSMFCore.Instance().getDataManager().getPlayerCfg(uuid);
-		if (cfg.getBoolean("player.flying", true)) {
-		}
-		System.out.println(cfg.getString("banned") + ": Lightkeks" + " -> PlayerLoginEvent");
-		System.out.println(cfg.getBoolean("banned") + ": Lightkeks" + " -> PlayerLoginEvent");
-		// TODO: working on disallow login
-		// cfg.set("players.ipAddress", event.getAddress().getHostAddress());
-		if (cfg.isSet("banned") && cfg.getBoolean("banned", true)) {
-			System.out.println(cfg.getString("banned") + " should be set" + " -> PlayerLoginEvent");
-			System.out.println(cfg.isBoolean("banned") + " should be true" + " -> PlayerLoginEvent");
-			event.disallow(Result.KICK_BANNED, Component.text(cfg.getString("reason")));
-			event.kickMessage(Component.empty());
-		}
-	}
-
-	@EventHandler
-	public void onLogin(AsyncPlayerPreLoginEvent event, UUID uuid) {
-		// TODO: move event PlayerLoginEvent to early loading
-		FileConfiguration cfg = ModularMSMFCore.Instance().getDataManager().getPlayerCfg(uuid);
-		if (cfg.getBoolean("player.flying", true)) {
-		}
-		System.out.println(cfg.getString("banned") + ": Lightkeks" + " -> AsyncPlayerPreLoginEvent");
-		System.out.println(cfg.getBoolean("banned") + ": Lightkeks" + " -> AsyncPlayerPreLoginEvent");
-		// TODO: working on disallow login
-		// cfg.set("players.ipAddress", event.getAddress().getHostAddress());
-		if (cfg.isSet("banned") && cfg.getBoolean("banned", true)) {
-			System.out.println(cfg.getString("banned") + " should be set" + " -> AsyncPlayerPreLoginEvent");
-			System.out.println(cfg.isBoolean("banned") + " should be true" + " -> AsyncPlayerPreLoginEvent");
-			event.disallow(org.bukkit.event.player.AsyncPlayerPreLoginEvent.Result.KICK_BANNED,
-					Component.text(cfg.getString("reason")));
-			event.kickMessage(Component.empty());
-		}
-	}
-
+	
+	/**
+	 * Players who leave the server show up a leave message to all players
+	 * @param event Player who leave
+	 */
 	@EventHandler
 	public void onQuit(PlayerQuitEvent event) {
 		Utils.broadcastWithConfiguredLanguageEach(ChatFormat.QUIT, "events.quit", "_player",
 				event.getPlayer().getName(), "_servername", Bukkit.getServer().getName());
 	}
 
-	@EventHandler
+	
+	/**
+	 * Players, which want to communicate, can see their prefix/world they're in or even see their group prefix
+	 * @param e Player who tries to chat
+	 */
+	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onChat(AsyncChatEvent e){
 		
 	}
