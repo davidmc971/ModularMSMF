@@ -1,5 +1,7 @@
 package io.github.davidmc971.modularmsmf.basics.util;
 
+import java.util.Set;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Difficulty;
 import org.bukkit.command.Command;
@@ -82,5 +84,16 @@ public class CommandUtil {
             return false;
         }
         return true;
+    }
+
+    public static String printSet(Set<String> set) {
+        String result = new String();
+        for (String str : set) {
+            result = result.concat(str.concat(", "));
+        }
+        if (result.isBlank()) {
+            return result;
+        }
+        return result.substring(0, result.length() - 2);
     }
 }

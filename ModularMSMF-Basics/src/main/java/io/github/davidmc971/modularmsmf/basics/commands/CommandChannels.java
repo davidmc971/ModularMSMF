@@ -2,14 +2,13 @@ package io.github.davidmc971.modularmsmf.basics.commands;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Set;
 
-// import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.basics.PermissionManager;
+import io.github.davidmc971.modularmsmf.basics.util.CommandUtil;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils;
 import io.github.davidmc971.modularmsmf.core.util.Utils;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
@@ -20,8 +19,10 @@ import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
 
 public class CommandChannels implements IModularMSMFCommand {
 
-    // static ChannelConfig chcfg = ChannelConfig.Instance();
-    private static final HashSet<String> defaultChannels = new HashSet<String>() {
+    public static final HashMap<String, String> setChannelUsr = new HashMap<String, String>();
+    public static final HashSet<String> usrChPriv = new HashSet<String>();
+    public static final HashSet<String> usrChPub = new HashSet<String>();
+    public static final HashSet<String> defaultChannels = new HashSet<String>() {
         private static final long serialVersionUID = 1L;
         {
             // only for main channels to obtain
@@ -32,9 +33,6 @@ public class CommandChannels implements IModularMSMFCommand {
         }
     };
 
-    public static final HashSet<String> usrChPriv = new HashSet<String>();
-    public static final HashSet<String> usrChPub = new HashSet<String>();
-
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!PermissionManager.checkPermission(sender, "channels_use")) {
@@ -42,24 +40,24 @@ public class CommandChannels implements IModularMSMFCommand {
             return true;
         }
         if (args.length == 0) {
-            channelHelp(sender, command, label, args);
+            channelHelp(sender);
             return true;
         }
         switch (args[0].toLowerCase()) {
             case "help":
-                channelHelp(sender, command, label, args);
+                channelHelp(sender);
                 break;
             case "join":
-                channelJoin(sender, command, label, args);
+                channelJoin(sender, args);
                 break;
             case "create":
-                channelCreate(sender, command, label, args); // automatically join?
+                channelCreate(sender, args); // automatically join?
                 break;
             case "remove":
-                channelRemove(sender, command, label, args);
+                channelRemove(sender, args);
                 break;
             case "list":
-                channelList(sender, command, label, args);
+                channelList(sender, args);
                 break;
             default:
                 Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
@@ -69,41 +67,45 @@ public class CommandChannels implements IModularMSMFCommand {
         return true;
     }
 
-    private void channelJoin(CommandSender sender, Command command, String label, String[] args) {
+    private void channelJoin(CommandSender sender, String[] args) {
         if (args.length == 1) {
             sender.sendMessage("dont forget private / public");
         }
         if (args.length == 2) {
             if (args[1].equalsIgnoreCase("private")) {
-                joinPrivate(sender, command, label, args);
+                joinPrivate(sender, args);
             }
             if (args[1].equalsIgnoreCase("public")) {
-                joinPublic(sender, command, label, args);
+                joinPublic(sender, args);
             }
             sender.sendMessage("wrong arg");
         }
     }
 
-    private void joinPublic(CommandSender sender, Command command, String label, String[] args) {
+    private void joinPublic(CommandSender sender, String[] args) {
     }
 
-    private void joinPrivate(CommandSender sender, Command command, String label, String[] args) {
+    private void joinPrivate(CommandSender sender, String[] args) {
     }
 
-    private void channelList(CommandSender sender, Command command, String label, String[] args) {
+    private void channelList(CommandSender sender, String[] args) {
         if (args.length == 1) {
-            listAll(sender, command, label, args);
+            listAll(sender, args);
             return;
         }
         switch (args[1].toLowerCase()) {
+            case "this":
+            case "current":
+                listCurrent(sender, args);
+                break;
             case "public":
-                listPublic(sender, command, label, args);
+                listPublic(sender, args);
                 break;
             case "private":
-                listPrivate(sender, command, label, args);
+                listPrivate(sender, args);
                 break;
             case "all":
-                listAll(sender, command, label, args);
+                listAll(sender, args);
                 break;
             default:
                 sender.sendMessage("wrong arg");
@@ -111,51 +113,32 @@ public class CommandChannels implements IModularMSMFCommand {
         }
     }
 
-    private void listPublic(CommandSender sender, Command command, String label, String[] args) {
-        sender.sendMessage("List of all public channels: " + printSet(usrChPriv));
+    private void listCurrent(CommandSender sender, String[] args) {
     }
 
-    private void listPrivate(CommandSender sender, Command command, String label, String[] args) {
+    private void listPublic(CommandSender sender, String[] args) {
+        sender.sendMessage("List of all public channels: " + CommandUtil.printSet(usrChPriv));
+    }
+
+    private void listPrivate(CommandSender sender, String[] args) {
         if (!PermissionManager.checkPermission(sender, "channels_list_private")) {
             ChatUtils.sendMsgNoPerm(sender);
             return;
         }
-        sender.sendMessage("List of all private channels: " + printSet(usrChPriv));
+        sender.sendMessage("List of all private channels: " + CommandUtil.printSet(usrChPriv));
     }
 
-    private void listAll(CommandSender sender, Command command, String label, String[] args) {
+    private void listAll(CommandSender sender, String[] args) {
         if (!PermissionManager.checkPermission(sender, "channels_list_all")) {
             ChatUtils.sendMsgNoPerm(sender);
             return;
         }
-        sender.sendMessage("List of all private channels: " + printSet(usrChPriv));
-        sender.sendMessage("List of all public channels: " + printSet(usrChPub));
-        sender.sendMessage("List of all default channels: " + printSetDefault(defaultChannels));
+        sender.sendMessage("List of all private channels: " + CommandUtil.printSet(usrChPriv));
+        sender.sendMessage("List of all public channels: " + CommandUtil.printSet(usrChPub));
+        sender.sendMessage("List of all default channels: " + CommandUtil.printSet(defaultChannels));
     }
 
-    private String printSet(Set<String> set) {
-        String result = new String();
-        for (String str : set) {
-            result = result.concat(str.concat(", "));
-        }
-        if (result.isBlank()) {
-            return result;
-        }
-        return result.substring(0, result.length() - 2);
-    }
-
-    private String printSetDefault(Set<String> set) {
-        String result = new String();
-        for (String str : set) {
-            result = result.concat(str.concat(", "));
-        }
-        if (result.isBlank()) {
-            return result;
-        }
-        return result.substring(0, result.length() - 2);
-    }
-
-    private boolean channelRemove(CommandSender sender, Command command, String label, String[] args) {
+    private boolean channelRemove(CommandSender sender, String[] args) {
         if (args.length == 0) {
             sender.sendMessage("test");
             return true;
@@ -191,7 +174,7 @@ public class CommandChannels implements IModularMSMFCommand {
         return true;
     }
 
-    private void channelCreate(CommandSender sender, Command command, String label, String[] args) {
+    private void channelCreate(CommandSender sender, String[] args) {
         if (args.length == 1) {
             sender.sendMessage("eig. zum channel namen erstellen");
             return;
@@ -234,7 +217,7 @@ public class CommandChannels implements IModularMSMFCommand {
         sender.sendMessage("done creating " + usrChPub.contains(args[1].toLowerCase().toString()));
     }
 
-    private void channelHelp(CommandSender sender, Command command, String label, String[] args) {
+    private void channelHelp(CommandSender sender) {
         sender.sendMessage("help here");
     }
 

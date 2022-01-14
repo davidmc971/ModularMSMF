@@ -12,6 +12,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import io.github.davidmc971.modularmsmf.basics.util.KillType;
 import io.github.davidmc971.modularmsmf.basics.util.PlayerKillConfig;
+import io.github.davidmc971.modularmsmf.core.commands.CommandListPlayers;
 import io.github.davidmc971.modularmsmf.core.listeners.CoreEvents;
 import io.github.davidmc971.modularmsmf.core.util.Utils;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
@@ -80,6 +81,7 @@ public class BasicEvents implements Listener {
 	public void onQuit(PlayerQuitEvent event) {
 		Utils.broadcastWithConfiguredLanguageEach(ChatFormat.QUIT, "events.quit", "_player",
 				event.getPlayer().getName(), "_servername", Bukkit.getServer().getName());
+		CommandListPlayers.playerlist.remove(event.getPlayer().getName());
 	}
 
 	
