@@ -3,7 +3,7 @@ package io.github.davidmc971.modularmsmf.basics.util;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-public class ChatUtils { //TODO: new module?
+public class ChatUtils { //TODO: new module maybe?
 
     public enum ChannelPrefix {
         ADMIN, SUPPORT, DEFAULT, MODERATOR

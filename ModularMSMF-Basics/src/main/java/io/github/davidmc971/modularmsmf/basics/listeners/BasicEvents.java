@@ -97,7 +97,7 @@ public class BasicEvents implements Listener {
 	 * @param e Player who tries to chat
 	 */
 	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onChat(AsyncChatEvent e, String... args) {
+	public void onChat(AsyncChatEvent e, String... args) { //FIXME: error show up
 		if (CommandChannels.setChannelUsr.containsValue(e.getPlayer().getName())
 				&& CommandChannels.setChannelUsr.containsKey("admin")) {
 			e.message(Component.text(ChatUtils.getFormattedPrefix(ChannelPrefix.ADMIN) + e.originalMessage())); // TODO: testing purposes only

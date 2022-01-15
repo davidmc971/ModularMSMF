@@ -2,7 +2,7 @@ package io.github.davidmc971.modularmsmf.basics.util;
 
 import io.github.davidmc971.modularmsmf.basics.util.ChatUtils.ChannelPrefix;
 
-public class ChatSendUtil { //TODO: new module?
+public class ChatSendUtil { //TODO: new module maybe?
     public static String sendMessageWithConfiguredLanguage(String string, ChannelPrefix format) {
 		String prefix = ChatUtils.getFormattedPrefix(format);
 		String configuredMessage = prefix;
