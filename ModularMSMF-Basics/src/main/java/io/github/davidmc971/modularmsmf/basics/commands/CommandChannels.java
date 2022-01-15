@@ -31,13 +31,19 @@ public class CommandChannels implements IModularMSMFCommand {
      *
      * setChannelUsr - key(sender.getName()) as string, value(channelname//args[1])
      * as string
-     * will be used for following commands: /channel create <name> <private/public>
+     * will be used for following commands:
+     * /channel create <name> <private/public> //@deprecated
      * /channel join <name>
      * /channel remove <name>
      * /channel leave <name>
      * /channel get
      * will be used for following events: onChat(AsyncPlayerChatEvent e)
      * //FIXME: Prefix couldn't show up
+     *
+     * USRCHANNEL_MAP - key(channelname//args[1]) as string,
+     * value(channeltype//args[2]) as string
+     * will be used for following commands:
+     * /channel create <name> <private/public>
      *
      * Set descriptions:
      * usrChPriv & usrChPub - key(channelname//args[1]) as string
@@ -50,6 +56,8 @@ public class CommandChannels implements IModularMSMFCommand {
      */
 
     public static final HashMap<String/* username */, String/* channelname */> setChannelUsr = new LinkedHashMap<String, String>();
+    public static final HashMap<String/* username */, String/* channelname */> USRCHANNEL_MAP = new LinkedHashMap<String, String>();
+    // <USRCHANNEL_MAP> not used yet
     /**
      * TODO: HashMap for channelname and private/public?
      */
