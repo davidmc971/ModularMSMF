@@ -28,56 +28,54 @@ public class CommandClearChat implements IModularMSMFCommand {
                         "coremodule.commands.arguments.toomany");
                 break;
             case 0:
-                return clearSelf(sender, cmd, commandLabel, args);
+                clearSelf(sender, cmd, commandLabel, args);
+                break;
             case 1:
-                return clearOthers(sender, cmd, commandLabel, args);
+                clearOthers(sender, cmd, commandLabel, args);
+                break;
         }
         return true;
     }
 
-    private boolean clearOthers(CommandSender sender, Command cmd, String commandLabel, String[] args) {
+    private void clearOthers(CommandSender sender, Command cmd, String commandLabel, String[] args) {
         UUID target = null;
         if (!PermissionManager.checkPermission(sender, "clear_target")) {
             ChatUtils.sendMsgNoPerm(sender);
-            return true;
-        } else {
-            target = Utils.getPlayerUUIDByName(args[0]);
-            if (target == null) {
-                Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "coremodule.player.notfound");
-                return true;
-            } else {
-                for (Player p : Bukkit.getOnlinePlayers()) {
-                    if (p.getUniqueId().toString().equalsIgnoreCase(target.toString())) {
-                        Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
-                                "coremodule.commands.cclear.others", "_target", p.getName());
-                        while (count != 99) {
-                            count++;
-                            p.sendMessage("");
-                        }
-                        Utils.sendMessageWithConfiguredLanguage(p, ChatFormat.SUCCESS,
-                                "coremodule.commands.cclear.done");
-                        count = 0;
-                        return true;
-                    }
+            return;
+        }
+        target = Utils.getPlayerUUIDByName(args[0]);
+        if (target == null) {
+            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "coremodule.player.notfound");
+            return;
+        }
+        for (Player p : Bukkit.getOnlinePlayers()) {
+            if (p.getUniqueId().toString().equalsIgnoreCase(target.toString())) {
+                Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
+                        "coremodule.commands.cclear.others", "_target", p.getName());
+                while (count != 99) {
+                    count++;
+                    p.sendMessage("");
                 }
+                Utils.sendMessageWithConfiguredLanguage(p, ChatFormat.SUCCESS,
+                        "coremodule.commands.cclear.done");
+                count = 0;
+                return;
             }
         }
-        return true;
     }
 
-    private boolean clearSelf(CommandSender sender, Command cmd, String commandLabel, String[] args) {
+    private void clearSelf(CommandSender sender, Command cmd, String commandLabel, String[] args) {
         if (!PermissionManager.checkPermission(sender, "clear_all")) {
             ChatUtils.sendMsgNoPerm(sender);
-            return true;
-        } else {
-            while (count != 99) {
-                count++;
-                Bukkit.getOnlinePlayers().forEach((plr) -> plr.sendMessage(""));
-            }
-            Utils.broadcastWithConfiguredLanguageEach(ChatFormat.SUCCESS, "coremodule.commands.cclear.done");
-            count = 0;
+            return;
         }
-        return true;
+        while (count != 99) {
+            count++;
+            Bukkit.getOnlinePlayers().forEach((plr) -> plr.sendMessage(""));
+        }
+        Utils.broadcastWithConfiguredLanguageEach(ChatFormat.SUCCESS, "coremodule.commands.cclear.done");
+        count = 0;
+        return;
     }
 
     @Override
