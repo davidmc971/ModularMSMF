@@ -397,7 +397,7 @@ public class CommandChannels implements IModularMSMFCommand {
 
     @Override
     public String[] Aliases() {
-        return null;
+        return new String[] { "ch", "chan" };
     }
 
     @Override
