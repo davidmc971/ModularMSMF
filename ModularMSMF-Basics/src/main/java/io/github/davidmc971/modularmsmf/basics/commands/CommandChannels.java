@@ -26,6 +26,8 @@ public class CommandChannels implements IModularMSMFCommand {
 
     private String defaultCh = "default";
 
+    // CommandUtil as instance?
+
     /**
      * Map descriptions:
      *
