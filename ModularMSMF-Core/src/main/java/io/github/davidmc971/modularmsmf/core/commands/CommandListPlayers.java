@@ -36,9 +36,13 @@ public class CommandListPlayers implements IModularMSMFCommand {
         }
         switch (args.length) {
             case 0:
+                if (playerlist.isEmpty()) {
+                    sender.sendMessage("No player online");
+                    return true;
+                }
                 sender.sendMessage("Online: " + ChatUtils.printSet(playerlist));
-                Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ONLINE, "languageKey", "_players",
-                        playerlist.toString());
+                // Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ONLINE,
+                // "languageKey", "_players", playerlist.toString());
                 break;
             case 1:
                 switch (args[0].toLowerCase()) {
