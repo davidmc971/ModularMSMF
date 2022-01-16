@@ -85,15 +85,4 @@ public class CommandUtil {
         }
         return true;
     }
-
-    public static String printSet(Set<String> set) {
-        String result = new String();
-        for (String str : set) {
-            result = result.concat(str.concat(", "));
-        }
-        if (result.isBlank()) {
-            return result;
-        }
-        return result.substring(0, result.length() - 2);
-    }
 }
