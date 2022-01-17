@@ -1,14 +1,21 @@
 package io.github.davidmc971.modularmsmf.basics.listeners;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.bukkit.Bukkit;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.server.TabCompleteEvent;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import io.github.davidmc971.modularmsmf.basics.commands.CommandChannels;
 import io.github.davidmc971.modularmsmf.basics.util.ChatUtils;
@@ -30,7 +37,7 @@ import net.kyori.adventure.text.Component;
  * @since 0.3
  * @version 0.1
  */
-public class BasicEvents implements Listener {
+public class BasicEvents implements Listener, TabCompleter {
 	private ArrayList<PlayerKillConfig> killedPlayers = new ArrayList<PlayerKillConfig>();
 
 	/**
@@ -83,12 +90,13 @@ public class BasicEvents implements Listener {
 	 * 
 	 * @param event Player who leave
 	 */
-	@EventHandler
-	public void onQuit(PlayerQuitEvent event) {
-		Utils.broadcastWithConfiguredLanguageEach(ChatFormat.QUIT, "events.quit", "_player",
-				event.getPlayer().getName(), "_servername", Bukkit.getServer().getName());
-		CommandListPlayers.playerlist.remove(event.getPlayer().getName());
-	}
+	// @EventHandler
+	// public void onQuit(PlayerQuitEvent event) {
+	// Utils.broadcastWithConfiguredLanguageEach(ChatFormat.QUIT, "events.quit",
+	// "_player",
+	// event.getPlayer().getName(), "_servername", Bukkit.getServer().getName());
+	// CommandListPlayers.playerlist.remove(event.getPlayer().getName());
+	// }
 
 	/**
 	 * Players, which want to communicate, can see their prefix/world they're in or
@@ -96,11 +104,16 @@ public class BasicEvents implements Listener {
 	 * 
 	 * @param e Player who tries to chat
 	 */
-	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onChat(AsyncChatEvent e, String... args) { //FIXME: error show up
-		if (CommandChannels.setChannelUsr.containsValue(e.getPlayer().getName())
-				&& CommandChannels.setChannelUsr.containsKey("admin")) {
-			e.message(Component.text(ChatUtils.getFormattedPrefix(ChannelPrefix.ADMIN) + e.originalMessage())); // TODO: testing purposes only
-		}
+	// @EventHandler(priority = EventPriority.HIGHEST)
+	// public void onChat(AsyncChatEvent e, String... args) { // FIXME: error show
+	// up
+
+	// }
+
+	@Override
+	public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command,
+			@NotNull String alias, @NotNull String[] args) {
+
+		return null;
 	}
 }

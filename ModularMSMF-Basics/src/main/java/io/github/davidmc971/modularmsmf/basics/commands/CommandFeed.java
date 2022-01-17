@@ -94,4 +94,5 @@ public class CommandFeed implements IModularMSMFCommand {
 	public boolean Enabled() {
 		return true;
 	}
+
 }

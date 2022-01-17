@@ -1,12 +1,12 @@
 package io.github.davidmc971.modularmsmf.basics.util;
 
-import java.util.Set;
+import java.util.ArrayList;
 
 public class SortList {
 
-    public static String printSet(Set<String> set) {
+    public static String printSet(ArrayList<String> arrayList) {
         String result = new String();
-        for (String str : set) {
+        for (String str : arrayList) {
             result = result.concat(str.concat(", "));
         }
         if (result.isBlank()) {
