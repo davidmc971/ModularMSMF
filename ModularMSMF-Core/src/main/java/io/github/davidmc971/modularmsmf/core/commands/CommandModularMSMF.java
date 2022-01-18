@@ -17,8 +17,6 @@ import io.github.davidmc971.modularmsmf.core.PermissionManager;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
 import io.github.davidmc971.modularmsmf.core.util.Utils;
-import net.kyori.adventure.audience.MessageType;
-import net.kyori.adventure.identity.Identity;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.Style;
 import net.kyori.adventure.text.format.TextColor;
@@ -90,24 +88,24 @@ public class CommandModularMSMF implements IModularMSMFCommand {
 				.style(Style.empty().decorate(TextDecoration.BOLD))
 				.append(Component.text("info").color(TextColor.color(127, 127, 127))
 						.hoverEvent(net.kyori.adventure.text.event.HoverEvent
-								.showText(Component.text(language.getString("coremodule.commands.mmsmf.info"))))
+								.showText(Component.text(language.getString("commands.mmsmf.info"))))
 						.clickEvent(net.kyori.adventure.text.event.ClickEvent.runCommand("/mmsmf info")))
 				.append(Component.text(" "))
 				.append(Component.text("report a bug").color(TextColor.color(255, 127, 127))
 						.hoverEvent(net.kyori.adventure.text.event.HoverEvent
-								.showText(Component.text(language.getString("coremodule.commands.mmsmf.report"))))
+								.showText(Component.text(language.getString("commands.mmsmf.report"))))
 						.clickEvent(net.kyori.adventure.text.event.ClickEvent.runCommand("/mmsmf report")))
 				.append(Component.text(" "))
 				.append(Component.text("teamspeak").color(TextColor.color(127, 127, 127))
 						.hoverEvent(net.kyori.adventure.text.event.HoverEvent.showText(
-								Component.text(language.getString("coremodule.commands.mmsmf.teamspeak.click"))))
+								Component.text(language.getString("commands.mmsmf.teamspeak.click"))))
 						.clickEvent(net.kyori.adventure.text.event.ClickEvent.runCommand("/mmsmf teamspeak")))
 				.append(Component.text(" "))
 				.append(Component.text("discord").color(TextColor.color(127, 127, 255))
 						.hoverEvent(net.kyori.adventure.text.event.HoverEvent.showText(
-								Component.text(language.getString("coremodule.commands.mmsmf.discord.click"))))
+								Component.text(language.getString("commands.mmsmf.discord.click"))))
 						.clickEvent(net.kyori.adventure.text.event.ClickEvent.runCommand("/mmsmf discord")));
-		sender.sendMessage(Identity.nil(), testComponent, MessageType.SYSTEM);
+		sender.sendMessage(testComponent);
 		// TODO: testing iridiumcolorapi
 		// solid tag
 		sender.sendMessage(IridiumColorAPI.process("<SOLID:8200FF>REEEEEEEEEEEEEE"));
