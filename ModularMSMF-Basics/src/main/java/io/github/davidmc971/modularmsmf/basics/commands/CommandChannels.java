@@ -26,6 +26,10 @@ import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
 
 /**
  * @author Lightkeks
+ * @since 0.3
+ *        Channels to use for writing with players on the server. Channels can
+ *        seperate the default channel into little other channels to communicate
+ *        between players.
  * @TODO Rewrite methods to comply permissions system
  */
 
@@ -84,6 +88,13 @@ public class CommandChannels implements IModularMSMFCommand, TabCompleter {
         }
     };
 
+    /**
+     * @param sender
+     * @param command
+     * @param label
+     * @param args
+     * @return boolean
+     */
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!PermissionManager.checkPermission(sender, "channels_use")) {
@@ -95,12 +106,19 @@ public class CommandChannels implements IModularMSMFCommand, TabCompleter {
             return true;
         }
         switch (args[0].toLowerCase()) {
-            case "get":
-                if (sender.isOp()) {
-                    handleChannelGet(sender, args);
+            case "admin":
+                if (!sender.isOp() || !PermissionManager.checkPermission(sender, "channels_admin")) {
+                    ChatUtils.sendMsgNoPerm(sender);
                     break;
                 }
-                ChatUtils.sendMsgNoPerm(sender);
+                handleAdmin(sender, args);
+                break;
+            case "get":
+                if (!sender.isOp() || !PermissionManager.checkPermission(sender, "channels_get_player")) {
+                    ChatUtils.sendMsgNoPerm(sender);
+                    break;
+                }
+                handleChannelGet(sender, args);
                 break;
             case "help":
                 handleChannelHelp(sender);
@@ -112,9 +130,17 @@ public class CommandChannels implements IModularMSMFCommand, TabCompleter {
                 handleChannelJoin(sender, args);
                 break;
             case "create":
+                if (!PermissionManager.checkPermission(sender, "channels_create")) {
+                    ChatUtils.sendMsgNoPerm(sender);
+                    break;
+                }
                 handleChannelCreate(sender, args);
                 break;
             case "remove":
+                if (!PermissionManager.checkPermission(sender, "channels_remove")) {
+                    ChatUtils.sendMsgNoPerm(sender);
+                    break;
+                }
                 handleChannelRemove(sender, args);
                 break;
             case "switch":
@@ -131,9 +157,93 @@ public class CommandChannels implements IModularMSMFCommand, TabCompleter {
         return true;
     }
 
-    private void handleChannelSwitch(CommandSender sender, String[] args) {
+    /**
+     * @param sender
+     * @param args
+     */
+    private void handleAdmin(CommandSender sender, String[] args) {
+        switch (args[0].toLowerCase()) {
+            case "create":
+                handleCreateAdmin(sender, args);
+                break;
+            case "join":
+            case "leave":
+            case "remove":
+                handlePlayerChannelAdmin(sender, args);
+                break;
+            case "switch":
+                handleChannelSwitchAdmin(sender, args);
+                break;
+            default:
+                Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
+                        "commands.arguments.invalid");
+        }
     }
 
+    /**
+     * @param sender
+     * @param args
+     */
+    private void handleCreateAdmin(CommandSender sender, String[] args) {
+    }
+
+    /**
+     * @param sender
+     * @param args
+     */
+    private void handlePlayerChannelAdmin(CommandSender sender, String[] args) {
+    }
+
+    /**
+     * @param sender
+     * @param args
+     */
+    private void handleChannelSwitchAdmin(CommandSender sender, String[] args) {
+    }
+
+    /**
+     * @param sender
+     * @param args
+     */
+    private void handleChannelSwitch(CommandSender sender, String[] args) {
+        if (!usrChPriv.contains(args[1]) || !usrChPub.contains(args[1])) {
+            sender.sendMessage("channel non existant");
+            return;
+        }
+        switch (args.length) {
+            case 1: // public channel name
+                handleSwitchPublic(sender, args);
+                break;
+            case 2: // private channel name
+                handleSwitchPrivate(sender, args);
+                break;
+            default:
+                Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "commands.args.toomany");
+                break;
+        }
+    }
+
+    private void switchChannel(String key, Set<String> channel) {
+
+    }
+
+    private void handleSwitchPublic(CommandSender sender, String[] args) {
+        if (!setChannelUsr.containsValue(args[1].toLowerCase())) {
+            sender.sendMessage("you cannot switch because you're not in a channel yet");
+            return;
+        }
+        sender.sendMessage("You switched from " + setChannelUsr.get(((Player) sender).getName()) + " to: "
+                + args[1].toLowerCase());
+        setChannelUsr.put(((Player) sender).getName(), args[1].toLowerCase());
+    }
+
+    private void handleSwitchPrivate(CommandSender sender, String[] args) {
+    }
+
+    /**
+     * @param sender
+     * @param args
+     */
     private void handleChannelGet(CommandSender sender, String[] args) {
         if (args.length == 1) {
             handleChannelGetSelf(sender);
@@ -160,6 +270,9 @@ public class CommandChannels implements IModularMSMFCommand, TabCompleter {
         return;
     }
 
+    /**
+     * @param sender
+     */
     private void handleChannelGetSelf(CommandSender sender) {
         if (setChannelUsr.get(((Player) sender).getName()) != null) {
             sender.sendMessage("you're in: " + setChannelUsr.get(((Player) sender).getName())
@@ -171,10 +284,17 @@ public class CommandChannels implements IModularMSMFCommand, TabCompleter {
         return;
     }
 
+    /**
+     * @param sender
+     */
     private void handleChannelHelp(CommandSender sender) {
         sender.sendMessage("help here");
     }
 
+    /**
+     * @param sender
+     * @param args
+     */
     private void handleChannelLeave(CommandSender sender, String[] args) {
         switch (args.length) {
             case 1:
@@ -192,6 +312,10 @@ public class CommandChannels implements IModularMSMFCommand, TabCompleter {
         }
     }
 
+    /**
+     * @param sender
+     * @param args
+     */
     private void handleLeave(CommandSender sender, String[] args) {
         if (usrChPriv.contains(args[1])) {
             if (setChannelUsr.containsValue(args[1])) {
@@ -219,6 +343,10 @@ public class CommandChannels implements IModularMSMFCommand, TabCompleter {
         return;
     }
 
+    /**
+     * @param sender
+     * @param (channelName.contains(args[1])
+     */
     private void handleChannelJoin(CommandSender sender, String[] args) { // FIXME: still joining channels while not
                                                                           // created
         // any channel
@@ -231,11 +359,11 @@ public class CommandChannels implements IModularMSMFCommand, TabCompleter {
                 sender.sendMessage("channel name?");
                 break;
             case 2:
-                // if (!PermissionManager.checkPermission(sender, "channels_join_admins") ||
-                // sender.isOp()) {
-                // ChatUtils.sendMsgNoPerm(sender);
-                // break;
-                // }
+                if (!PermissionManager.checkPermission(sender, "channels_join_admins") ||
+                        sender.isOp()) {
+                    ChatUtils.sendMsgNoPerm(sender);
+                    break;
+                }
                 if (!usrChPriv.contains(args[1])) {
                     handleJoinPublic(sender, args);
                     break;
@@ -258,6 +386,11 @@ public class CommandChannels implements IModularMSMFCommand, TabCompleter {
         }
     }
 
+    /**
+     * @param sender
+     * @param key
+     * @param channel
+     */
     private void handleJoin(CommandSender sender, String key, Set<String> channel) {
         if (!channel.contains(key)) {
             sender.sendMessage("channel not created yet");
@@ -273,6 +406,10 @@ public class CommandChannels implements IModularMSMFCommand, TabCompleter {
         sender.sendMessage("you're already in this channel!");
     }
 
+    /**
+     * @param sender
+     * @param args
+     */
     private void handleJoinPrivate(CommandSender sender, String[] args) {
         if (usrChPub.contains(args[1])) {
             sender.sendMessage("this a public channel!");
@@ -281,6 +418,10 @@ public class CommandChannels implements IModularMSMFCommand, TabCompleter {
         handleJoin(sender, args[1], usrChPriv);
     }
 
+    /**
+     * @param sender
+     * @param args
+     */
     private void handleJoinPublic(CommandSender sender, String[] args) {
         if (usrChPriv.contains(args[1])) {
             sender.sendMessage("this a private channel!");
@@ -289,6 +430,10 @@ public class CommandChannels implements IModularMSMFCommand, TabCompleter {
         handleJoin(sender, args[1], usrChPub);
     }
 
+    /**
+     * @param sender
+     * @param args
+     */
     private void handleChannelList(CommandSender sender, String[] args) {
         if (args.length == 1) {
             handleListAll(sender);
@@ -310,10 +455,16 @@ public class CommandChannels implements IModularMSMFCommand, TabCompleter {
         }
     }
 
+    /**
+     * @param sender
+     */
     private void handleListPublic(CommandSender sender) {
         sender.sendMessage("List of all public channels: " + SortList.printSet(usrChPriv));
     }
 
+    /**
+     * @param sender
+     */
     private void handleListPrivate(CommandSender sender) {
         if (!PermissionManager.checkPermission(sender, "channels_list_private")) {
             ChatUtils.sendMsgNoPerm(sender);
@@ -322,6 +473,9 @@ public class CommandChannels implements IModularMSMFCommand, TabCompleter {
         sender.sendMessage("List of all private channels: " + SortList.printSet(usrChPriv));
     }
 
+    /**
+     * @param sender
+     */
     private void handleListAll(CommandSender sender) {
         if (!PermissionManager.checkPermission(sender, "channels_list_all")) {
             ChatUtils.sendMsgNoPerm(sender);
@@ -332,6 +486,10 @@ public class CommandChannels implements IModularMSMFCommand, TabCompleter {
         sender.sendMessage("List of all default channels: " + SortList.printAList(defaultChannels));
     }
 
+    /**
+     * @param sender
+     * @param args
+     */
     private void handleChannelRemove(CommandSender sender, String[] args) {
         if (args.length == 1) {
             sender.sendMessage("eig. zum channel namen löschen");
@@ -350,6 +508,11 @@ public class CommandChannels implements IModularMSMFCommand, TabCompleter {
         return;
     }
 
+    /**
+     * @param sender
+     * @param key
+     * @param channel
+     */
     private void removeChannel(CommandSender sender, String key, Set<String> channel) {
         if (channel.contains(key)) {
             sender.sendMessage(key + " got removed");
@@ -361,6 +524,10 @@ public class CommandChannels implements IModularMSMFCommand, TabCompleter {
         }
     }
 
+    /**
+     * @param sender
+     * @param args
+     */
     private void handleChannelCreate(CommandSender sender, String[] args) {
         if (args.length == 1) {
             sender.sendMessage("eig. zum channel namen erstellen");
@@ -390,6 +557,10 @@ public class CommandChannels implements IModularMSMFCommand, TabCompleter {
         return;
     }
 
+    /**
+     * @param sender
+     * @param args
+     */
     private void handleCreatePrivate(CommandSender sender, String[] args) {
         if (usrChPub.contains(args[1])) {
             sender.sendMessage("nope, exists already as public!");
@@ -404,13 +575,17 @@ public class CommandChannels implements IModularMSMFCommand, TabCompleter {
         sender.sendMessage("done creating " + usrChPriv.contains(args[1]));
     }
 
+    /**
+     * @param sender
+     * @param args
+     */
     private void handleCreatePublic(CommandSender sender, String[] args) {
         if (usrChPriv.contains(args[1])) {
             sender.sendMessage("nope, exists already as private!");
             return;
         }
         if (usrChPub.contains(args[1])) {
-            sender.sendMessage("nope, exists already!");
+            sender.sendMessage("nope, exists already as public!");
             return;
         }
         usrChPub.add(args[1]);
@@ -450,6 +625,14 @@ public class CommandChannels implements IModularMSMFCommand, TabCompleter {
             add("remove");
             add("switch");
         }
+
+    };
+    ArrayList<String> labelsArgsAdmins = new ArrayList<String>() {
+        private static final long serialVersionUID = 1L;
+        {
+            addAll(labelsArgs);
+            remove("list");
+        }
     };
 
     ArrayList<String> typeChannel = new ArrayList<String>() {
@@ -467,60 +650,84 @@ public class CommandChannels implements IModularMSMFCommand, TabCompleter {
         }
     };
 
+    /**
+     * @param onTabComplete(
+     * @return List<String>
+     */
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command,
-            @NotNull String alias, @NotNull String[] args) { // TODO: implement this too in events
+            @NotNull String alias, @NotNull String[] args) {
+
+        List<String> privChannels = new ArrayList<String>(usrChPriv);
+        Collections.sort(privChannels);
+
+        List<String> pubChannels = new ArrayList<String>(usrChPub);
+        Collections.sort(pubChannels);
+
         ArrayList<String> playernames = new ArrayList<String>();
         Player[] players = new Player[Bukkit.getServer().getOnlinePlayers().size()];
         Bukkit.getServer().getOnlinePlayers().toArray(players);
         for (int i = 0; i < players.length; i++) {
             playernames.add(players[i].getName());
         }
+
         switch (args.length) {
             case 1:
                 if (sender.isOp() || PermissionManager.checkPermission(sender, "channels_admin")) {
                     return labelsAdmins;
                 }
-                return labels;
+                // return labels;
             case 2:
                 switch (args[0].toLowerCase()) {
-                    case "join":
-                    case "leave": // TODO: Show up player's channel where it joined or created
-                        List<String> pubChannels = new ArrayList<String>(usrChPub);
-                        Collections.sort(pubChannels);
+                    case "switch":
                         return pubChannels;
+                    case "admin":
+                        return labelsArgsAdmins;
+                    // case "leave": // TODO: Show up player's channel where it joined or created
                     case "help":
                         return labelsArgs;
                     case "get":
                         Collections.sort(playernames);
                         return playernames;
                     case "create":
-                    case "remove":
                         return channelName;
+                    case "join":
+                    case "remove":
+                        return pubChannels;
                     default:
                         return null;
                 }
             case 3:
-                if (args[0].equalsIgnoreCase("create")) {
-                    return typeChannel;
+                switch (args[0].toLowerCase()) {
+                    case "create":
+                        return typeChannel;
+                    default:
+                        return null;
                 }
-                break;
             default:
                 return null;
         }
-        return null;
     }
 
+    /**
+     * @return String
+     */
     @Override
     public String Label() {
         return "channel";
     }
 
+    /**
+     * @return String[]
+     */
     @Override
     public String[] Aliases() {
         return new String[] { "ch", "chan" };
     }
 
+    /**
+     * @return boolean
+     */
     @Override
     public boolean Enabled() {
         return true;
