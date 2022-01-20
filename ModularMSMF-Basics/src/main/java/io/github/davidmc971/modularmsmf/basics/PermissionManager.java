@@ -77,18 +77,18 @@ public class PermissionManager {
 			put("get_use_level", "modularmsmf.basics.get.use.level");
 			put("get_use_ip", "modularmsmf.basics.get.use.ip");
 			// channel permissions
+			put("channels_*", "modularmsmf.basics.channels.*"); // use anything in channels
 			put("channels_use", "modularmsmf.basics.channels.use"); // to use the command
-			put("channels_list_all", "modularmsmf.basics.channel.list.all"); // mod/admin related
-			put("channels_list_public", "modularmsmf.basics.channels.list.public"); // anyone can see public channels, only if permission is set
+			put("channels_list_*", "modularmsmf.basics.channel.list.*"); // mod/admin related
+			put("channels_list_public", "modularmsmf.basics.channels.list.public");
 			put("channels_list_private", "modularmsmf.basics.channels.list.private"); // mod/admin related
-			// put("channels_list_admins", "modularmsmf.basics.channels.list.private.admins"); //list admin channels
-			put("channels_join_admins", "modularmsmf.basics.channels.join.admins"); //mod/admin related channels
-			put("channels_admin", "modularmsmf.basics.channels_admin"); //mod/admin related uses
-			put("channels_get_player","modularmsmf.basics.channels.get.player"); //shows channel the player is in
-			put("channels_create","modularmsmf.basics.channels.create"); //create channel
-			put("channels_remove","modularmsmf.basics.channels.remove"); //remove channel
-			put("channels_create_admin","modularmsmf.basics.channels.create.admin"); //create channel as admin
-			put("channels_remove_admin","modularmsmf.basics.channels.remove.admin"); //remove channel as admin
+			put("channels_admin", "modularmsmf.basics.channels_admin"); // mod/admin related uses
+			put("channels_get_player", "modularmsmf.basics.channels.get.player"); // shows channel the player is in
+			put("channels_create", "modularmsmf.basics.channels.create"); // create channel
+			put("channels_remove", "modularmsmf.basics.channels.remove"); // remove channel
+			put("channels_admin_create", "modularmsmf.basics.channels.create.admin"); // create channel as admin
+			put("channels_admin_remove", "modularmsmf.basics.channels.remove.admin"); // remove channel as admin
+			put("channels_admins_join", "modularmsmf.basics.channels.join.admins"); // mod/admin related channels
 			// fly permissions
 			put("fly_use", "modularmsmf.basics.fly"); // to use the command
 			put("fly_self", "modularmsmf.basics.fly.self"); // for self activating fly

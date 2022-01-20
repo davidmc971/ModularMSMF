@@ -1,13 +1,14 @@
 package io.github.davidmc971.modularmsmf.basics.commands;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -36,65 +37,8 @@ import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
 public class CommandChannels implements IModularMSMFCommand, TabCompleter {
 
     private String defaultCh = "default";
+    private String forbittenName = "<name>";
 
-    // SortList as instance?
-
-    /**
-     * Map descriptions:
-     *
-     * setChannelUsr - key(sender.getName()) as string, value(channelname//args[1])
-     * as string
-     * will be used for following commands:
-     * /channel create <name> <private/public> //@deprecated
-     * /channel join <name>
-     * /channel remove <name>
-     * /channel leave <name>
-     * /channel get
-     * will be used for following events: onChat(AsyncPlayerChatEvent e)
-     * //FIXME: Prefix couldn't show up
-     *
-     * USRCHANNEL_MAP - key(channelname//args[1]) as string,
-     * value(channeltype//args[2]) as string
-     * will be used for following commands:
-     * /channel create <name> <private/public>
-     *
-     * Set descriptions:
-     * usrChPriv & usrChPub - key(channelname//args[1]) as string
-     * will be used for following commands:
-     * /channel create <name> <private>
-     * /channel join <name>
-     * /channel remove <name>
-     * /channel leave <name>
-     * /channel list <args>
-     */
-
-    public static final HashMap<String/* username */, String/* channelname */> setChannelUsr = new HashMap<String, String>();
-    public static final HashMap<String/* username */, String/* channelname */> USRCHANNEL_MAP = new LinkedHashMap<String, String>();
-    // <USRCHANNEL_MAP> not used yet
-    /**
-     * TODO: HashMap for channelname and private/public?
-     */
-    public static final Set<String/* channelname */> usrChPriv = new HashSet<String>();
-    public static final Set<String/* channelname */> usrChPub = new HashSet<String>();
-
-    private static final ArrayList<String> defaultChannels = new ArrayList<String>() {
-        private static final long serialVersionUID = 1L;
-        {
-            // only for main channels to obtain, cannot be removed
-            add("support"); /* /channel set support */
-            add("default"); /* /channel set default */
-            add("admin"); /* /channel set admin */
-            add("moderator"); /* /channel set moderator */
-        }
-    };
-
-    /**
-     * @param sender
-     * @param command
-     * @param label
-     * @param args
-     * @return boolean
-     */
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!PermissionManager.checkPermission(sender, "channels_use")) {
@@ -120,7 +64,7 @@ public class CommandChannels implements IModularMSMFCommand, TabCompleter {
                 }
                 handleChannelGet(sender, args);
                 break;
-            case "help":
+            case "help": // TODO: only remove if done {3}
                 handleChannelHelp(sender);
                 break;
             case "leave":
@@ -143,7 +87,7 @@ public class CommandChannels implements IModularMSMFCommand, TabCompleter {
                 }
                 handleChannelRemove(sender, args);
                 break;
-            case "switch":
+            case "switch": // TODO: only remove if done {8}
                 handleChannelSwitch(sender, args);
                 break;
             case "list":
@@ -157,19 +101,17 @@ public class CommandChannels implements IModularMSMFCommand, TabCompleter {
         return true;
     }
 
-    /**
-     * @param sender
-     * @param args
-     */
     private void handleAdmin(CommandSender sender, String[] args) {
-        switch (args[0].toLowerCase()) {
+        switch (args[1].toLowerCase()) {
+            // case "kick":
             case "create":
                 handleCreateAdmin(sender, args);
                 break;
             case "join":
-            case "leave":
+                handleAdminJoinChannel(sender, args);
+                break;
             case "remove":
-                handlePlayerChannelAdmin(sender, args);
+                handleAdminRemoveChannel(sender, args);
                 break;
             case "switch":
                 handleChannelSwitchAdmin(sender, args);
@@ -180,47 +122,200 @@ public class CommandChannels implements IModularMSMFCommand, TabCompleter {
         }
     }
 
-    /**
-     * @param sender
-     * @param args
-     */
-    private void handleCreateAdmin(CommandSender sender, String[] args) {
-    }
-
-    /**
-     * @param sender
-     * @param args
-     */
-    private void handlePlayerChannelAdmin(CommandSender sender, String[] args) {
-    }
-
-    /**
-     * @param sender
-     * @param args
-     */
     private void handleChannelSwitchAdmin(CommandSender sender, String[] args) {
-    }
-
-    /**
-     * @param sender
-     * @param args
-     */
-    private void handleChannelSwitch(CommandSender sender, String[] args) {
-        if (!usrChPriv.contains(args[1]) || !usrChPub.contains(args[1])) {
-            sender.sendMessage("channel non existant");
-            return;
-        }
         switch (args.length) {
-            case 1: // public channel name
-                handleSwitchPublic(sender, args);
+            case 4:
+                if (args[2].equalsIgnoreCase("public")) {
+                    channelPrivateToPublic(sender, args);
+                    return;
+                }
+                Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
+                        "commands.arguments.invalid");
                 break;
-            case 2: // private channel name
-                handleSwitchPrivate(sender, args);
+            case 5:
+                if (args[2].equalsIgnoreCase("private")) {
+                    channelPublicToPrivate(sender, args);
+                    return;
+                }
+                Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
+                        "commands.arguments.invalid");
                 break;
             default:
-                Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "commands.args.toomany");
-                break;
+                Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "commands.arguments.invalid");
         }
+    }
+
+    private void channelPrivateToPublic(CommandSender sender, String[] args) {
+        Set<String> key = CHANNELTREE_MAP.keySet();
+        Collection<String> value = CHANNELTREE_MAP.values();
+        if (key.isEmpty()) {
+            sender.sendMessage("missing created channels, create one");
+            return;
+        }
+        if (key.contains(args[3]) && value.equals(null)) {
+            CHANNELTREE_MAP.replace(args[3], null);
+            sender.sendMessage("@NOTNULL channel " + args[3] + " will set new value with "
+                    + CHANNELTREE_MAP.getOrDefault(args[3], null));
+            return;
+        }
+        if (key.contains(args[3]) && !value.equals(null)) {
+            CHANNELTREE_MAP.replace(args[3], null);
+            sender.sendMessage("@NULL channel " + args[3] + " will set new value with "
+                    + CHANNELTREE_MAP.getOrDefault(args[3], null));
+            return;
+        }
+        sender.sendMessage("channel " + args[3] + " doesn't exist");
+        return;
+    }
+
+    private void channelPublicToPrivate(CommandSender sender, String[] args) {
+        Set<String> key = CHANNELTREE_MAP.keySet();
+        if (key.isEmpty()) {
+            sender.sendMessage("missing created channels, create one");
+            return;
+        }
+        if (key.contains(args[3]) && CHANNELTREE_MAP.containsValue(null)) {
+            CHANNELTREE_MAP.replace(args[3], null, args[4]);
+            sender.sendMessage("@NULL channel " + args[3] + " will set new value with "
+                    + CHANNELTREE_MAP.getOrDefault(args[3], args[4]));
+            return;
+        }
+        if (key.contains(args[3]) && !CHANNELTREE_MAP.containsValue(null)) {
+            CHANNELTREE_MAP.replace(args[3], args[4]);
+            sender.sendMessage("@NOTNULL channel " + args[3] + " will set new value with "
+                    + CHANNELTREE_MAP.getOrDefault(args[3], args[4]));
+            return;
+        }
+        sender.sendMessage("channel " + args[3] + " doesn't exist");
+        return;
+    }
+
+    private void handleAdminRemoveChannel(CommandSender sender, String[] args) {
+        switch (args.length) {
+            case 2:
+                sender.sendMessage("missing name to remove channel");
+                break;
+            case 3:
+                removeAdmin(sender, args);
+                break;
+            default:
+                Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
+                        "commands.arguments.invalid");
+        }
+    }
+
+    private void removeAdmin(CommandSender sender, String[] args) {
+        Set<String> key = CHANNELTREE_MAP.keySet();
+        if (!key.contains(args[2])) {
+            sender.sendMessage("Channel " + args[2] + " has not been found");
+            return;
+        }
+        CHANNELTREE_MAP.remove(args[2], null);
+        sender.sendMessage("Channel " + args[2] + " removed");
+    }
+
+    private void handleAdminJoinChannel(CommandSender sender, String[] args) {
+        Set<String> channel = CHANNELTREE_MAP.keySet();
+        if (channel.isEmpty()) {
+            sender.sendMessage("create channel before joining");
+            return;
+        }
+        if (args[2].equalsIgnoreCase(forbittenName)) {
+            sender.sendMessage("its a placeholder");
+            return;
+        }
+        if (!channel.contains(args[2])) {
+            sender.sendMessage(args[2] + " does not exist");
+            return;
+        }
+        if (USERCHANNEL_MAP.containsValue(args[2])) {
+            sender.sendMessage("already in this channel");
+            return;
+        }
+        USERCHANNEL_MAP.put(((Player) sender).getName(), args[2]);
+        sender.sendMessage("changed channel to " + args[2]);
+        return;
+    }
+
+    private void handleCreateAdmin(CommandSender sender, String[] args) {
+        switch (args.length) {
+            case 2:
+                sender.sendMessage("missing name and/or criteria for join");
+                break;
+            case 3:
+                if (defaultChannels.contains(args[2])) {
+                    sender.sendMessage("default channel not allowed to re-create");
+                    return;
+                }
+                if (args[2].equalsIgnoreCase(forbittenName)) {
+                    sender.sendMessage("its a placeholder");
+                    return;
+                }
+                createAdmin(sender, args);
+                break;
+            case 4:
+                if (defaultChannels.contains(args[2])) {
+                    sender.sendMessage("default channel not allowed to re-create");
+                    return;
+                }
+                if (args[2].equalsIgnoreCase(forbittenName)) {
+                    sender.sendMessage("its a placeholder");
+                    return;
+                }
+                createAdminCriteria(sender, args);
+                break;
+            default:
+                Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
+                        "commands.arguments.invalid");
+        }
+    }
+
+    private void createAdmin(CommandSender sender, String[] args) {
+        Set<String> key = CHANNELTREE_MAP.keySet();
+        Collection<String> value = CHANNELTREE_MAP.values();
+        if (key.contains(args[2])) {
+            sender.sendMessage("Channel " + args[2] + " with value "
+                    + CHANNELTREE_MAP.getOrDefault(args[2], value.toString().replaceAll("\\[|\\]", ""))
+                    + " is already created");
+            return;
+        }
+        CHANNELTREE_MAP.put(args[2], null);
+        sender.sendMessage("Channel " + args[2] + " created");
+        sender.sendMessage(
+                "value: " + CHANNELTREE_MAP.getOrDefault(args[2], value.toString().replaceAll("\\[|\\]", "")));
+    }
+
+    private void createAdminCriteria(CommandSender sender, String[] args) {
+        Set<String> key = CHANNELTREE_MAP.keySet();
+        Collection<String> value = CHANNELTREE_MAP.values();
+        if (key.contains(args[2])) {
+            sender.sendMessage("Channel " + args[2] + " with value " + value.toString().replaceAll("\\[|\\]", "")
+                    + " is already created");
+            return;
+        }
+        CHANNELTREE_MAP.put(args[2], args[3]);
+        sender.sendMessage(
+                "Channel " + args[2] + " with " + CHANNELTREE_MAP.getOrDefault(args[2], args[3]) + " created");
+        sender.sendMessage("value: " + CHANNELTREE_MAP.getOrDefault(args[2], args[3]));
+    }
+
+    private void handleChannelSwitch(CommandSender sender, String[] args) {
+        // if (!usrChPriv.contains(args[1]) || !usrChPub.contains(args[1])) {
+        // sender.sendMessage("channel non existant");
+        // return;
+        // }
+        // switch (args.length) {
+        // case 1: // public channel name
+        // handleSwitchPublic(sender, args);
+        // break;
+        // case 2: // private channel name
+        // handleSwitchPrivate(sender, args);
+        // break;
+        // default:
+        // Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
+        // "commands.args.toomany");
+        // break;
+        // }
     }
 
     private void switchChannel(String key, Set<String> channel) {
@@ -228,82 +323,86 @@ public class CommandChannels implements IModularMSMFCommand, TabCompleter {
     }
 
     private void handleSwitchPublic(CommandSender sender, String[] args) {
-        if (!setChannelUsr.containsValue(args[1].toLowerCase())) {
-            sender.sendMessage("you cannot switch because you're not in a channel yet");
-            return;
-        }
-        sender.sendMessage("You switched from " + setChannelUsr.get(((Player) sender).getName()) + " to: "
-                + args[1].toLowerCase());
-        setChannelUsr.put(((Player) sender).getName(), args[1].toLowerCase());
+        // if (!setChannelUsr.containsValue(args[1].toLowerCase())) {
+        // sender.sendMessage("you cannot switch because you're not in a channel yet");
+        // return;
+        // }
+        // sender.sendMessage("You switched from " + setChannelUsr.get(((Player)
+        // sender).getName()) + " to: "
+        // + args[1].toLowerCase());
+        // setChannelUsr.put(((Player) sender).getName(), args[1].toLowerCase());
     }
 
     private void handleSwitchPrivate(CommandSender sender, String[] args) {
     }
 
-    /**
-     * @param sender
-     * @param args
-     */
     private void handleChannelGet(CommandSender sender, String[] args) {
-        if (args.length == 1) {
-            handleChannelGetSelf(sender);
-            return;
+        switch (args.length) {
+            case 1:
+                handleChannelGetSelf(sender);
+                break;
+            case 2:
+                UUID target = null;
+                target = Utils.getPlayerUUIDByName(args[1]);
+                Player player = Bukkit.getPlayer(target);
+                if (player == sender) {
+                    handleChannelGetSelf(sender);
+                    return;
+                }
+                if (player == null) {
+                    sender.sendMessage("non existant player");
+                    return;
+                }
+                if (USERCHANNEL_MAP.containsKey(player.getName())) {
+                    for (String key : USERCHANNEL_MAP.keySet()) {
+                        for (String value : USERCHANNEL_MAP.values()) {
+                            sender.sendMessage("user is in: "
+                                    + USERCHANNEL_MAP.getOrDefault(((Player) sender).getName(),
+                                            value.toString().replaceAll("\\[|\\]", ""))
+                                    + " <-- value // channelname || key --> "
+                                    + key.toString().replaceAll("\\[|\\]", ""));
+                            return;
+                        }
+                    }
+                }
+                sender.sendMessage(player.getName() + " in no channel boi");
+                break;
+            default:
+                sender.sendMessage("too many args");
+                break;
         }
-        UUID target = null;
-        target = Utils.getPlayerUUIDByName(args[1]);
-        Player player = Bukkit.getPlayer(target);
-        if (player == sender) {
-            handleChannelGetSelf(sender);
-            return; // return true if not null
-        }
-        if (player == null) {
-            sender.sendMessage("non existant player");
-            return;
-        }
-        if (setChannelUsr.get(player.getName()) != null) {
-            sender.sendMessage("you're in: " + setChannelUsr.get(player.getName())
-                    + " <-- key returns channelname // value --> "
-                    + setChannelUsr.containsValue(setChannelUsr.get((player.getName()))));
-            return;
-        }
-        sender.sendMessage(player.getName() + " in no channel boi");
-        return;
     }
 
-    /**
-     * @param sender
-     */
     private void handleChannelGetSelf(CommandSender sender) {
-        if (setChannelUsr.get(((Player) sender).getName()) != null) {
-            sender.sendMessage("you're in: " + setChannelUsr.get(((Player) sender).getName())
-                    + " <-- key returns channelname // value --> "
-                    + setChannelUsr.containsValue(setChannelUsr.get((((Player) sender).getName()))));
-            return; // return true if not null
+        if (USERCHANNEL_MAP.get(((Player) sender).getName()) != null) {
+            for (String key : USERCHANNEL_MAP.keySet()) {
+                for (String value : USERCHANNEL_MAP.values()) {
+                    sender.sendMessage("you're in: "
+                            + USERCHANNEL_MAP.getOrDefault(((Player) sender).getName(),
+                                    value.toString().replaceAll("\\[|\\]", ""))
+                            + " <-- value // channelname || key --> "
+                            + key.toString().replaceAll("\\[|\\]", ""));
+                    return;
+                }
+            }
         }
         sender.sendMessage("you're in no channel boi");
         return;
     }
 
-    /**
-     * @param sender
-     */
     private void handleChannelHelp(CommandSender sender) {
         sender.sendMessage("help here");
     }
 
-    /**
-     * @param sender
-     * @param args
-     */
     private void handleChannelLeave(CommandSender sender, String[] args) {
         switch (args.length) {
             case 1:
                 sender.sendMessage("channel name?");
                 break;
             case 2:
-                if (channelName.contains(args[1])) {
-                    sender.sendMessage("it's a placeholder --> " + args[1]);
-                    break;
+                if (args[1].equalsIgnoreCase(forbittenName)) {
+                    sender.sendMessage("its a placeholder");
+                    return;
                 }
                 handleLeave(sender, args);
                 break;
@@ -312,16 +411,13 @@ public class CommandChannels implements IModularMSMFCommand, TabCompleter {
         }
     }
 
-    /**
-     * @param sender
-     * @param args
-     */
     private void handleLeave(CommandSender sender, String[] args) {
-        if (usrChPriv.contains(args[1])) {
-            if (setChannelUsr.containsValue(args[1])) {
-                sender.sendMessage(setChannelUsr.get(args[1]) + " " + setChannelUsr.containsKey(args[1])
+        if (CHANNELTREE_MAP.containsKey(args[1])) {
+            if (USERCHANNEL_MAP.containsValue(args[1])) {
+                sender.sendMessage(USERCHANNEL_MAP.get(((Player) sender).getName()) + " " +
+                        USERCHANNEL_MAP.containsKey(args[1])
                         + " <-- false = " + args[1]);
-                setChannelUsr.remove(((Player) sender).getName(), args[1]);
+                USERCHANNEL_MAP.remove(((Player) sender).getName(), args[1]);
                 return;
             }
             return;
@@ -330,54 +426,46 @@ public class CommandChannels implements IModularMSMFCommand, TabCompleter {
             sender.sendMessage("couldn't leave");
             return;
         }
-        if (usrChPub.contains(args[1])) {
-            if (setChannelUsr.containsValue(args[1])) {
-                sender.sendMessage(setChannelUsr.get(args[1]) + " " + setChannelUsr.containsKey(args[1])
-                        + " <-- false = " + args[1]);
-                setChannelUsr.remove(((Player) sender).getName(), args[1]);
-                return;
-            }
+        if (args[1].equalsIgnoreCase(forbittenName)) {
+            sender.sendMessage("its a placeholder");
             return;
         }
         sender.sendMessage("channel doesn't exist");
         return;
     }
 
-    /**
-     * @param sender
-     * @param (channelName.contains(args[1])
-     */
-    private void handleChannelJoin(CommandSender sender, String[] args) { // FIXME: still joining channels while not
-                                                                          // created
-        // any channel
-        if (channelName.contains(args[1])) {
-            sender.sendMessage("it's a placeholder --> " + args[1]);
-            return;
-        }
+    private void handleChannelJoin(CommandSender sender, String[] args) {
         switch (args.length) {
             case 1:
                 sender.sendMessage("channel name?");
                 break;
             case 2:
-                if (!PermissionManager.checkPermission(sender, "channels_join_admins") ||
-                        sender.isOp()) {
-                    ChatUtils.sendMsgNoPerm(sender);
-                    break;
+                if (args[1].equalsIgnoreCase(forbittenName)) {
+                    sender.sendMessage("its a placeholder");
+                    return;
                 }
-                if (!usrChPriv.contains(args[1])) {
+                if (CHANNELTREE_MAP.containsKey(args[1])) {
                     handleJoinPublic(sender, args);
-                    break;
+                    return;
                 }
-                sender.sendMessage("dont forget private / public");
+                sender.sendMessage("channel non existant");
                 break;
             case 3:
+                if (args[1].equalsIgnoreCase(forbittenName)) {
+                    sender.sendMessage("its a placeholder");
+                    return;
+                }
+                if (CHANNELTREE_MAP.containsKey(args[1])) {
+                    handleJoinPublic(sender, args);
+                    return;
+                }
                 if (args[2].equalsIgnoreCase("private")) {
                     handleJoinPrivate(sender, args);
-                    break;
+                    return;
                 }
                 if (args[2].equalsIgnoreCase("public")) {
                     handleJoinPublic(sender, args);
-                    break;
+                    return;
                 }
                 sender.sendMessage("wrong arg");
                 break;
@@ -386,54 +474,38 @@ public class CommandChannels implements IModularMSMFCommand, TabCompleter {
         }
     }
 
-    /**
-     * @param sender
-     * @param key
-     * @param channel
-     */
-    private void handleJoin(CommandSender sender, String key, Set<String> channel) {
-        if (!channel.contains(key)) {
+    private void handleJoin(CommandSender sender, String key, HashMap<String, String> hashymap) {
+        if (!hashymap.containsKey(key)) {
             sender.sendMessage("channel not created yet");
             return;
         }
-        if (!setChannelUsr.containsValue(key)) {
-            setChannelUsr.put(((Player) sender).getName(), key);
+        if (!USERCHANNEL_MAP.containsValue(key)) {
+            USERCHANNEL_MAP.put(((Player) sender).getName(), key);
             sender.sendMessage(
-                    setChannelUsr.get(((Player) sender).getName()) + " " + setChannelUsr.containsKey(key)
+                    USERCHANNEL_MAP.get(((Player) sender).getName()) + " " +
+                            USERCHANNEL_MAP.containsKey(key)
                             + " <-- true = " + key);
             return;
         }
         sender.sendMessage("you're already in this channel!");
     }
 
-    /**
-     * @param sender
-     * @param args
-     */
     private void handleJoinPrivate(CommandSender sender, String[] args) {
-        if (usrChPub.contains(args[1])) {
+        if (CHANNELTREE_MAP.containsKey(args[1]) && CHANNELTREE_MAP.containsValue(null)) {
             sender.sendMessage("this a public channel!");
             return;
         }
-        handleJoin(sender, args[1], usrChPriv);
+        handleJoin(sender, args[1], CHANNELTREE_MAP);
     }
 
-    /**
-     * @param sender
-     * @param args
-     */
     private void handleJoinPublic(CommandSender sender, String[] args) {
-        if (usrChPriv.contains(args[1])) {
+        if (CHANNELTREE_MAP.containsKey(args[1]) && !CHANNELTREE_MAP.containsValue(null)) {
             sender.sendMessage("this a private channel!");
             return;
         }
-        handleJoin(sender, args[1], usrChPub);
+        handleJoin(sender, args[1], CHANNELTREE_MAP);
     }
 
-    /**
-     * @param sender
-     * @param args
-     */
     private void handleChannelList(CommandSender sender, String[] args) {
         if (args.length == 1) {
             handleListAll(sender);
@@ -455,79 +527,73 @@ public class CommandChannels implements IModularMSMFCommand, TabCompleter {
         }
     }
 
-    /**
-     * @param sender
-     */
     private void handleListPublic(CommandSender sender) {
-        sender.sendMessage("List of all public channels: " + SortList.printSet(usrChPriv));
+        ArrayList<String> channels = new ArrayList<>();
+        for (Map.Entry<String, String> e : CHANNELTREE_MAP.entrySet()) {
+            if (e.getValue() != null) {
+                continue;
+            }
+            channels.add(e.getKey());
+        }
+        Collections.sort(channels);
+        sender.sendMessage("List of all public channels: " + channels.toString().replaceAll("\\[|\\]", ""));
     }
 
-    /**
-     * @param sender
-     */
     private void handleListPrivate(CommandSender sender) {
         if (!PermissionManager.checkPermission(sender, "channels_list_private")) {
             ChatUtils.sendMsgNoPerm(sender);
             return;
         }
-        sender.sendMessage("List of all private channels: " + SortList.printSet(usrChPriv));
+        ArrayList<String> channels = new ArrayList<>();
+        for (Map.Entry<String, String> e : CHANNELTREE_MAP.entrySet()) {
+            if (e.getValue() == null) {
+                continue;
+            }
+            channels.add(e.getKey());
+        }
+        Collections.sort(channels);
+        sender.sendMessage("List of all private channels: " + channels.toString().replaceAll("\\[|\\]", ""));
     }
 
-    /**
-     * @param sender
-     */
     private void handleListAll(CommandSender sender) {
-        if (!PermissionManager.checkPermission(sender, "channels_list_all")) {
+        if (!PermissionManager.checkPermission(sender, "channels_list_*")) {
             ChatUtils.sendMsgNoPerm(sender);
             return;
         }
-        sender.sendMessage("List of all private channels: " + SortList.printSet(usrChPriv));
-        sender.sendMessage("List of all public channels: " + SortList.printSet(usrChPub));
-        sender.sendMessage("List of all default channels: " + SortList.printAList(defaultChannels));
+        handleListPublic(sender);
+        handleListPrivate(sender);
+        sender.sendMessage("List of all default channels: " +
+                SortList.printAList(defaultChannels));
     }
 
-    /**
-     * @param sender
-     * @param args
-     */
     private void handleChannelRemove(CommandSender sender, String[] args) {
         if (args.length == 1) {
             sender.sendMessage("eig. zum channel namen löschen");
             return;
         }
         if (args.length == 2) {
-            if (usrChPub.isEmpty() && usrChPriv.isEmpty()) {
+            if (CHANNELTREE_MAP.isEmpty()) {
                 sender.sendMessage("no channel to remove");
                 return;
             }
-            removeChannel(sender, args[1], usrChPub);
-            removeChannel(sender, args[1], usrChPriv);
+            removeChannel(sender, args[1], CHANNELTREE_MAP);
+            return;
         }
         sender.sendMessage(args[1] + " does not exist");
-        // removes created channels
         return;
     }
 
-    /**
-     * @param sender
-     * @param key
-     * @param channel
-     */
-    private void removeChannel(CommandSender sender, String key, Set<String> channel) {
-        if (channel.contains(key)) {
+    private void removeChannel(CommandSender sender, String key, HashMap<String, String> channeltreeMap) {
+        if (channeltreeMap.containsKey(key)) {
             sender.sendMessage(key + " got removed");
-            channel.remove(key);
+            channeltreeMap.remove(key);
             for (Player player : Bukkit.getOnlinePlayers()) {
-                setChannelUsr.put(player.getName(), defaultCh);
+                USERCHANNEL_MAP.put(player.getName(), defaultCh);
             }
             return;
         }
     }
 
-    /**
-     * @param sender
-     * @param args
-     */
     private void handleChannelCreate(CommandSender sender, String[] args) {
         if (args.length == 1) {
             sender.sendMessage("eig. zum channel namen erstellen");
@@ -557,41 +623,61 @@ public class CommandChannels implements IModularMSMFCommand, TabCompleter {
         return;
     }
 
-    /**
-     * @param sender
-     * @param args
-     */
     private void handleCreatePrivate(CommandSender sender, String[] args) {
-        if (usrChPub.contains(args[1])) {
-            sender.sendMessage("nope, exists already as public!");
-            return;
-        }
-        if (usrChPriv.contains(args[1])) {
+        if (CHANNELTREE_MAP.containsKey(args[1])) {
+            if (CHANNELTREE_MAP.get(args[1]) == null) {
+                sender.sendMessage("nope, exists already as public!");
+                return;
+            }
             sender.sendMessage("nope, exists already as private!");
             return;
         }
-        usrChPriv.add(args[1]);
-        setChannelUsr.put(((Player) sender).getName(), args[1]);
-        sender.sendMessage("done creating " + usrChPriv.contains(args[1]));
+        CHANNELTREE_MAP.put(args[1], args[2]);
+        USERCHANNEL_MAP.put(((Player) sender).getName(), args[1]);
+        sender.sendMessage("done creating Channel " + args[1] + " with "
+                + CHANNELTREE_MAP.getOrDefault(args[1], args[2]) + " created");
     }
 
-    /**
-     * @param sender
-     * @param args
-     */
     private void handleCreatePublic(CommandSender sender, String[] args) {
-        if (usrChPriv.contains(args[1])) {
-            sender.sendMessage("nope, exists already as private!");
-            return;
-        }
-        if (usrChPub.contains(args[1])) {
+        if (CHANNELTREE_MAP.containsKey(args[1])) {
+            if (CHANNELTREE_MAP.get(args[1]) != null) {
+                sender.sendMessage("nope, exists already as private!");
+                return;
+            }
             sender.sendMessage("nope, exists already as public!");
             return;
         }
-        usrChPub.add(args[1]);
-        setChannelUsr.put(((Player) sender).getName(), args[1]);
-        sender.sendMessage("done creating " + usrChPub.contains(args[1]));
+        CHANNELTREE_MAP.put(args[1], null);
+        USERCHANNEL_MAP.put(((Player) sender).getName(), args[1]);
+        sender.sendMessage("done creating " + args[1]);
     }
+
+    public static final Map<String/* username // K */, String/* channelname // V */> USERCHANNEL_MAP = new HashMap<String, String>();
+    public static final HashMap<String/* channel // K */, String/* join criteria or null // V */> CHANNELTREE_MAP = new HashMap<>();
+
+    public static final ArrayList<String> allChannels = CHANNELTREE_MAP.keySet().stream()
+            .collect(Collectors.toCollection(ArrayList::new));
+    public static final ArrayList<String> channelvalue = CHANNELTREE_MAP.values().stream()
+            .collect(Collectors.toCollection(ArrayList::new));
+
+    public static final ArrayList<String> allusers = USERCHANNEL_MAP.keySet().stream()
+            .collect(Collectors.toCollection(ArrayList::new));
+    public static final ArrayList<String> userchannel = USERCHANNEL_MAP.values().stream()
+            .collect(Collectors.toCollection(ArrayList::new));
+
+    public static final ArrayList<String> defaultChannels = new ArrayList<String>() {
+        private static final long serialVersionUID = 1L;
+        {
+            // only for main channels to obtain, cannot be removed
+            add("support"); /* /channel set support */
+            add("default"); /* /channel set default */
+            add("admin"); /* /channel set admin */
+            add("moderator"); /* /channel set moderator */
+        }
+    };
+
+    ArrayList<String> playernames = new ArrayList<String>();
+    Player[] players = new Player[Bukkit.getServer().getOnlinePlayers().size()];
 
     ArrayList<String> labels = new ArrayList<String>() {
         private static final long serialVersionUID = 1L;
@@ -632,6 +718,7 @@ public class CommandChannels implements IModularMSMFCommand, TabCompleter {
         {
             addAll(labelsArgs);
             remove("list");
+            remove("leave");
         }
     };
 
@@ -650,55 +737,47 @@ public class CommandChannels implements IModularMSMFCommand, TabCompleter {
         }
     };
 
-    /**
-     * @param onTabComplete(
-     * @return List<String>
-     */
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command,
             @NotNull String alias, @NotNull String[] args) {
-
-        List<String> privChannels = new ArrayList<String>(usrChPriv);
-        Collections.sort(privChannels);
-
-        List<String> pubChannels = new ArrayList<String>(usrChPub);
-        Collections.sort(pubChannels);
-
-        ArrayList<String> playernames = new ArrayList<String>();
-        Player[] players = new Player[Bukkit.getServer().getOnlinePlayers().size()];
-        Bukkit.getServer().getOnlinePlayers().toArray(players);
-        for (int i = 0; i < players.length; i++) {
-            playernames.add(players[i].getName());
-        }
 
         switch (args.length) {
             case 1:
                 if (sender.isOp() || PermissionManager.checkPermission(sender, "channels_admin")) {
                     return labelsAdmins;
                 }
-                // return labels;
+                return labels;
             case 2:
                 switch (args[0].toLowerCase()) {
                     case "switch":
-                        return pubChannels;
+                    case "join":
+                        return allChannels;
                     case "admin":
                         return labelsArgsAdmins;
-                    // case "leave": // TODO: Show up player's channel where it joined or created
                     case "help":
                         return labelsArgs;
                     case "get":
                         Collections.sort(playernames);
                         return playernames;
                     case "create":
-                        return channelName;
-                    case "join":
                     case "remove":
-                        return pubChannels;
+                        return channelName;
                     default:
                         return null;
                 }
             case 3:
                 switch (args[0].toLowerCase()) {
+                    case "admin":
+                        switch (args[1].toLowerCase()) {
+                            case "create":
+                                return channelName;
+                            case "join":
+                            case "remove":
+                                Collections.sort(allChannels);
+                                return allChannels; // FIXME: doesn't show up any channels
+                            default:
+                                return null;
+                        }
                     case "create":
                         return typeChannel;
                     default:
@@ -709,25 +788,16 @@ public class CommandChannels implements IModularMSMFCommand, TabCompleter {
         }
     }
 
-    /**
-     * @return String
-     */
     @Override
     public String Label() {
         return "channel";
     }
 
-    /**
-     * @return String[]
-     */
     @Override
     public String[] Aliases() {
         return new String[] { "ch", "chan" };
     }
 
-    /**
-     * @return boolean
-     */
     @Override
     public boolean Enabled() {
         return true;
