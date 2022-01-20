@@ -106,10 +106,10 @@ public class ChatUtils {
 	public static void sendMsgNoPerm(CommandSender sender) {
 		if (sender instanceof Player) {
 			Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.NOPERM,
-					"coremodule.player.nopermission");
+					"player.nopermission");
 		}
 		if (sender instanceof ConsoleCommandSender) {
-			Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.CONSOLE, "coremodule.noconsole");
+			Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.CONSOLE, "noconsole");
 		}
 	}
 
