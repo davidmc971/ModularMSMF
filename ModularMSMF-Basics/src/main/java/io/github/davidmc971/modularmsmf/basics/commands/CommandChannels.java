@@ -651,7 +651,7 @@ public class CommandChannels implements IModularMSMFCommand, TabCompleter {
             sender.sendMessage(key + " got removed");
             channel.remove(key);
             for (Player player : Bukkit.getOnlinePlayers()) {
-                USERCHANNEL_MAP.put(player.getName(), defaultCh);
+                USERCHANNEL_MAP.put(player.getName(), defaultCh); // TODO: should be added to joinevent too
             }
             return;
         }
