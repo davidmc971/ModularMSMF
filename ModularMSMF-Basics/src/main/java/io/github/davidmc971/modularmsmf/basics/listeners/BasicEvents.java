@@ -85,31 +85,6 @@ public class BasicEvents implements Listener, TabCompleter {
 		}
 	}
 
-	/**
-	 * Players who leave the server show up a leave message to all players
-	 * 
-	 * @param event Player who leave
-	 */
-	// @EventHandler
-	// public void onQuit(PlayerQuitEvent event) {
-	// Utils.broadcastWithConfiguredLanguageEach(ChatFormat.QUIT, "events.quit",
-	// "_player",
-	// event.getPlayer().getName(), "_servername", Bukkit.getServer().getName());
-	// CommandListPlayers.playerlist.remove(event.getPlayer().getName());
-	// }
-
-	/**
-	 * Players, which want to communicate, can see their prefix/world they're in or
-	 * even see their group prefix
-	 * 
-	 * @param e Player who tries to chat
-	 */
-	// @EventHandler(priority = EventPriority.HIGHEST)
-	// public void onChat(AsyncChatEvent e, String... args) { // FIXME: error show
-	// up
-
-	// }
-
 	@Override
 	public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command,
 			@NotNull String alias, @NotNull String[] args) {

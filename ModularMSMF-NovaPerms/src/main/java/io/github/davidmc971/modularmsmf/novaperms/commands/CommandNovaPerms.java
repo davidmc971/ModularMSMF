@@ -71,12 +71,22 @@ public class CommandNovaPerms implements IModularMSMFCommand {
             // remove player from all groups or delete a group
             novaperms_delete(sender, command, label, args);
             break;
+        case "reload":
+        case "rld":
+        case "rl":
+            novaperms_reload(sender, command, label, args);
+            break;
         default:
         Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "nperms.unknown");
             // unknown subcommand
             return false;
         }
         return true;
+    }
+
+    private void novaperms_reload(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
+            @NotNull String[] args) {
+        //reload all config files
     }
 
     private void novaperms_groups(CommandSender sender, Command command, String label, String[] args) {

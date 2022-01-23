@@ -1,7 +1,5 @@
 package io.github.davidmc971.modularmsmf.basics.util;
 
-import java.util.Set;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Difficulty;
 import org.bukkit.command.Command;

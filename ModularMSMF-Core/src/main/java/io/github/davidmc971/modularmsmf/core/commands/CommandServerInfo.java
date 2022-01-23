@@ -18,17 +18,17 @@ import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
  */
 
 public class CommandServerInfo implements IModularMSMFCommand {
-	
+
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (!PermissionManager.checkPermission(sender, "serverinfo")) {
 			ChatUtils.sendMsgNoPerm(sender);
 		}
 		if (args.length > 0) {
-			Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "coremodule.argument.toomany");
+			Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "argument.toomany");
 			return true;
 		}
-		Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.INFO, "coremodule.bukkitversion",
+		Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.INFO, "bukkitversion",
 				"_bukkitver", Bukkit.getBukkitVersion().split("[-\\:]")[0]);
 		return true;
 	}
