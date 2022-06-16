@@ -26,7 +26,10 @@ description = 'ModularMSMF root project'
 subprojects {
     apply plugin: 'java'
 
-    java.sourceCompatibility = JavaVersion.VERSION_1_8
+    // Execution failed for task ':ModularMSMF-Core:compileJava'.
+    //     > Error while evaluating property 'sourceCompatibility' of task ':ModularMSMF-Core:compileJava'
+    //         > The new Java toolchain feature cannot be used at the project level in combination with source and/or target compatibility
+    // java.sourceCompatibility = JavaVersion.VERSION_1_8
 
     repositories {
         // papermc maven repo
@@ -49,7 +52,7 @@ subprojects {
         testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.5.2'
         implementation 'com.iridium:IridiumColorAPI:1.0.6'
         compileOnly 'com.github.MilkBowl:VaultAPI:1.7'
-        compileOnly 'io.papermc.paper:paper-api:1.19-R0.1-SNAPSHOT'
+        implementation 'io.papermc.paper:paper-api:1.19-R0.1-SNAPSHOT'
     }
     java {
         toolchain.languageVersion.set(JavaLanguageVersion.of(17))
