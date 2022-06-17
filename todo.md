@@ -44,7 +44,7 @@
       - ban
       - channels
       - clearinventory
-      - feed
+      - feed (done)
       - fly
       - get
       - heal
