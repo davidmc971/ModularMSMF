@@ -25,7 +25,6 @@ arguments:
   toomany: Zu viele Argumente.
 #Reason specific language strings
 reasons:
-  console: Hier darf der Befehl _command nicht angewendet werden!
   banned_reason: "Du wurdest aus folgendem Grund gebannt: _reason"
   kick_reason: "Du wurdest aus folgendem Grund gekickt: _reason"
   banned_noreason: Du wurdest gebannt!

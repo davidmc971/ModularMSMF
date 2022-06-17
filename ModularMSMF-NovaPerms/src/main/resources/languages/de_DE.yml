@@ -16,4 +16,5 @@ commands:
   prefix:
   remove:
   delete:
-unknown: Unknown subcommand!
+arguments: 
+  invalid: Falsche Argumente!

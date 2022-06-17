@@ -55,7 +55,7 @@ public class CommandModularMSMF implements IModularMSMFCommand {
 				break;
 			default:
 				Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
-						"commands.arguments.toomany");
+						"arguments.toomany");
 				break;
 		}
 		return true;
@@ -77,7 +77,7 @@ public class CommandModularMSMF implements IModularMSMFCommand {
 				break;
 			default:
 				Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
-						"coremodule.commands.arguments.invalid");
+						"arguments.invalid");
 				break;
 		}
 	}

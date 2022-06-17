@@ -30,7 +30,7 @@ public class CommandKick implements IModularMSMFCommand {
 		// getting settings from settings.yml
 		FileConfiguration language = Utils.configureCommandLanguage(sender);
 		// searching string from settings.yml
-		String reason = language.getString("basicsmodule.commands.kick.defaultkickreason");
+		String reason = language.getString("commands.kick.defaultkickreason");
 		// target is always null unless target is online
 		UUID target = null;
 
@@ -41,19 +41,19 @@ public class CommandKick implements IModularMSMFCommand {
 					return true;
 				} else {
 					Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.KICK,
-							"basicsmodule.commands.kick.missingname");
+							"commands.kick.missingname");
 				}
 				break;
 			default:
 				if (PermissionManager.checkPermission(sender, "kickplayer")) {
 					target = Utils.getPlayerUUIDByName(args[0]);
 					if (target == null) {
-						Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.KICK, "coremodule.player.notfound");
+						Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.KICK, "player.nonexistant");
 					} else {
 						if (args.length == 0) {
 							kickPlayer(target, reason);
 							Utils.broadcastWithConfiguredLanguageEach(ChatFormat.KICKED,
-									"basicsmodule.commands.kick.seeforall", "_player", args[0]);
+									"commands.kick.seeforall", "_player", args[0]);
 						} else {
 							// adding custom reason for kick
 							reason = "";
@@ -62,7 +62,7 @@ public class CommandKick implements IModularMSMFCommand {
 							}
 							kickPlayer(target, reason);
 							Utils.broadcastWithConfiguredLanguageEach(ChatFormat.KICKED,
-									"basicsmodule.commands.kick.seeforallreason", "_reason", reason, "_player",
+									"commands.kick.seeforallreason", "_reason", reason, "_player",
 									args[0]);
 						}
 					}

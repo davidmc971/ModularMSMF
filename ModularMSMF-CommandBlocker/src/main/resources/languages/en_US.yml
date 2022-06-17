@@ -7,9 +7,12 @@ language:
   id: en_US
   name: English
 #FIXME: most will say null for beginning
+player:
+  nopermission: You don't have permission to do this!
 commands:
   arguments:
     missing: Please give matching arguments!
     toomany: Too many arguments.
     invalid: Wrong arguments!
   invalid: Wrong command.
+  blocked: Der Befehl "_var" wurde geblockt.

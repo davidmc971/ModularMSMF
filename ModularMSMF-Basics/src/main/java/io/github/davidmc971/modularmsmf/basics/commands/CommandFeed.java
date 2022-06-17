@@ -46,7 +46,7 @@ public class CommandFeed implements IModularMSMFCommand {
 	}
 
 	private boolean feedSelf(CommandSender sender, Command command, String label, String[] args) {
-		if (!PermissionManager.checkPermission(sender, "feedself")) {
+		if (!PermissionManager.checkPermission(sender, "feed_self")) {
 			ChatUtils.sendMsgNoPerm(sender);
 			return true;
 		}
@@ -62,7 +62,7 @@ public class CommandFeed implements IModularMSMFCommand {
 		UUID target = null;
 		target = Utils.getPlayerUUIDByName(args[0]);
 		Player player = Bukkit.getPlayer(target);
-		if (!PermissionManager.checkPermission(sender, "feedothers")) {
+		if (!PermissionManager.checkPermission(sender, "feed_others")) {
 			ChatUtils.sendMsgNoPerm(sender);
 			return true;
 		}
@@ -73,9 +73,9 @@ public class CommandFeed implements IModularMSMFCommand {
 			return feedSelf(sender, command, label, args);
 		}
 		Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.FEED,
-				"basicsmodule.commands.feed.feededperson", "_player", player.getName());
+				"commands.feed.feededperson", "_player", player.getName());
 		Utils.sendMessageWithConfiguredLanguage(player, ChatFormat.FEED,
-				"basicsmodule.commands.feed.othersfeeded", "_sender", sender.getName());
+				"commands.feed.othersfeeded", "_sender", sender.getName());
 		player.setFoodLevel(20);
 		return true;
 	}

@@ -33,7 +33,7 @@ public class CommandSlaughter implements IModularMSMFCommand {
 				if (!(e instanceof Player) && (e instanceof Monster)) {
 					e.remove();
 					Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
-							"basicsmodule.commands.slaughter.success");
+							"commands.slaughter.success");
 				}
 			}
 			return true;
@@ -44,14 +44,14 @@ public class CommandSlaughter implements IModularMSMFCommand {
 				if (!(e instanceof Player) && (e instanceof Animals)) {
 					e.remove();
 					Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
-							"basicsmodule.commands.slaughter.success");
+							"commands.slaughter.success");
 				}
 			}
 			return true;
 		}
 		if (args.length <= 2) {
 			Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
-					"coremodule.commands.arguments.toomany");
+					"commands.arguments.toomany");
 			return true;
 		}
 		return true;

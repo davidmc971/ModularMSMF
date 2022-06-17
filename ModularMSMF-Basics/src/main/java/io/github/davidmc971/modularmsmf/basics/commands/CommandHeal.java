@@ -35,7 +35,7 @@ public class CommandHeal implements IModularMSMFCommand {
 				break;
 			default:
 				Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
-						"basicsmodule.commands.arguments.toomany");
+						"arguments.toomany");
 				break;
 		}
 		return true;
@@ -54,7 +54,7 @@ public class CommandHeal implements IModularMSMFCommand {
 		UUID target = null;
 		target = Utils.getPlayerUUIDByName(args[0]);
 		Player player = Bukkit.getPlayer(target);
-		if (!PermissionManager.checkPermission(sender, "healother")) {
+		if (!PermissionManager.checkPermission(sender, "heal_other")) {
 			ChatUtils.sendMsgNoPerm(sender);
 			return false;
 		}
@@ -65,23 +65,23 @@ public class CommandHeal implements IModularMSMFCommand {
 			return healSelf(sender, command, label, args);
 		}
 		Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.HEAL,
-				"basicsmodule.commands.heal.healother", "_player", player.getName());
+				"commands.heal.healother", "_player", player.getName());
 		Utils.sendMessageWithConfiguredLanguage(player, ChatFormat.HEAL,
-				"basicsmodule.commands.heal.gothealed", "_sender", sender.getName());
+				"commands.heal.gothealed", "_sender", sender.getName());
 		double maxHealth = player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue();
 		player.setHealth(maxHealth);
 		return true;
 	}
 
 	private boolean healSelf(CommandSender sender, Command command, String label, String[] args) {
-		if (!PermissionManager.checkPermission(sender, "healself")) {
+		if (!PermissionManager.checkPermission(sender, "heal_self")) {
 			ChatUtils.sendMsgNoPerm(sender);
 			return true;
 		}
 		if (!CommandUtil.isSenderEligible(sender, command)) {
 			return false;
 		}
-		Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.HEAL, "basicsmodule.commands.heal.self");
+		Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.HEAL, "commands.heal.self");
 		double maxHealth = ((Player) sender).getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue();
 		((Player) sender).setHealth(maxHealth);
 		return true;

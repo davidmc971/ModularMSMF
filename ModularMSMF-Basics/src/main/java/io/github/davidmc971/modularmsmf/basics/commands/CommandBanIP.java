@@ -26,7 +26,7 @@ public class CommandBanIP implements IModularMSMFCommand {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
             @NotNull String[] args) {
-        if (!PermissionManager.checkPermission(sender, "banip")) {
+        if (!PermissionManager.checkPermission(sender, "ban_ip")) {
             ChatUtils.sendMsgNoPerm(sender);
             return true;
         }
@@ -45,7 +45,7 @@ public class CommandBanIP implements IModularMSMFCommand {
 
     private void handlePlayerWithReason(@NotNull CommandSender sender, @NotNull String[] args) {
         FileConfiguration language = Utils.configureCommandLanguage(sender);
-        String reason = language.getString("reason.banned_reason");
+        String reason = language.getString("reasons.banned_reason");
         UUID uuid = getPlayerUUIDByNameForBan(args[0]);
         if (uuid == null) {
             Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.BAN, "player.nonexistant");
@@ -98,7 +98,7 @@ public class CommandBanIP implements IModularMSMFCommand {
         FileConfiguration cfg = ModularMSMFCore.Instance().getDataManager().getPlayerCfg(uuid);
         cfg.set("banned", true);
         cfg.set("reason", reason);
-        cfg.set("ipAdress", player.getAddress().getAddress().getHostAddress().toString());
+        cfg.set("ipAdress", player.getAddress().getAddress().getHostAddress().toString()); //FIXME not adding IP
     }
 
     private UUID getPlayerUUIDByNameForBan(String name) {

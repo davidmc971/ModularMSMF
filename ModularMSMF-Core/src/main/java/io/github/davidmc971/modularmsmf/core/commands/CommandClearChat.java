@@ -25,7 +25,7 @@ public class CommandClearChat implements IModularMSMFCommand {
         switch (args.length) {
             default:
                 Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
-                        "coremodule.commands.arguments.toomany");
+                        "arguments.toomany");
                 break;
             case 0:
                 clearSelf(sender, cmd, commandLabel, args);
@@ -45,19 +45,19 @@ public class CommandClearChat implements IModularMSMFCommand {
         }
         target = Utils.getPlayerUUIDByName(args[0]);
         if (target == null) {
-            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "coremodule.player.notfound");
+            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "player.notfound");
             return;
         }
         for (Player p : Bukkit.getOnlinePlayers()) {
             if (p.getUniqueId().toString().equalsIgnoreCase(target.toString())) {
                 Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
-                        "coremodule.commands.cclear.others", "_target", p.getName());
+                        "commands.cclear.others", "_target", p.getName());
                 while (count != 99) {
                     count++;
                     p.sendMessage("");
                 }
                 Utils.sendMessageWithConfiguredLanguage(p, ChatFormat.SUCCESS,
-                        "coremodule.commands.cclear.done");
+                        "commands.cclear.done");
                 count = 0;
                 return;
             }
@@ -73,7 +73,7 @@ public class CommandClearChat implements IModularMSMFCommand {
             count++;
             Bukkit.getOnlinePlayers().forEach((plr) -> plr.sendMessage(""));
         }
-        Utils.broadcastWithConfiguredLanguageEach(ChatFormat.SUCCESS, "coremodule.commands.cclear.done");
+        Utils.broadcastWithConfiguredLanguageEach(ChatFormat.SUCCESS, "commands.cclear.done");
         count = 0;
         return;
     }

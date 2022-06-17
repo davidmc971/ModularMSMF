@@ -32,13 +32,13 @@ public class CommandKillMe implements IModularMSMFCommand {
         }
         if (args.length == 0) {
             basicEvents.registerKilledPlayer(((Player) sender), KillType.SUICIDE);
-            Utils.broadcastWithConfiguredLanguageEach(ChatFormat.DEATH, "basicsmodule.events.suicide", "_var",
+            Utils.broadcastWithConfiguredLanguageEach(ChatFormat.DEATH, "events.suicide", "_var",
                     sender.getName());
             ((Player) sender).setHealth(0);
             return true;
         }
         if(args.length <= 1){
-            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "basicsmodule.arguments.toomany");
+            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "arguments.toomany");
             return true;
         }
         return true;

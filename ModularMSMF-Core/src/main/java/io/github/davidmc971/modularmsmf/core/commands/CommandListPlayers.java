@@ -48,7 +48,7 @@ public class CommandListPlayers implements IModularMSMFCommand {
                 switch (args[0].toLowerCase()) {
                     default:
                         Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
-                                "coremodule.commands.arguments.invalid");
+                                "arguments.invalid");
                         break;
                     case "help":
                     case "group":

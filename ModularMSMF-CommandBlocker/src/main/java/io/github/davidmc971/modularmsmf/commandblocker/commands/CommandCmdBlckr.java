@@ -12,7 +12,7 @@ public class CommandCmdBlckr implements IModularMSMFCommand {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (sender.hasPermission(PermissionManager.getPermission("commandblocker.use"))) {
+        if (sender.hasPermission(PermissionManager.getPermission("use"))) {
             // TODO structure given:
             /*
              * commandblocker/cb -> help//shows "this" help add //adds a command to list
@@ -20,20 +20,15 @@ public class CommandCmdBlckr implements IModularMSMFCommand {
              */
             switch (args.length) {
             default:
-                Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "cmdblocker.commands.arguments.invalid");
-                // debug
-                sender.sendMessage("default, only command, invalid argument");
+                Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "arguments.invalid");
                 break;
             case 1:
                 switch (args[0].toLowerCase()) {
                 default:
                     Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
-                            "cmdblocker.commands.arguments.invalid");
-                    // debug
-                    sender.sendMessage("default, subcommand");
+                            "arguments.invalid");
                     break;
                 case "help":
-                    sender.sendMessage("help, subcommand");
                     break;
                 case "add":
                     break;
@@ -45,7 +40,7 @@ public class CommandCmdBlckr implements IModularMSMFCommand {
                 break;
             }
         } else {
-            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.NOPERM, "coremodule.player.nopermission");
+            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.NOPERM, "player.nopermission");
         }
         return true;
     }

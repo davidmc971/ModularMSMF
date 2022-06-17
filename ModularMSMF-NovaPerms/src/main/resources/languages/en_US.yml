@@ -24,4 +24,5 @@ commands:
   # Substrings for remove (a permission or from a group)
   delete:
   # Substrings for delete (a user from groups or delete a group)
-unknown: Unknown subcommand!
+arguments: 
+  invalid: Unknown subcommand!

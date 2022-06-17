@@ -40,7 +40,7 @@ public class CommandTeleport implements IModularMSMFCommand {
 				return teleportTwoArgsSub(sender, command, label, args);
 			default:
 				Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
-						"basicsmodule.commands.arguments.toomany");
+						"arguments.toomany");
 				break;
 		}
 		return true;
@@ -51,7 +51,7 @@ public class CommandTeleport implements IModularMSMFCommand {
 		UUID target1, target2;
 		if (args[0].equalsIgnoreCase(args[1])) {
 			Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
-					"basicsmodule.commands.teleport.others.toself");
+					"commands.teleport.others.toself");
 			return true;
 		}
 		target1 = Utils.getPlayerUUIDByName(args[0]);
@@ -59,27 +59,27 @@ public class CommandTeleport implements IModularMSMFCommand {
 		Player p1 = Bukkit.getPlayer(target1), p2 = Bukkit.getPlayer(target2);
 		if (p1 == null) {
 			Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
-					"basicsmodule.commands.teleport.notonline", "_player", args[0]);
+					"commands.teleport.notonline", "_player", args[0]);
 			return true;
 		}
 		if (p2 == null) {
 			Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
-					"basicsmodule.commands.teleport.notonline", "_player", args[1]);
+					"commands.teleport.notonline", "_player", args[1]);
 			return true;
 		}
 		p1.teleport(p2);
 		if (p1 == sender) {
 			Utils.sendMessageWithConfiguredLanguage(p2, ChatFormat.INFO,
-					"basicsmodule.commands.teleport.others.toyou", "_player", p1.getName());
+					"commands.teleport.others.toyou", "_player", p1.getName());
 			Utils.sendMessageWithConfiguredLanguage(p1, ChatFormat.SUCCESS,
-					"basicsmodule.commands.teleport.success", "_player", p2.getName());
+					"commands.teleport.success", "_player", p2.getName());
 			return true;
 		}
 		if (p2 == sender) {
 			Utils.sendMessageWithConfiguredLanguage(p1, ChatFormat.SUCCESS,
-					"basicsmodule.commands.teleport.force.toplayer", "_player", p2.getName());
+					"commands.teleport.force.toplayer", "_player", p2.getName());
 			Utils.sendMessageWithConfiguredLanguage(p2, ChatFormat.INFO,
-					"basicsmodule.commands.teleport.force.toyou", "_player", p1.getName());
+					"commands.teleport.force.toyou", "_player", p1.getName());
 			return true;
 		}
 		return true;
@@ -95,27 +95,26 @@ public class CommandTeleport implements IModularMSMFCommand {
 		Player p = Bukkit.getPlayer(target);
 		if (target == null) {
 			Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
-					"basicsmodule.commands.teleport.notonline", "_player", args[0]);
+					"player.offline", "_player", args[0]);
 			return true;
 		}
 		if (p == sender) {
 			Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
-					"basicsmodule.commands.teleport.others.toself");
+					"commands.teleport.others.toself");
 			return true;
 		}
 		Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
-				"basicsmodule.commands.teleport.success", "_player", p.getName());
+				"commands.teleport.success", "_player", p.getName());
 		Utils.sendMessageWithConfiguredLanguage(p, ChatFormat.INFO,
-				"basicsmodule.commands.teleport.others.toyou", "_player", sender.getName());
+				"commands.teleport.others.toyou", "_player", sender.getName());
 		((Player) sender).teleport(p);
 		return true;
 	}
 
 	private boolean helpSub(CommandSender sender, Command command, String label, String[] args) {
-		//Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR, "general.missing_playername");
-		sender.sendMessage("send help here"); // TODO[epic=help code] teleport help missing (help as
-												// file(json/toml/yml)? maybe better organization without the
-												// possibility to edit)
+		// Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+		// "general.missing_playername");
+		sender.sendMessage("send help here"); // create file to edit help in an easier way, adopt language
 		return true;
 	}
 

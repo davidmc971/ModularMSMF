@@ -46,7 +46,7 @@ public class CommandLanguage implements IModularMSMFCommand {
 				return languageSetGet(sender, command, label, args);
 			default:
 				Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
-						"coremodule.commands.arguments.invalid");
+						"arguments.invalid");
 				break;
 		}
 		return true;
@@ -54,7 +54,7 @@ public class CommandLanguage implements IModularMSMFCommand {
 
 	private void handleNoArgs(CommandSender sender) {
 		FileConfiguration language = Utils.configureCommandLanguage(sender);
-		Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.INFO, "coremodule.commands.language.active",
+		Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.INFO, "commands.language.active",
 				"_language",
 				(language.getString("language.id") + " (" + language.getString("language.name") + ") "));
 	}
@@ -71,19 +71,19 @@ public class CommandLanguage implements IModularMSMFCommand {
 			}
 			if (!success && (sender instanceof Player || sender instanceof ConsoleCommandSender)) {
 				Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
-						"coremodule.commands.language.notvalid");
+						"commands.language.notvalid");
 				return true;
 			}
 			if (sender instanceof ConsoleCommandSender) {
 				if (plugin.getLanguageManager().setStandardLanguage(args[1])) {
 					Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
-							"coremodule.commands.language.setsuccessconsole");
+							"commands.language.setsuccessconsole");
 					return true;
 				}
 			}
 			plugin.getDataManager().getPlayerCfg(((Player) sender).getUniqueId()).set("language", args[1]);
 			Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
-					"coremodule.commands.language.setsuccessplayer");
+					"commands.language.setsuccessplayer");
 			success = false;
 			return true;
 		}
@@ -95,7 +95,7 @@ public class CommandLanguage implements IModularMSMFCommand {
 																												// null
 			for (Player player : Bukkit.getOnlinePlayers()) {
 				if (player == null) {
-					sender.sendMessage("player non existant");
+					Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "player.notfound");
 					return true;
 				}
 				if (player == sender) {
@@ -105,7 +105,7 @@ public class CommandLanguage implements IModularMSMFCommand {
 				sender.sendMessage(player.getName() + "'s lang set to: " + getPlayerLanguage);
 				return true;
 			}
-			sender.sendMessage("player not online");
+			Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "player.notonline");
 		}
 		return true;
 	}
@@ -125,10 +125,10 @@ public class CommandLanguage implements IModularMSMFCommand {
 			}
 			out += "]";
 			Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.LANGUAGE,
-					"coremodule.commands.language.available", "_var", out);
+					"commands.language.available", "_var", out);
 			return true;
 		}
-		Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "coremodule.commands.arguments.missing");
+		Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "arguments.missing");
 		return true;
 	}
 

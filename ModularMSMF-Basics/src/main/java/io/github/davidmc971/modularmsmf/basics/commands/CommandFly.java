@@ -37,7 +37,7 @@ public class CommandFly implements IModularMSMFCommand {
                 break;
             default:
                 Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
-                        "basicsmodule.commands.arguments.toomany");
+                        "arguments.toomany");
                 break;
         }
         return true;
@@ -72,16 +72,16 @@ public class CommandFly implements IModularMSMFCommand {
         }
         if (!player.getAllowFlight()) {
             Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.FLY_ON,
-                    "basicsmodule.commands.fly.others.set_true", "_player", player.getName());
+                    "commands.fly.others.set_true", "_player", player.getName());
             Utils.sendMessageWithConfiguredLanguage(player, ChatFormat.FLY_ON,
-                    "basicsmodule.commands.fly.set_true");
+                    "commands.fly.set_true");
             player.setAllowFlight(true);
             return true;
         }
         Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.FLY_OFF,
-                "basicsmodule.commands.fly.others.set_false", "_player", player.getName());
+                "commands.fly.others.set_false", "_player", player.getName());
         Utils.sendMessageWithConfiguredLanguage(player, ChatFormat.FLY_OFF,
-                "basicsmodule.commands.fly.set_false");
+                "commands.fly.set_false");
         player.setAllowFlight(false);
         return true;
     }
@@ -93,12 +93,12 @@ public class CommandFly implements IModularMSMFCommand {
         if (!((Player) sender).getAllowFlight()) {
             ((Player) sender).setAllowFlight(true);
             Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.FLY_ON,
-                    "basicsmodule.commands.fly.set_true");
+                    "commands.fly.set_true");
             return true;
         }
         ((Player) sender).setAllowFlight(false);
         Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.FLY_OFF,
-                "basicsmodule.commands.fly.set_false");
+                "commands.fly.set_false");
         return true;
     }
 

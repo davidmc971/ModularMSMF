@@ -13,6 +13,10 @@ player:
   notonline: User is not online.
   nopermission: No permission.
 noconsole: Console is not permitted for this command.
+arguments:
+  toomany: Too many arguments!
+  invalid: Invalid arguments!
+  missing: Missing arguments!
 file:
   creation:
     failed: File couldn't be created!
@@ -28,10 +32,6 @@ events:
   banned: Ban hammer has spoken!
   just_died: _var just died.
 commands:
-  arguments:
-    missing: Please give matching arguments!
-    toomany: Too many arguments.
-    invalid: Wrong arguments!
   report:
     repplayeradmin: You cannot report an admin!
     repplayersuccess: _player has been reported successfully!

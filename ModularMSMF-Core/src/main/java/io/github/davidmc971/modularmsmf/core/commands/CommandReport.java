@@ -70,7 +70,7 @@ public class CommandReport implements IModularMSMFCommand {
 				break;
 			default:
 				Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.REPORT,
-						"coremodule.commands.report.help");
+						"commands.report.help");
 				break;
 		}
 		return true;

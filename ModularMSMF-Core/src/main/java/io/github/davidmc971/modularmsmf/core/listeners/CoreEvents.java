@@ -64,7 +64,7 @@ public class CoreEvents implements Listener {
 		onlineWithoutSpecialCon.put(key, value);
 
 		event.joinMessage(Component.empty());
-		Utils.broadcastWithConfiguredLanguageEach(ChatFormat.WELCOME, "coremodule.events.join", "_var",
+		Utils.broadcastWithConfiguredLanguageEach(ChatFormat.WELCOME, "events.join", "_var",
 				player.getName());
 		if (!cfg.isSet("playername")) {
 			cfg.set("playername", player.getName());

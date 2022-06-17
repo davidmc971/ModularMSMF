@@ -25,12 +25,12 @@ public class CommandUnbanIP implements IModularMSMFCommand {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
             @NotNull String[] args) {
-        if (!PermissionManager.checkPermission(sender, "unbanip")) {
+        if (!PermissionManager.checkPermission(sender, "unban_ip")) {
             ChatUtils.sendMsgNoPerm(sender);
             return true;
         }
         if (args.length == 0) {
-            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.UNBAN, "arguments.missingname");
+            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.UNBAN, "arguments.missing_name");
             return true;
         }
         if (args.length == 1) {

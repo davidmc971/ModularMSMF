@@ -36,11 +36,11 @@ public class CommandKillAll implements IModularMSMFCommand {
                 player.setHealth(0);
             }
             Utils.broadcastWithConfiguredLanguageEach(ChatUtils.ChatFormat.DEATH,
-                    "basicsmodule.events.homocide");
+                    "events.homocide");
             return true;
         }
         if (args.length <= 1) {
-            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "basicsmodule.arguments.toomany");
+            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "arguments.toomany");
             return true;
         }
         return true;

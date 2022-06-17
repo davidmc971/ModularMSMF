@@ -7,6 +7,8 @@ language:
   id: de_DE
   name: Deutsch
 #FIXME: most will say null for beginning
+player:
+  nopermission: You don't have permission to do this!
 commands:
   arguments:
     missing: Please give matching arguments!

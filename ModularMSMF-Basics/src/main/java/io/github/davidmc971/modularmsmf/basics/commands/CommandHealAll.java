@@ -33,7 +33,7 @@ public class CommandHealAll implements IModularMSMFCommand {
             return true;
         }
         Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
-                "basicsmodule.commands.arguments.toomany");
+                "arguments.toomany");
         return true;
     }
 
@@ -41,7 +41,7 @@ public class CommandHealAll implements IModularMSMFCommand {
             @NotNull String[] args) {
         for (Player p : Bukkit.getOnlinePlayers()) {
             Utils.sendMessageWithConfiguredLanguage(p, ChatFormat.SUCCESS,
-                    "basicsmodule.commands.heal.others.gothealed", "_sender", sender.getName());
+                    "commands.heal.others.gothealed", "_sender", sender.getName());
             double maxHealth = p.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue();
             p.setHealth(maxHealth);
         }

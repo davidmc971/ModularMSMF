@@ -7,6 +7,13 @@ language:
   id: de_DE
   name: Deutsch
 #FIXME: most will say null for beginning
+noconsole: Konsole darf das nicht!
+arguments:
+  toomany: Zu viele Argumente!
+player:
+  offline: Spieler ist offline!
+  nonexistant: Spieler existiert nicht!
+  nopermission: Du hast keine Rechte dafür!
 commands:
   money:
     missingamountandplayer: Bitte gib einen Betrag sowie einen Spieler an!

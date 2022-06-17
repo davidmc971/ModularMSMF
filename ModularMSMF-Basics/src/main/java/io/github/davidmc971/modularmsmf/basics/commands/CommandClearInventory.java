@@ -40,7 +40,7 @@ public class CommandClearInventory implements IModularMSMFCommand {
             return true;
         }
         Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
-                "coremodule.commands.arguments.toomany");
+                "arguments.toomany");
         return true;
     }
 
@@ -52,12 +52,12 @@ public class CommandClearInventory implements IModularMSMFCommand {
         }
         if (((Player) sender).getInventory().isEmpty()) {
             Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
-                    "basicsmodule.commands.clearinv.isEmpty.self");
+                    "commands.clearinv.isEmpty.self");
             return true;
         }
         ((Player) sender).getInventory().clear();
         Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
-                "basicsmodule.commands.clearinv.gotEmptied.self");
+                "commands.clearinv.gotEmptied.self");
         return true;
     }
 
@@ -75,14 +75,14 @@ public class CommandClearInventory implements IModularMSMFCommand {
         }
         if (player.getInventory().isEmpty()) {
             Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
-                    "basicsmodule.commands.clearinv.isEmpty.others", "_player", player.getName());
+                    "commands.clearinv.isEmpty.others", "_player", player.getName());
             return true;
         }
         player.getInventory().clear();
         Utils.sendMessageWithConfiguredLanguage(player, ChatFormat.SUCCESS,
-                "basicsmodule.commands.clearinv.gotEmptied.self", "_player", player.getName());
+                "commands.clearinv.gotEmptied.self", "_player", player.getName());
         Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
-                "basicsmodule.commands.clearinv.gotEmptied.others", "_player", player.getName());
+                "commands.clearinv.gotEmptied.others", "_player", player.getName());
         return true;
     }
 

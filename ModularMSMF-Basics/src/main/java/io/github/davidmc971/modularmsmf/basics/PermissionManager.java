@@ -21,7 +21,7 @@ public class PermissionManager {
 			// unbanning permissions
 			put("unban_*", "modularmsmf.basics.unban.*");
 			put("unban", "modularmsmf.basics.unban");
-			put("unbanip", "modularmsmf.basics.unbanip");
+			put("unban_ip", "modularmsmf.basics.unbanip");
 			// kicking permissions
 			put("kickplayer", "modularmsmf.basics.kick.kickplayer");
 			// heal permissions

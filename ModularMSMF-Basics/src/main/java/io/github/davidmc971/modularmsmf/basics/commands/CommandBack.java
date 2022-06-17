@@ -26,7 +26,7 @@ public class CommandBack implements IModularMSMFCommand {
         if (args.length == 1) {
             return backPlayer(sender, args);
         }
-        Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "basicsmodule.commands.arguments.toomany");
+        Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "commands.arguments.toomany");
         return true;
     }
 
@@ -38,7 +38,7 @@ public class CommandBack implements IModularMSMFCommand {
         UUID target = null;
         target = Utils.getPlayerUUIDByName(args[0]);
         if (target == null) {
-            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "player.notfound"); // TODO: get string
+            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "player.offline"); // TODO: get string
                                                                                                   // exact
             return true;
         }
@@ -49,19 +49,19 @@ public class CommandBack implements IModularMSMFCommand {
                 }
                 if (CoreEvents.lastLocation.containsKey(p.getName())) {
                     Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
-                            "basicsmodule.commands.back.other.success", "_player", p.getName());
+                            "commands.back.other.success", "_player", p.getName());
                     Utils.sendMessageWithConfiguredLanguage(p, ChatFormat.SUCCESS,
-                            "basicsmodule.commands.back.other.done");
+                            "commands.back.other.done");
                     p.teleport(CoreEvents.lastLocation.get(p.getName()));
                     return true;
                 }
                 Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
-                        "basicsmodule.commands.back.other.error", "_player", p.getName());
+                        "commands.back.other.error", "_player", p.getName());
                 return true;
             }
         }
         Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
-                "coremodule.player.notonline");
+                "player.offline");
         return true;
     }
 
@@ -72,12 +72,12 @@ public class CommandBack implements IModularMSMFCommand {
         }
         if (CoreEvents.lastLocation.containsKey(sender.getName())) {
             Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
-                    "basicsmodule.commands.back.success");
+                    "commands.back.success");
             ((Entity) sender).teleport(CoreEvents.lastLocation.get(sender.getName()));
             return true;
         }
         Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
-                "basicsmodule.commands.back.error");
+                "commands.back.error");
         return true;
     }
 

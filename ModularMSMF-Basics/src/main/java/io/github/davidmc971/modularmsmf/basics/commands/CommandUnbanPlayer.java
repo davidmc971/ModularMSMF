@@ -30,7 +30,7 @@ public class CommandUnbanPlayer implements IModularMSMFCommand {
             return true;
         }
         if (args.length == 0) {
-            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.UNBAN, "arguments.missingname");
+            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.UNBAN, "arguments.missing_name");
             return true;
         }
         if (args.length == 1) {
@@ -39,7 +39,6 @@ public class CommandUnbanPlayer implements IModularMSMFCommand {
         }
         Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.UNBAN,
                 "arguments.toomany");
-        // FIXME: add string to lang file to remove null
         return true;
     }
 
@@ -53,10 +52,10 @@ public class CommandUnbanPlayer implements IModularMSMFCommand {
                     cfg.set("reason", false);
                     Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.UNBAN,
                             "commands.unban.player", "_player", p.getName());
-                } // FIXME: add string to lang file to remove null
+                }
                 Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.UNBAN, "commands.unban.notfound",
                         "_player", p.getName());
-            } // FIXME: add string to lang file to remove null
+            }
             Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.UNBAN,
                     "player.nonexistant");
         }

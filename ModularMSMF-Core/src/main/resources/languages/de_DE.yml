@@ -13,6 +13,10 @@ player:
   notonline: Dieser Spieler ist nicht online.
   nopermission: Du hast keine Rechte.
 noconsole: Die Konsole darf diesen Befehl nicht benutzen.
+arguments:
+  toomany: Zu viele Argumente!
+  invalid: Falsche Argumente!
+  missing: Fehlende Argumente!
 file:
   creation:
     failed: Die Datei konnte nicht erstellt werden!

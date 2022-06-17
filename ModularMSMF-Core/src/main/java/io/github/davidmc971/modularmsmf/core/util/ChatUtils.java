@@ -5,7 +5,6 @@ import java.util.HashSet;
 //import com.iridium.iridiumcolorapi.IridiumColorAPI;
 
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
 import net.md_5.bungee.api.ChatColor;
@@ -107,8 +106,7 @@ public class ChatUtils {
 		if (sender instanceof Player) {
 			Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.NOPERM,
 					"player.nopermission");
-		}
-		if (sender instanceof ConsoleCommandSender) {
+		} else {
 			Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.CONSOLE, "noconsole");
 		}
 	}

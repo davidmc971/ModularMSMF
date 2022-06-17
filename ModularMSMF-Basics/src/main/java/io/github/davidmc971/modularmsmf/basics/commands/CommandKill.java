@@ -43,17 +43,17 @@ public class CommandKill implements IModularMSMFCommand {
 				}
 				if (args[0].toLowerCase().equals(player.getName().toLowerCase())) {
 					basicEvents.registerKilledPlayer(player, KillType.KILL);
-					Utils.broadcastWithConfiguredLanguageEach(ChatFormat.DEATH, "basicsmodule.events.killed",
+					Utils.broadcastWithConfiguredLanguageEach(ChatFormat.DEATH, "events.killed",
 							"_var", player.getName());
 					player.setHealth(0);
 					return true;
 				}
 			}
-			Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "coremodule.player.notfound");
+			Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "player.nonexistant");
 			return true;
 		}
 		if (args.length <= 2) {
-			Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "basicsmodule.arguments.toomany");
+			Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "arguments.toomany");
 			return true;
 		}
 		return true;
@@ -73,7 +73,7 @@ public class CommandKill implements IModularMSMFCommand {
 			return true;
 		}
 		basicEvents.registerKilledPlayer(((Player) sender), KillType.SUICIDE);
-		Utils.broadcastWithConfiguredLanguageEach(ChatFormat.DEATH, "basicsmodule.events.suicide", "_var",
+		Utils.broadcastWithConfiguredLanguageEach(ChatFormat.DEATH, "events.suicide", "_var",
 				sender.getName());
 		((Player) sender).setHealth(0);
 		return true;
