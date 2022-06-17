@@ -202,7 +202,7 @@ public class ModularMSMFCore extends JavaPlugin {
 	@Override
 	public void onLoad() {
 		if (debug) getLogger().info("--- onLoad() ---");
-		this.getLogger().info("ModularMSMF is loading up.");
+		this.getLogger().info("ModularMSMFCore is loading up.");
 	}
 
 	@Override
@@ -210,7 +210,7 @@ public class ModularMSMFCore extends JavaPlugin {
 		if (debug) getLogger().info("--- onDisable() ---");
 		dataManager.unload();
 		playerManager.saveAll();
-		this.getLogger().info("ModularMSMF has been disabled.");
+		this.getLogger().info("ModularMSMFCore has been disabled.");
 	}
 
 	@Override
