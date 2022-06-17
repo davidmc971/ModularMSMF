@@ -36,6 +36,8 @@ public class CommandUtil {
                 switch (command.getLabel().toLowerCase()) {
                     case "fly":
                         break;
+                    case "heal":
+                        break;
                     default:
                         if (((Player) sender).getWorld().getDifficulty() == Difficulty.PEACEFUL) {
                             Utils.sendMessageWithConfiguredLanguage(sender,
@@ -53,33 +55,31 @@ public class CommandUtil {
     }
 
     public static boolean isSenderEligible(CommandSender sender, Command command) {
-        if (sender instanceof Player) {
-            switch (((Player) sender).getGameMode()) {
-                case CREATIVE:
-                    Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
-                            "player.creative.self");
-                    return false;
-                case SPECTATOR:
-                    Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
-                            "player.spectator.self");
-                    return false;
-                default:
-                    break;
-            }
-            switch (command.getLabel().toLowerCase()) {
-                case "fly":
-                    break;
-                default:
-                    if (((Player) sender).getWorld().getDifficulty() == Difficulty.PEACEFUL) {
-                        Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
-                                "player.peaceful", "_worldname", Bukkit.getServer().getWorldContainer().toString());
-                        return false;
-                    }
-            }
-        }
         if (sender instanceof ConsoleCommandSender) {
             ChatUtils.sendMsgNoPerm(sender);
             return false;
+        }
+        switch (((Player) sender).getGameMode()) {
+            case CREATIVE:
+                Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
+                        "player.creative.self");
+                return false;
+            case SPECTATOR:
+                Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
+                        "player.spectator.self");
+                return false;
+            default:
+                break;
+        }
+        switch (command.getLabel().toLowerCase()) {
+            case "fly":
+                break;
+            default:
+                if (((Player) sender).getWorld().getDifficulty() == Difficulty.PEACEFUL) {
+                    Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
+                            "player.peaceful", "_worldname", Bukkit.getServer().getWorldContainer().toString());
+                    return false;
+                }
         }
         return true;
     }
