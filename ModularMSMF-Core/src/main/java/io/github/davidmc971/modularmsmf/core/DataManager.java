@@ -57,7 +57,7 @@ public class DataManager implements Listener {
 
 	private AutosaveTask autosaveTask;
 
-	public String pathMain = "plugins/ModularMSMF/";
+	public String pathMain = "plugins/ModularMSMF-Core/";
 	public String pathUserdata = pathMain + "userdata/";
 	public String pathPlayers = pathMain + "players/";
 	// public String pathBankdata = pathMain + "bankdata/";

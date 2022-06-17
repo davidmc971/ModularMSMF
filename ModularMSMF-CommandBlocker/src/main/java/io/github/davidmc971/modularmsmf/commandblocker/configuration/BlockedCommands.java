@@ -21,7 +21,7 @@ public class BlockedCommands {
     // load into list
     public void init() {
         // checks if file exists
-        File file = new File("plugins/ModularMSMF/CommandBlocker/blockedcommands.yml");
+        File file = new File("plugins/ModularMSMF-CommandBlocker/blockedcommands.yml");
         if (file.exists()) {
             System.out.println("File found");
             FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);

@@ -21,7 +21,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 public class LanguageManager {
 	private final ModularMSMFCore plugin;
 	private final ArrayList<String> standards;
-	private final String pathExternalLanguages = "plugins/ModularMSMF/languages/";
+	private final String pathExternalLanguages = "plugins/ModularMSMF-Core/languages/";
 	private Map<LanguageInformation, YamlConfiguration> allLanguages = new HashMap<LanguageInformation, YamlConfiguration>();
 	private String defaultLanguage;
 	private Entry<LanguageInformation, YamlConfiguration> standardLanguageEntry;
