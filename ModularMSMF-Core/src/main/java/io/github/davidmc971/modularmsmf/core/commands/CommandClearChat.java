@@ -33,6 +33,8 @@ public class CommandClearChat implements IModularMSMFCommand {
                         "arguments.toomany");
                 break;
             case 0:
+                clearChatSender();
+                break;
             case 1:
                 UUID target = null;
                 clearChat(target, sender, args);
@@ -41,14 +43,11 @@ public class CommandClearChat implements IModularMSMFCommand {
         return true;
     }
 
+    int count = 0;
+
     private void clearChat(UUID target, CommandSender sender, String args[]) {
-        int count = 0;
         if (args.length == 0) {
-            while (count != 99) {
-                count++;
-                Bukkit.getOnlinePlayers().forEach((plr -> plr.sendMessage("")));
-            }
-            Utils.broadcastWithConfiguredLanguageEach(ChatFormat.SUCCESS, "commands.cclear.done");
+            clearChatSender();
             return;
         }
         if (args.length == 1) {
@@ -59,12 +58,16 @@ public class CommandClearChat implements IModularMSMFCommand {
             }
             for (Player p : Bukkit.getOnlinePlayers()) {
                 if (p.getUniqueId().toString().equalsIgnoreCase(target.toString())) {
-                    Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
-                            "commands.cclear.others", "_target", p.getName());
+                    if (sender == p) {
+                        clearChatSender();
+                        return;
+                    }
                     while (count != 99) {
                         count++;
                         p.sendMessage("");
                     }
+                    Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
+                            "commands.cclear.others", "_target", p.getName());
                     Utils.sendMessageWithConfiguredLanguage(p, ChatFormat.SUCCESS,
                             "commands.cclear.done");
                     count = 0;
@@ -72,6 +75,16 @@ public class CommandClearChat implements IModularMSMFCommand {
                 }
             }
         }
+    }
+
+    private void clearChatSender() {
+        while (count != 99) {
+            count++;
+            Bukkit.getOnlinePlayers().forEach((plr -> plr.sendMessage("")));
+        }
+        Utils.broadcastWithConfiguredLanguageEach(ChatFormat.SUCCESS, "commands.cclear.done");
+        count = 0;
+        return;
     }
 
     @Override
