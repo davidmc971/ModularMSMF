@@ -72,16 +72,16 @@ public class CommandFly implements IModularMSMFCommand {
         }
         if (!player.getAllowFlight()) {
             Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.FLY_ON,
-                    "commands.fly.others.set_true", "_player", player.getName());
+                    "commands.fly.others.settrue", "_player", player.getName());
             Utils.sendMessageWithConfiguredLanguage(player, ChatFormat.FLY_ON,
                     "commands.fly.set_true");
             player.setAllowFlight(true);
             return true;
         }
         Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.FLY_OFF,
-                "commands.fly.others.set_false", "_player", player.getName());
+                "commands.fly.others.setfalse", "_player", player.getName());
         Utils.sendMessageWithConfiguredLanguage(player, ChatFormat.FLY_OFF,
-                "commands.fly.set_false");
+                "commands.fly.setfalse");
         player.setAllowFlight(false);
         return true;
     }
@@ -93,12 +93,12 @@ public class CommandFly implements IModularMSMFCommand {
         if (!((Player) sender).getAllowFlight()) {
             ((Player) sender).setAllowFlight(true);
             Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.FLY_ON,
-                    "commands.fly.set_true");
+                    "commands.fly.settrue");
             return true;
         }
         ((Player) sender).setAllowFlight(false);
         Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.FLY_OFF,
-                "commands.fly.set_false");
+                "commands.fly.setfalse");
         return true;
     }
 

@@ -24,7 +24,7 @@ public class CommandHealAll implements IModularMSMFCommand {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
             @NotNull String[] args) {
-        if (!PermissionManager.checkPermission(sender, "healall_use")) {
+        if (!PermissionManager.checkPermission(sender, "heal_all_use")) {
             ChatUtils.sendMsgNoPerm(sender);
             return true;
         }

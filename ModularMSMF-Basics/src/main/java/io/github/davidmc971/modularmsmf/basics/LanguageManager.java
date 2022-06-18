@@ -1,4 +1,4 @@
-package io.github.davidmc971.modularmsmf.core;
+package io.github.davidmc971.modularmsmf.basics;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,14 +19,14 @@ import org.bukkit.configuration.file.YamlConfiguration;
  */
 
 public class LanguageManager {
-	private final ModularMSMFCore plugin;
+	private final ModularMSMFBasics plugin;
 	private final ArrayList<String> standards;
-	private final String pathExternalLanguages = "plugins/ModularMSMF-Core/languages/";
+	private final String pathExternalLanguages = "plugins/ModularMSMF-Basics/languages/";
 	private Map<LanguageInformation, YamlConfiguration> allLanguages = new HashMap<LanguageInformation, YamlConfiguration>();
 	private String defaultLanguage;
 	private Entry<LanguageInformation, YamlConfiguration> standardLanguageEntry;
 	
-	public LanguageManager(ModularMSMFCore plugin){
+	public LanguageManager(ModularMSMFBasics plugin){
 		this.plugin = plugin;
 
 		standards = new ArrayList<String>();

@@ -158,11 +158,11 @@ commands:
       usage: "IP-Adresse eines anderen sehen: /get ip <name>"
       others: "_player's IP-Adresse: _value"
   fly:
-    set_true: Du kannst nun fliegen.
-    set_false: Du kannst nun nicht mehr fliegen.
+    settrue: Du kannst nun fliegen.
+    setfalse: Du kannst nun nicht mehr fliegen.
     others:
-      set_true: _player kann jetzt fliegen.
-      set_false: _player kann jetzt nicht mehr fliegen.
+      settrue: _player kann jetzt fliegen.
+      setfalse: _player kann jetzt nicht mehr fliegen.
   clearinv:
     isEmpty:
       self: Your inventory is empty.

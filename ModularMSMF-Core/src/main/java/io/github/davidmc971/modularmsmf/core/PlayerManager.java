@@ -62,9 +62,10 @@ public class PlayerManager {
 
 	List<BukkitRunnable> saveTasks;
 
+	private String dataroot = "plugins/ModularMSMF-Core/";
 	private String folderPlayers = "players/";
 	// private String filePlayerDefaults = "default.json";
-	private String dataroot = "plugins/ModularMSMF/";
+	
 
 	private Map<UUID, PlayerData> playerStorage = null;
 

@@ -26,7 +26,7 @@ public class CommandBack implements IModularMSMFCommand {
         if (args.length == 1) {
             return backPlayer(sender, args);
         }
-        Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "commands.arguments.toomany");
+        Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "arguments.toomany");
         return true;
     }
 

@@ -1,4 +1,4 @@
-package io.github.davidmc971.modularmsmf.core;
+package io.github.davidmc971.modularmsmf.basics;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -57,7 +57,7 @@ public class DataManager implements Listener {
 
 	private AutosaveTask autosaveTask;
 
-	public String pathMain = "plugins/ModularMSMF-Core/";
+	public String pathMain = "plugins/ModularMSMF-Basics/";
 	public String pathUserdata = pathMain + "userdata/";
 	public String pathPlayers = pathMain + "players/";
 	// public String pathBankdata = pathMain + "bankdata/";
@@ -65,14 +65,14 @@ public class DataManager implements Listener {
 	public FileConfiguration defaultUserdatayaml = null;
 
 	private Logger logger;
-	private ModularMSMFCore plugin;
+	private ModularMSMFBasics plugin;
 
 	private Map<String, Object> defaultSettings = new HashMap<String, Object>();
 	private Map<String, Object> defaultUserdata = new HashMap<String, Object>();
 
 	private Map<UUID, FileConfiguration> allUsers = new HashMap<UUID, FileConfiguration>();
 
-	public DataManager(ModularMSMFCore plugin) {
+	public DataManager(ModularMSMFBasics plugin) {
 		this.plugin = plugin;
 		this.logger = this.plugin.getLogger();
 		this.settingsyaml = loadCfg(pathMain + "settings.yml");

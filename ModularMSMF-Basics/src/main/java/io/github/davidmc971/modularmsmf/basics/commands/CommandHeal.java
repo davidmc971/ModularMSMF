@@ -56,7 +56,7 @@ public class CommandHeal implements IModularMSMFCommand {
 		Player player = Bukkit.getPlayer(target);
 		if (!PermissionManager.checkPermission(sender, "heal_other")) {
 			ChatUtils.sendMsgNoPerm(sender);
-			return false;
+			return true;
 		}
 		if (!CommandUtil.isPlayerEligible(sender, player, command)) {
 			return false;
@@ -74,12 +74,12 @@ public class CommandHeal implements IModularMSMFCommand {
 	}
 
 	private boolean healSelf(CommandSender sender, Command command, String label, String[] args) {
+		if (!CommandUtil.isSenderEligible(sender, command)) {
+			return true;
+		}
 		if (!PermissionManager.checkPermission(sender, "heal_self")) {
 			ChatUtils.sendMsgNoPerm(sender);
 			return true;
-		}
-		if (!CommandUtil.isSenderEligible(sender, command)) {
-			return false;
 		}
 		Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.HEAL, "commands.heal.self");
 		double maxHealth = ((Player) sender).getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue();
