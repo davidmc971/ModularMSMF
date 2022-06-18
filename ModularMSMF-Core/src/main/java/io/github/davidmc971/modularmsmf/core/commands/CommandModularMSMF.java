@@ -22,19 +22,7 @@ import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.md_5.bungee.api.ChatColor;
 
-/**
- *
- * @author Lightkeks
- *
- */
-
 public class CommandModularMSMF implements IModularMSMFCommand {
-
-	private ModularMSMFCore plugin;
-
-	public CommandModularMSMF() {
-		plugin = ModularMSMFCore.Instance();
-	}
 
 	private final String infoPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.INFO);
 	private final String debugPrefix = ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.DEBUG);
