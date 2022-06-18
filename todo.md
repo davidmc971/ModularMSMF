@@ -1,45 +1,45 @@
-(A) Core Module +ModularMSMFCore
-  (A) API Overview +ModularMSMFCoreAPI {c}
-    (F) - review files and rewrite if neccessary
-  (A) Command Overview +ModularMSMFCore +CoreCommands {c}
-    (B) - report command:
-      - write bug report into file/db #important
-      - write player report into file/db #important
-      - write other reports into file/db #important
-      - remove bug report when done per command #new
-      - remove player report when done per command #new
-      - look over the command and rewrite if neccessary #veryimportant
-      - add importance level per report #new #veryimportant
-    (C) - mmsmf command:
+Core Module
+  API Overview
+    - review files and rewrite if neccessary
+  Command Overview
+    - report command:
+      - write bug report into file/db
+      - write player report into file/db
+      - write other reports into file/db
+      - remove bug report when done per command 
+      - remove player report when done per command 
+      - look over the command and rewrite if neccessary 
+      - add importance level per report  
+    - mmsmf command:
       - remove instances
-      - abstract prefixes from ChatUtils.ChatFormat #important
-      - change onCommand switch to args.length #important
-      - look over the command and rewrite if neccessary #veryimportant
-    (F) - serverinfo command:
+      - abstract prefixes from ChatUtils.ChatFormat 
+      - change onCommand switch to args.length 
+      - look over the command and rewrite if neccessary 
+    - serverinfo command:
       - look over the command and add functions
-    (F) - playershell command:
+    - playershell command:
       - look over the command and rewrite if neccessary
-    (B) - list command:
-      - rewrite whole command to atleast list players when online without brackets #important
-      - change structure for better readability #important
-    (F) - language command:
+    - list command:
+      - rewrite whole command to atleast list players when online without brackets 
+      - change structure for better readability 
+    - language command:
       - review and maybe change code
-    (F) - configure command:
-      - review and recode file #important #new
-      - add structure for command #new
-    (F) - clearchat command:
+    - configure command:
+      - review and recode file  
+      - add structure for command 
+    - clearchat command:
       - review command and maybe optimize if neccessary
-  (A) File Configuration Overview +ModularMSMFCore +CoreFileConfiguration {c}
-    (A) - review files of core and rewrite if neccessary
-      (A) - review files of configuration and rewrite if neccessary #important
-      (A) - review files of data and rewrite if neccessary #important
+  File Configuration Overview 
+    - review files of core and rewrite if neccessary
+      - review files of configuration and rewrite if neccessary 
+      - review files of data and rewrite if neccessary 
       - review files of filesystem and rewrite if neccessary
       - review files of storage and rewrite if neccessary
-      (A) - fix coreevents and change structure #important
-    (A) - review files of util and rewrite if neccessary
+      - fix coreevents and change structure 
+    - review files of util and rewrite if neccessary
 
-(A) Basics Module +ModularMSMFBasics
-  (A) - review all commands and rewrite if neccessary
+Basics Module 
+  - review all commands and rewrite if neccessary
       - back
       - ban
       - channels
@@ -62,7 +62,7 @@
       - spawn
       - stats
       - teleport
-  (A) - review all other file related and rewrite if neccessary
+  - review all other file related and rewrite if neccessary
 
 
 
