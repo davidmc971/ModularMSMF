@@ -15,7 +15,7 @@ import io.github.davidmc971.modularmsmf.core.configuration.JSONConfigurationLoad
 import io.github.davidmc971.modularmsmf.core.configuration.YamlConfigurationLoader;
 
 public class ModularMSMFBasics extends JavaPlugin {
-	
+
 	public static String moduleName = "Basics";
 
     private static ModularMSMFBasics instance = null;
@@ -68,7 +68,7 @@ public class ModularMSMFBasics extends JavaPlugin {
         plgman.registerEvents(basicEvents, this);
         CommandLoader.registerCommands(this);
     }
-    
+
     @Override
     public void onLoad() {
         if (debug) getLogger().info("--- onLoad() ---");
