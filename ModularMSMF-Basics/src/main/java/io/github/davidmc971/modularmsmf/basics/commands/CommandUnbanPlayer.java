@@ -12,9 +12,9 @@ import org.jetbrains.annotations.NotNull;
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.basics.PermissionManager;
 import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
-import io.github.davidmc971.modularmsmf.core.util.ChatUtils;
-import io.github.davidmc971.modularmsmf.core.util.Utils;
-import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
+import io.github.davidmc971.modularmsmf.basics.util.Util;
+import io.github.davidmc971.modularmsmf.basics.util.ChatUtil.ChatFormat;
+import io.github.davidmc971.modularmsmf.basics.util.ChatUtil;
 
 /**
  * @author Lightkeks
@@ -26,18 +26,18 @@ public class CommandUnbanPlayer implements IModularMSMFCommand {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
             @NotNull String[] args) {
         if (!PermissionManager.checkPermission(sender, "unban")) {
-            ChatUtils.sendMsgNoPerm(sender);
+            ChatUtil.sendMsgNoPerm(sender);
             return true;
         }
         if (args.length == 0) {
-            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.UNBAN, "arguments.missing_name");
+            Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.UNBAN, "arguments.missing_name");
             return true;
         }
         if (args.length == 1) {
             handlePlayer(sender, args);
             return true;
         }
-        Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.UNBAN,
+        Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.UNBAN,
                 "arguments.toomany");
         return true;
     }
@@ -50,13 +50,13 @@ public class CommandUnbanPlayer implements IModularMSMFCommand {
                 if (cfg.getBoolean("banned")) {
                     cfg.set("banned", false);
                     cfg.set("reason", false);
-                    Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.UNBAN,
+                    Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.UNBAN,
                             "commands.unban.player", "_player", p.getName());
                 }
-                Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.UNBAN, "commands.unban.notfound",
+                Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.UNBAN, "commands.unban.notfound",
                         "_player", p.getName());
             }
-            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.UNBAN,
+            Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.UNBAN,
                     "player.nonexistant");
         }
     }

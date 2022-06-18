@@ -11,9 +11,9 @@ import org.jetbrains.annotations.NotNull;
 
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.basics.PermissionManager;
-import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
-import io.github.davidmc971.modularmsmf.core.util.ChatUtils;
-import io.github.davidmc971.modularmsmf.core.util.Utils;
+import io.github.davidmc971.modularmsmf.basics.util.Util;
+import io.github.davidmc971.modularmsmf.basics.util.ChatUtil.ChatFormat;
+import io.github.davidmc971.modularmsmf.basics.util.ChatUtil;
 
 /**
  *
@@ -28,7 +28,7 @@ public class CommandTeleport implements IModularMSMFCommand {
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (!PermissionManager.checkPermission(sender, "teleport")) {
-			ChatUtils.sendMsgNoPerm(sender);
+			ChatUtil.sendMsgNoPerm(sender);
 			return true;
 		}
 		switch (args.length) {
@@ -39,7 +39,7 @@ public class CommandTeleport implements IModularMSMFCommand {
 			case 2:
 				return teleportTwoArgsSub(sender, command, label, args);
 			default:
-				Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
+				Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
 						"arguments.toomany");
 				break;
 		}
@@ -50,35 +50,35 @@ public class CommandTeleport implements IModularMSMFCommand {
 			@NotNull String[] args) {
 		UUID target1, target2;
 		if (args[0].equalsIgnoreCase(args[1])) {
-			Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
+			Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
 					"commands.teleport.others.toself");
 			return true;
 		}
-		target1 = Utils.getPlayerUUIDByName(args[0]);
-		target2 = Utils.getPlayerUUIDByName(args[1]);
+		target1 = Util.getPlayerUUIDByName(args[0]);
+		target2 = Util.getPlayerUUIDByName(args[1]);
 		Player p1 = Bukkit.getPlayer(target1), p2 = Bukkit.getPlayer(target2);
 		if (p1 == null) {
-			Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
+			Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
 					"commands.teleport.notonline", "_player", args[0]);
 			return true;
 		}
 		if (p2 == null) {
-			Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
+			Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
 					"commands.teleport.notonline", "_player", args[1]);
 			return true;
 		}
 		p1.teleport(p2);
 		if (p1 == sender) {
-			Utils.sendMessageWithConfiguredLanguage(p2, ChatFormat.INFO,
+			Util.sendMessageWithConfiguredLanguage(p2, ChatFormat.INFO,
 					"commands.teleport.others.toyou", "_player", p1.getName());
-			Utils.sendMessageWithConfiguredLanguage(p1, ChatFormat.SUCCESS,
+			Util.sendMessageWithConfiguredLanguage(p1, ChatFormat.SUCCESS,
 					"commands.teleport.success", "_player", p2.getName());
 			return true;
 		}
 		if (p2 == sender) {
-			Utils.sendMessageWithConfiguredLanguage(p1, ChatFormat.SUCCESS,
+			Util.sendMessageWithConfiguredLanguage(p1, ChatFormat.SUCCESS,
 					"commands.teleport.force.toplayer", "_player", p2.getName());
-			Utils.sendMessageWithConfiguredLanguage(p2, ChatFormat.INFO,
+			Util.sendMessageWithConfiguredLanguage(p2, ChatFormat.INFO,
 					"commands.teleport.force.toyou", "_player", p1.getName());
 			return true;
 		}
@@ -87,32 +87,32 @@ public class CommandTeleport implements IModularMSMFCommand {
 
 	private boolean teleportOneArgsSub(CommandSender sender, Command command, String label, String[] args) {
 		if (sender instanceof ConsoleCommandSender) {
-			ChatUtils.sendMsgNoPerm(sender);
+			ChatUtil.sendMsgNoPerm(sender);
 			return true;
 		}
 		UUID target;
-		target = Utils.getPlayerUUIDByName(args[0]);
+		target = Util.getPlayerUUIDByName(args[0]);
 		Player p = Bukkit.getPlayer(target);
 		if (target == null) {
-			Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
+			Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
 					"player.offline", "_player", args[0]);
 			return true;
 		}
 		if (p == sender) {
-			Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
+			Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
 					"commands.teleport.others.toself");
 			return true;
 		}
-		Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
+		Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
 				"commands.teleport.success", "_player", p.getName());
-		Utils.sendMessageWithConfiguredLanguage(p, ChatFormat.INFO,
+		Util.sendMessageWithConfiguredLanguage(p, ChatFormat.INFO,
 				"commands.teleport.others.toyou", "_player", sender.getName());
 		((Player) sender).teleport(p);
 		return true;
 	}
 
 	private boolean helpSub(CommandSender sender, Command command, String label, String[] args) {
-		// Utils.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
+		// Util.sendMessageWithConfiguredLanguage(plugin, sender, ChatFormat.ERROR,
 		// "general.missing_playername");
 		sender.sendMessage("send help here"); // create file to edit help in an easier way, adopt language
 		return true;

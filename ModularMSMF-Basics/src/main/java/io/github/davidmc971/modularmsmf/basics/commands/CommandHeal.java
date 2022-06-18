@@ -11,9 +11,9 @@ import org.bukkit.entity.Player;
 import io.github.davidmc971.modularmsmf.basics.PermissionManager;
 import io.github.davidmc971.modularmsmf.basics.util.CommandUtil;
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
-import io.github.davidmc971.modularmsmf.core.util.ChatUtils;
-import io.github.davidmc971.modularmsmf.core.util.Utils;
-import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
+import io.github.davidmc971.modularmsmf.basics.util.Util;
+import io.github.davidmc971.modularmsmf.basics.util.ChatUtil.ChatFormat;
+import io.github.davidmc971.modularmsmf.basics.util.ChatUtil;
 
 /**
  * @author Lightkeks
@@ -25,7 +25,7 @@ public class CommandHeal implements IModularMSMFCommand {
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (!PermissionManager.checkPermission(sender, "heal_use")) {
-			ChatUtils.sendMsgNoPerm(sender);
+			ChatUtil.sendMsgNoPerm(sender);
 			return true;
 		}
 		switch (args.length) {
@@ -34,7 +34,7 @@ public class CommandHeal implements IModularMSMFCommand {
 				handlePlayers(sender, command, label, args);
 				break;
 			default:
-				Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
+				Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
 						"arguments.toomany");
 				break;
 		}
@@ -52,10 +52,10 @@ public class CommandHeal implements IModularMSMFCommand {
 
 	private boolean healOthers(CommandSender sender, Command command, String label, String[] args) {
 		UUID target = null;
-		target = Utils.getPlayerUUIDByName(args[0]);
+		target = Util.getPlayerUUIDByName(args[0]);
 		Player player = Bukkit.getPlayer(target);
 		if (!PermissionManager.checkPermission(sender, "heal_other")) {
-			ChatUtils.sendMsgNoPerm(sender);
+			ChatUtil.sendMsgNoPerm(sender);
 			return true;
 		}
 		if (!CommandUtil.isPlayerEligible(sender, player, command)) {
@@ -64,9 +64,9 @@ public class CommandHeal implements IModularMSMFCommand {
 		if (sender == player) {
 			return healSelf(sender, command, label, args);
 		}
-		Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.HEAL,
+		Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.HEAL,
 				"commands.heal.healother", "_player", player.getName());
-		Utils.sendMessageWithConfiguredLanguage(player, ChatFormat.HEAL,
+		Util.sendMessageWithConfiguredLanguage(player, ChatFormat.HEAL,
 				"commands.heal.gothealed", "_sender", sender.getName());
 		double maxHealth = player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue();
 		player.setHealth(maxHealth);
@@ -78,10 +78,10 @@ public class CommandHeal implements IModularMSMFCommand {
 			return true;
 		}
 		if (!PermissionManager.checkPermission(sender, "heal_self")) {
-			ChatUtils.sendMsgNoPerm(sender);
+			ChatUtil.sendMsgNoPerm(sender);
 			return true;
 		}
-		Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.HEAL, "commands.heal.self");
+		Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.HEAL, "commands.heal.self");
 		double maxHealth = ((Player) sender).getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue();
 		((Player) sender).setHealth(maxHealth);
 		return true;

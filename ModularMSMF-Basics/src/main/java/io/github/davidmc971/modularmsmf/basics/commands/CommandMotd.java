@@ -7,9 +7,9 @@ import org.bukkit.command.CommandSender;
 
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.basics.PermissionManager;
-import io.github.davidmc971.modularmsmf.core.util.ChatUtils;
-import io.github.davidmc971.modularmsmf.core.util.Utils;
-import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
+import io.github.davidmc971.modularmsmf.basics.util.Util;
+import io.github.davidmc971.modularmsmf.basics.util.ChatUtil.ChatFormat;
+import io.github.davidmc971.modularmsmf.basics.util.ChatUtil;
 
 public class CommandMotd implements IModularMSMFCommand {
 
@@ -47,7 +47,7 @@ public class CommandMotd implements IModularMSMFCommand {
 			case 1:
 				return subMotd(sender, command, label, args);
 			default:
-				Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
+				Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
 						"coremodule.commands.arguments.toomany");
 		}
 		return true;
@@ -63,10 +63,10 @@ public class CommandMotd implements IModularMSMFCommand {
 				if (PermissionManager.checkPermission(sender, "motd_admin") || sender.isOp()) {
 					return motdAdmin(sender, command, label, args);
 				} else {
-					ChatUtils.sendMsgNoPerm(sender);
+					ChatUtil.sendMsgNoPerm(sender);
 				}
 			default:
-				Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
+				Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
 						"coremodule.commands.invalid");
 				break;
 		}
@@ -85,7 +85,7 @@ public class CommandMotd implements IModularMSMFCommand {
 
 				}
 			} else {
-				ChatUtils.sendMsgNoPerm(sender);
+				ChatUtil.sendMsgNoPerm(sender);
 			}
 		}
 		if (args[0].equalsIgnoreCase("off")) {
@@ -107,7 +107,7 @@ public class CommandMotd implements IModularMSMFCommand {
 
 			}
 		} else {
-			ChatUtils.sendMsgNoPerm(sender);
+			ChatUtil.sendMsgNoPerm(sender);
 		}
 		return true;
 	}

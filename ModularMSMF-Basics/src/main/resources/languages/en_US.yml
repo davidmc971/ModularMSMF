@@ -6,7 +6,6 @@
 language:
   id: en_US
   name: English
-#FIXME: most will say null for beginning
 player:
   spectator:
     self: You're spectating!
@@ -24,7 +23,7 @@ arguments:
   toomany: Too many arguments!
 #Reason specific language strings
 reasons:
-  console: _command is not allowed in console:!
+  console: _command is not allowed in console!
   banned_reason: "You got banned because: _reason"
   kick_reason: "You got kicked because: _reason"
   banned_noreason: Banhammer has spoken!
@@ -172,3 +171,5 @@ commands:
     usage: "Show inventory of someone: /get inventory <name>"
     done: "Opened your inventory"
     others: "Opened _value's inventory"
+  kick:
+    missingname: Please enter the username you want to kick!

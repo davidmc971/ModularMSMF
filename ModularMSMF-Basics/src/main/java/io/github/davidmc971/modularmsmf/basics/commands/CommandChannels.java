@@ -21,9 +21,9 @@ import org.jetbrains.annotations.Nullable;
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.basics.PermissionManager;
 import io.github.davidmc971.modularmsmf.basics.util.SortList;
-import io.github.davidmc971.modularmsmf.core.util.ChatUtils;
-import io.github.davidmc971.modularmsmf.core.util.Utils;
-import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
+import io.github.davidmc971.modularmsmf.basics.util.Util;
+import io.github.davidmc971.modularmsmf.basics.util.ChatUtil.ChatFormat;
+import io.github.davidmc971.modularmsmf.basics.util.ChatUtil;
 
 /**
  * @author Lightkeks
@@ -43,7 +43,7 @@ public class CommandChannels implements IModularMSMFCommand, TabCompleter {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!PermissionManager.checkPermission(sender, "channels_use")
                 || !PermissionManager.checkPermission(sender, "channels_*")) {
-            ChatUtils.sendMsgNoPerm(sender);
+            ChatUtil.sendMsgNoPerm(sender);
             return true;
         }
         if (args.length == 0) {
@@ -53,14 +53,14 @@ public class CommandChannels implements IModularMSMFCommand, TabCompleter {
         switch (args[0].toLowerCase()) { // /channel{0} args{1/-1}
             case "admin": // TODO: kicking players out of channels if misbehavior
                 if (!sender.isOp() || !PermissionManager.checkPermission(sender, "channels_admin")) {
-                    ChatUtils.sendMsgNoPerm(sender);
+                    ChatUtil.sendMsgNoPerm(sender);
                     break;
                 }
                 handleAdmin(sender, args);
                 break;
             case "get":
                 if (!sender.isOp() || !PermissionManager.checkPermission(sender, "channels_get_player")) {
-                    ChatUtils.sendMsgNoPerm(sender);
+                    ChatUtil.sendMsgNoPerm(sender);
                     break;
                 }
                 handleChannelGet(sender, args);
@@ -77,14 +77,14 @@ public class CommandChannels implements IModularMSMFCommand, TabCompleter {
             case "create": // TODO: only create new channel if player is in no channel - has to leave first
                            // in order to create a new channel
                 if (!PermissionManager.checkPermission(sender, "channels_create")) {
-                    ChatUtils.sendMsgNoPerm(sender);
+                    ChatUtil.sendMsgNoPerm(sender);
                     break;
                 }
                 handleChannelCreate(sender, args);
                 break;
             case "remove": // TODO: should replace all players' channel in the removed channel to defaultCh
                 if (!PermissionManager.checkPermission(sender, "channels_remove")) {
-                    ChatUtils.sendMsgNoPerm(sender);
+                    ChatUtil.sendMsgNoPerm(sender);
                     break;
                 }
                 handleChannelRemove(sender, args);
@@ -97,7 +97,7 @@ public class CommandChannels implements IModularMSMFCommand, TabCompleter {
                 handleChannelList(sender, args);
                 break;
             default:
-                Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
+                Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                         "commands.arguments.invalid");
                 break;
         }
@@ -112,41 +112,41 @@ public class CommandChannels implements IModularMSMFCommand, TabCompleter {
         switch (args[1].toLowerCase()) {
             case "kick":
                 if (!PermissionManager.checkPermission(sender, "channels_admins_kick")) {
-                    ChatUtils.sendMsgNoPerm(sender);
+                    ChatUtil.sendMsgNoPerm(sender);
                     return;
                 }
                 handleKickAdmin(sender, args);
                 break;
             case "create":
                 if (!PermissionManager.checkPermission(sender, "channels_admins_create")) {
-                    ChatUtils.sendMsgNoPerm(sender);
+                    ChatUtil.sendMsgNoPerm(sender);
                     return;
                 }
                 handleCreateAdmin(sender, args);
                 break;
             case "join":
                 if (!PermissionManager.checkPermission(sender, "channels_admins_join")) {
-                    ChatUtils.sendMsgNoPerm(sender);
+                    ChatUtil.sendMsgNoPerm(sender);
                     return;
                 }
                 handleAdminJoinChannel(sender, args);
                 break;
             case "remove":
                 if (!PermissionManager.checkPermission(sender, "channels_admins_remove")) {
-                    ChatUtils.sendMsgNoPerm(sender);
+                    ChatUtil.sendMsgNoPerm(sender);
                     return;
                 }
                 handleAdminRemoveChannel(sender, args);
                 break;
             case "switch":
                 if (!PermissionManager.checkPermission(sender, "channels_admins_switch")) {
-                    ChatUtils.sendMsgNoPerm(sender);
+                    ChatUtil.sendMsgNoPerm(sender);
                     return;
                 }
                 handleChannelSwitchAdmin(sender, args);
                 break;
             default:
-                Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
+                Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                         "commands.arguments.invalid");
         }
     }
@@ -161,7 +161,7 @@ public class CommandChannels implements IModularMSMFCommand, TabCompleter {
                     channelPrivateToPublic(sender, args);
                     return;
                 }
-                Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
+                Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                         "commands.arguments.invalid");
                 break;
             case 5:
@@ -169,11 +169,11 @@ public class CommandChannels implements IModularMSMFCommand, TabCompleter {
                     channelPublicToPrivate(sender, args);
                     return;
                 }
-                Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
+                Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                         "commands.arguments.invalid");
                 break;
             default:
-                Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "commands.arguments.invalid");
+                Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "commands.arguments.invalid");
         }
     }
 
@@ -231,7 +231,7 @@ public class CommandChannels implements IModularMSMFCommand, TabCompleter {
                 removeAdmin(sender, args);
                 break;
             default:
-                Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
+                Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                         "commands.arguments.invalid");
         }
     }
@@ -297,7 +297,7 @@ public class CommandChannels implements IModularMSMFCommand, TabCompleter {
                 createAdminCriteria(sender, args);
                 break;
             default:
-                Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
+                Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                         "commands.arguments.invalid");
         }
     }
@@ -350,7 +350,7 @@ public class CommandChannels implements IModularMSMFCommand, TabCompleter {
                 handleSwitchPrivate(sender, args);
                 break;
             default:
-                Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
+                Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                         "commands.args.toomany");
                 break;
         }
@@ -391,7 +391,7 @@ public class CommandChannels implements IModularMSMFCommand, TabCompleter {
                 break;
             case 2:
                 UUID target = null;
-                target = Utils.getPlayerUUIDByName(args[1]);
+                target = Util.getPlayerUUIDByName(args[1]);
                 Player player = Bukkit.getPlayer(target);
                 if (player == sender) {
                     handleChannelGetSelf(sender);
@@ -446,42 +446,42 @@ public class CommandChannels implements IModularMSMFCommand, TabCompleter {
         switch (args[2].toLowerCase()) {
             case "admin":
                 if (!sender.isOp() || !PermissionManager.checkPermission(sender, "channels_admin")) {
-                    ChatUtils.sendMsgNoPerm(sender);
+                    ChatUtil.sendMsgNoPerm(sender);
                     break;
                 }
                 if (args.length > 2) {
                     switch (args[3].toLowerCase()) {
                         case "kick":
                             if (!PermissionManager.checkPermission(sender, "channels_admins_kick")) {
-                                ChatUtils.sendMsgNoPerm(sender);
+                                ChatUtil.sendMsgNoPerm(sender);
                                 break;
                             }
                             sender.sendMessage("kicking player out of an channel");
                             break;
                         case "join":
                             if (!PermissionManager.checkPermission(sender, "channels_admins_join")) {
-                                ChatUtils.sendMsgNoPerm(sender);
+                                ChatUtil.sendMsgNoPerm(sender);
                                 break;
                             }
                             sender.sendMessage("joining a channel without criteria even when set");
                             break;
                         case "remove":
                             if (!PermissionManager.checkPermission(sender, "channels_admins_remove")) {
-                                ChatUtils.sendMsgNoPerm(sender);
+                                ChatUtil.sendMsgNoPerm(sender);
                                 break;
                             }
                             sender.sendMessage("removing a channel with players even when not in a channel");
                             break;
                         case "switch":
                             if (!PermissionManager.checkPermission(sender, "channels_admins_switch")) {
-                                ChatUtils.sendMsgNoPerm(sender);
+                                ChatUtil.sendMsgNoPerm(sender);
                                 break;
                             }
                             sender.sendMessage("switching state of a channel even with or without criteria");
                             break;
                         case "create":
                             if (!PermissionManager.checkPermission(sender, "channels_admins_create")) {
-                                ChatUtils.sendMsgNoPerm(sender);
+                                ChatUtil.sendMsgNoPerm(sender);
                                 break;
                             }
                             sender.sendMessage("create a channel without any player with or without criteria");
@@ -495,14 +495,14 @@ public class CommandChannels implements IModularMSMFCommand, TabCompleter {
                 break;
             case "create":
                 if (!PermissionManager.checkPermission(sender, "channels_create")) {
-                    ChatUtils.sendMsgNoPerm(sender);
+                    ChatUtil.sendMsgNoPerm(sender);
                     break;
                 }
                 sender.sendMessage("using command to create channel with or without criteria to join");
                 break;
             case "get":
                 if (!sender.isOp() || !PermissionManager.checkPermission(sender, "channels_get_player")) {
-                    ChatUtils.sendMsgNoPerm(sender);
+                    ChatUtil.sendMsgNoPerm(sender);
                     break;
                 }
                 sender.sendMessage("get channel from self or from player");
@@ -518,14 +518,14 @@ public class CommandChannels implements IModularMSMFCommand, TabCompleter {
                     switch (args[3].toLowerCase()) {
                         case "private":
                             if (!PermissionManager.checkPermission(sender, "channels_list_private")) {
-                                ChatUtils.sendMsgNoPerm(sender);
+                                ChatUtil.sendMsgNoPerm(sender);
                                 break;
                             }
                             sender.sendMessage("using command to list private channels");
                             break;
                         case "all":
                             if (!PermissionManager.checkPermission(sender, "channels_list_*")) {
-                                ChatUtils.sendMsgNoPerm(sender);
+                                ChatUtil.sendMsgNoPerm(sender);
                                 break;
                             }
                             sender.sendMessage("using command to list all available channels");
@@ -539,7 +539,7 @@ public class CommandChannels implements IModularMSMFCommand, TabCompleter {
                 break;
             case "remove":
                 if (!PermissionManager.checkPermission(sender, "channels_remove")) {
-                    ChatUtils.sendMsgNoPerm(sender);
+                    ChatUtil.sendMsgNoPerm(sender);
                     break;
                 }
                 sender.sendMessage("using command to remove current channel the player is in");
@@ -690,7 +690,7 @@ public class CommandChannels implements IModularMSMFCommand, TabCompleter {
 
     private void handleListPublic(CommandSender sender) {
         if (!PermissionManager.checkPermission(sender, "channels_list_public")) {
-            ChatUtils.sendMsgNoPerm(sender);
+            ChatUtil.sendMsgNoPerm(sender);
             return;
         }
         for (Map.Entry<String, String> e : CHANNELTREE_MAP.entrySet()) {
@@ -707,7 +707,7 @@ public class CommandChannels implements IModularMSMFCommand, TabCompleter {
 
     private void handleListPrivate(CommandSender sender) {
         if (!PermissionManager.checkPermission(sender, "channels_list_private")) {
-            ChatUtils.sendMsgNoPerm(sender);
+            ChatUtil.sendMsgNoPerm(sender);
             return;
         }
         for (Map.Entry<String, String> e : CHANNELTREE_MAP.entrySet()) {
@@ -722,7 +722,7 @@ public class CommandChannels implements IModularMSMFCommand, TabCompleter {
 
     private void handleListAll(CommandSender sender) {
         if (!PermissionManager.checkPermission(sender, "channels_list_*")) {
-            ChatUtils.sendMsgNoPerm(sender);
+            ChatUtil.sendMsgNoPerm(sender);
             return;
         }
         handleListPublic(sender);

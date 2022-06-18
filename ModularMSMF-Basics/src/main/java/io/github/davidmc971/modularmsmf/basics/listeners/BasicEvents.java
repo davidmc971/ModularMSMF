@@ -16,8 +16,8 @@ import org.jetbrains.annotations.Nullable;
 import io.github.davidmc971.modularmsmf.basics.util.KillType;
 import io.github.davidmc971.modularmsmf.basics.util.PlayerKillConfig;
 import io.github.davidmc971.modularmsmf.core.listeners.CoreEvents;
-import io.github.davidmc971.modularmsmf.core.util.Utils;
-import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
+import io.github.davidmc971.modularmsmf.basics.util.Util;
+import io.github.davidmc971.modularmsmf.basics.util.ChatUtil.ChatFormat;
 import net.kyori.adventure.text.Component;
 
 /**
@@ -71,7 +71,7 @@ public class BasicEvents implements Listener, TabCompleter {
 			}
 		}
 		if (!temp) {
-			Utils.broadcastWithConfiguredLanguageEach(ChatFormat.DEATH, "events.just_died", "_player",
+			Util.broadcastWithConfiguredLanguageEach(ChatFormat.DEATH, "events.just_died", "_player",
 					p.getName());
 		}
 	}

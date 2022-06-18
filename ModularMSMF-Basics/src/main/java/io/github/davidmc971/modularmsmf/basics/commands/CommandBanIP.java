@@ -14,8 +14,8 @@ import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.basics.PermissionManager;
 import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils;
-import io.github.davidmc971.modularmsmf.core.util.Utils;
-import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
+import io.github.davidmc971.modularmsmf.basics.util.Util;
+import io.github.davidmc971.modularmsmf.basics.util.ChatUtil.ChatFormat;
 
 /**
  * @author Lightkeks
@@ -44,19 +44,19 @@ public class CommandBanIP implements IModularMSMFCommand {
     }
 
     private void handlePlayerWithReason(@NotNull CommandSender sender, @NotNull String[] args) {
-        FileConfiguration language = Utils.configureCommandLanguage(sender);
+        FileConfiguration language = Util.configureCommandLanguage(sender);
         String reason = language.getString("reasons.banned_reason");
         UUID uuid = getPlayerUUIDByNameForBan(args[0]);
         if (uuid == null) {
-            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.BAN, "player.nonexistant");
+            Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.BAN, "player.nonexistant");
         }
         if (ModularMSMFCore.Instance().getDataManager().getPlayerCfg(uuid).getBoolean("banned")) {
-            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.BAN,
+            Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.BAN,
                     "commands.ban.already");
         }
         Player player = Bukkit.getPlayer(uuid);
         if (!player.getUniqueId().toString().equals(uuid.toString())) {
-            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.BAN, "player.offline", "_player",
+            Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.BAN, "player.offline", "_player",
                     player.getName());
         }
         reason = "";
@@ -64,34 +64,34 @@ public class CommandBanIP implements IModularMSMFCommand {
             reason += args[i] + " ";
         }
         banPlayerIp(sender, uuid, reason, language, player);
-        Utils.broadcastWithConfiguredLanguageEach(ChatFormat.BAN, "reasons.broadcast.ban_reason", "_player",
+        Util.broadcastWithConfiguredLanguageEach(ChatFormat.BAN, "reasons.broadcast.ban_reason", "_player",
                 player.getName(), "_reason", reason);
     }
 
     private void handlePlayerWithoutReason(@NotNull CommandSender sender, String[] args) {
-        FileConfiguration language = Utils.configureCommandLanguage(sender);
+        FileConfiguration language = Util.configureCommandLanguage(sender);
         String reason = language.getString("reason.banned_noreason");
         UUID uuid = getPlayerUUIDByNameForBan(args[0]);
         Player player = Bukkit.getPlayer(uuid);
         if (uuid == null) {
-            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.BAN, "player.nonexistant");
+            Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.BAN, "player.nonexistant");
         }
         if (ModularMSMFCore.Instance().getDataManager().getPlayerCfg(uuid).getBoolean("banned")) {
-            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.BAN,
+            Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.BAN,
                     "commands.ban.already");
         }
         if (!player.getUniqueId().toString().equals(uuid.toString())) {
-            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.BAN, "player.offline", "_player",
+            Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.BAN, "player.offline", "_player",
                     player.getName());
         }
         banPlayerIp(sender, uuid, reason, language, player);
-        Utils.broadcastWithConfiguredLanguageEach(ChatFormat.BAN, "reasons.broadcast.banned_noreason", "_player",
+        Util.broadcastWithConfiguredLanguageEach(ChatFormat.BAN, "reasons.broadcast.banned_noreason", "_player",
                 player.getName());
     }
 
     private void handleHelp(@NotNull CommandSender sender) {
-        Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.BAN, "commands.banip.use");
-        Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.BAN, "commands.banip.name");
+        Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.BAN, "commands.banip.use");
+        Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.BAN, "commands.banip.name");
     }
 
     public void banPlayerIp(CommandSender sender, UUID uuid, String reason, FileConfiguration language, Player player) {

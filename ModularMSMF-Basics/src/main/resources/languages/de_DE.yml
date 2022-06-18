@@ -6,8 +6,6 @@
 language:
   id: de_DE
   name: Deutsch
-#FIXME: most will say null for beginning
-#Player specific language strings
 player:
   spectator:
     self: Du bist im Beobachtungsmodus!
@@ -25,6 +23,7 @@ arguments:
   toomany: Zu viele Argumente.
 #Reason specific language strings
 reasons:
+  console: _command is not allowed in console!
   banned_reason: "Du wurdest aus folgendem Grund gebannt: _reason"
   kick_reason: "Du wurdest aus folgendem Grund gekickt: _reason"
   banned_noreason: Du wurdest gebannt!
@@ -174,3 +173,5 @@ commands:
     usage: "Show inventory of someone: /get inventory <name>"
     done: "Opened your inventory"
     others: "Opened _value's inventory"
+  kick:
+    missingname: Please enter the username you want to kick!

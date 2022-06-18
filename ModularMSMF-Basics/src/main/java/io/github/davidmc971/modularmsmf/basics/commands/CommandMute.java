@@ -11,8 +11,8 @@ import org.bukkit.entity.Player;
 import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.basics.PermissionManager;
-import io.github.davidmc971.modularmsmf.core.util.Utils;
-import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
+import io.github.davidmc971.modularmsmf.basics.util.Util;
+import io.github.davidmc971.modularmsmf.basics.util.ChatUtil.ChatFormat;
 
 /**
  * 
@@ -40,14 +40,14 @@ public class CommandMute implements IModularMSMFCommand {
 				 *
 				 */
 				UUID target = null;
-				target = Utils.getPlayerUUIDByName(args[0]);
+				target = Util.getPlayerUUIDByName(args[0]);
 				toggleMute(target);
-				Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "coremodule.notimplementedyet");
+				Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "coremodule.notimplementedyet");
 			} else {
-				Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.NOPERM, "coremodule.player.nopermission");
+				Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.NOPERM, "coremodule.player.nopermission");
 			}
 		} else {
-			Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.CONSOLE, "coremodule.noconsole");
+			Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.CONSOLE, "coremodule.noconsole");
 		}
 		return true;
 

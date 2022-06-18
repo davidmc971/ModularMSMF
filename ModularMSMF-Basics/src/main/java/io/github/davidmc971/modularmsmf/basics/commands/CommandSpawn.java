@@ -13,9 +13,9 @@ import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.basics.PermissionManager;
 import io.github.davidmc971.modularmsmf.basics.util.CommandUtil;
-import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
-import io.github.davidmc971.modularmsmf.core.util.ChatUtils;
-import io.github.davidmc971.modularmsmf.core.util.Utils;
+import io.github.davidmc971.modularmsmf.basics.util.Util;
+import io.github.davidmc971.modularmsmf.basics.util.ChatUtil.ChatFormat;
+import io.github.davidmc971.modularmsmf.basics.util.ChatUtil;
 
 /**
  *
@@ -41,7 +41,7 @@ public class CommandSpawn implements IModularMSMFCommand {
                 // changing spawn etc.
                 return spawnOthersSub(sender, command, label, args);
             default:
-                Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "arguments.toomany");
+                Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "arguments.toomany");
                 break;
         }
         return true;
@@ -50,7 +50,7 @@ public class CommandSpawn implements IModularMSMFCommand {
     private boolean spawnOthersSub(CommandSender sender, Command command, String label, String[] args) {
         FileConfiguration cfg = plugin.getDataManager().settingsyaml;
         UUID target = null;
-        target = Utils.getPlayerUUIDByName(args[0]);
+        target = Util.getPlayerUUIDByName(args[0]);
         Player spawned = Bukkit.getPlayer(target);
         double x = cfg.getDouble("worldspawn.coordinates.X");
         double y = cfg.getDouble("worldspawn.coordinates.Y");
@@ -63,15 +63,15 @@ public class CommandSpawn implements IModularMSMFCommand {
         }
         if (!PermissionManager.checkPermission(sender, "spawn_others")
                 || !CommandUtil.isSenderEligible(sender, command)) {
-            ChatUtils.sendMsgNoPerm(sender);
+            ChatUtil.sendMsgNoPerm(sender);
             return true;
         }
         if (target == null) {
-            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "player.nonexistant");
+            Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "player.nonexistant");
             return true;
         }
         if (!cfg.get("worldspawn.isTrue").toString().equals("true")) {
-            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "commands.spawn.notset");
+            Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "commands.spawn.notset");
             return true;
         }
         if (spawned == sender) {
@@ -84,8 +84,8 @@ public class CommandSpawn implements IModularMSMFCommand {
             loc.setPitch((float) pitch);
             loc.setWorld(welt);
             spawned.teleport(loc);
-            Utils.sendMessageWithConfiguredLanguage(spawned, ChatFormat.SPAWN, "commands.spawn.spawned");
-            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS, "commands.spawn.others", "_player",
+            Util.sendMessageWithConfiguredLanguage(spawned, ChatFormat.SPAWN, "commands.spawn.spawned");
+            Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS, "commands.spawn.others", "_player",
                     spawned.getName());
             return true;
         }
@@ -98,8 +98,8 @@ public class CommandSpawn implements IModularMSMFCommand {
         loc.setPitch((float) pitch);
         loc.setWorld(welt);
         spawned.teleport(loc);
-        Utils.sendMessageWithConfiguredLanguage(spawned, ChatFormat.SPAWN, "commands.spawn.spawned");
-        Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS, "commands.spawn.others", "_player",
+        Util.sendMessageWithConfiguredLanguage(spawned, ChatFormat.SPAWN, "commands.spawn.spawned");
+        Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS, "commands.spawn.others", "_player",
                 spawned.getName());
         return true;
     }
@@ -108,16 +108,16 @@ public class CommandSpawn implements IModularMSMFCommand {
         FileConfiguration cfg = plugin.getDataManager().settingsyaml;
         if (!PermissionManager.checkPermission(sender, "spawn_remove")
                 || !CommandUtil.isSenderEligible(sender, command)) {
-            ChatUtils.sendMsgNoPerm(sender);
+            ChatUtil.sendMsgNoPerm(sender);
             return true;
         }
         if (cfg.get("worldspawn.isTrue").toString().equals("true")) {
             cfg.set("worldspawn", null);
             cfg.set("worldspawn.isTrue", "false");
-            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS, "commands.spawn.removed");
+            Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS, "commands.spawn.removed");
             return true;
         }
-        Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "commands.spawn.alreadyremoved");
+        Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "commands.spawn.alreadyremoved");
         return true;
     }
 
@@ -132,11 +132,11 @@ public class CommandSpawn implements IModularMSMFCommand {
         String worldname = cfg.getString("worldspawn.world");
 
         if (!PermissionManager.checkPermission(sender, "spawn") || !CommandUtil.isSenderEligible(sender, command)) {
-            ChatUtils.sendMsgNoPerm(sender);
+            ChatUtil.sendMsgNoPerm(sender);
             return true;
         }
         if (cfg.get("worldspawn.isTrue").toString().equals("false")) {
-            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "commands.spawn.notset");
+            Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "commands.spawn.notset");
             return true;
         }
         Player p = (Player) sender;
@@ -149,7 +149,7 @@ public class CommandSpawn implements IModularMSMFCommand {
         loc.setPitch((float) pitch);
         loc.setWorld(welt);
         p.teleport(loc);
-        Utils.sendMessageWithConfiguredLanguage(p, ChatFormat.SPAWN, "commands.spawn.spawned");
+        Util.sendMessageWithConfiguredLanguage(p, ChatFormat.SPAWN, "commands.spawn.spawned");
         return true;
     }
 

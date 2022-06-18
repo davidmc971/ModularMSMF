@@ -11,14 +11,14 @@ import org.jetbrains.annotations.NotNull;
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.basics.PermissionManager;
 import io.github.davidmc971.modularmsmf.basics.util.CommandUtil;
-import io.github.davidmc971.modularmsmf.core.util.ChatUtils;
-import io.github.davidmc971.modularmsmf.core.util.Utils;
-import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
+import io.github.davidmc971.modularmsmf.basics.util.Util;
+import io.github.davidmc971.modularmsmf.basics.util.ChatUtil.ChatFormat;
+import io.github.davidmc971.modularmsmf.basics.util.ChatUtil;
 
 /**
- * @author Lightkeks
- * 
  * Flying command
+ *
+ * @author Lightkeks
  */
 
 public class CommandFly implements IModularMSMFCommand {
@@ -27,7 +27,7 @@ public class CommandFly implements IModularMSMFCommand {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
             @NotNull String[] args) {
         if (!PermissionManager.checkPermission(sender, "fly_use")) {
-            ChatUtils.sendMsgNoPerm(sender);
+            ChatUtil.sendMsgNoPerm(sender);
             return true;
         }
         switch (args.length) {
@@ -36,7 +36,7 @@ public class CommandFly implements IModularMSMFCommand {
                 handleFlight(sender, command, label, args);
                 break;
             default:
-                Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
+                Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                         "arguments.toomany");
                 break;
         }
@@ -47,13 +47,13 @@ public class CommandFly implements IModularMSMFCommand {
             @NotNull String[] args) {
         if (args.length == 0) {
             if (!PermissionManager.checkPermission(sender, "fly_self")) {
-                ChatUtils.sendMsgNoPerm(sender);
+                ChatUtil.sendMsgNoPerm(sender);
             }
             toggleFlightSender(sender, command, label, args);
         }
         if (args.length == 1) {
             if (!PermissionManager.checkPermission(sender, "fly_others")) {
-                ChatUtils.sendMsgNoPerm(sender);
+                ChatUtil.sendMsgNoPerm(sender);
             }
             toggleFlightPlayer(sender, command, label, args);
         }
@@ -62,7 +62,7 @@ public class CommandFly implements IModularMSMFCommand {
     private boolean toggleFlightPlayer(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
             @NotNull String[] args) {
         UUID target = null;
-        target = Utils.getPlayerUUIDByName(args[0]);
+        target = Util.getPlayerUUIDByName(args[0]);
         Player player = Bukkit.getPlayer(target);
         if (!CommandUtil.isPlayerEligible(sender, player, command)) {
             return false;
@@ -71,16 +71,16 @@ public class CommandFly implements IModularMSMFCommand {
             return toggleFlightSender(sender, command, label, args);
         }
         if (!player.getAllowFlight()) {
-            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.FLY_ON,
+            Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.FLY_ON,
                     "commands.fly.others.settrue", "_player", player.getName());
-            Utils.sendMessageWithConfiguredLanguage(player, ChatFormat.FLY_ON,
+            Util.sendMessageWithConfiguredLanguage(player, ChatFormat.FLY_ON,
                     "commands.fly.set_true");
             player.setAllowFlight(true);
             return true;
         }
-        Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.FLY_OFF,
+        Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.FLY_OFF,
                 "commands.fly.others.setfalse", "_player", player.getName());
-        Utils.sendMessageWithConfiguredLanguage(player, ChatFormat.FLY_OFF,
+        Util.sendMessageWithConfiguredLanguage(player, ChatFormat.FLY_OFF,
                 "commands.fly.setfalse");
         player.setAllowFlight(false);
         return true;
@@ -92,12 +92,12 @@ public class CommandFly implements IModularMSMFCommand {
         }
         if (!((Player) sender).getAllowFlight()) {
             ((Player) sender).setAllowFlight(true);
-            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.FLY_ON,
+            Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.FLY_ON,
                     "commands.fly.settrue");
             return true;
         }
         ((Player) sender).setAllowFlight(false);
-        Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.FLY_OFF,
+        Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.FLY_OFF,
                 "commands.fly.setfalse");
         return true;
     }

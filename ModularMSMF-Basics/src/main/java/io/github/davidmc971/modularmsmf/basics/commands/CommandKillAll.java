@@ -11,9 +11,9 @@ import io.github.davidmc971.modularmsmf.basics.ModularMSMFBasics;
 import io.github.davidmc971.modularmsmf.basics.PermissionManager;
 import io.github.davidmc971.modularmsmf.basics.listeners.BasicEvents;
 import io.github.davidmc971.modularmsmf.basics.util.KillType;
-import io.github.davidmc971.modularmsmf.core.util.ChatUtils;
-import io.github.davidmc971.modularmsmf.core.util.Utils;
-import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
+import io.github.davidmc971.modularmsmf.basics.util.Util;
+import io.github.davidmc971.modularmsmf.basics.util.ChatUtil.ChatFormat;
+import io.github.davidmc971.modularmsmf.basics.util.ChatUtil;
 
 public class CommandKillAll implements IModularMSMFCommand {
 
@@ -27,7 +27,7 @@ public class CommandKillAll implements IModularMSMFCommand {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
             @NotNull String[] args) {
         if (!PermissionManager.checkPermission(sender, "kill_all")) {
-            ChatUtils.sendMsgNoPerm(sender);
+            ChatUtil.sendMsgNoPerm(sender);
             return false;
         }
         if (args.length == 0) {
@@ -35,12 +35,12 @@ public class CommandKillAll implements IModularMSMFCommand {
                 basicEvents.registerKilledPlayer(player, KillType.HOMOCIDE);
                 player.setHealth(0);
             }
-            Utils.broadcastWithConfiguredLanguageEach(ChatUtils.ChatFormat.DEATH,
+            Util.broadcastWithConfiguredLanguageEach(ChatUtil.ChatFormat.DEATH,
                     "events.homocide");
             return true;
         }
         if (args.length <= 1) {
-            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "arguments.toomany");
+            Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "arguments.toomany");
             return true;
         }
         return true;

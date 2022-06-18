@@ -10,9 +10,9 @@ import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.basics.PermissionManager;
 import io.github.davidmc971.modularmsmf.basics.util.CommandUtil;
-import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
-import io.github.davidmc971.modularmsmf.core.util.ChatUtils;
-import io.github.davidmc971.modularmsmf.core.util.Utils;
+import io.github.davidmc971.modularmsmf.basics.util.Util;
+import io.github.davidmc971.modularmsmf.basics.util.ChatUtil.ChatFormat;
+import io.github.davidmc971.modularmsmf.basics.util.ChatUtil;
 
 /**
  * @authors Lightkeks, davidmc971
@@ -30,7 +30,7 @@ public class CommandSetSpawn implements IModularMSMFCommand {
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		FileConfiguration cfg = plugin.getDataManager().settingsyaml;
 		if (!PermissionManager.checkPermission(sender, "setspawn") || !CommandUtil.isSenderEligible(sender, command)) {
-			ChatUtils.sendMsgNoPerm(sender);
+			ChatUtil.sendMsgNoPerm(sender);
 			return true;
 		}
 		if (args.length == 0) {
@@ -49,10 +49,10 @@ public class CommandSetSpawn implements IModularMSMFCommand {
 			cfg.set("worldspawn.coordinates.Pitch", pitch);
 			cfg.set("worldspawn.world", worldname);
 			cfg.set("worldspawn.isTrue", "true");
-			Utils.sendMessageWithConfiguredLanguage(p, ChatFormat.SPAWN, "commands.spawn.set");
+			Util.sendMessageWithConfiguredLanguage(p, ChatFormat.SPAWN, "commands.spawn.set");
 			return true;
 		}
-		Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
+		Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
 				"arguments.toomany");
 		return true;
 	}
