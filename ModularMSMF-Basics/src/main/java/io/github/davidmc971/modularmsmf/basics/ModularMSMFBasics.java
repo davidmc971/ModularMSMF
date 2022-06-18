@@ -15,6 +15,9 @@ import io.github.davidmc971.modularmsmf.core.configuration.JSONConfigurationLoad
 import io.github.davidmc971.modularmsmf.core.configuration.YamlConfigurationLoader;
 
 public class ModularMSMFBasics extends JavaPlugin {
+	
+	public static String moduleName = "Basics";
+
     private static ModularMSMFBasics instance = null;
     public static ModularMSMFBasics Instance() {
         return instance;
