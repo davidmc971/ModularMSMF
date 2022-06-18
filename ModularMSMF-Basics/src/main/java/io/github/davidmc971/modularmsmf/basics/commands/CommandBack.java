@@ -11,74 +11,75 @@ import org.bukkit.entity.Player;
 
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.basics.PermissionManager;
+import io.github.davidmc971.modularmsmf.basics.util.Util;
+import io.github.davidmc971.modularmsmf.basics.util.ChatUtil.ChatFormat;
 import io.github.davidmc971.modularmsmf.core.listeners.CoreEvents;
-import io.github.davidmc971.modularmsmf.core.util.ChatUtils;
-import io.github.davidmc971.modularmsmf.core.util.Utils;
-import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
+import io.github.davidmc971.modularmsmf.basics.util.ChatUtil;
 
 public class CommandBack implements IModularMSMFCommand {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (args.length == 0) {
-            return backSender(sender, args);
+        switch (args.length) {
+            case 0:
+                if (!PermissionManager.checkPermission(sender, "back") || sender instanceof ConsoleCommandSender) {
+                    ChatUtil.sendMsgNoPerm(sender);
+                }
+                backSender(sender, args);
+                break;
+            case 1:
+                if (!PermissionManager.checkPermission(sender, "back_others")) {
+                    ChatUtil.sendMsgNoPerm(sender);
+                }
+                backPlayer(sender, args);
+                break;
+            default:
+                Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "arguments.toomany");
+                break;
         }
-        if (args.length == 1) {
-            return backPlayer(sender, args);
-        }
-        Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "arguments.toomany");
         return true;
     }
 
-    private boolean backPlayer(CommandSender sender, String[] args) {
-        if (!PermissionManager.checkPermission(sender, "back_others")) {
-            ChatUtils.sendMsgNoPerm(sender);
-            return true;
-        }
+    private void backPlayer(CommandSender sender, String[] args) {
         UUID target = null;
-        target = Utils.getPlayerUUIDByName(args[0]);
+        target = Util.getPlayerUUIDByName(args[0]);
         if (target == null) {
-            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "player.offline"); // TODO: get string
-                                                                                                  // exact
-            return true;
+            Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "player.nonexistant");
+            return;
         }
         for (Player p : Bukkit.getOnlinePlayers()) {
             if (p.getUniqueId().toString().equalsIgnoreCase(target.toString())) {
                 if (sender == p) {
-                    return backSender(sender, args);
+                    backSender(sender, args);
                 }
                 if (CoreEvents.lastLocation.containsKey(p.getName())) {
-                    Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
+                    Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
                             "commands.back.other.success", "_player", p.getName());
-                    Utils.sendMessageWithConfiguredLanguage(p, ChatFormat.SUCCESS,
+                    Util.sendMessageWithConfiguredLanguage(p, ChatFormat.SUCCESS,
                             "commands.back.other.done");
                     p.teleport(CoreEvents.lastLocation.get(p.getName()));
-                    return true;
+                    return;
                 }
-                Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
+                Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                         "commands.back.other.error", "_player", p.getName());
-                return true;
+                return;
             }
         }
-        Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
+        Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                 "player.offline");
-        return true;
+        return;
     }
 
-    private boolean backSender(CommandSender sender, String[] args) {
-        if (!PermissionManager.checkPermission(sender, "back") || sender instanceof ConsoleCommandSender) {
-            ChatUtils.sendMsgNoPerm(sender);
-            return true;
-        }
+    private void backSender(CommandSender sender, String[] args) {
         if (CoreEvents.lastLocation.containsKey(sender.getName())) {
-            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
+            Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
                     "commands.back.success");
             ((Entity) sender).teleport(CoreEvents.lastLocation.get(sender.getName()));
-            return true;
+            return;
         }
-        Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
+        Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                 "commands.back.error");
-        return true;
+        return;
     }
 
     @Override
@@ -95,5 +96,4 @@ public class CommandBack implements IModularMSMFCommand {
     public boolean Enabled() {
         return true;
     }
-
 }
