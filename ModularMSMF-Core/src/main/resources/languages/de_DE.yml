@@ -19,7 +19,7 @@ arguments:
 file:
   creation:
     failed: Die Datei konnte nicht erstellt werden!
-    done: Die Datei konnte erstellt werden!
+    done: Die Datei wurde erstellt!
 notimplementedyet: Dieser Befehl existiert noch nicht.
 bukkitversion: "Die aktuelle Bukkitversion: _bukkitver"
 events:

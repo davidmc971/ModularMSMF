@@ -5,7 +5,6 @@
 language:
   id: en_US
   name: English
-#FIXME: most will say null for beginning
 player:
   name: Please define a name.
   nonexistant: User does not exist.
@@ -19,7 +18,7 @@ arguments:
 file:
   creation:
     failed: File couldn't be created!
-    done: File could be created!
+    done: File has been created!
 notimplementedyet: Not implemented yet.
 bukkitversion: "Bukkit version: _bukkitver"
 events:
