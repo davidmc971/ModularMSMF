@@ -5,7 +5,6 @@
 language:
   id: de_DE
   name: Deutsch
-#FIXME: most will say null for beginning
 player:
   name: Du musst einen Spieler angeben.
   nonexistant: Dieser Spieler existiert nicht.
