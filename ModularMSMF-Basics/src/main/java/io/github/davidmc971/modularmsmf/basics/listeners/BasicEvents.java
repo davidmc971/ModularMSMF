@@ -3,30 +3,21 @@ package io.github.davidmc971.modularmsmf.basics.listeners;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.event.server.TabCompleteEvent;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import io.github.davidmc971.modularmsmf.basics.commands.CommandChannels;
-import io.github.davidmc971.modularmsmf.basics.util.ChatUtils;
 import io.github.davidmc971.modularmsmf.basics.util.KillType;
 import io.github.davidmc971.modularmsmf.basics.util.PlayerKillConfig;
-import io.github.davidmc971.modularmsmf.basics.util.ChatUtils.ChannelPrefix;
-import io.github.davidmc971.modularmsmf.core.commands.CommandListPlayers;
 import io.github.davidmc971.modularmsmf.core.listeners.CoreEvents;
 import io.github.davidmc971.modularmsmf.core.util.Utils;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
-import io.papermc.paper.event.player.AsyncChatEvent;
 import net.kyori.adventure.text.Component;
 
 /**
