@@ -123,6 +123,7 @@ public class CommandModularMSMF implements IModularMSMFCommand {
 		 * TODO: will be implemented. otherwise discord/github for reporting bugs.
 		 */
 		Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "notimplementedyet");
+		sender.sendMessage("https://discord.gg/J82qeUhrrP <-- For reports atm");
 	}
 
 	private void mmsmfDiscord(CommandSender sender, String[] args) {
