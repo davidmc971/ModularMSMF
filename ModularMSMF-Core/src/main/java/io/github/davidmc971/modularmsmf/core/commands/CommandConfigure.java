@@ -11,25 +11,23 @@ public class CommandConfigure implements IModularMSMFCommand{
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
             @NotNull String[] args) {
-        // TODO Auto-generated method stub
+        // TODO code
         return false;
     }
 
     @Override
     public String Label() {
-        // TODO Auto-generated method stub
-        return null;
+        return "configure";
     }
 
     @Override
     public String[] Aliases() {
-        // TODO Auto-generated method stub
-        return null;
+        return new String[] {"config", "conf"};
     }
 
     @Override
     public boolean Enabled() {
-        // TODO Auto-generated method stub
+        // TODO enable
         return false;
     }
     
