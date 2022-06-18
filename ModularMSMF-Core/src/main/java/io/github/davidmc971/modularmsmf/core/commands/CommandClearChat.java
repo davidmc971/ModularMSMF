@@ -13,10 +13,12 @@ import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
 import io.github.davidmc971.modularmsmf.core.util.ChatUtils;
 import io.github.davidmc971.modularmsmf.core.util.Utils;
 
+/**
+ * ClearChat - Clear the whole chat of the server or the specific client
+ * It only fills the chat with empty spaces 99 times just to be sure everything
+ * is gone, which shouldn't be read.
+ */
 public class CommandClearChat implements IModularMSMFCommand {
-
-    int count = 0;
-
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
         if (!PermissionManager.checkPermission(sender, "clear_command")) {
             ChatUtils.sendMsgNoPerm(sender);
@@ -28,54 +30,45 @@ public class CommandClearChat implements IModularMSMFCommand {
                         "arguments.toomany");
                 break;
             case 0:
-                clearSelf(sender, cmd, commandLabel, args);
-                break;
             case 1:
-                clearOthers(sender, cmd, commandLabel, args);
+                UUID target = null;
+                clearChat(target, sender, args);
                 break;
         }
         return true;
     }
 
-    private void clearOthers(CommandSender sender, Command cmd, String commandLabel, String[] args) {
-        UUID target = null;
-        if (!PermissionManager.checkPermission(sender, "clear_target")) {
-            ChatUtils.sendMsgNoPerm(sender);
+    private void clearChat(UUID target, CommandSender sender, String args[]) {
+        int count = 0;
+        if (args.length == 0) {
+            while (count != 99) {
+                count++;
+                Bukkit.getOnlinePlayers().forEach((plr -> plr.sendMessage("")));
+            }
+            Utils.broadcastWithConfiguredLanguageEach(ChatFormat.SUCCESS, "commands.cclear.done");
             return;
         }
-        target = Utils.getPlayerUUIDByName(args[0]);
-        if (target == null) {
-            Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "player.notfound");
-            return;
-        }
-        for (Player p : Bukkit.getOnlinePlayers()) {
-            if (p.getUniqueId().toString().equalsIgnoreCase(target.toString())) {
-                Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
-                        "commands.cclear.others", "_target", p.getName());
-                while (count != 99) {
-                    count++;
-                    p.sendMessage("");
-                }
-                Utils.sendMessageWithConfiguredLanguage(p, ChatFormat.SUCCESS,
-                        "commands.cclear.done");
-                count = 0;
+        if (args.length == 1) {
+            target = Utils.getPlayerUUIDByName(args[0]);
+            if (target == null) {
+                Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "player.nonexistant");
                 return;
             }
+            for (Player p : Bukkit.getOnlinePlayers()) {
+                if (p.getUniqueId().toString().equalsIgnoreCase(target.toString())) {
+                    Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
+                            "commands.cclear.others", "_target", p.getName());
+                    while (count != 99) {
+                        count++;
+                        p.sendMessage("");
+                    }
+                    Utils.sendMessageWithConfiguredLanguage(p, ChatFormat.SUCCESS,
+                            "commands.cclear.done");
+                    count = 0;
+                    return;
+                }
+            }
         }
-    }
-
-    private void clearSelf(CommandSender sender, Command cmd, String commandLabel, String[] args) {
-        if (!PermissionManager.checkPermission(sender, "clear_all")) {
-            ChatUtils.sendMsgNoPerm(sender);
-            return;
-        }
-        while (count != 99) {
-            count++;
-            Bukkit.getOnlinePlayers().forEach((plr) -> plr.sendMessage(""));
-        }
-        Utils.broadcastWithConfiguredLanguageEach(ChatFormat.SUCCESS, "commands.cclear.done");
-        count = 0;
-        return;
     }
 
     @Override
