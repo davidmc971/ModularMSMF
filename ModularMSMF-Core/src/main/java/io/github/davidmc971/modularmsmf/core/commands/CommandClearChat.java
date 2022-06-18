@@ -17,6 +17,8 @@ import io.github.davidmc971.modularmsmf.core.util.Utils;
  * ClearChat - Clear the whole chat of the server or the specific client
  * It only fills the chat with empty spaces 99 times just to be sure everything
  * is gone, which shouldn't be read.
+ * @author  Lightkeks (Alexandre Lardeux)
+ *          davidmc971 (David Alexander Pfeiffer)
  */
 public class CommandClearChat implements IModularMSMFCommand {
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
