@@ -4,21 +4,12 @@ import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
 import io.github.davidmc971.modularmsmf.basics.util.ChatUtil.ChatFormat;
 
 public class PlayerAvailability {
     public static boolean isPlayerExistant(UUID uuid) {
-        if (uuid == null)
-            return false;
-
-        for (Player p : Bukkit.getOnlinePlayers()) {
-            if (p.getUniqueId().equals(uuid))
-                return true;
-        }
-
-        return Bukkit.getPlayer(uuid) != null;
+        return uuid != null || Bukkit.getPlayer(uuid) != null || Bukkit.getOfflinePlayer(uuid) != null;
     }
 
     public static void checkPlayer(CommandSender sender, UUID uuid, String[] args) {
