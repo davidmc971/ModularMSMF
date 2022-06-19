@@ -16,6 +16,7 @@ player:
     other: _player ist im Kreativmodus!
   offline: _player ist momentan offline!
   nonexistant: Dieser Spieler existiert nicht!
+  nopermission: Du hast keine Rechte.
 #Arguments specific language strings
 arguments:
   missing_name: Du musst einen Spielernamen angeben!
@@ -51,7 +52,10 @@ events:
 commands:
   invalid: Falscher Befehl.
   slaughter:
-    success: Alle Mobs in deiner Nähe wurden getötet.
+    success: _count Mobs in deiner Nähe wurden getötet.
+    passive: _count passive Mobs in deiner Nähe wurden getötet.
+    single_succ: _count Mob in deiner Nähe wurde getötet.
+    single_pass: _count passiver Mob in deiner Nähe wurde getötet.
   ban:
     already: Dieser Spieler ist schon gebannt.
     cant: Du kannst _player nicht bannen!

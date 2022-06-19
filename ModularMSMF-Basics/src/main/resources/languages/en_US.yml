@@ -16,6 +16,7 @@ player:
     others: _player is in creative!
   offline: _player is currently offline!
   nonexistant: This player was never here before!
+  nopermission: You don't have permission!
 #Arguments specific language strings
 arguments:
   missing_name: You have to specify a player name!
@@ -51,7 +52,10 @@ events:
 commands:
   invalid: Wrong command.
   slaughter:
-    success: All mobs got killed.
+    success: _count mobs got killed.
+    passive: _count passive mobs got killed.
+    single_succ: _count mob got killed.
+    single_pass: _count passive mob got killed.
   ban:
     already: This player got banned already.
     cant: You cannot ban _player!
