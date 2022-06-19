@@ -15,6 +15,7 @@ import io.github.davidmc971.modularmsmf.basics.PermissionManager;
 import io.github.davidmc971.modularmsmf.basics.util.Util;
 import io.github.davidmc971.modularmsmf.basics.util.ChatUtil.ChatFormat;
 import io.github.davidmc971.modularmsmf.basics.util.ChatUtil;
+import io.github.davidmc971.modularmsmf.basics.util.PlayerAviability;
 
 /**
  * <h4>Basic command for return to last place</h4>
@@ -40,7 +41,7 @@ public class CommandBack implements IModularMSMFCommand {
                     ChatUtil.sendMsgNoPerm(sender);
                     return true;
                 }
-                backPlayer(sender, args);
+                backPlayer(sender, command, args);
                 break;
             default:
                 Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "arguments.toomany");
@@ -49,34 +50,27 @@ public class CommandBack implements IModularMSMFCommand {
         return true;
     }
 
-    private void backPlayer(CommandSender sender, String[] args) {
+    private void backPlayer(CommandSender sender, Command command, String[] args) {
         UUID target = null;
         target = Util.getPlayerUUIDByName(args[0]);
-        if (target == null) {
-            Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "player.nonexistant");
+        Player player = Bukkit.getPlayer(target);
+        if (!PlayerAviability.isPlayerExistant(sender, player, command, args)) {
             return;
         }
-        for (Player p : Bukkit.getOnlinePlayers()) {
-            if (p.getUniqueId().toString().equalsIgnoreCase(target.toString())) {
-                if (sender == p) {
-                    backSender(sender, args);
-                    return;
-                }
-                if (CoreEvents.lastLocation.containsKey(p.getName())) {
-                    Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
-                            "commands.back.other.success", "_player", p.getName());
-                    Util.sendMessageWithConfiguredLanguage(p, ChatFormat.SUCCESS,
-                            "commands.back.other.done");
-                    p.teleport(CoreEvents.lastLocation.get(p.getName()));
-                    return;
-                }
-                Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
-                        "commands.back.other.error", "_player", p.getName());
-                return;
-            }
+        if (sender == player) {
+            backSender(sender, args);
+            return;
+        }
+        if (CoreEvents.lastLocation.containsKey(player.getName())) {
+            Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
+                    "commands.back.other.success", "_player", player.getName());
+            Util.sendMessageWithConfiguredLanguage(player, ChatFormat.SUCCESS,
+                    "commands.back.other.done");
+            player.teleport(CoreEvents.lastLocation.get(player.getName()));
+            return;
         }
         Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
-                "player.offline", "_player", args[0]);
+                "commands.back.other.error", "_player", player.getName());
         return;
     }
 

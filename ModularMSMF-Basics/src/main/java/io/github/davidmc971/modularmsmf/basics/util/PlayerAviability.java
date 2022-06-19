@@ -61,6 +61,9 @@ public class PlayerAviability {
                 Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "player.nonexistant");
                 return;
             }
+            // if (plroff == sender) {
+            // return;
+            // }
             Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                     "player.offline", "_player", player.getName());
         }
