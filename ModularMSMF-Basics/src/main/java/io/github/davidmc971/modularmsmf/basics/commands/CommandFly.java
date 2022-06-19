@@ -3,6 +3,7 @@ package io.github.davidmc971.modularmsmf.basics.commands;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -61,28 +62,29 @@ public class CommandFly implements IModularMSMFCommand {
 
     private boolean toggleFlightPlayer(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
             @NotNull String[] args) {
-        UUID target = null;
-        target = Util.getPlayerUUIDByName(args[0]);
+        UUID target = Util.getPlayerUUIDByName(args[0]);
         Player player = Bukkit.getPlayer(target);
-        if (!CommandUtil.isPlayerEligible(sender, player, command)) {
+        if (!CommandUtil.isPlayerEligible(sender, player, command, args)) {
             return false;
         }
         if (sender == player) {
             return toggleFlightSender(sender, command, label, args);
         }
-        if (!player.getAllowFlight()) {
-            Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.FLY_ON,
-                    "commands.fly.others.settrue", "_player", player.getName());
-            Util.sendMessageWithConfiguredLanguage(player, ChatFormat.FLY_ON,
-                    "commands.fly.set_true");
-            player.setAllowFlight(true);
+        for (Player plron : Bukkit.getOnlinePlayers()) {
+            if (plron == player) {
+                toggleFlight(sender, command, label, args);
+                return true;
+            }
+        }
+        for (OfflinePlayer plroff : Bukkit.getOfflinePlayers()) {
+            if (plroff.getName() == args[0]) {
+                toggleFlight(sender, command, label, args);
+                return true;
+            }
+            Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "player.offline", "_player", args[0]);
             return true;
         }
-        Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.FLY_OFF,
-                "commands.fly.others.setfalse", "_player", player.getName());
-        Util.sendMessageWithConfiguredLanguage(player, ChatFormat.FLY_OFF,
-                "commands.fly.setfalse");
-        player.setAllowFlight(false);
+        Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "player.nonexistant");
         return true;
     }
 
@@ -100,6 +102,25 @@ public class CommandFly implements IModularMSMFCommand {
         Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.FLY_OFF,
                 "commands.fly.setfalse");
         return true;
+    }
+
+    private void toggleFlight(CommandSender sender, Command command, String label, String[] args) {
+        UUID target = Util.getPlayerUUIDByName(args[0]);
+        Player player = Bukkit.getPlayer(target);
+        if (!player.getAllowFlight()) {
+            Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.FLY_ON,
+                    "commands.fly.others.settrue", "_player", player.getName());
+            Util.sendMessageWithConfiguredLanguage(player, ChatFormat.FLY_ON,
+                    "commands.fly.set_true");
+            player.setAllowFlight(true);
+            return;
+        }
+        Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.FLY_OFF,
+                "commands.fly.others.setfalse", "_player", player.getName());
+        Util.sendMessageWithConfiguredLanguage(player, ChatFormat.FLY_OFF,
+                "commands.fly.setfalse");
+        player.setAllowFlight(false);
+        return;
     }
 
     @Override

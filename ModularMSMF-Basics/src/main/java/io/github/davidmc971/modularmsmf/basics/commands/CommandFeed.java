@@ -17,8 +17,9 @@ import io.github.davidmc971.modularmsmf.basics.util.ChatUtil;
 /**
  * Feed players
  * #need rewrite
+ *
  * @author Lightkeks
- * 
+ *
  */
 
 public class CommandFeed implements IModularMSMFCommand {
@@ -27,34 +28,31 @@ public class CommandFeed implements IModularMSMFCommand {
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		switch (args.length) {
 			case 0:
+				if (!PermissionManager.checkPermission(sender, "feed_self")) {
+					ChatUtil.sendMsgNoPerm(sender);
+					return true;
+				}
+				if (!CommandUtil.isSenderEligible(sender, command)) {
+					return false;
+				}
+				feedSelf(sender, command, label, args);
+				break;
 			case 1:
-				handlePlayers(sender, command, label, args);
+				if (!PermissionManager.checkPermission(sender, "feed_others")) {
+					ChatUtil.sendMsgNoPerm(sender);
+					return true;
+				}
+				feedOthers(sender, command, label, args);
 				break;
 			default:
 				Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
-						"commands.arguments.toomany");
+						"arguments.toomany");
 				break;
 		}
 		return true;
 	}
 
-	private void handlePlayers(CommandSender sender, Command command, String label, String[] args) {
-		if (args.length == 0) {
-			feedSelf(sender, command, label, args);
-		}
-		if (args.length == 1) {
-			feedOthers(sender, command, label, args);
-		}
-	}
-
 	private boolean feedSelf(CommandSender sender, Command command, String label, String[] args) {
-		if (!PermissionManager.checkPermission(sender, "feed_self")) {
-			ChatUtil.sendMsgNoPerm(sender);
-			return true;
-		}
-		if (!CommandUtil.isSenderEligible(sender, command)) {
-			return false;
-		}
 		Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.FEED, "commands.feed.feeded");
 		((Player) sender).setFoodLevel(20);
 		return true;
@@ -64,11 +62,7 @@ public class CommandFeed implements IModularMSMFCommand {
 		UUID target = null;
 		target = Util.getPlayerUUIDByName(args[0]);
 		Player player = Bukkit.getPlayer(target);
-		if (!PermissionManager.checkPermission(sender, "feed_others")) {
-			ChatUtil.sendMsgNoPerm(sender);
-			return true;
-		}
-		if (!CommandUtil.isPlayerEligible(sender, player, command)) {
+		if (!CommandUtil.isPlayerEligible(sender, player, command, args)) {
 			return false;
 		}
 		if (sender == player) {
