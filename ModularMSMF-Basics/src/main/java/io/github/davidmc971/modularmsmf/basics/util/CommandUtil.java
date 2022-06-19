@@ -32,6 +32,8 @@ public class CommandUtil {
                         break;
                 }
                 switch (command.getLabel().toLowerCase()) {
+                    case "slaughter":
+                        break;
                     case "feed":
                         break;
                     case "fly":
@@ -70,6 +72,8 @@ public class CommandUtil {
                 break;
         }
         switch (command.getLabel().toLowerCase()) {
+            case "slaughter":
+                break;
             case "feed":
                 break;
             case "fly":

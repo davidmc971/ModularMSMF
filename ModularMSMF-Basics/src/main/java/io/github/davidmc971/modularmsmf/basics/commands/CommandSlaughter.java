@@ -23,8 +23,45 @@ public class CommandSlaughter implements IModularMSMFCommand {
 			return true;
 		}
 		if (!CommandUtil.isSenderEligible(sender, command)) {
-			return false;
+			return true;
 		}
+		switch (args.length) {
+			case 0:
+				slayAllMobs(sender, args);
+				break;
+			case 1:
+				slaySpecificMobs(sender, args);
+				break;
+			default:
+				Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
+						"arguments.toomany");
+				break;
+		}
+		return true;
+	}
+
+	private void slaySpecificMobs(CommandSender sender, String[] args) {
+		int count = ((Player) sender).getWorld().getEntities().size() - 1;
+		String sCount = Integer.toString(count);
+		Location playerloc = ((Player) sender).getLocation();
+		if (args.length == 1 && args[0].equalsIgnoreCase("passive")) {
+			for (Entity e : ((Player) sender).getWorld().getNearbyEntities(playerloc, 500, 500, 500)) {
+				if (!(e instanceof Player) && (e instanceof Animals)) {
+					e.remove();
+				}
+			}
+			if (count == 1) {
+				Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS, "commands.slaughter.single_pass",
+						"_count", sCount);
+				return;
+			}
+			Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
+					"commands.slaughter.passive", "_count", sCount);
+			return;
+		}
+	}
+
+	private void slayAllMobs(CommandSender sender, String[] args) {
 		int count = ((Player) sender).getWorld().getEntities().size() - 1;
 		String sCount = Integer.toString(count);
 		Location playerloc = ((Player) sender).getLocation();
@@ -37,35 +74,12 @@ public class CommandSlaughter implements IModularMSMFCommand {
 			if (count == 1) {
 				Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS, "commands.slaughter.single_succ",
 						"_count", sCount);
-			} else {
-				Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
-						"commands.slaughter.success", "_count", sCount);
-				return true;
+				return;
 			}
-			return true;
+			Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
+					"commands.slaughter.success", "_count", sCount);
+			return;
 		}
-		if (args.length == 1 && args[0].equalsIgnoreCase("passive")) {
-			for (Entity e : ((Player) sender).getWorld().getNearbyEntities(playerloc, 500, 500, 500)) {
-				if (!(e instanceof Player) && (e instanceof Animals)) {
-					e.remove();
-				}
-			}
-			if (count == 1) {
-				Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS, "commands.slaughter.single_pass",
-						"_count", sCount);
-			} else {
-				Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
-						"commands.slaughter.passive", "_count", sCount);
-				return true;
-			}
-			return true;
-		}
-		if (args.length <= 2) {
-			Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
-					"arguments.toomany");
-			return true;
-		}
-		return true;
 	}
 
 	@Override

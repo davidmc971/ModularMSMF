@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.basics.PermissionManager;
 import io.github.davidmc971.modularmsmf.basics.util.CommandUtil;
+import io.github.davidmc971.modularmsmf.basics.util.PlayerAviability;
 import io.github.davidmc971.modularmsmf.basics.util.Util;
 import io.github.davidmc971.modularmsmf.basics.util.ChatUtil.ChatFormat;
 import io.github.davidmc971.modularmsmf.basics.util.ChatUtil;
@@ -76,14 +77,10 @@ public class CommandFly implements IModularMSMFCommand {
             toggleFlightSender(sender, command, label, args);
             return true;
         }
-        for (Player plron : Bukkit.getOnlinePlayers()) {
-            if (plron == player) {
-                toggleFlight(sender, command, label, args);
-                return true;
-            }
+        if (!PlayerAviability.isPlayerExistant(sender, player, command, args)) {
+            return true;
         }
-        Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
-                "player.offline", "_player", args[0]);
+        toggleFlight(sender, command, label, args);
         return true;
     }
 
