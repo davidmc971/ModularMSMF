@@ -6,6 +6,7 @@
 language:
   id: en_US
   name: English
+noconsole: NOPE
 player:
   spectator:
     self: You're spectating!

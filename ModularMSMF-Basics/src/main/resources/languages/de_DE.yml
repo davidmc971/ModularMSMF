@@ -6,6 +6,7 @@
 language:
   id: de_DE
   name: Deutsch
+noconsole: NOPE
 player:
   spectator:
     self: Du bist im Beobachtungsmodus!
