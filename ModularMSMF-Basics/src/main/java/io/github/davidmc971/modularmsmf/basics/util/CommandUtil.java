@@ -7,9 +7,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
-import io.github.davidmc971.modularmsmf.core.util.ChatUtils;
-import io.github.davidmc971.modularmsmf.core.util.Utils;
-import io.github.davidmc971.modularmsmf.core.util.ChatUtils.ChatFormat;
+import io.github.davidmc971.modularmsmf.basics.util.ChatUtil.ChatFormat;
 
 public class CommandUtil {
 
@@ -21,12 +19,12 @@ public class CommandUtil {
             if (plron == player) {
                 switch (player.getGameMode()) {
                     case CREATIVE:
-                        Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
+                        Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                                 "player.creative.others",
                                 "_player", player.getName());
                         return false;
                     case SPECTATOR:
-                        Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
+                        Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                                 "player.spectator.others",
                                 "_player", player.getName());
                         return false;
@@ -40,7 +38,7 @@ public class CommandUtil {
                         break;
                     default:
                         if (((Player) sender).getWorld().getDifficulty() == Difficulty.PEACEFUL) {
-                            Utils.sendMessageWithConfiguredLanguage(sender,
+                            Util.sendMessageWithConfiguredLanguage(sender,
                                     ChatFormat.ERROR,
                                     "player.peaceful");
                             return false;
@@ -49,23 +47,23 @@ public class CommandUtil {
                 return true;
             }
         }
-        Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
+        Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                 "player.offline");
         return false;
     }
 
     public static boolean isSenderEligible(CommandSender sender, Command command) {
         if (sender instanceof ConsoleCommandSender) {
-            ChatUtils.sendMsgNoPerm(sender);
+            ChatUtil.sendMsgNoPerm(sender);
             return false;
         }
         switch (((Player) sender).getGameMode()) {
             case CREATIVE:
-                Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
+                Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                         "player.creative.self");
                 return false;
             case SPECTATOR:
-                Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
+                Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                         "player.spectator.self");
                 return false;
             default:
@@ -76,7 +74,7 @@ public class CommandUtil {
                 break;
             default:
                 if (((Player) sender).getWorld().getDifficulty() == Difficulty.PEACEFUL) {
-                    Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
+                    Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                             "player.peaceful", "_worldname", Bukkit.getServer().getWorldContainer().toString());
                     return false;
                 }
