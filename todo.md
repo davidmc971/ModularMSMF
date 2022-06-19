@@ -40,12 +40,12 @@ Core Module
 
 Basics Module 
   - review all commands and rewrite if neccessary
-      - back (done, 100%)
+      - back (done, 100%) # TODO:
       - ban
       - channels
       - clearinventory
-      - feed (done, 75%)
-      - fly (done, 80%)
+      - feed (done, 100%) # TODO:
+      - fly (done, 100%) # TODO:
       - get
       - heal
       - healall
