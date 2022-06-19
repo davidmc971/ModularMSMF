@@ -51,6 +51,7 @@ public class CommandBack implements IModularMSMFCommand {
             if (p.getUniqueId().toString().equalsIgnoreCase(target.toString())) {
                 if (sender == p) {
                     backSender(sender, args);
+                    return;
                 }
                 if (CoreEvents.lastLocation.containsKey(p.getName())) {
                     Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
