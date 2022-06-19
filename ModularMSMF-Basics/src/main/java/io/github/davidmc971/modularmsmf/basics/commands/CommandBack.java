@@ -16,9 +16,7 @@ import io.github.davidmc971.modularmsmf.basics.util.Util;
 import io.github.davidmc971.modularmsmf.basics.util.ChatUtil.ChatFormat;
 import io.github.davidmc971.modularmsmf.basics.util.ChatUtil;
 
-/** <h3>!! UPDATED !! NO NEED TO REWRITE !!</h3>
- * <b>!! FULLY STABLE !!</b>
- *
+/**
  * <h4>Basic command for return to last place</h4>
  * Usage: /back 'optional:username'
  * @author Lightkeks (Alex)
