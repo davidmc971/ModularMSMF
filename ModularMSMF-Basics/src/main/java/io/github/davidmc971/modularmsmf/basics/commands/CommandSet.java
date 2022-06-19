@@ -187,7 +187,7 @@ public class CommandSet implements IModularMSMFCommand {
                 ChatUtil.sendMsgNoPerm(sender);
                 return true;
             }
-            if (!CommandUtil.isPlayerEligible(sender, player, command)) {
+            if (!CommandUtil.isPlayerEligible(sender, player, command, args)) {
                 return false;
             }
             if (player == sender) {
@@ -244,7 +244,7 @@ public class CommandSet implements IModularMSMFCommand {
                 ChatUtil.sendMsgNoPerm(sender);
                 return true;
             }
-            if (!CommandUtil.isPlayerEligible(sender, player, command)) {
+            if (!CommandUtil.isPlayerEligible(sender, player, command, args)) {
                 return false;
             }
             if (player == sender) {
@@ -301,7 +301,7 @@ public class CommandSet implements IModularMSMFCommand {
                 ChatUtil.sendMsgNoPerm(sender);
                 return true;
             }
-            if (!CommandUtil.isPlayerEligible(sender, player, command)) {
+            if (!CommandUtil.isPlayerEligible(sender, player, command, args)) {
                 return false;
             }
             if (player == sender) {
@@ -362,7 +362,7 @@ public class CommandSet implements IModularMSMFCommand {
                 ChatUtil.sendMsgNoPerm(sender);
                 return true;
             }
-            if (!CommandUtil.isPlayerEligible(sender, player, command)) {
+            if (!CommandUtil.isPlayerEligible(sender, player, command, args)) {
                 return false;
             }
             if (player == sender) {
@@ -421,7 +421,7 @@ public class CommandSet implements IModularMSMFCommand {
                 ChatUtil.sendMsgNoPerm(sender);
                 return true;
             }
-            if (!CommandUtil.isPlayerEligible(sender, player, command)) {
+            if (!CommandUtil.isPlayerEligible(sender, player, command, args)) {
                 return false;
             }
             if (player == sender) {
