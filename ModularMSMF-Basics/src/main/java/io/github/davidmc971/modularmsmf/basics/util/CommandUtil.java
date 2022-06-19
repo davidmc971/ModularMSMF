@@ -11,7 +11,7 @@ import io.github.davidmc971.modularmsmf.basics.util.ChatUtil.ChatFormat;
 
 public class CommandUtil {
 
-    public static boolean isPlayerEligible(CommandSender sender, Player player, Command command) {
+    public static boolean isPlayerEligible(CommandSender sender, Player player, Command command, String[] args) {
         if (player == sender) {
             return isSenderEligible(sender, command);
         }
@@ -33,9 +33,7 @@ public class CommandUtil {
                 }
                 switch (command.getLabel().toLowerCase()) {
                     case "fly":
-                        break;
-                    case "heal":
-                        break;
+                    break;
                     default:
                         if (((Player) sender).getWorld().getDifficulty() == Difficulty.PEACEFUL) {
                             Util.sendMessageWithConfiguredLanguage(sender,
@@ -44,12 +42,10 @@ public class CommandUtil {
                             return false;
                         }
                 }
-                return true;
+                return false;
             }
         }
-        Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
-                "player.offline");
-        return false;
+        return true;
     }
 
     public static boolean isSenderEligible(CommandSender sender, Command command) {
