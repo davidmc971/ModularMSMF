@@ -40,12 +40,12 @@ Core Module
 
 Basics Module 
   - review all commands and rewrite if neccessary
-      - back
+      - back (done, 100%)
       - ban
       - channels
       - clearinventory
-      - feed (done)
-      - fly
+      - feed (done, 75%)
+      - fly (done, 80%)
       - get
       - heal
       - healall
@@ -58,7 +58,7 @@ Basics Module
       - mute
       - set
       - setspawn
-      - slaughter
+      - slaughter (done)
       - spawn
       - stats
       - teleport
