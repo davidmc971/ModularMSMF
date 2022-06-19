@@ -33,7 +33,7 @@ public class CommandUtil {
                 }
                 switch (command.getLabel().toLowerCase()) {
                     case "fly":
-                    break;
+                        break;
                     default:
                         if (((Player) sender).getWorld().getDifficulty() == Difficulty.PEACEFUL) {
                             Util.sendMessageWithConfiguredLanguage(sender,
@@ -41,9 +41,11 @@ public class CommandUtil {
                                     "player.peaceful");
                             return false;
                         }
+                        return true;
                 }
-                return false;
+                return true;
             }
+            return false;
         }
         return true;
     }
@@ -74,6 +76,7 @@ public class CommandUtil {
                             "player.peaceful", "_worldname", Bukkit.getServer().getWorldContainer().toString());
                     return false;
                 }
+                return false;
         }
         return true;
     }

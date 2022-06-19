@@ -49,14 +49,18 @@ public class CommandFly implements IModularMSMFCommand {
         if (args.length == 0) {
             if (!PermissionManager.checkPermission(sender, "fly_self")) {
                 ChatUtil.sendMsgNoPerm(sender);
+                return;
             }
             toggleFlightSender(sender, command, label, args);
+            return;
         }
         if (args.length == 1) {
             if (!PermissionManager.checkPermission(sender, "fly_others")) {
                 ChatUtil.sendMsgNoPerm(sender);
+                return;
             }
             toggleFlightPlayer(sender, command, label, args);
+            return;
         }
     }
 
@@ -68,7 +72,8 @@ public class CommandFly implements IModularMSMFCommand {
             return false;
         }
         if (sender == player) {
-            return toggleFlightSender(sender, command, label, args);
+            toggleFlightSender(sender, command, label, args);
+            return true;
         }
         for (Player plron : Bukkit.getOnlinePlayers()) {
             if (plron == player) {
@@ -77,14 +82,13 @@ public class CommandFly implements IModularMSMFCommand {
             }
         }
         for (OfflinePlayer plroff : Bukkit.getOfflinePlayers()) {
-            if (plroff.getName() == args[0]) {
-                toggleFlight(sender, command, label, args);
+            if (plroff.getUniqueId().equals(target)) {
+                Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "player.offline", "_player", args[0]);
                 return true;
             }
-            Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "player.offline", "_player", args[0]);
+            Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "player.nonexistant");
             return true;
         }
-        Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "player.nonexistant");
         return true;
     }
 
@@ -111,7 +115,7 @@ public class CommandFly implements IModularMSMFCommand {
             Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.FLY_ON,
                     "commands.fly.others.settrue", "_player", player.getName());
             Util.sendMessageWithConfiguredLanguage(player, ChatFormat.FLY_ON,
-                    "commands.fly.set_true");
+                    "commands.fly.settrue");
             player.setAllowFlight(true);
             return;
         }
