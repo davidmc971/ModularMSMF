@@ -106,6 +106,7 @@ public class ChatUtil {
 		if (sender instanceof Player) {
 			Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.NOPERM,
 					"player.nopermission");
+					return;
 		} else {
 			Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.CONSOLE, "noconsole");
 		}
