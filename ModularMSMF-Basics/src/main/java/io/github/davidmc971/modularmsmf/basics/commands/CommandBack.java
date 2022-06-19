@@ -19,8 +19,9 @@ import io.github.davidmc971.modularmsmf.basics.util.ChatUtil;
 /**
  * <h4>Basic command for return to last place</h4>
  * Usage: /back 'optional:username'
+ *
  * @author Lightkeks (Alex)
-*/
+ */
 
 public class CommandBack implements IModularMSMFCommand {
 
@@ -30,12 +31,14 @@ public class CommandBack implements IModularMSMFCommand {
             case 0:
                 if (!PermissionManager.checkPermission(sender, "back") || sender instanceof ConsoleCommandSender) {
                     ChatUtil.sendMsgNoPerm(sender);
+                    return true;
                 }
                 backSender(sender, args);
                 break;
             case 1:
                 if (!PermissionManager.checkPermission(sender, "back_others")) {
                     ChatUtil.sendMsgNoPerm(sender);
+                    return true;
                 }
                 backPlayer(sender, args);
                 break;
@@ -73,7 +76,7 @@ public class CommandBack implements IModularMSMFCommand {
             }
         }
         Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
-                "player.offline");
+                "player.offline", "_player", args[0]);
         return;
     }
 
