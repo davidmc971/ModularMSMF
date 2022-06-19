@@ -15,7 +15,7 @@ import io.github.davidmc971.modularmsmf.basics.PermissionManager;
 import io.github.davidmc971.modularmsmf.basics.util.Util;
 import io.github.davidmc971.modularmsmf.basics.util.ChatUtil.ChatFormat;
 import io.github.davidmc971.modularmsmf.basics.util.ChatUtil;
-import io.github.davidmc971.modularmsmf.basics.util.PlayerAviability;
+import io.github.davidmc971.modularmsmf.basics.util.PlayerAvailability;
 
 /**
  * <h4>Basic command for return to last place</h4>
@@ -54,7 +54,7 @@ public class CommandBack implements IModularMSMFCommand {
         UUID target = null;
         target = Util.getPlayerUUIDByName(args[0]);
         Player player = Bukkit.getPlayer(target);
-        if (!PlayerAviability.isPlayerExistant(sender, player, command, args)) {
+        if (!PlayerAvailability.isPlayerExistant(target)) {
             return;
         }
         if (sender == player) {

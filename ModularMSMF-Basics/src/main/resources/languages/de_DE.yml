@@ -15,6 +15,7 @@ player:
   creative:
     self: Du bist im Kreativmodus!
     other: _player ist im Kreativmodus!
+  online: _player ist online!
   offline: _player ist momentan offline!
   nonexistant: Dieser Spieler existiert nicht!
   nopermission: Du hast keine Rechte.

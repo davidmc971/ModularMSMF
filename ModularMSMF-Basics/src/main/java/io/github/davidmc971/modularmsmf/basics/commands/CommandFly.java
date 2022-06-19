@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.basics.PermissionManager;
 import io.github.davidmc971.modularmsmf.basics.util.CommandUtil;
-import io.github.davidmc971.modularmsmf.basics.util.PlayerAviability;
+import io.github.davidmc971.modularmsmf.basics.util.PlayerAvailability;
 import io.github.davidmc971.modularmsmf.basics.util.Util;
 import io.github.davidmc971.modularmsmf.basics.util.ChatUtil.ChatFormat;
 import io.github.davidmc971.modularmsmf.basics.util.ChatUtil;
@@ -52,7 +52,7 @@ public class CommandFly implements IModularMSMFCommand {
         UUID target = null;
         target = Util.getPlayerUUIDByName(args[0]);
         Player player = Bukkit.getPlayer(target);
-        if (!PlayerAviability.isPlayerExistant(sender, player, command, args)) {
+        if (!PlayerAvailability.isPlayerExistant(target)) {
             return true;
         }
         if (!CommandUtil.isPlayerEligible(sender, player, command, args)) {

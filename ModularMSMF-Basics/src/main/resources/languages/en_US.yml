@@ -15,6 +15,7 @@ player:
   creative:
     self: You're in creative!
     others: _player is in creative!
+  online: _player is online!
   offline: _player is currently offline!
   nonexistant: This player was never here before!
   nopermission: You don't have permission!
