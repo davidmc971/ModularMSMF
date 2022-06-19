@@ -3,11 +3,9 @@ package io.github.davidmc971.modularmsmf.basics.commands;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.NotNull;
 
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.basics.PermissionManager;
@@ -25,8 +23,7 @@ import io.github.davidmc971.modularmsmf.basics.util.ChatUtil;
 public class CommandFly implements IModularMSMFCommand {
 
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
-            @NotNull String[] args) {
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!PermissionManager.checkPermission(sender, "fly_use")) {
             ChatUtil.sendMsgNoPerm(sender);
             return true;
@@ -44,30 +41,34 @@ public class CommandFly implements IModularMSMFCommand {
         return true;
     }
 
-    private void handleFlight(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
-            @NotNull String[] args) {
+    private boolean handleFlight(CommandSender sender, Command command, String label, String[] args) {
         if (args.length == 0) {
             if (!PermissionManager.checkPermission(sender, "fly_self")) {
                 ChatUtil.sendMsgNoPerm(sender);
-                return;
+                return true;
             }
             toggleFlightSender(sender, command, label, args);
-            return;
+            return true;
         }
         if (args.length == 1) {
             if (!PermissionManager.checkPermission(sender, "fly_others")) {
                 ChatUtil.sendMsgNoPerm(sender);
-                return;
+                return true;
             }
             toggleFlightPlayer(sender, command, label, args);
-            return;
+            return true;
         }
+        return true;
     }
 
-    private boolean toggleFlightPlayer(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
-            @NotNull String[] args) {
-        UUID target = Util.getPlayerUUIDByName(args[0]);
+    private boolean toggleFlightPlayer(CommandSender sender, Command command, String label, String[] args) {
+        UUID target = null;
+        target = Util.getPlayerUUIDByName(args[0]);
         Player player = Bukkit.getPlayer(target);
+        if (target == null) {
+            Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "player.nonexistant");
+            return true;
+        }
         if (!CommandUtil.isPlayerEligible(sender, player, command, args)) {
             return false;
         }
@@ -81,14 +82,8 @@ public class CommandFly implements IModularMSMFCommand {
                 return true;
             }
         }
-        for (OfflinePlayer plroff : Bukkit.getOfflinePlayers()) {
-            if (plroff.getUniqueId().equals(target)) {
-                Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "player.offline", "_player", args[0]);
-                return true;
-            }
-            Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "player.nonexistant");
-            return true;
-        }
+        Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
+                "player.offline", "_player", args[0]);
         return true;
     }
 

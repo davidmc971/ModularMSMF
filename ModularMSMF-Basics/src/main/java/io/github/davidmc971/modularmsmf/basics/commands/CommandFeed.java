@@ -3,7 +3,6 @@ package io.github.davidmc971.modularmsmf.basics.commands;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -17,7 +16,6 @@ import io.github.davidmc971.modularmsmf.basics.util.ChatUtil;
 
 /**
  * Feed players
- * #need rewrite
  *
  * @author Lightkeks
  *
@@ -50,24 +48,29 @@ public class CommandFeed implements IModularMSMFCommand {
 		return true;
 	}
 
-	private boolean feedSelf(CommandSender sender, Command command, String label, String[] args) {
+	private void feedSelf(CommandSender sender, Command command, String label, String[] args) {
 		if (!CommandUtil.isSenderEligible(sender, command)) {
-			return true;
+			return;
 		}
 		((Player) sender).setFoodLevel(20);
 		Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.FEED, "commands.feed.feeded");
-		return true;
+		return;
 	}
 
-	private boolean feedOthers(CommandSender sender, Command command, String label, String[] args) {
-		UUID target = Util.getPlayerUUIDByName(args[0]);
+	private void feedOthers(CommandSender sender, Command command, String label, String[] args) {
+		UUID target = null;
+		target = Util.getPlayerUUIDByName(args[0]);
 		Player player = Bukkit.getPlayer(target);
+		if (target == null) {
+			Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "player.nonexistant");
+			return;
+		}
 		if (!CommandUtil.isPlayerEligible(sender, player, command, args)) {
-			return true;
+			return;
 		}
 		if (sender == player) {
 			feedSelf(sender, command, label, args);
-			return true;
+			return;
 		}
 		for (Player plron : Bukkit.getOnlinePlayers()) {
 			if (plron == player) {
@@ -76,19 +79,12 @@ public class CommandFeed implements IModularMSMFCommand {
 				Util.sendMessageWithConfiguredLanguage(player, ChatFormat.FEED,
 						"commands.feed.others.feeded", "_sender", sender.getName());
 				player.setFoodLevel(20);
-				return true;
+				return;
 			}
-			return true;
 		}
-		for (OfflinePlayer plroff : Bukkit.getOfflinePlayers()) {
-			if (plroff.getUniqueId().equals(target)) {
-				Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "player.offline", "_player", args[0]);
-				return true;
-			}
-			Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "player.nonexistant");
-			return true;
-		}
-		return true;
+		Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
+				"player.offline", "_player", args[0]);
+		return;
 	}
 
 	@Override
