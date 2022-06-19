@@ -31,8 +31,14 @@ public class CommandFly implements IModularMSMFCommand {
         }
         switch (args.length) {
             case 0:
+                toggleFlightSender(sender, command, label, args);
+                break;
             case 1:
-                handleFlight(sender, command, label, args);
+                if (!PermissionManager.checkPermission(sender, "fly_others")) {
+                    ChatUtil.sendMsgNoPerm(sender);
+                    return true;
+                }
+                toggleFlightPlayer(sender, command, label, args);
                 break;
             default:
                 Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
@@ -42,32 +48,11 @@ public class CommandFly implements IModularMSMFCommand {
         return true;
     }
 
-    private boolean handleFlight(CommandSender sender, Command command, String label, String[] args) {
-        if (args.length == 0) {
-            if (!PermissionManager.checkPermission(sender, "fly_self")) {
-                ChatUtil.sendMsgNoPerm(sender);
-                return true;
-            }
-            toggleFlightSender(sender, command, label, args);
-            return true;
-        }
-        if (args.length == 1) {
-            if (!PermissionManager.checkPermission(sender, "fly_others")) {
-                ChatUtil.sendMsgNoPerm(sender);
-                return true;
-            }
-            toggleFlightPlayer(sender, command, label, args);
-            return true;
-        }
-        return true;
-    }
-
     private boolean toggleFlightPlayer(CommandSender sender, Command command, String label, String[] args) {
         UUID target = null;
         target = Util.getPlayerUUIDByName(args[0]);
         Player player = Bukkit.getPlayer(target);
-        if (target == null) {
-            Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "player.nonexistant");
+        if (!PlayerAviability.isPlayerExistant(sender, player, command, args)) {
             return true;
         }
         if (!CommandUtil.isPlayerEligible(sender, player, command, args)) {
@@ -77,16 +62,13 @@ public class CommandFly implements IModularMSMFCommand {
             toggleFlightSender(sender, command, label, args);
             return true;
         }
-        if (!PlayerAviability.isPlayerExistant(sender, player, command, args)) {
-            return true;
-        }
         toggleFlight(sender, command, label, args);
         return true;
     }
 
     private boolean toggleFlightSender(CommandSender sender, Command command, String label, String[] args) {
         if (!CommandUtil.isSenderEligible(sender, command)) {
-            return false;
+        return false;
         }
         if (!((Player) sender).getAllowFlight()) {
             ((Player) sender).setAllowFlight(true);

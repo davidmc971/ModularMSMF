@@ -1,5 +1,7 @@
 package io.github.davidmc971.modularmsmf.basics.util;
 
+import java.util.UUID;
+
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
@@ -23,7 +25,7 @@ public class PlayerAviability {
                 case "kick":
                 case "ban":
                 case "home":
-                    checkPlayer(sender, args);
+                    checkPlayer(sender, player, args);
                     break;
                 default:
                     break;
@@ -33,7 +35,7 @@ public class PlayerAviability {
         if (args.length == 2) {
             switch (command.getLabel().toLowerCase()) {
                 case "get":
-                    checkPlayer(sender, args);
+                    checkPlayer(sender, player, args);
                     break;
                 default:
                     break;
@@ -43,7 +45,7 @@ public class PlayerAviability {
         if (args.length == 3) {
             switch (command.getLabel().toLowerCase()) {
                 case "set":
-                    checkPlayer(sender, args);
+                    checkPlayer(sender, player, args);
                     break;
                 default:
                     break;
@@ -53,14 +55,14 @@ public class PlayerAviability {
         return true;
     }
 
-    private static void checkPlayer(CommandSender sender, String[] args) {
+    private static void checkPlayer(CommandSender sender, Player player, String[] args) {
         for (OfflinePlayer plroff : Bukkit.getOfflinePlayers()) {
-            if (plroff == null) {
+            if (plroff != player) {
                 Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "player.nonexistant");
                 return;
             }
             Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
-                    "player.offline", "_player", args[0]);
+                    "player.offline", "_player", player.getName());
         }
     }
 }
