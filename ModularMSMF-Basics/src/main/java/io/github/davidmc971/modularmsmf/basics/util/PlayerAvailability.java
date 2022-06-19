@@ -24,7 +24,7 @@ public class PlayerAvailability {
     public static void checkPlayer(CommandSender sender, UUID uuid, String[] args) {
         if (Bukkit.getPlayer(uuid) != null)
             Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "player.online");
-        if (isPlayerExistant(uuid))
+        else if (isPlayerExistant(uuid))
             Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                     "player.offline", "_player", Bukkit.getOfflinePlayer(uuid).getName());
         else
