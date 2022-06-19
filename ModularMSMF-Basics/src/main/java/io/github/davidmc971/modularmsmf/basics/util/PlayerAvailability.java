@@ -9,7 +9,9 @@ import io.github.davidmc971.modularmsmf.basics.util.ChatUtil.ChatFormat;
 
 public class PlayerAvailability {
     public static boolean isPlayerExistant(UUID uuid) {
-        return uuid != null || Bukkit.getPlayer(uuid) != null || Bukkit.getOfflinePlayer(uuid) != null;
+        if (uuid == null)
+            return false;
+        return Bukkit.getPlayer(uuid) != null || Bukkit.getOfflinePlayer(uuid) != null;
     }
 
     public static void checkPlayer(CommandSender sender, UUID uuid, String[] args) {
