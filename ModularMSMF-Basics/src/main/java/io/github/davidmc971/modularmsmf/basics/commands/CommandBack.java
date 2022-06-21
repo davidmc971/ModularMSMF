@@ -50,28 +50,29 @@ public class CommandBack implements IModularMSMFCommand {
         return true;
     }
 
-    private void backPlayer(CommandSender sender, Command command, String[] args) {
+    private boolean backPlayer(CommandSender sender, Command command, String[] args) {
         UUID target = null;
         target = Util.getPlayerUUIDByName(args[0]);
         Player player = Bukkit.getPlayer(target);
-        if (!PlayerAvailability.isPlayerExistant(target)) {
-            return;
-        }
+        if (!PlayerAvailability.checkPlayer(sender, target, args))
+            return true;
         if (sender == player) {
             backSender(sender, args);
-            return;
+            return true;
         }
+        if (player == null)
+           return true;
         if (CoreEvents.lastLocation.containsKey(player.getName())) {
             Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
                     "commands.back.other.success", "_player", player.getName());
             Util.sendMessageWithConfiguredLanguage(player, ChatFormat.SUCCESS,
                     "commands.back.other.done");
             player.teleport(CoreEvents.lastLocation.get(player.getName()));
-            return;
+            return true;
         }
         Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                 "commands.back.other.error", "_player", player.getName());
-        return;
+        return true;
     }
 
     private void backSender(CommandSender sender, String[] args) {

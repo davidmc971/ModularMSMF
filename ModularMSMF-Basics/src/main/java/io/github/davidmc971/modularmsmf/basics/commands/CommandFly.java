@@ -63,7 +63,7 @@ public class CommandFly implements IModularMSMFCommand {
 
     private boolean toggleFlightSender(CommandSender sender, Command command, String label, String[] args) {
         if (!CommandUtil.isSenderEligible(sender, command))
-            return false;
+           return false;
         if (!((Player) sender).getAllowFlight()) {
             ((Player) sender).setAllowFlight(true);
             Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.FLY_ON,
@@ -80,9 +80,9 @@ public class CommandFly implements IModularMSMFCommand {
         UUID target = Util.getPlayerUUIDByName(args[0]);
         Player player = Bukkit.getPlayer(target);
         if (!PlayerAvailability.checkPlayer(sender, target, args))
-            return true;
+           return true;
         if (player == null)
-            return true;
+           return true;
         if (!player.getAllowFlight()) {
             Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.FLY_ON,
                     "commands.fly.others.settrue", "_player", player.getName());
