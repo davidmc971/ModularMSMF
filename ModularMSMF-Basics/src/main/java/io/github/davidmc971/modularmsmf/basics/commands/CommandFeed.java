@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 
 import io.github.davidmc971.modularmsmf.basics.PermissionManager;
 import io.github.davidmc971.modularmsmf.basics.util.CommandUtil;
+import io.github.davidmc971.modularmsmf.basics.util.PlayerAvailability;
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.basics.util.Util;
 import io.github.davidmc971.modularmsmf.basics.util.ChatUtil.ChatFormat;
@@ -48,43 +49,33 @@ public class CommandFeed implements IModularMSMFCommand {
 		return true;
 	}
 
-	private void feedSelf(CommandSender sender, Command command, String label, String[] args) {
-		if (!CommandUtil.isSenderEligible(sender, command)) {
-			return;
-		}
+	private boolean feedSelf(CommandSender sender, Command command, String label, String[] args) {
+		if (!CommandUtil.isSenderEligible(sender, command))
+			return true;
 		((Player) sender).setFoodLevel(20);
 		Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.FEED, "commands.feed.feeded");
-		return;
+		return true;
 	}
 
-	private void feedOthers(CommandSender sender, Command command, String label, String[] args) {
-		UUID target = null;
-		target = Util.getPlayerUUIDByName(args[0]);
+	private boolean feedOthers(CommandSender sender, Command command, String label, String[] args) {
+		UUID target = Util.getPlayerUUIDByName(args[0]);
 		Player player = Bukkit.getPlayer(target);
-		if (target == null) {
-			Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "player.nonexistant");
-			return;
-		}
-		if (!CommandUtil.isPlayerEligible(sender, player, command, args)) {
-			return;
-		}
+		if (!CommandUtil.isPlayerEligible(sender, player, command, args))
+			return true;
+		if (!PlayerAvailability.checkPlayer(sender, target, args))
+			return true;
+		if (player == null)
+			return true;
 		if (sender == player) {
 			feedSelf(sender, command, label, args);
-			return;
+			return true;
 		}
-		for (Player plron : Bukkit.getOnlinePlayers()) {
-			if (plron == player) {
-				Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.FEED,
-						"commands.feed.others.feededperson", "_player", player.getName());
-				Util.sendMessageWithConfiguredLanguage(player, ChatFormat.FEED,
-						"commands.feed.others.feeded", "_sender", sender.getName());
-				player.setFoodLevel(20);
-				return;
-			}
-		}
-		Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
-				"player.offline", "_player", args[0]);
-		return;
+		Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.FEED,
+				"commands.feed.others.feededperson", "_player", player.getName());
+		Util.sendMessageWithConfiguredLanguage(player, ChatFormat.FEED,
+				"commands.feed.others.feeded", "_sender", sender.getName());
+		player.setFoodLevel(20);
+		return true;
 	}
 
 	@Override
