@@ -14,13 +14,14 @@ public class PlayerAvailability {
         return Bukkit.getPlayer(uuid) != null || Bukkit.getOfflinePlayer(uuid) != null;
     }
 
-    public static void checkPlayer(CommandSender sender, UUID uuid, String[] args) {
+    public static boolean checkPlayer(CommandSender sender, UUID uuid, String[] args) {
         if (Bukkit.getPlayer(uuid) != null)
-            Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "player.online");
+            return true;
         else if (isPlayerExistant(uuid))
             Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                     "player.offline", "_player", Bukkit.getOfflinePlayer(uuid).getName());
         else
             Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "player.nonexistant");
+        return true;
     }
 }
