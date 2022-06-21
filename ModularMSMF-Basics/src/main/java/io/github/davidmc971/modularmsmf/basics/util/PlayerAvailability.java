@@ -16,7 +16,7 @@ public class PlayerAvailability {
 
     public static boolean checkPlayer(CommandSender sender, UUID uuid, String[] args) {
         if (Bukkit.getPlayer(uuid) != null)
-            return true;
+            return true; //no output needed, only return true if true
         else if (isPlayerExistant(uuid))
             Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                     "player.offline", "_player", Bukkit.getOfflinePlayer(uuid).getName());

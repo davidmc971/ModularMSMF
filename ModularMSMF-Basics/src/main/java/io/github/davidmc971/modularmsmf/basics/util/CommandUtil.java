@@ -43,13 +43,13 @@ public class CommandUtil {
                             Util.sendMessageWithConfiguredLanguage(sender,
                                     ChatFormat.ERROR,
                                     "player.peaceful");
-                            return false;
+                            return true;
                         }
                         return true;
                 }
                 return true;
             }
-            return false;
+            return true;
         }
         return true;
     }
@@ -82,7 +82,7 @@ public class CommandUtil {
                 if (((Player) sender).getWorld().getDifficulty() == Difficulty.PEACEFUL) {
                     Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                             "player.peaceful", "_worldname", Bukkit.getServer().getWorldContainer().toString());
-                    return false;
+                    return true;
                 }
                 return false;
         }
