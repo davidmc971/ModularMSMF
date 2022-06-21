@@ -24,10 +24,8 @@ import net.kyori.adventure.text.Component;
 public class CommandBanPlayer implements IModularMSMFCommand {
 
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
-		if (!PermissionManager.checkPermission(sender, "ban_player")) {
-			ChatUtil.sendMsgNoPerm(sender);
-			return true;
-		}
+		if (!PermissionManager.checkPermission(sender, "ban_player"))
+			return ChatUtil.sendMsgNoPerm(sender);
 		FileConfiguration language = Util.configureCommandLanguage(sender);
 		String reason = language.getString("reasons.banned_noreason");
 		switch (args.length) {
@@ -48,9 +46,8 @@ public class CommandBanPlayer implements IModularMSMFCommand {
 			Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.BAN, "commands.ban.already");
 			return true;
 		}
-		for (int i = 1; i < args.length; i++) {
+		for (int i = 1; i < args.length; i++)
 			reason += args[i] + " ";
-		}
 		for (Player player : Bukkit.getServer().getOnlinePlayers()) {
 			FileConfiguration cfg = ModularMSMFCore.Instance().getDataManager().getPlayerCfg(uuid);
 			if (player.getUniqueId().toString().equals(uuid.toString())) {

@@ -16,22 +16,19 @@ import io.github.davidmc971.modularmsmf.basics.util.ChatUtil;
 
 public class CommandSlaughter implements IModularMSMFCommand {
 
+	String name = null;
+
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-		if (!PermissionManager.checkPermission(sender, "slaughter")) {
-			ChatUtil.sendMsgNoPerm(sender);
+		if (!PermissionManager.checkPermission(sender, "slaughter"))
+			return ChatUtil.sendMsgNoPerm(sender);
+		if (!CommandUtil.isSenderEligible(sender, command, name))
 			return true;
-		}
-		if (!CommandUtil.isSenderEligible(sender, command)) {
-			return true;
-		}
 		switch (args.length) {
 			case 0:
-				slayAllMobs(sender, args);
-				break;
+				return slayAllMobs(sender, args);
 			case 1:
-				slaySpecificMobs(sender, args);
-				break;
+				return slaySpecificMobs(sender, args);
 			default:
 				Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
 						"arguments.toomany");
@@ -40,7 +37,7 @@ public class CommandSlaughter implements IModularMSMFCommand {
 		return true;
 	}
 
-	private void slaySpecificMobs(CommandSender sender, String[] args) {
+	private boolean slaySpecificMobs(CommandSender sender, String[] args) {
 		int count = ((Player) sender).getWorld().getEntities().size() - 1;
 		String sCount = Integer.toString(count);
 		Location playerloc = ((Player) sender).getLocation();
@@ -53,15 +50,16 @@ public class CommandSlaughter implements IModularMSMFCommand {
 			if (count == 1) {
 				Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS, "commands.slaughter.single_pass",
 						"_count", sCount);
-				return;
+				return true;
 			}
 			Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
 					"commands.slaughter.passive", "_count", sCount);
-			return;
+			return true;
 		}
+		return true;
 	}
 
-	private void slayAllMobs(CommandSender sender, String[] args) {
+	private boolean slayAllMobs(CommandSender sender, String[] args) {
 		int count = ((Player) sender).getWorld().getEntities().size() - 1;
 		String sCount = Integer.toString(count);
 		Location playerloc = ((Player) sender).getLocation();
@@ -74,12 +72,13 @@ public class CommandSlaughter implements IModularMSMFCommand {
 			if (count == 1) {
 				Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS, "commands.slaughter.single_succ",
 						"_count", sCount);
-				return;
+				return true;
 			}
 			Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
 					"commands.slaughter.success", "_count", sCount);
-			return;
+			return true;
 		}
+		return true;
 	}
 
 	@Override

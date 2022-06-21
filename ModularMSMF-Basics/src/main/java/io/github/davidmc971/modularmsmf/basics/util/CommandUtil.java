@@ -11,9 +11,10 @@ import io.github.davidmc971.modularmsmf.basics.util.ChatUtil.ChatFormat;
 
 public class CommandUtil {
 
-    public static boolean isPlayerEligible(CommandSender sender, Player player, Command command, String[] args) {
+    public static boolean isPlayerEligible(CommandSender sender, Player player, Command command, String label,
+            String[] args, String name) {
         if (player == sender) {
-            return isSenderEligible(sender, command);
+            return isSenderEligible(sender, command, name);
         }
         for (Player plron : Bukkit.getOnlinePlayers()) {
             if (plron == player) {
@@ -38,14 +39,14 @@ public class CommandUtil {
                         break;
                     case "fly":
                         break;
-                    default:
-                        if (((Player) sender).getWorld().getDifficulty() == Difficulty.PEACEFUL) {
+                    default: //FIXME: doesn't break here if world is in peaceful mode # important
+                        if (player.getWorld().getDifficulty() == Difficulty.PEACEFUL) {
                             Util.sendMessageWithConfiguredLanguage(sender,
                                     ChatFormat.ERROR,
-                                    "player.peaceful");
+                                    "player.peaceful", "_worldname", Bukkit.getServer().getWorldContainer().toString());
                             return true;
                         }
-                        return true;
+                        break;
                 }
                 return true;
             }
@@ -54,7 +55,7 @@ public class CommandUtil {
         return true;
     }
 
-    public static boolean isSenderEligible(CommandSender sender, Command command) {
+    public static boolean isSenderEligible(CommandSender sender, Command command, String name) {
         if (sender instanceof ConsoleCommandSender) {
             ChatUtil.sendMsgNoPerm(sender);
             return false;
@@ -78,14 +79,20 @@ public class CommandUtil {
                 break;
             case "fly":
                 break;
-            default:
+            case "set":
+                break;
+            default: //FIXME: doesn't break here if world is in peaceful mode # important
                 if (((Player) sender).getWorld().getDifficulty() == Difficulty.PEACEFUL) {
                     Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
-                            "player.peaceful", "_worldname", Bukkit.getServer().getWorldContainer().toString());
+                            "player.peaceful", "_worldname", returnWorldName(name));
                     return true;
                 }
                 return false;
         }
         return true;
+    }
+
+    private static String returnWorldName(String name){
+        return new String (Bukkit.getServer().getWorldContainer().toString());
     }
 }

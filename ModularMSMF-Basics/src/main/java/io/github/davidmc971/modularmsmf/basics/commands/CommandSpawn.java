@@ -30,7 +30,8 @@ public class CommandSpawn implements IModularMSMFCommand {
         plugin = ModularMSMFCore.Instance();
     }
 
-    //FIXME generates 2 times "[Console] Console is not permitted for this command."
+    // FIXME generates 2 times "[Console] Console is not permitted for this
+    // command."
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         switch (args.length) {
@@ -47,7 +48,10 @@ public class CommandSpawn implements IModularMSMFCommand {
         return true;
     }
 
+    String name = null;
+
     private boolean spawnOthersSub(CommandSender sender, Command command, String label, String[] args) {
+
         FileConfiguration cfg = plugin.getDataManager().settingsyaml;
         UUID target = null;
         target = Util.getPlayerUUIDByName(args[0]);
@@ -61,11 +65,11 @@ public class CommandSpawn implements IModularMSMFCommand {
         if (args[0].equalsIgnoreCase("remove")) {
             return spawnRemoveSub(sender, command, label, args);
         }
-        if (!PermissionManager.checkPermission(sender, "spawn_others")
-                || !CommandUtil.isSenderEligible(sender, command)) {
-            ChatUtil.sendMsgNoPerm(sender);
-            return true;
+        if (!PermissionManager.checkPermission(sender, "spawn_others")) {
+            return ChatUtil.sendMsgNoPerm(sender);
         }
+        if (!CommandUtil.isSenderEligible(sender, command, name))
+           return true;
         if (target == null) {
             Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "player.nonexistant");
             return true;
@@ -106,11 +110,10 @@ public class CommandSpawn implements IModularMSMFCommand {
 
     private boolean spawnRemoveSub(CommandSender sender, Command command, String label, String[] args) {
         FileConfiguration cfg = plugin.getDataManager().settingsyaml;
-        if (!PermissionManager.checkPermission(sender, "spawn_remove")
-                || !CommandUtil.isSenderEligible(sender, command)) {
-            ChatUtil.sendMsgNoPerm(sender);
+        if (!PermissionManager.checkPermission(sender, "spawn_remove"))
+            return ChatUtil.sendMsgNoPerm(sender);
+        if (!CommandUtil.isSenderEligible(sender, command, name))
             return true;
-        }
         if (cfg.get("worldspawn.isTrue").toString().equals("true")) {
             cfg.set("worldspawn", null);
             cfg.set("worldspawn.isTrue", "false");
@@ -123,18 +126,16 @@ public class CommandSpawn implements IModularMSMFCommand {
 
     private boolean spawnSub(CommandSender sender, Command command, String label, String[] args) {
         FileConfiguration cfg = plugin.getDataManager().settingsyaml;
-
         double x = cfg.getDouble("worldspawn.coordinates.X");
         double y = cfg.getDouble("worldspawn.coordinates.Y");
         double z = cfg.getDouble("worldspawn.coordinates.Z");
         double yaw = cfg.getDouble("worldspawn.coordinates.Yaw");
         double pitch = cfg.getDouble("worldspawn.coordinates.Pitch");
         String worldname = cfg.getString("worldspawn.world");
-
-        if (!PermissionManager.checkPermission(sender, "spawn") || !CommandUtil.isSenderEligible(sender, command)) {
-            ChatUtil.sendMsgNoPerm(sender);
+        if (!PermissionManager.checkPermission(sender, "spawn"))
+            return ChatUtil.sendMsgNoPerm(sender);
+        if (!CommandUtil.isSenderEligible(sender, command, name))
             return true;
-        }
         if (cfg.get("worldspawn.isTrue").toString().equals("false")) {
             Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "commands.spawn.notset");
             return true;

@@ -22,6 +22,8 @@ public class CommandSetSpawn implements IModularMSMFCommand {
 
 	private ModularMSMFCore plugin;
 
+	String name = null;
+
 	public CommandSetSpawn() {
 		plugin = ModularMSMFCore.Instance();
 	}
@@ -29,10 +31,10 @@ public class CommandSetSpawn implements IModularMSMFCommand {
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		FileConfiguration cfg = plugin.getDataManager().settingsyaml;
-		if (!PermissionManager.checkPermission(sender, "setspawn") || !CommandUtil.isSenderEligible(sender, command)) {
-			ChatUtil.sendMsgNoPerm(sender);
+		if (!PermissionManager.checkPermission(sender, "setspawn"))
+			return ChatUtil.sendMsgNoPerm(sender);
+		if (!CommandUtil.isSenderEligible(sender, command, name))
 			return true;
-		}
 		if (args.length == 0) {
 			Player p = (Player) sender;
 			Location loc = p.getLocation();

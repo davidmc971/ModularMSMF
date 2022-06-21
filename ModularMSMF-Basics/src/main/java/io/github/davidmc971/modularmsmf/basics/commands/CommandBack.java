@@ -30,19 +30,13 @@ public class CommandBack implements IModularMSMFCommand {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         switch (args.length) {
             case 0:
-                if (!PermissionManager.checkPermission(sender, "back") || sender instanceof ConsoleCommandSender) {
-                    ChatUtil.sendMsgNoPerm(sender);
-                    return true;
-                }
-                backSender(sender, args);
-                break;
+                if (!PermissionManager.checkPermission(sender, "back") || sender instanceof ConsoleCommandSender)
+                    return ChatUtil.sendMsgNoPerm(sender);
+                return backSender(sender, args);
             case 1:
-                if (!PermissionManager.checkPermission(sender, "back_others")) {
-                    ChatUtil.sendMsgNoPerm(sender);
-                    return true;
-                }
-                backPlayer(sender, command, args);
-                break;
+                if (!PermissionManager.checkPermission(sender, "back_others"))
+                    return ChatUtil.sendMsgNoPerm(sender);
+                return backPlayer(sender, command, args);
             default:
                 Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "arguments.toomany");
                 break;
@@ -56,12 +50,10 @@ public class CommandBack implements IModularMSMFCommand {
         Player player = Bukkit.getPlayer(target);
         if (!PlayerAvailability.checkPlayer(sender, target, args))
             return true;
-        if (sender == player) {
-            backSender(sender, args);
-            return true;
-        }
+        if (sender == player)
+            return backSender(sender, args);
         if (player == null)
-           return true;
+            return true;
         if (CoreEvents.lastLocation.containsKey(player.getName())) {
             Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
                     "commands.back.other.success", "_player", player.getName());
@@ -75,16 +67,16 @@ public class CommandBack implements IModularMSMFCommand {
         return true;
     }
 
-    private void backSender(CommandSender sender, String[] args) {
+    private boolean backSender(CommandSender sender, String[] args) {
         if (CoreEvents.lastLocation.containsKey(sender.getName())) {
             Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
                     "commands.back.success");
             ((Entity) sender).teleport(CoreEvents.lastLocation.get(sender.getName()));
-            return;
+            return true;
         }
         Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                 "commands.back.error");
-        return;
+        return true;
     }
 
     @Override

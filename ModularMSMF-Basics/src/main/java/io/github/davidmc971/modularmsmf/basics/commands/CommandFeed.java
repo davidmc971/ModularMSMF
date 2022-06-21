@@ -24,23 +24,19 @@ import io.github.davidmc971.modularmsmf.basics.util.ChatUtil;
 
 public class CommandFeed implements IModularMSMFCommand {
 
+	String name = null;
+
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		switch (args.length) {
 			case 0:
-				if (!PermissionManager.checkPermission(sender, "feed_self")) {
-					ChatUtil.sendMsgNoPerm(sender);
-					return true;
-				}
-				feedSelf(sender, command, label, args);
-				break;
+				if (!PermissionManager.checkPermission(sender, "feed_self"))
+					return ChatUtil.sendMsgNoPerm(sender);
+				return feedSelf(sender, command, label, args);
 			case 1:
-				if (!PermissionManager.checkPermission(sender, "feed_others")) {
-					ChatUtil.sendMsgNoPerm(sender);
-					return true;
-				}
-				feedOthers(sender, command, label, args);
-				break;
+				if (!PermissionManager.checkPermission(sender, "feed_others"))
+					return ChatUtil.sendMsgNoPerm(sender);
+				return feedOthers(sender, command, label, args);
 			default:
 				Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
 						"arguments.toomany");
@@ -50,7 +46,7 @@ public class CommandFeed implements IModularMSMFCommand {
 	}
 
 	private boolean feedSelf(CommandSender sender, Command command, String label, String[] args) {
-		if (!CommandUtil.isSenderEligible(sender, command))
+		if (!CommandUtil.isSenderEligible(sender, command, name))
 			return true;
 		((Player) sender).setFoodLevel(20);
 		Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.FEED, "commands.feed.feeded");
@@ -60,16 +56,14 @@ public class CommandFeed implements IModularMSMFCommand {
 	private boolean feedOthers(CommandSender sender, Command command, String label, String[] args) {
 		UUID target = Util.getPlayerUUIDByName(args[0]);
 		Player player = Bukkit.getPlayer(target);
-		if (!CommandUtil.isPlayerEligible(sender, player, command, args))
+		if (!CommandUtil.isPlayerEligible(sender, player, command, label, args, name))
 			return true;
 		if (!PlayerAvailability.checkPlayer(sender, target, args))
 			return true;
 		if (player == null)
 			return true;
-		if (sender == player) {
-			feedSelf(sender, command, label, args);
-			return true;
-		}
+		if (sender == player)
+			return feedSelf(sender, command, label, args);
 		Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.FEED,
 				"commands.feed.others.feededperson", "_player", player.getName());
 		Util.sendMessageWithConfiguredLanguage(player, ChatFormat.FEED,

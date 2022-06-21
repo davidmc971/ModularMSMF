@@ -14,6 +14,7 @@ import org.bukkit.entity.Player;
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.basics.PermissionManager;
 import io.github.davidmc971.modularmsmf.basics.util.CommandUtil;
+import io.github.davidmc971.modularmsmf.basics.util.PlayerAvailability;
 import io.github.davidmc971.modularmsmf.basics.util.Util;
 import io.github.davidmc971.modularmsmf.basics.util.ChatUtil.ChatFormat;
 import io.github.davidmc971.modularmsmf.basics.util.ChatUtil;
@@ -30,14 +31,13 @@ import io.github.davidmc971.modularmsmf.basics.util.ChatUtil;
 public class CommandSet implements IModularMSMFCommand {
 
     private final static DecimalFormat df = new DecimalFormat("0.00");
+    String name = null;
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
             @NotNull String[] args) {
-        if (!PermissionManager.checkPermission(sender, "set_use")) {
-            ChatUtil.sendMsgNoPerm(sender);
-            return true;
-        }
+        if (!PermissionManager.checkPermission(sender, "set_use"))
+            return ChatUtil.sendMsgNoPerm(sender);
         if (args.length == 0) {
             // return helpSet(sender, command, label, args);
             sender.sendMessage("test");
@@ -47,22 +47,17 @@ public class CommandSet implements IModularMSMFCommand {
             // case "help":
             case "life":
             case "health":
-                handleLife(sender, command, label, args);
-                break;
+                return handleLife(sender, command, label, args);
             case "food":
-                handleFood(sender, command, label, args);
-                break;
+                return handleFood(sender, command, label, args);
             case "saturation":
             case "sat":
-                handleSaturation(sender, command, label, args);
-                break;
+                return handleSaturation(sender, command, label, args);
             case "exp":
-                handleExp(sender, command, label, args);
-                break;
+                return handleExp(sender, command, label, args);
             case "level":
             case "lvl":
-                handleLevel(sender, command, label, args);
-                break;
+                return handleLevel(sender, command, label, args);
             default:
                 Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                         "commands.arguments.invalid");
@@ -71,83 +66,83 @@ public class CommandSet implements IModularMSMFCommand {
         return true;
     }
 
-    private void handleLevel(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
+    private boolean handleLevel(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
             @NotNull String[] args) {
-        if (!PermissionManager.checkPermission(sender, "set_use_level")) {
-            ChatUtil.sendMsgNoPerm(sender);
-        }
+        if (!PermissionManager.checkPermission(sender, "set_use_level"))
+            return ChatUtil.sendMsgNoPerm(sender);
         if (args.length == 1) {
             Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.INFO,
                     "commands.set.level.usage");
         } else if (args.length <= 3) {
-            setLevel(sender, command, label, args);
+            return setLevel(sender, command, label, args);
         } else {
             Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                     "commands.arguments.toomany");
         }
+        return true;
     }
 
-    private void handleExp(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
+    private boolean handleExp(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
             @NotNull String[] args) {
-        if (!PermissionManager.checkPermission(sender, "set_use_exp")) {
-            ChatUtil.sendMsgNoPerm(sender);
-        }
+        if (!PermissionManager.checkPermission(sender, "set_use_exp"))
+            return ChatUtil.sendMsgNoPerm(sender);
         if (args.length == 1) {
             Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.INFO,
                     "commands.set.exp.usage");
         } else if (args.length <= 3) {
-            setExp(sender, command, label, args);
+            return setExp(sender, command, label, args);
         } else {
             Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                     "commands.arguments.toomany");
         }
+        return true;
     }
 
-    private void handleSaturation(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
+    private boolean handleSaturation(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
             @NotNull String[] args) {
-        if (!PermissionManager.checkPermission(sender, "set_use_saturation")) {
-            ChatUtil.sendMsgNoPerm(sender);
-        }
+        if (!PermissionManager.checkPermission(sender, "set_use_saturation"))
+            return ChatUtil.sendMsgNoPerm(sender);
         if (args.length == 1) {
             Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.INFO,
                     "commands.set.saturation.usage");
         } else if (args.length <= 3) {
-            setSaturation(sender, command, label, args);
+            return setSaturation(sender, command, label, args);
         } else {
             Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                     "commands.arguments.toomany");
         }
+        return true;
     }
 
-    private void handleFood(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
+    private boolean handleFood(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
             @NotNull String[] args) {
-        if (!PermissionManager.checkPermission(sender, "set_use_food")) {
-            ChatUtil.sendMsgNoPerm(sender);
-        }
+        if (!PermissionManager.checkPermission(sender, "set_use_food"))
+            return ChatUtil.sendMsgNoPerm(sender);
         if (args.length == 1) {
             Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.INFO,
                     "commands.set.food.usage");
         } else if (args.length <= 3) {
-            setFood(sender, command, label, args);
+            return setFood(sender, command, label, args);
         } else {
             Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                     "commands.arguments.toomany");
         }
+        return true;
     }
 
-    public void handleLife(CommandSender sender, Command command, String label, String[] args) {
-        if (!PermissionManager.checkPermission(sender, "set_use_life")) {
-            ChatUtil.sendMsgNoPerm(sender);
-        }
+    public boolean handleLife(CommandSender sender, Command command, String label, String[] args) {
+        if (!PermissionManager.checkPermission(sender, "set_use_life"))
+            return ChatUtil.sendMsgNoPerm(sender);
         if (args.length == 1) {
             Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.INFO,
                     "commands.set.life.usage");
         } else if (args.length <= 3) {
-            setLife(sender, command, label, args);
+            return setLife(sender, command, label, args);
         } else {
             Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                     "commands.arguments.toomany");
         }
+        return true;
     }
 
     private boolean setLife(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
@@ -171,25 +166,20 @@ public class CommandSet implements IModularMSMFCommand {
             return true;
         }
         if (args.length == 2) {
-            if (!CommandUtil.isSenderEligible(sender, command)) {
-                return false;
-            }
+            if (!CommandUtil.isSenderEligible(sender, command, name))
+                return true;
             ((Player) sender).getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(d);
             Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
                     "commands.set.life.done", "_args", args[1]);
             return true;
         }
         if (args.length == 3) {
-            UUID target = null;
-            target = Util.getPlayerUUIDByName(args[2]);
+            UUID target = Util.getPlayerUUIDByName(args[2]);
             Player player = Bukkit.getPlayer(target);
-            if (!PermissionManager.checkPermission(sender, "set_use_life_others")) {
-                ChatUtil.sendMsgNoPerm(sender);
-                return true;
-            }
-            if (!CommandUtil.isPlayerEligible(sender, player, command, args)) {
+            if (!PermissionManager.checkPermission(sender, "set_use_life_others"))
+                return ChatUtil.sendMsgNoPerm(sender);
+            if (!CommandUtil.isPlayerEligible(sender, player, command, label, args, name))
                 return false;
-            }
             if (player == sender) {
                 ((Player) sender).getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(d);
                 Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
@@ -228,25 +218,23 @@ public class CommandSet implements IModularMSMFCommand {
             return true;
         }
         if (args.length == 2) {
-            if (!CommandUtil.isSenderEligible(sender, command)) {
-                return false;
-            }
+            if (!CommandUtil.isSenderEligible(sender, command, name))
+                return true;
             ((Player) sender).setFoodLevel(i);
             Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
                     "commands.set.food.done", "_args", args[1]);
             return true;
         }
         if (args.length == 3) {
-            UUID target = null;
-            target = Util.getPlayerUUIDByName(args[2]);
+            UUID target = Util.getPlayerUUIDByName(args[2]);
             Player player = Bukkit.getPlayer(target);
             if (!PermissionManager.checkPermission(sender, "set_use_food_others")) {
-                ChatUtil.sendMsgNoPerm(sender);
+                return ChatUtil.sendMsgNoPerm(sender);
+            }
+            if (!CommandUtil.isPlayerEligible(sender, player, command, label, args, name))
                 return true;
-            }
-            if (!CommandUtil.isPlayerEligible(sender, player, command, args)) {
-                return false;
-            }
+            if (!PlayerAvailability.checkPlayer(sender, target, args))
+                return true;
             if (player == sender) {
                 player.setFoodLevel(i);
                 Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
@@ -285,25 +273,20 @@ public class CommandSet implements IModularMSMFCommand {
             return true;
         }
         if (args.length == 2) {
-            if (!CommandUtil.isSenderEligible(sender, command)) {
+            if (!CommandUtil.isSenderEligible(sender, command, name))
                 return false;
-            }
             ((Player) sender).setSaturation(f);
             Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
                     "commands.set.saturation.done", "_args", args[1]);
             return true;
         }
         if (args.length == 3) {
-            UUID target = null;
-            target = Util.getPlayerUUIDByName(args[2]);
+            UUID target = Util.getPlayerUUIDByName(args[2]);
             Player player = Bukkit.getPlayer(target);
-            if (!PermissionManager.checkPermission(sender, "set_use_saturation_others")) {
-                ChatUtil.sendMsgNoPerm(sender);
-                return true;
-            }
-            if (!CommandUtil.isPlayerEligible(sender, player, command, args)) {
+            if (!PermissionManager.checkPermission(sender, "set_use_saturation_others"))
+                return ChatUtil.sendMsgNoPerm(sender);
+            if (!CommandUtil.isPlayerEligible(sender, player, command, label, args, name))
                 return false;
-            }
             if (player == sender) {
                 ((Player) sender).setSaturation(f);
                 Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
@@ -345,9 +328,8 @@ public class CommandSet implements IModularMSMFCommand {
             return true;
         }
         if (args.length == 2) {
-            if (!CommandUtil.isSenderEligible(sender, command)) {
+            if (!CommandUtil.isSenderEligible(sender, command, name))
                 return false;
-            }
             ((Player) sender).setExp(f);
             df.setRoundingMode(RoundingMode.UP);
             Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
@@ -355,16 +337,12 @@ public class CommandSet implements IModularMSMFCommand {
             return true;
         }
         if (args.length == 3) {
-            UUID target = null;
-            target = Util.getPlayerUUIDByName(args[2]);
+            UUID target = Util.getPlayerUUIDByName(args[2]);
             Player player = Bukkit.getPlayer(target);
-            if (!PermissionManager.checkPermission(sender, "set_use_exp_others")) {
-                ChatUtil.sendMsgNoPerm(sender);
-                return true;
-            }
-            if (!CommandUtil.isPlayerEligible(sender, player, command, args)) {
+            if (!PermissionManager.checkPermission(sender, "set_use_exp_others"))
+                return ChatUtil.sendMsgNoPerm(sender);
+            if (!CommandUtil.isPlayerEligible(sender, player, command, f_exp, args, name))
                 return false;
-            }
             if (player == sender) {
                 ((Player) sender).setExp(f);
                 df.setRoundingMode(RoundingMode.UP);
@@ -405,25 +383,20 @@ public class CommandSet implements IModularMSMFCommand {
             return true;
         }
         if (args.length == 2) {
-            if (!CommandUtil.isSenderEligible(sender, command)) {
+            if (!CommandUtil.isSenderEligible(sender, command, name))
                 return false;
-            }
             ((Player) sender).setLevel(i);
             Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
                     "commands.set.level.done", "_args", args[1]);
             return true;
         }
         if (args.length == 3) {
-            UUID target = null;
-            target = Util.getPlayerUUIDByName(args[2]);
+            UUID target = Util.getPlayerUUIDByName(args[2]);
             Player player = Bukkit.getPlayer(target);
-            if (!PermissionManager.checkPermission(sender, "set_use_level_others")) {
-                ChatUtil.sendMsgNoPerm(sender);
-                return true;
-            }
-            if (!CommandUtil.isPlayerEligible(sender, player, command, args)) {
+            if (!PermissionManager.checkPermission(sender, "set_use_level_others"))
+                return ChatUtil.sendMsgNoPerm(sender);
+            if (!CommandUtil.isPlayerEligible(sender, player, command, label, args, name))
                 return false;
-            }
             if (player == sender) {
                 ((Player) sender).setLevel(i);
                 Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,

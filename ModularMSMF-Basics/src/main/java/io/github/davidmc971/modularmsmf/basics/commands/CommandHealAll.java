@@ -16,7 +16,6 @@ import io.github.davidmc971.modularmsmf.basics.util.ChatUtil;
 /**
  * @author Lightkeks
  *
- *         FIXME health to fill for higher scale than 20
  */
 
 public class CommandHealAll implements IModularMSMFCommand {
@@ -24,20 +23,16 @@ public class CommandHealAll implements IModularMSMFCommand {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
             @NotNull String[] args) {
-        if (!PermissionManager.checkPermission(sender, "heal_all_use")) {
-            ChatUtil.sendMsgNoPerm(sender);
-            return true;
-        }
-        if (args.length == 0) {
-            handlePlayers(sender, command, label, args);
-            return true;
-        }
+        if (!PermissionManager.checkPermission(sender, "heal_all_use"))
+            return ChatUtil.sendMsgNoPerm(sender);
+        if (args.length == 0)
+            return handlePlayers(sender, command, label, args);
         Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                 "arguments.toomany");
         return true;
     }
 
-    private void handlePlayers(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
+    private boolean handlePlayers(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
             @NotNull String[] args) {
         for (Player p : Bukkit.getOnlinePlayers()) {
             Util.sendMessageWithConfiguredLanguage(p, ChatFormat.SUCCESS,
@@ -45,6 +40,8 @@ public class CommandHealAll implements IModularMSMFCommand {
             double maxHealth = p.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue();
             p.setHealth(maxHealth);
         }
+        Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS, "commands.heal.all");
+        return true;
     }
 
     @Override

@@ -102,14 +102,14 @@ public class ChatUtil {
 		}
 	}
 
-	public static void sendMsgNoPerm(CommandSender sender) {
+	public static boolean sendMsgNoPerm(CommandSender sender) {
 		if (sender instanceof Player) {
 			Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.NOPERM,
 					"player.nopermission");
-					return;
 		} else {
 			Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.CONSOLE, "noconsole");
 		}
+		return true;
 	}
 
 	public static String printSet(HashSet<String> playerlist) {
