@@ -1,9 +1,6 @@
 .vscode/*
 !.vscode/launch.json
-testserver/*
-!testserver/start.bat
-!testserver/start.sh
-!testserver/README.md
+
 **/bin/
 **/target/
 **/.project
@@ -30,4 +27,3 @@ gradle-app.setting
 build
 # compilation output
 jars/
-testserver/README.md
