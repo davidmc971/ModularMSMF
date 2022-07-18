@@ -133,3 +133,10 @@ task clean() {
 task build() {
     dependsOn copyToJars
 }
+
+task buildDev(dependsOn: build, type: Copy) {
+    from 'jars'
+    into 'testserver/plugins'
+    include "*.jar"
+    outputs.upToDateWhen { false }
+}
