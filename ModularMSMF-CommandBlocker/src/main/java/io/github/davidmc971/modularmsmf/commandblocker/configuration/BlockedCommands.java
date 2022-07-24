@@ -37,7 +37,7 @@ public class BlockedCommands {
                     + "File exists but no blocked commands specified.");
         } else {
             try {
-                System.out.println("File not found, trying to create file");
+                ModularMSMFCore.Instance().getLogger().warning(ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.WARN) + "File not found, trying to create file");
                 file.getParentFile().mkdirs();
                 file.createNewFile();
                 FileOutputStream fos = new FileOutputStream(file);
