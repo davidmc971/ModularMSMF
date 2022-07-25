@@ -33,6 +33,10 @@ public class CommandUtil {
                         break;
                 }
                 switch (command.getLabel().toLowerCase()) {
+                    case "spawn":
+                        break;
+                    case "setspawn":
+                        break;
                     case "healall":
                         break;
                     case "heal":
@@ -77,6 +81,10 @@ public class CommandUtil {
                 break;
         }
         switch (command.getLabel().toLowerCase()) {
+            case "spawn":
+                break;
+            case "setspawn":
+                break;
             case "healall":
                 break;
             case "heal":
