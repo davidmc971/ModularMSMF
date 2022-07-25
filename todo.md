@@ -51,7 +51,7 @@ Basics Module
       - fly (done, 100%)
       - get
       - heal ()
-      - healall (done, 100%)
+      - healall (----)
       - home
       - kick
       - kill

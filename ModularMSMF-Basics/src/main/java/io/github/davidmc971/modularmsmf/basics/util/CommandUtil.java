@@ -33,13 +33,17 @@ public class CommandUtil {
                         break;
                 }
                 switch (command.getLabel().toLowerCase()) {
+                    case "healall":
+                        break;
+                    case "heal":
+                        break;
                     case "slaughter":
                         break;
                     case "feed":
                         break;
                     case "fly":
                         break;
-                    default: //FIXME: doesn't break here if world is in peaceful mode # important
+                    default: // FIXME: doesn't break here if world is in peaceful mode # important
                         if (player.getWorld().getDifficulty() == Difficulty.PEACEFUL) {
                             Util.sendMessageWithConfiguredLanguage(sender,
                                     ChatFormat.ERROR,
@@ -73,6 +77,10 @@ public class CommandUtil {
                 break;
         }
         switch (command.getLabel().toLowerCase()) {
+            case "healall":
+                break;
+            case "heal":
+                break;
             case "slaughter":
                 break;
             case "feed":
@@ -81,7 +89,7 @@ public class CommandUtil {
                 break;
             case "set":
                 break;
-            default: //FIXME: doesn't break here if world is in peaceful mode # important
+            default: // FIXME: doesn't break here if world is in peaceful mode # important
                 if (((Player) sender).getWorld().getDifficulty() == Difficulty.PEACEFUL) {
                     Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
                             "player.peaceful", "_worldname", returnWorldName(name));
@@ -92,7 +100,7 @@ public class CommandUtil {
         return true;
     }
 
-    private static String returnWorldName(String name){
-        return new String (Bukkit.getServer().getWorldContainer().toString());
+    private static String returnWorldName(String name) {
+        return new String(Bukkit.getServer().getWorldContainer().toString());
     }
 }
