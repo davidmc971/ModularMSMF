@@ -50,7 +50,7 @@ Basics Module
       - feed (done, 100%)
       - fly (done, 100%)
       - get
-      - heal ()
+      - heal (done, 100%)
       - healall (----)
       - home
       - kick

@@ -56,14 +56,14 @@ public class CommandFeed implements IModularMSMFCommand {
 	private boolean feedOthers(CommandSender sender, Command command, String label, String[] args) {
 		UUID target = Util.getPlayerUUIDByName(args[0]);
 		Player player = Bukkit.getPlayer(target);
+		if (sender == player)
+			return feedSelf(sender, command, label, args);
 		if (!CommandUtil.isPlayerEligible(sender, player, command, label, args, name))
 			return true;
 		if (!PlayerAvailability.checkPlayer(sender, target, args))
 			return true;
 		if (player == null)
 			return true;
-		if (sender == player)
-			return feedSelf(sender, command, label, args);
 		Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.FEED,
 				"commands.feed.others.feededperson", "_player", player.getName());
 		Util.sendMessageWithConfiguredLanguage(player, ChatFormat.FEED,

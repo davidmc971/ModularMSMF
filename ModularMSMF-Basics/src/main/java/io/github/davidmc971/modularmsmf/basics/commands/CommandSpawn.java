@@ -13,6 +13,7 @@ import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.basics.PermissionManager;
 import io.github.davidmc971.modularmsmf.basics.util.CommandUtil;
+import io.github.davidmc971.modularmsmf.basics.util.PlayerAvailability;
 import io.github.davidmc971.modularmsmf.basics.util.Util;
 import io.github.davidmc971.modularmsmf.basics.util.ChatUtil.ChatFormat;
 import io.github.davidmc971.modularmsmf.basics.util.ChatUtil;
@@ -38,8 +39,6 @@ public class CommandSpawn implements IModularMSMFCommand {
             case 0:
                 return spawnSub(sender, command, label, args);
             case 1:
-                // method: handleSpawn(sender, command, label, args); //TODO subcommand for
-                // changing spawn etc.
                 return spawnOthersSub(sender, command, label, args);
             default:
                 Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "arguments.toomany");
@@ -53,8 +52,7 @@ public class CommandSpawn implements IModularMSMFCommand {
     private boolean spawnOthersSub(CommandSender sender, Command command, String label, String[] args) {
 
         FileConfiguration cfg = plugin.getDataManager().settingsyaml;
-        UUID target = null;
-        target = Util.getPlayerUUIDByName(args[0]);
+        UUID target = Util.getPlayerUUIDByName(args[0]);
         Player spawned = Bukkit.getPlayer(target);
         double x = cfg.getDouble("worldspawn.coordinates.X");
         double y = cfg.getDouble("worldspawn.coordinates.Y");
@@ -62,18 +60,14 @@ public class CommandSpawn implements IModularMSMFCommand {
         double yaw = cfg.getDouble("worldspawn.coordinates.Yaw");
         double pitch = cfg.getDouble("worldspawn.coordinates.Pitch");
         String worldname = cfg.getString("worldspawn.world");
-        if (args[0].equalsIgnoreCase("remove")) {
+        if (args[0].equalsIgnoreCase("remove"))
             return spawnRemoveSub(sender, command, label, args);
-        }
-        if (!PermissionManager.checkPermission(sender, "spawn_others")) {
+        if (!PermissionManager.checkPermission(sender, "spawn_others"))
             return ChatUtil.sendMsgNoPerm(sender);
-        }
         if (!CommandUtil.isSenderEligible(sender, command, name))
-           return true;
-        if (target == null) {
-            Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "player.nonexistant");
             return true;
-        }
+        if (!PlayerAvailability.checkPlayer(sender, target, args))
+            return true;
         if (!cfg.get("worldspawn.isTrue").toString().equals("true")) {
             Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "commands.spawn.notset");
             return true;
