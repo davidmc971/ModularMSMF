@@ -23,7 +23,6 @@ public class CommandKick implements IModularMSMFCommand {
 
 		FileConfiguration language = Util.configureCommandLanguage(sender);
 		String reason = language.getString("reasons.kick_noreason");
-		UUID target = null;
 		if (!PermissionManager.checkPermission(sender, "kickplayer")) {
 			ChatUtil.sendMsgNoPerm(sender);
 			return true;
@@ -33,7 +32,7 @@ public class CommandKick implements IModularMSMFCommand {
 					"commands.kick.missingname");
 			return true;
 		} else {
-			target = Util.getPlayerUUIDByName(args[0]);
+			UUID target = Util.getPlayerUUIDByName(args[0]);
 			if (target == null) {
 				Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.KICK, "player.nonexistant");
 				return true;
