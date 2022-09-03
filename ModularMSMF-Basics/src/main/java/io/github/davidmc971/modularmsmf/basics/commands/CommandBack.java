@@ -45,13 +45,12 @@ public class CommandBack implements IModularMSMFCommand {
     }
 
     private boolean backPlayer(CommandSender sender, Command command, String[] args) {
-        UUID target = null;
-        target = Util.getPlayerUUIDByName(args[0]);
+        UUID target = Util.getPlayerUUIDByName(args[0]);
         Player player = Bukkit.getPlayer(target);
-        if (!PlayerAvailability.checkPlayer(sender, target, args))
-            return true;
         if (sender == player)
             return backSender(sender, args);
+        if (!PlayerAvailability.checkPlayer(sender, target, args))
+            return true;
         if (player == null)
             return true;
         if (CoreEvents.lastLocation.containsKey(player.getName())) {

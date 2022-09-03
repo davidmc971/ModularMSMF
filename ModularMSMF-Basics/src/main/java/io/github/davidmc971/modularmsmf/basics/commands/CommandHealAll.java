@@ -1,5 +1,7 @@
 package io.github.davidmc971.modularmsmf.basics.commands;
 
+import java.util.ArrayList;
+
 import org.bukkit.Bukkit;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.command.Command;
@@ -20,6 +22,8 @@ import io.github.davidmc971.modularmsmf.basics.util.ChatUtil;
 
 public class CommandHealAll implements IModularMSMFCommand {
 
+    ArrayList<String> playerList = new ArrayList<String>();
+
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
             @NotNull String[] args) {
@@ -35,12 +39,14 @@ public class CommandHealAll implements IModularMSMFCommand {
     private boolean handlePlayers(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
             @NotNull String[] args) {
         for (Player p : Bukkit.getOnlinePlayers()) {
-            Util.sendMessageWithConfiguredLanguage(p, ChatFormat.SUCCESS,
-                    "commands.heal.others.gothealed", "_sender", sender.getName());
             double maxHealth = p.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue();
             p.setHealth(maxHealth);
+            if (p != sender)
+                Util.broadcastWithConfiguredLanguageEach(ChatFormat.SUCCESS,
+                        "commands.heal.others.gothealed", "_sender", sender.getName());
+            else if (p == sender)
+                Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS, "commands.heal.all");
         }
-        Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS, "commands.heal.all");
         return true;
     }
 

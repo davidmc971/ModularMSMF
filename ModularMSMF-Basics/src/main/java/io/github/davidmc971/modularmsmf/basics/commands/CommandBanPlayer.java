@@ -85,14 +85,12 @@ public class CommandBanPlayer implements IModularMSMFCommand {
 
 	private UUID getPlayerUUIDByNameForBan(String name) {
 		for (Player p : Bukkit.getOnlinePlayers()) {
-			if (p.getName().equals(name)) {
+			if (p.getName().equals(name))
 				return p.getUniqueId();
-			}
 		}
 		for (OfflinePlayer p : Bukkit.getOfflinePlayers()) {
-			if (p.getName().equals(name)) {
+			if (p.getName().equals(name))
 				return p.getUniqueId();
-			}
 		}
 		return null;
 	}
