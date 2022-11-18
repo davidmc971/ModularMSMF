@@ -82,9 +82,6 @@ subprojects {
     }
 
     // TODO: javadoc
-    tasks.withType(Jar) {
-        archiveVersion.set(version)
-    }
 
     // publishing {
     //     publications {
