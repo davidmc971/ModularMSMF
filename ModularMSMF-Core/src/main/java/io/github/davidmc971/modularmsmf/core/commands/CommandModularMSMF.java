@@ -111,7 +111,7 @@ public class CommandModularMSMF implements IModularMSMFCommand {
 					infoPrefix + "Plugin Version: " + ChatColor.GREEN + ModularMSMFCore.Instance().pluginver);
 			sender.sendMessage(infoPrefix + "Server's running at: " + ChatColor.YELLOW + Bukkit.getVersion());
 			sender.sendMessage(
-					infoPrefix + "Developer: " + ChatColor.LIGHT_PURPLE + ModularMSMFCore.Instance().authors);
+					infoPrefix + "Developers: " + ChatColor.LIGHT_PURPLE + ModularMSMFCore.Instance().authors);
 			sender.sendMessage(debugPrefix + "Build Timestamp: " + ChatColor.YELLOW
 					+ ModularMSMFCore.Instance().getDebugTimestamp());
 			return;
