@@ -335,8 +335,10 @@ public class CommandChannels implements IModularMSMFCommand, TabCompleter {
                 Player player = Bukkit.getPlayer(target);
                 if (player == sender)
                     return handleChannelGetSelf(sender);
-                if (player == null)
+                if (player == null) {
                     sender.sendMessage("non existant player");
+                    return true;
+                }
                 if (USERCHANNEL_MAP.containsKey(player.getName())) {
                     for (String key : USERCHANNEL_MAP.keySet()) {
                         for (String value : USERCHANNEL_MAP.values()) {
