@@ -33,11 +33,10 @@ public class BlockedCommands {
                 }
                 commandList = null;
             }
-            ModularMSMFCore.Instance().getLogger().warning(ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.WARN)
-                    + "File exists but no blocked commands specified.");
+            ModularMSMFCommandBlocker.Instance().getLogger().warning("File exists but no blocked commands specified.");
         } else {
             try {
-                ModularMSMFCore.Instance().getLogger().warning(ChatUtils.getFormattedPrefix(ChatUtils.ChatFormat.WARN) + "File not found, trying to create file");
+                ModularMSMFCommandBlocker.Instance().getLogger().warning("File not found, trying to create file");
                 file.getParentFile().mkdirs();
                 file.createNewFile();
                 FileOutputStream fos = new FileOutputStream(file);
