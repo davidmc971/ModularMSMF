@@ -201,7 +201,7 @@ public class DataManager implements Listener {
 			}
 			s.close();
 		} catch (FileNotFoundException e) {
-			System.err.println("No blacklist found! Please generate a blacklist.txt manually!");
+			ModularMSMFCore.Instance().getLogger().warning("No blacklist found! Please generate a blacklist.txt manually!");
 		}
 	}
 
