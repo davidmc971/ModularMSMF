@@ -6,6 +6,8 @@ authors: [Lightkeks, davidmc971]
 
 api: none
 
+api-version: 1.19
+
 main: io.github.davidmc971.modularmsmf.core.ModularMSMFCore
 
 commands:
