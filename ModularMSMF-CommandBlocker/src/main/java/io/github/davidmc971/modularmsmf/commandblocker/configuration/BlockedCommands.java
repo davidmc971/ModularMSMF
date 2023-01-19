@@ -40,7 +40,8 @@ public class BlockedCommands {
                 file.getParentFile().mkdirs();
                 file.createNewFile();
                 FileOutputStream fos = new FileOutputStream(file);
-                InputStreamReader reee = new InputStreamReader(ModularMSMFCommandBlocker.Instance().getResource("blockedcommands.yml"));
+                InputStreamReader reee = new InputStreamReader(
+                        ModularMSMFCommandBlocker.Instance().getResource("blockedcommands.yml"));
                 while (reee.ready()) {
                     fos.write(reee.read());
                 }

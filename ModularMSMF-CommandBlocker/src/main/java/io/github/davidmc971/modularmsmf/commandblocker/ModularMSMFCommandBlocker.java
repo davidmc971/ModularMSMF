@@ -2,17 +2,18 @@ package io.github.davidmc971.modularmsmf.commandblocker;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
-//import io.github.davidmc971.modularmsmf.commands.CommandCmdBlckr;
 import io.github.davidmc971.modularmsmf.commandblocker.configuration.BlockedCommands;
-//import io.github.davidmc971.modularmsmf.commandblocker.listeners.CommandListener;
 
 //@SuppressWarnings("unused")
 public class ModularMSMFCommandBlocker extends JavaPlugin {
     private static ModularMSMFCommandBlocker instance = null;
-	public static ModularMSMFCommandBlocker Instance() {
-		return instance;
-	}
+
+    public static ModularMSMFCommandBlocker Instance() {
+        return instance;
+    }
+
     private BlockedCommands blockedCommands;
+
     // plugin will be loaded and enabled
     @Override
     public void onEnable() {
@@ -22,8 +23,8 @@ public class ModularMSMFCommandBlocker extends JavaPlugin {
         blockedCommands.init();
 
         // getting Events
-        //CommandListener cmdListener = new CommandListener(blockedCommands);
-		//this.getServer().getPluginManager().registerEvents(cmdListener, this);
+        // CommandListener cmdListener = new CommandListener(blockedCommands);
+        // this.getServer().getPluginManager().registerEvents(cmdListener, this);
     }
 
     @Override
