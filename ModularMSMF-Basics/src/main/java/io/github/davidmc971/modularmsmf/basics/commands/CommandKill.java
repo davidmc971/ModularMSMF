@@ -3,7 +3,7 @@ package io.github.davidmc971.modularmsmf.basics.commands;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.ConsoleCommandSender;
+// import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
 import io.github.davidmc971.modularmsmf.basics.PermissionManager;
@@ -38,9 +38,9 @@ public class CommandKill implements IModularMSMFCommand {
 		}
 		if (args.length == 1) {
 			for (Player player : Bukkit.getOnlinePlayers()) {
-				if (args[0].toLowerCase().equals(sender.getName().toLowerCase())) {
-					return killMeSub(sender, command, label, args);
-				}
+				// if (args[0].toLowerCase().equals(sender.getName().toLowerCase())) {
+				// 	return killMeSub(sender, command, label, args);
+				// }
 				if (args[0].toLowerCase().equals(player.getName().toLowerCase())) {
 					basicEvents.registerKilledPlayer(player, KillType.KILL);
 					Util.broadcastWithConfiguredLanguageEach(ChatFormat.DEATH, "events.killed",
@@ -61,23 +61,23 @@ public class CommandKill implements IModularMSMFCommand {
 
 	private boolean killHelp(CommandSender sender, Command command, String label, String[] args) {
 		// sender.sendMessage("/kill (me/all/<target>)");
-		sender.sendMessage("/kill me - suicide");
+		// sender.sendMessage("/kill me - suicide");
 		sender.sendMessage("/kill all - all players die");
 		sender.sendMessage("/kill <target> - <target> dies");
 		return true;
 	}
 
-	private boolean killMeSub(CommandSender sender, Command command, String label, String[] args) {
-		if (sender instanceof ConsoleCommandSender || !PermissionManager.checkPermission(sender, "kill_me")) {
-			ChatUtil.sendMsgNoPerm(sender);
-			return true;
-		}
-		basicEvents.registerKilledPlayer(((Player) sender), KillType.SUICIDE);
-		Util.broadcastWithConfiguredLanguageEach(ChatFormat.DEATH, "events.suicide", "_player",
-				sender.getName());
-		((Player) sender).setHealth(0);
-		return true;
-	}
+	// private boolean killMeSub(CommandSender sender, Command command, String label, String[] args) {
+	// 	if (sender instanceof ConsoleCommandSender || !PermissionManager.checkPermission(sender, "kill_me")) {
+	// 		ChatUtil.sendMsgNoPerm(sender);
+	// 		return true;
+	// 	}
+	// 	basicEvents.registerKilledPlayer(((Player) sender), KillType.SUICIDE);
+	// 	Util.broadcastWithConfiguredLanguageEach(ChatFormat.DEATH, "events.suicide", "_player",
+	// 			sender.getName());
+	// 	((Player) sender).setHealth(0);
+	// 	return true;
+	// }
 
 	@Override
 	public String Label() {
