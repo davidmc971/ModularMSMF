@@ -1,11 +1,9 @@
 package io.github.davidmc971.modularmsmf.core;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 import java.util.Map.Entry;
 import java.util.UUID;
 import java.util.logging.Level;
@@ -23,7 +21,6 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import io.github.davidmc971.modularmsmf.core.configuration.AbstractConfigurationLoader;
-import io.github.davidmc971.modularmsmf.core.listeners.CoreEvents;
 
 /**
  * @author David Alexander Pfeiffer (davidmc971)
