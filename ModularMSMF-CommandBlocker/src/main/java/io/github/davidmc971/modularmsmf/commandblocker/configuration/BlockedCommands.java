@@ -9,9 +9,7 @@ import java.util.List;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
-import io.github.davidmc971.modularmsmf.core.ModularMSMFCore;
 import io.github.davidmc971.modularmsmf.commandblocker.ModularMSMFCommandBlocker;
-import io.github.davidmc971.modularmsmf.core.util.ChatUtils;
 
 public class BlockedCommands {
 
