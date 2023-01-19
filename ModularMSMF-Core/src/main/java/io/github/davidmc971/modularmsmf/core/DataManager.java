@@ -93,7 +93,7 @@ public class DataManager implements Listener {
 	public void init() {
 		initDefaultSettings();
 		initDefaultUserdata();
-		initBlackList();
+		// initBlackList();
 
 		allUsers.clear();
 		for (OfflinePlayer p : Bukkit.getOfflinePlayers()) {
@@ -191,19 +191,19 @@ public class DataManager implements Listener {
 		saveCfg(playercfg, pathPlayers + uuid.toString() + fileExtension);
 	}
 
-	private void initBlackList() {
-		File file = new File(this.pathMain, "\\blacklist.txt");
-		try {
-			Scanner s = new Scanner(file);
+	// private void initBlackList() {
+	// 	File file = new File(this.pathMain, "\\blacklist.txt");
+	// 	try {
+	// 		Scanner s = new Scanner(file);
 
-			while (s.hasNextLine()) {
-				CoreEvents.blacklistedExpressions.add(s.nextLine());
-			}
-			s.close();
-		} catch (FileNotFoundException e) {
-			ModularMSMFCore.Instance().getLogger().warning("No blacklist found! Please generate a blacklist.txt manually!");
-		}
-	}
+	// 		while (s.hasNextLine()) {
+	// 			CoreEvents.blacklistedExpressions.add(s.nextLine());
+	// 		}
+	// 		s.close();
+	// 	} catch (FileNotFoundException e) {
+	// 		ModularMSMFCore.Instance().getLogger().warning("No blacklist found! Please generate a blacklist.txt manually!");
+	// 	}
+	// }
 
 	private void initDefaultSettings() {
 		// String worldname = World.getName();

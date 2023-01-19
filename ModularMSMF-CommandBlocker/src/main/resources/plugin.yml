@@ -7,7 +7,7 @@ authors: [Lightkeks, davidmc971]
 depend:
   - "ModularMSMF-Core"
 
-api: none
+api-version: 1.19
 
 main: io.github.davidmc971.modularmsmf.commandblocker.ModularMSMFCommandBlocker
 
