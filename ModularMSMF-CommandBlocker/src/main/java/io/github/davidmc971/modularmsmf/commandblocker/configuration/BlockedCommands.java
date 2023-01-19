@@ -32,6 +32,7 @@ public class BlockedCommands {
                 commandList = null;
             }
             ModularMSMFCommandBlocker.Instance().getLogger().warning("File exists but no blocked commands specified.");
+            return;
         } else {
             try {
                 ModularMSMFCommandBlocker.Instance().getLogger().warning("File not found, trying to create file");
