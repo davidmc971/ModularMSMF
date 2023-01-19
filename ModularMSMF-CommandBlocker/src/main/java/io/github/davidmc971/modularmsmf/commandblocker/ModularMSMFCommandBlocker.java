@@ -4,7 +4,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import io.github.davidmc971.modularmsmf.commandblocker.configuration.BlockedCommands;
 
-//@SuppressWarnings("unused")
 public class ModularMSMFCommandBlocker extends JavaPlugin {
     private static ModularMSMFCommandBlocker instance = null;
 
