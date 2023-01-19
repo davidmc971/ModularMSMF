@@ -30,6 +30,7 @@ public class BlockedCommands {
                     return;
                 }
                 commandList = null;
+                return;
             }
             ModularMSMFCommandBlocker.Instance().getLogger().warning("File exists but no blocked commands specified.");
             return;
