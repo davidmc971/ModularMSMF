@@ -32,6 +32,8 @@ import io.github.davidmc971.modularmsmf.basics.util.ChatUtil;
  *        seperate the default channel into little other channels to communicate
  *        between players.
  * @TODO Rewrite methods to comply permissions system
+ * 
+ * @TODO @important! ArrayList / -HashMaps rewrite!!
  */
 
 public class CommandChannels implements IModularMSMFCommand, TabCompleter {
