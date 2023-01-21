@@ -3,6 +3,7 @@ package io.github.davidmc971.modularmsmf.basics.commands;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -302,16 +303,16 @@ public class CommandGet implements IModularMSMFCommand {
             Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "player.nonexistant");
             return true;
         }
-        Double d = player.getHealth();
+        Double d = player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue();
         int i = d.intValue();
-        String s = String.valueOf(i);
+        String att_string = String.valueOf(i);
         if (player == sender) {
             Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
-                    "commands.get.life.done", "_value", s);
+                    "commands.get.life.done", "_value", att_string);
             return true;
         }
         Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
-                "commands.get.life.others", "_player", player.getName(), "_value", s);
+                "commands.get.life.others", "_player", player.getName(), "_value", att_string);
         return true;
     }
 
