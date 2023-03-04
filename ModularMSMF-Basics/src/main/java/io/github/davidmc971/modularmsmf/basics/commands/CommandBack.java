@@ -8,7 +8,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.core.listeners.CoreEvents;
 import io.github.davidmc971.modularmsmf.basics.PermissionManager;
