@@ -28,8 +28,23 @@ public class CommandServerInfo implements IModularMSMFCommand {
 			Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "argument.toomany");
 			return true;
 		}
-		Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.INFO, "bukkitversion",
-				"_bukkitver", Bukkit.getBukkitVersion().split("[-\\:]")[0]);
+		// Utils.sendMessageWithConfiguredLanguage(sender, ChatFormat.INFO, "bukkitversion",
+		// 		"_bukkitver", Bukkit.getBukkitVersion().split("[-\\:]")[0]);
+		try {
+			Runtime r = Runtime.getRuntime();
+			float usedMemory = (r.totalMemory() - r.freeMemory()) / 1048576F;
+			int usedMemoryPercentage = (int) ((100 * usedMemory) / (r.maxMemory() / 1048576F));
+			sender.sendMessage("Current RAM Usage: " + (int) usedMemory + "MB | " + usedMemoryPercentage + "%");
+		} catch (IllegalArgumentException e) {
+			sender.sendMessage("Error ocurred");
+		}
+		try {
+			Runtime r = Runtime.getRuntime();
+			sender.sendMessage("Actual usage of available CPU's: " + r.availableProcessors());
+		} catch (IllegalArgumentException e) {
+			sender.sendMessage("Error ocurred");
+		}
+		
 		return true;
 	}
 
