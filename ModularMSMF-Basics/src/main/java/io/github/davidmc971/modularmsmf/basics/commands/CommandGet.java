@@ -2,20 +2,26 @@ package io.github.davidmc971.modularmsmf.basics.commands;
 
 import java.util.UUID;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bukkit.Bukkit;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import io.github.davidmc971.modularmsmf.api.IModularMSMFCommand;
 import io.github.davidmc971.modularmsmf.basics.PermissionManager;
 import io.github.davidmc971.modularmsmf.basics.util.Util;
 import io.github.davidmc971.modularmsmf.basics.util.ChatUtil.ChatFormat;
 import io.github.davidmc971.modularmsmf.basics.util.ChatUtil;
+import io.github.davidmc971.modularmsmf.basics.util.PlayerAvailability;
 
-public class CommandGet implements IModularMSMFCommand {
+public class CommandGet implements IModularMSMFCommand, TabCompleter {
 
     /**
      * @author Lightkeks
@@ -193,6 +199,8 @@ public class CommandGet implements IModularMSMFCommand {
         UUID target = null;
         target = Util.getPlayerUUIDByName(args[1]);
         Player player = Bukkit.getPlayer(target);
+        if (!PlayerAvailability.checkPlayer(sender, target, args))
+            return true;
         if (player == null) {
             Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "player.nonexistant");
             return true;
@@ -213,6 +221,8 @@ public class CommandGet implements IModularMSMFCommand {
         UUID target = null;
         target = Util.getPlayerUUIDByName(args[1]);
         Player player = Bukkit.getPlayer(target);
+        if (!PlayerAvailability.checkPlayer(sender, target, args))
+            return true;
         if (player == null) {
             Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "player.nonexistant");
             return true;
@@ -234,6 +244,8 @@ public class CommandGet implements IModularMSMFCommand {
         UUID target = null;
         target = Util.getPlayerUUIDByName(args[1]);
         Player player = Bukkit.getPlayer(target);
+        if (!PlayerAvailability.checkPlayer(sender, target, args))
+            return true;
         if (player == null) {
             Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "player.nonexistant");
             return true;
@@ -256,6 +268,8 @@ public class CommandGet implements IModularMSMFCommand {
         UUID target = null;
         target = Util.getPlayerUUIDByName(args[1]);
         Player player = Bukkit.getPlayer(target);
+        if (!PlayerAvailability.checkPlayer(sender, target, args))
+            return true;
         if (player == null) {
             Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "player.nonexistant");
             return true;
@@ -278,6 +292,8 @@ public class CommandGet implements IModularMSMFCommand {
         UUID target = null;
         target = Util.getPlayerUUIDByName(args[1]);
         Player player = Bukkit.getPlayer(target);
+        if (!PlayerAvailability.checkPlayer(sender, target, args))
+            return true;
         if (player == null) {
             Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "player.nonexistant");
             return true;
@@ -299,6 +315,8 @@ public class CommandGet implements IModularMSMFCommand {
         UUID target = null;
         target = Util.getPlayerUUIDByName(args[1]);
         Player player = Bukkit.getPlayer(target);
+        if (!PlayerAvailability.checkPlayer(sender, target, args))
+            return true;
         if (player == null) {
             Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR, "player.nonexistant");
             return true;
@@ -314,6 +332,35 @@ public class CommandGet implements IModularMSMFCommand {
         Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.SUCCESS,
                 "commands.get.life.others", "_player", player.getName(), "_value", att_string);
         return true;
+    }
+
+    ArrayList<String> subcommands = new ArrayList<String>() {
+        private static final long serialVersionUID = 1L;
+        {
+            add("help");
+            add("life");
+            add("health");
+            add("food");
+            add("saturation");
+            add("sat");
+            add("exp");
+            add("level");
+            add("lvl");
+            add("ip");
+        }
+    };
+
+    @Override
+    public @Nullable List<String> onTabComplete(@NotNull CommandSender sender,
+            @NotNull Command command,
+            @NotNull String alias, @NotNull String[] args) {
+        switch (args.length) {
+            case 1:
+                return subcommands; // return a list of available subcommands
+            case 2:
+                return null;
+        }
+        return null;
     }
 
     @Override
