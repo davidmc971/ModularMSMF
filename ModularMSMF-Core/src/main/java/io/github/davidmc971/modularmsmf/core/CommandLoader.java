@@ -92,7 +92,7 @@ public class CommandLoader {
 				new CommandReport(),
 				new CommandServerInfo(),
 				new CommandClearChat(),
-				new CommandConfigure(),
+				//new CommandConfigure(),
 				new CommandListPlayers(),
 			}) {
 			commandList.add(cmd);
