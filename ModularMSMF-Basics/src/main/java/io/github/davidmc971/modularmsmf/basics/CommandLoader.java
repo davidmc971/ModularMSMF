@@ -15,7 +15,7 @@ public class CommandLoader {
 				new CommandHeal(),
 				new CommandHome(),
 				new CommandKick(),
-				new CommandKill(),
+				new CommandKillPlayer(),
 				new CommandKillAll(),
 				new CommandKillMe(),
 				new CommandMotd(),

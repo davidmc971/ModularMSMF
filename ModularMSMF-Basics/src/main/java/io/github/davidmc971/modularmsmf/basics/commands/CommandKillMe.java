@@ -15,6 +15,11 @@ import io.github.davidmc971.modularmsmf.basics.util.Util;
 import io.github.davidmc971.modularmsmf.basics.util.ChatUtil.ChatFormat;
 import io.github.davidmc971.modularmsmf.basics.util.ChatUtil;
 
+/**
+ * @author Lightkeks
+ * 
+ * will be merged into CommandKill.java
+ */
 public class CommandKillMe implements IModularMSMFCommand {
 
     private BasicEvents basicEvents;
