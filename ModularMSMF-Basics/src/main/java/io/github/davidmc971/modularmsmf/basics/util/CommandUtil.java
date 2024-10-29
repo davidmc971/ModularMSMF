@@ -19,34 +19,17 @@ public class CommandUtil {
         for (Player plron : Bukkit.getOnlinePlayers()) {
             if (plron == player) {
                 switch (player.getGameMode()) {
-                    case CREATIVE:
+                    case CREATIVE, SPECTATOR -> {
                         Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
-                                "player.creative.others",
+                                "player.specialGamemode.others",
                                 "_player", player.getName());
                         return false;
-                    case SPECTATOR:
-                        Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
-                                "player.spectator.others",
-                                "_player", player.getName());
-                        return false;
+						}
                     default:
                         break;
                 }
                 switch (command.getLabel().toLowerCase()) {
-                    case "spawn":
-                        break;
-                    case "setspawn":
-                        break;
-                    case "healall":
-                        break;
-                    case "heal":
-                        break;
-                    case "slaughter":
-                        break;
-                    case "feed":
-                        break;
-                    case "fly":
-                        break;
+                    case "spawn", "setspawn", "healall", "heal", "slaughter", "feed", "fly" -> {}
                     default: // FIXME: doesn't break here if world is in peaceful mode # important
                         if (player.getWorld().getDifficulty() == Difficulty.PEACEFUL) {
                             Util.sendMessageWithConfiguredLanguage(sender,
@@ -69,34 +52,16 @@ public class CommandUtil {
             return false;
         }
         switch (((Player) sender).getGameMode()) {
-            case CREATIVE:
+            case CREATIVE, SPECTATOR -> {
                 Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
-                        "player.creative.self");
+                        "player.specialGamemode.self");
                 return false;
-            case SPECTATOR:
-                Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
-                        "player.spectator.self");
-                return false;
+				}
             default:
                 break;
         }
         switch (command.getLabel().toLowerCase()) {
-            case "spawn":
-                break;
-            case "setspawn":
-                break;
-            case "healall":
-                break;
-            case "heal":
-                break;
-            case "slaughter":
-                break;
-            case "feed":
-                break;
-            case "fly":
-                break;
-            case "set":
-                break;
+            case "spawn", "setspawn", "healall", "heal", "slaughter", "feed", "fly", "set" -> {}
             default: // FIXME: doesn't break here if world is in peaceful mode # important
                 if (((Player) sender).getWorld().getDifficulty() == Difficulty.PEACEFUL) {
                     Util.sendMessageWithConfiguredLanguage(sender, ChatFormat.ERROR,
